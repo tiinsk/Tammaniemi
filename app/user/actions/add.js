@@ -21,12 +21,10 @@ class AddUserActions {
       data: { name: name, email: email, password: password }
     })
       .done((data) => {
-        console.log('done');
-        this.actions.addUserSuccess(data.message);
+        this.addUserSuccess(data.message);
       })
       .fail((jqXhr) => {
-        console.log('fail');
-        this.actions.addUserFail(jqXhr.responseJSON.message);
+        this.addUserFail(jqXhr.responseJSON.message);
       });
   }
 }

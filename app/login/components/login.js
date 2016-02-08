@@ -13,9 +13,7 @@ class Login extends React.Component {
 
   static willTransitionTo(transition) {
       // This method is called before transitioning to this component. If the user is not logged in, we’ll send him or her to the Login page.
-      
-      console.log("sqqqqqwqq");
-      console.log("user is logged in:" + LoginStore.getState().isLoggedIn);
+    
       /*
       if (LoginStore.getState().isLoggedIn) {
         console.log('redirecting');
@@ -44,7 +42,6 @@ class Login extends React.Component {
   login(e) {
     e.preventDefault();
     // Here, we call an external AuthService. We’ll create it in the next step
-    console.log("login");
     LoginActions.loginUser(this.state.email, this.state.password);
   }
 

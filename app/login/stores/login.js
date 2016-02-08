@@ -20,9 +20,7 @@ class LoginStore{
      var user = {};
      if (token) {
          var encoded = token.split('.')[0];
-         console.log(window.atob(encoded));
          encoded = token.split('.')[1];
-         console.log(window.atob(encoded));
          user = JSON.parse(window.atob(encoded));
      }
      return user;
@@ -35,8 +33,6 @@ class LoginStore{
     console.log("JWT:" + this.jwt);
     // Then we decode it to get the user information.
     this.user = this.decodeTokenPayload(this.jwt);
-    console.log(this.user);
-    console.log(this.user.name);
     this.isLoggedIn = true;
 
   }

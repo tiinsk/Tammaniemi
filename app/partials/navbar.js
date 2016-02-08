@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {IndexLink} from 'react-router';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -21,16 +21,31 @@ class Navbar extends React.Component {
             <span className='icon-bar'></span>
             <span className='icon-bar'></span>
           </button>
-          <Link to='/' className='navbar-brand'>
-            NEF
-          </Link>
+          <IndexLink to='/' className='navbar-brand'>
+            Tammaniemi
+          </IndexLink>
         </div>
         <div id='navbar' className='navbar-collapse collapse'>
-
+        
           <ul className='nav navbar-nav'>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/users'>Users</Link></li>
-            <li><Link to='/posts'>Posts</Link></li>
+            <li><IndexLink to='/'>Home</IndexLink></li>
+            <li className="dropdown">
+              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users <span className="caret"></span></a>
+              <ul className="dropdown-menu">
+                <li><a href="/users/new">New</a></li>
+                <li><a href="/users">Index</a></li>
+              </ul>
+            </li>
+            <li className="dropdown">
+              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Posts <span className="caret"></span></a>
+              <ul className="dropdown-menu">
+                <li><a href="/posts/new">New</a></li>
+                <li><a href="/posts">Index</a></li>
+              </ul>
+            </li>
+
+
+
           </ul>
         </div>
       </nav>
@@ -38,8 +53,8 @@ class Navbar extends React.Component {
   }
 }
 
-Navbar.contextTypes = {
+/*Navbar.contextTypes = {
   router: React.PropTypes.func.isRequired
-};
+};*/
 
 export default Navbar;

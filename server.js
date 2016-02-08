@@ -73,13 +73,10 @@ app.post('/api/sessions', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err) }
     if (!user) {
-      console.log(info.message);
       return res.json(401, { error: info.message });
     }
-    console.log("user mail: " + user.email);
     //user has authenticated correctly thus we create a JWT token 
     var token = jwt.sign({ name: user.name, id: user._id}, config.jwt_secret);
-    console.log("Created token: " + token);
     res.json({ token : token });
 
   })(req, res, next);

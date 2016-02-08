@@ -17,14 +17,11 @@ class LoginActions {
       data: { email: email, password: password }
     })
       .done((data) => {
-        console.log('done');
-        console.log(data);
         localStorage.setItem('jwt', data.token);
-        this.actions.loginUserSuccess(data.token);
+        this.loginUserSuccess(data.token);
       })
       .fail((jqXhr) => {
-        console.log('fail');
-        this.actions.loginUserFail(jqXhr.responseJSON.message);
+        this.loginUserFail(jqXhr.responseJSON.message);
       });
   }
 

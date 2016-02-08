@@ -11,10 +11,10 @@ class ShowUserActions {
   getUser(userId) {
     $.ajax({ url: '/api/users/' + userId })
       .done((data) => {
-        this.actions.getUserSuccess(data);
+        this.getUserSuccess(data);
       })
       .fail((jqXhr) => {
-        this.actions.getUserFail(jqXhr);
+        this.getUserFail(jqXhr);
       });
   }
 }

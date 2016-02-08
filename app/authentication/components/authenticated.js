@@ -6,7 +6,6 @@ export default (ComposedComponent) => {
   return class AuthenticatedComponent extends React.Component {
 
     constructor(props) {
-      console.log(LoginStore.getState());
       super(props);
       this.state = LoginStore.getState();
       this.onChange = this.onChange.bind(this);

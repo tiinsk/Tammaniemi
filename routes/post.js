@@ -7,7 +7,7 @@ exports.getAllPosts = function(req, res){
 			res.send(500);
 			return;
 		}
-		if (posts === null) {
+		if (posts.length == 0) {
 			res.status(404).send({message: "No posts found"});
 			return;
 		}
@@ -23,7 +23,7 @@ exports.getAllPosts = function(req, res){
 
  	Post.findById(req.params.postId, "_id title content comments userId createdAt", function(err, post){
  		if (err) {
- 			res.send(500);
+ 			res.status(500).send({message: "Post not found"});
  			return;
  		}
 		if (post === null) {
@@ -39,9 +39,7 @@ exports.getAllPosts = function(req, res){
   * POST add new post
   */
  exports.addPost = function(req, res){
- 	console.log("sddsfsdfsdf");
  	var addPost= req.body;
- 	console.log(req.user);
  	addPost.userId = req.user._id;
 
  	if (addPost.title === undefined || addPost.content === undefined) {
@@ -54,12 +52,11 @@ exports.getAllPosts = function(req, res){
 
 	newPost.save(function(err, post){
 		if (err) {
-			console.log(err);
 			res.status(500).send({message: "Creation failed"});
 			return;
 		}
 
-		res.send(201);
+		res.status(201).json({id: post.id});
 
 	});
 
@@ -110,7 +107,6 @@ exports.getAllPosts = function(req, res){
 
  
  exports.deletePost = function(req, res){
- 	console.log("asdasdsd");
  	Post.findById(req.params.postId, function(err, post){
  		if (err) {
  			res.send(500);

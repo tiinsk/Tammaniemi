@@ -57,19 +57,19 @@ class AddUser extends React.Component {
                 <form onSubmit={this.handleSubmit.bind(this)}>
                   <div className={'form-group ' + this.state.nameValidationState}>
                     <label className='control-label'>Name</label>
-                    <input type='text' className='form-control' ref='nameTextField' value={this.state.name}
+                    <input type='text' className='form-control' value={this.state.name}
                            onChange={UserActions.updateName} autoFocus/>
                     <span className='help-block'>{this.state.helpBlock}</span>
                   </div>
                   <div className={'form-group ' + this.state.emailValidationState}>
                     <label className='control-label'>Email</label>
-                    <input type='text' className='form-control' ref='nameTextField' value={this.state.email}
+                    <input type='text' className='form-control' value={this.state.email}
                            onChange={UserActions.updateEmail} autoFocus/>
                     <span className='help-block'>{this.state.helpBlock}</span>
                   </div>
                   <div className={'form-group ' + this.state.passwordValidationState}>
                     <label className='control-label'>Password</label>
-                    <input type='text' className='form-control' ref='nameTextField' value={this.state.password}
+                    <input type='text' className='form-control' value={this.state.password}
                            onChange={UserActions.updatePassword} autoFocus/>
                     <span className='help-block'>{this.state.helpBlock}</span>
                   </div>

@@ -11,10 +11,10 @@ class IndexUsersActions {
   getUsers(payload) {
     $.ajax({ url: '/api/users/'})
       .done((data) => {
-        this.actions.getUsersSuccess(data);
+        this.getUsersSuccess(data);
       })
       .fail((jqXhr) => {
-        this.actions.getUsersFail(jqXhr);
+        this.getUsersFail(jqXhr);
       });
   }
 }
