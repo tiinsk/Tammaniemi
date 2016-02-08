@@ -1,5 +1,5 @@
 import React from 'react';
-import {IndexLink} from 'react-router';
+import {IndexLink, Link} from 'react-router';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -26,21 +26,21 @@ class Navbar extends React.Component {
           </IndexLink>
         </div>
         <div id='navbar' className='navbar-collapse collapse'>
-        
+
           <ul className='nav navbar-nav'>
             <li><IndexLink to='/'>Home</IndexLink></li>
             <li className="dropdown">
               <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users <span className="caret"></span></a>
               <ul className="dropdown-menu">
-                <li><a href="/users/new">New</a></li>
-                <li><a href="/users">Index</a></li>
+                <li><Link to="/users/new">New</Link></li>
+                <li><Link to="/users">Index</Link></li>
               </ul>
             </li>
             <li className="dropdown">
               <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Posts <span className="caret"></span></a>
               <ul className="dropdown-menu">
-                <li><a href="/posts/new">New</a></li>
-                <li><a href="/posts">Index</a></li>
+                <li><Link to="/posts/new">New</Link></li>
+                <li><Link to="/posts">Index</Link></li>
               </ul>
             </li>
 

@@ -75,7 +75,7 @@ app.post('/api/sessions', function(req, res, next) {
     if (!user) {
       return res.json(401, { error: info.message });
     }
-    //user has authenticated correctly thus we create a JWT token 
+    //user has authenticated correctly thus we create a JWT token
     var token = jwt.sign({ name: user.name, id: user._id}, config.jwt_secret);
     res.json({ token : token });
 
@@ -85,30 +85,7 @@ app.post('/api/sessions', function(req, res, next) {
 app.get('/*', function(req, res){
 	res.sendFile("/views/index.html", {root: __dirname});
 })
-/*
-app.use(function(req, res, next) {
-	var router = Router.create({
-	    routes: routes,
-	    location: req.path,
-	    onError: function(error) {
-	      next(error)
-	    },
-	    onAbort: function(abortReason) {
-	    	if (abortReason.constructor.name === 'Redirect') {
-	        	var url = router.makePath(abortReason.to, abortReason.params, abortReason.query)
-	        	res.redirect(url)
-	        } else {
-	        	next(abortReason)
-	        }
-	    }
-	});
-  router.run(function(Handler) {
-    var html = React.renderToString(React.createElement(Handler));
-    var page = swig.renderFile('views/index.html', { html: html });
-    res.send(page);
-  });
-});
-*/
+
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
