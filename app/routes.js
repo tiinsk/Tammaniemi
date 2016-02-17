@@ -12,6 +12,11 @@ import ShowPost from './events/post/show';
 import IndexPosts from './events/post/index';
 import UpdatePost from './events/post/update';
 
+import AddInfoPost from './events/infopost/add';
+import ShowInfoPost from './events/infopost/show';
+import IndexInfoPosts from './events/infopost/index';
+import UpdateInfoPost from './events/infopost/update';
+
 export default (
   <Route path='/' component={App}>
     <IndexRoute component={Home} />
@@ -24,6 +29,11 @@ export default (
     <Route path='/posts' component={IndexPosts} />
     <Route path='/posts/:postId' component={ShowPost} />
     <Route path='/posts/update/:postId' component={UpdatePost} />
+
+    <Route path='/infoposts/new' component={AddInfoPost} />
+    <Route path='/infoposts' component={IndexInfoPosts} />
+    <Route path='/infoposts/:infopostId' component={ShowInfoPost} />
+    <Route path='/infoposts/update/:infopostId' component={UpdateInfoPost} />
 
   </Route>
 );

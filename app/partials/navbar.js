@@ -44,6 +44,14 @@ class Navbar extends React.Component {
               </ul>
             </li>
 
+            <li className="dropdown">
+              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Infoposts <span className="caret"></span></a>
+              <ul className="dropdown-menu">
+                <li><Link to="/infoposts/new">New</Link></li>
+                <li><Link to="/infoposts">Index</Link></li>
+              </ul>
+            </li>
+
 
 
           </ul>

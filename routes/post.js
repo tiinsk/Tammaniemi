@@ -21,7 +21,9 @@ exports.getAllPosts = function(req, res){
   */
  exports.getPost = function(req, res){
 
- 	Post.findById(req.params.postId, "_id title content comments userId createdAt", function(err, post){
+ 	Post.findById(req.params.postId, "_id title content comments userId createdAt")
+ 		.populate('comments')
+ 		.exec( function(err, post){
  		if (err) {
  			res.status(500).send({message: "Post not found"});
  			return;

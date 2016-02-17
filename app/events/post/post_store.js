@@ -4,42 +4,33 @@ import history from '../../history';
 
 class PostStore {
   constructor() {
+    console.log("PostStoreConstructor");
     this.bindActions(PostActions);
     this.post = {};
-    this.setEmptyPost();
     this.posts = [];
-    /*this.data = {
-      title: "",
-      content: ""
-    }*/
-    console.log("Rakentaja!!!");
   }
 
   setEmptyPost(){
-    this.post = {
-      _id: undefined,
-      title: undefined,
-      content: undefined,
-    };
+    this.setState(
+      {post: {
+        _id: undefined,
+        title: undefined,
+        content: undefined,
+      }});
   }
 
-// ONE POST
-  onGetPostSuccess(data) {
-    console.log(data);
-    this.post = data;
-    /*this.data = {
-      title: data.title,
-      content: data.content,
-    };*/
+// GET ONE POST
+  onGetPostSuccess(post) {
+    this.post = post;
   }
 
   onGetPostFail(message) {
     toastr.error(message);
   }
 
-// ALL POSTS
-  onGetPostsSuccess(data) {
-    this.posts = data;
+//GET ALL POSTS
+  onGetPostsSuccess(post) {
+    this.posts = post;
   }
 
   onGetPostsFail(errorMessage) {
@@ -52,8 +43,8 @@ class PostStore {
     history.pushState(null, '/');
   }
 
-  onDeletePostFail(jqXhr) {
-    toastr.error(jqXhr.responseJSON.message);
+  onDeletePostFail(errorMessage) {
+    toastr.error(errorMessage);
   }
 
 }

@@ -14,9 +14,7 @@ class AddPost extends React.Component {
 
   componentWillMount() {
     PostStore.listen(this.onChange);
-    console.log(this.state);
     PostActions.setEmptyPost();
-    console.log(this.state);
   }
 
   componentWillUnmount() {

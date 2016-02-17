@@ -6,12 +6,12 @@ var commentSchema = new mongoose.Schema({
 		required: true 
 	},
 	userId: {
-		type: Schema.Types.ObjectId, 
+		type: mongoose.Schema.Types.ObjectId, 
 		required: true, 
 		ref: 'User' 
 	},
 	eventId: {
-		type: Schema.Types.ObjectId, 
+		type: mongoose.Schema.Types.ObjectId, 
 		required: true, 
 		ref: 'Event' 
 	},

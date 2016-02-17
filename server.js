@@ -21,6 +21,8 @@ var User = require('./models/user');
 var user = require('./routes/user');
 var auth = require('./routes/auth');
 var posts = require('./routes/post');
+var infoposts = require('./routes/infopost');
+var comments = require('./routes/comment');
 
 passport.use(new LocalStrategy(
 	{
@@ -61,6 +63,18 @@ app.get('/api/posts/:postId', posts.getPost);
 app.put('/api/posts/:postId',  passport.authenticate('jwt', {session: false}), posts.updatePost);
 app.delete('/api/posts/:postId', passport.authenticate('jwt', {session: false}), posts.deletePost);
 
+
+//Infoposts
+app.get('/api/infoposts', infoposts.getAllInfoPosts);
+app.post('/api/infoposts', passport.authenticate('jwt', {session: false}), infoposts.addInfoPost);
+app.get('/api/infoposts/:infopostId', infoposts.getInfoPost);
+app.put('/api/infoposts/:infopostId',  passport.authenticate('jwt', {session: false}), infoposts.updateInfoPost);
+app.delete('/api/infoposts/:infopostId', passport.authenticate('jwt', {session: false}), infoposts.deleteInfoPost);
+
+
+//Comments
+app.post('/api/comments', passport.authenticate('jwt', {session: false}), comments.addComment);
+app.delete('/api/comments/:commentId', passport.authenticate('jwt', {session: false}), comments.deleteComment);
 // authentication
 //app.post('/api/sessions', );
 

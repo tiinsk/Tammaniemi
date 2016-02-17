@@ -9,7 +9,6 @@ class ShowUserStore {
 
   onGetUserSuccess(data) {
     this.user = data;
-    console.log(data);
     //assign(this, data);
   }
 

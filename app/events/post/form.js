@@ -1,6 +1,4 @@
 import React from 'react';
-//import PostStore from '../stores/form';
-//import PostActions from '../actions/form';
 
 class PostForm extends React.Component {
   constructor(props) {
@@ -13,7 +11,6 @@ class PostForm extends React.Component {
       titleValidationState: '',
       contentValidationState: '',
     }
-    this.onChange = this.onChange.bind(this);
   }
 
   updateTitle(event) {
@@ -37,30 +34,32 @@ class PostForm extends React.Component {
   }
 
   invalidData(post) {
-    this.titleError = post.title ? '' : 'Please enter title!';
-    this.contentError = post.content ? '' : 'Please enter content!';
+    console.log("invalidData");
+    let titleError = post.title ? '' : 'Please enter title!';
+    let contentError = post.content ? '' : 'Please enter content!';
 
-    this.titleValidationState = post.title ? 'has-success' : 'has-error';
-    this.contentValidationState = post.content ? 'has-success' : 'has-error';
+    let titleValidationState = post.title ? 'has-success' : 'has-error';
+    let contentValidationState = post.content ? 'has-success' : 'has-error';
+    this.setState({
+      titleError: titleError, 
+      contentError: contentError,
+      titleValidationState: titleValidationState, 
+      contentValidationState: contentValidationState
+    });
+
   }
 
   componentWillReceiveProps (newProps) {
     this.setState(newProps.post);
   }
-
-  onChange(state) {
-    this.setState(state);
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
     if (this.state.post.title && this.state.post.content) {
-      //PostActions.addPost(title, content, this.props.jwt);
       this.props.onPostSubmit(this.state.post);
     }
     else{
-      this.invalidData(this.post);
+      this.invalidData(this.state.post);
     }
   }
 
