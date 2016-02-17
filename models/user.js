@@ -17,17 +17,14 @@ userSchema.pre('save', function(next) {
 	// generate a salt
 	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
 	    if (err) {
-	    	console.log(err);
 	    	return next(err);
 	    }
-	    console.log("sdfsdf");
+
 	    // hash the password using our new salt
 	    bcrypt.hash(user.password, salt, null, function(err, hash) {
 	        if (err) return next(err);
-	        console.log("sdfsfsdfdsfsdfdf");
 	        // override the cleartext password with the hashed one
 	        user.password = hash;
-	        console.log(hash);
 	        next();
 	    });
 	});

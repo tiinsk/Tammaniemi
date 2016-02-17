@@ -1,7 +1,4 @@
-/*var swig  = require('swig');
-var React = require('react');
-var Router = require('react-router');
-var routes = require('./app/routes');*/
+
 var config = require('./config');
 
 var express = require('express');
@@ -10,29 +7,12 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var JwtStrategy = require('passport-jwt').Strategy;
 
-// Models
-var User = require('./models/user');
-
-//Routes
-var user = require('./routes/user');
-var auth = require('./routes/auth');
-var posts = require('./routes/post');
 var infoposts = require('./routes/infopost');
 var comments = require('./routes/comment');
 
-passport.use(new LocalStrategy(
-	{
-		usernameField: 'email',
-		passwordField: 'password'
-	}, auth.authUser));
+var passport = require('./routes/passport.js');
 
-var opts ={};
-opts.secretOrKey=config.jwt_secret;
-passport.use(new JwtStrategy(opts, auth.authUserJWT));
 
 mongoose.connect(config.database);
 mongoose.connection.on('error', function() {
@@ -48,20 +28,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Users
-app.get('/api/users', user.getAllUsers);
-app.post('/api/users', user.addUser);
-app.get('/api/users/:userId', user.getUser);
-app.put('/api/users/:userId', user.updateUser);
-app.delete('/api/users/:userId', user.deleteUser);
+//Routes
+require('./routes/user')(app);
+require('./routes/post')(app);
 
-
-//Posts
-app.get('/api/posts', posts.getAllPosts);
-app.post('/api/posts', passport.authenticate('jwt', {session: false}), posts.addPost);
-app.get('/api/posts/:postId', posts.getPost);
-app.put('/api/posts/:postId',  passport.authenticate('jwt', {session: false}), posts.updatePost);
-app.delete('/api/posts/:postId', passport.authenticate('jwt', {session: false}), posts.deletePost);
 
 
 //Infoposts

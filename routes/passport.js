@@ -1,6 +1,12 @@
+var config = require('../config');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var JwtStrategy = require('passport-jwt').Strategy;
 var User = require('../models/user');
 
-exports.authUser = function(email, password, done){
+
+
+function authUser(email, password, done){
 	User.findOne({ email: email }, function(err, user) {
 	  console.log("user:");
 	  console.log(user);
@@ -10,7 +16,7 @@ exports.authUser = function(email, password, done){
       }
       user.comparePassword(password, function(err, isMatch){
       	if (err) { return done(err);}
-      	else if (isMatch) { 
+      	else if (isMatch) {
       		return done(null, user);
       	}
       	return done(null, null, {message: "Incorrect email"} );
@@ -19,7 +25,7 @@ exports.authUser = function(email, password, done){
 
 };
 
-exports.authUserJWT = function(jwtPayload, done){
+function authUserJWT(jwtPayload, done){
 	console.log(jwtPayload);
 	User.findById(jwtPayload.id, function(err, user){
 		if (err) {
@@ -33,3 +39,16 @@ exports.authUserJWT = function(jwtPayload, done){
  		}
  	});
 };
+
+
+passport.use(new LocalStrategy(
+  {
+    usernameField: 'email',
+    passwordField: 'password'
+  }, authUser));
+
+var opts ={};
+opts.secretOrKey=config.jwt_secret;
+passport.use(new JwtStrategy(opts, authUserJWT));
+
+module.exports = passport;
