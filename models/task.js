@@ -3,7 +3,7 @@ var Event = require('./event');
 
 var taskSchema = Event.discriminator( 'Task', new mongoose.Schema({
 	category: {
-		type: Number, 
+		type: Number,
 		required: true,
 		default: 1
 	}

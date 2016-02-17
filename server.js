@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Routes
 require('./routes/user')(app);
 require('./routes/post')(app);
+require('./routes/task')(app);
 
 
 
