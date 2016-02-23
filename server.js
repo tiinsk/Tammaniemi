@@ -8,9 +8,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
-var infoposts = require('./routes/infopost');
-var comments = require('./routes/comment');
-
 var passport = require('./routes/passport.js');
 
 
@@ -32,20 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('./routes/user')(app);
 require('./routes/post')(app);
 require('./routes/task')(app);
+require('./routes/infopost')(app);
+require('./routes/comment')(app);
 
-
-
-//Infoposts
-app.get('/api/infoposts', infoposts.getAllInfoPosts);
-app.post('/api/infoposts', passport.authenticate('jwt', {session: false}), infoposts.addInfoPost);
-app.get('/api/infoposts/:infopostId', infoposts.getInfoPost);
-app.put('/api/infoposts/:infopostId',  passport.authenticate('jwt', {session: false}), infoposts.updateInfoPost);
-app.delete('/api/infoposts/:infopostId', passport.authenticate('jwt', {session: false}), infoposts.deleteInfoPost);
-
-
-//Comments
-app.post('/api/comments', passport.authenticate('jwt', {session: false}), comments.addComment);
-app.delete('/api/comments/:commentId', passport.authenticate('jwt', {session: false}), comments.deleteComment);
 // authentication
 //app.post('/api/sessions', );
 
