@@ -5,9 +5,13 @@
     ],
     "env": {
         "browser": true,
-        "node": true
+        "node": true,
+        "mocha": true
     },
     "rules": {
-      "space-before-function-paren": 0
+      "space-before-function-paren": 0,
+      "comma-dangle": 0,
+      "no-shadow": 0,
+      "func-names": 0
     }
 }
