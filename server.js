@@ -1,31 +1,30 @@
+const config = require('./config');
 
-var config = require('./config');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var jwt = require('jsonwebtoken');
+const passport = require('./routes/passport.js');
 
-var passport = require('./routes/passport.js');
+const app = express();
 
-
-mongoose.connect(config.database);
-mongoose.connection.on('error', function() {
+mongoose.connect(config.database[app.settings.env]);
+mongoose.connection.on('error', () => {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
 });
-
-var app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-//Routes
+// Routes
 require('./routes/user')(app);
 require('./routes/post')(app);
 require('./routes/task')(app);
@@ -33,30 +32,43 @@ require('./routes/infopost')(app);
 require('./routes/comment')(app);
 
 // authentication
-//app.post('/api/sessions', );
+// app.post('/api/sessions', );
 
 // POST /login
 //   This is an alternative implementation that uses a custom callback to
 //   achieve the same functionality.
 
 
-app.post('/api/sessions', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err) }
-    if (!user) {
-      return res.json(401, { error: info.message });
+app.post('/api/sessions', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
     }
-    //user has authenticated correctly thus we create a JWT token
-    var token = jwt.sign({ name: user.name, id: user._id}, config.jwt_secret);
-    res.json({ token : token });
-
+    if (!user) {
+      return res.json(401, {
+        error: info.message
+      });
+    }
+    // user has authenticated correctly thus we create a JWT token
+    const token = jwt.sign({
+      name: user.name,
+      id: user._id
+    }, config.jwt_secret);
+    return res.json({
+      token
+    });
   })(req, res, next);
 });
 
-app.get('/*', function(req, res){
-	res.sendFile("/views/index.html", {root: __dirname});
-})
-
-app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
+app.get('/*', (req, res) => {
+  res.sendFile('/views/index.html', {
+    root: __dirname
+  });
 });
+
+app.listen(app.get('port'), () => {
+  console.log(`Express server listening on port ${app.get('port')}`);
+});
+
+
+module.exports = app;

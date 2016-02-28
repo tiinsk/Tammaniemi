@@ -1,4 +1,8 @@
 module.exports = {
-  database: process.env.MONGO_URI || 'localhost',
-  jwt_secret: "tammaniemi"
+  database: {
+    development: 'localhost/tammaniemi',
+    test: 'localhost/test',
+  },
+  jwt_secret: 'tammaniemi',
 };
+
