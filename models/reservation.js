@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Event = require('./event');
 const async = require('async');
 
-const reservationSchema = Event.discriminator('Reservation', new mongoose.Schema({
+const reservationSchema = new mongoose.Schema({
   startDate: {
     type: Date,
     required: true,
@@ -11,32 +11,42 @@ const reservationSchema = Event.discriminator('Reservation', new mongoose.Schema
     type: Date,
     required: true,
   },
-}));
+});
 
-reservationSchema.pre('validate', (next, done) => {
+reservationSchema.pre('validate', function(next) {
   const reservation = this;
   if (reservation.endDate < reservation.startDate) {
-    done(new Error('End date cannot be before start date'));
+    next(new Error('End date cannot be before start date'));
   }
 
   async.parallel([
-    function findBeforeAfter(callback) {
+    (cb) => {
       mongoose.models.Reservation
-        .find()
-        .where('startDate').gt(reservation.startDate)
-        .or('endDate').lt(reservation.endDate).count(callback);
+        .find({
+          $or: [
+            {
+              startDate: {
+                $gt: reservation.endDate
+              }
+            },
+            {
+              endDate: {
+                $lt: reservation.startDate
+              }
+            }
+          ]
+        }).count(cb);
     },
-    function findAll(callback) {
+    (cb) => {
       mongoose.models.Reservation
-        .findAll().count(callback);
+        .find({}).count(cb);
     },
   ], (err, results) => {
     if (results[0] !== results[1]) {
-      done(new Error('Overlapping reservation'));
+      next(new Error('Overlapping reservation'));
     }
-
     next();
   });
 });
 
-module.exports = mongoose.model('Reservation', reservationSchema);
+module.exports = mongoose.model('Reservation', Event.discriminator('Reservation', reservationSchema));

@@ -30,6 +30,7 @@ require('./routes/post')(app);
 require('./routes/task')(app);
 require('./routes/infopost')(app);
 require('./routes/comment')(app);
+require('./routes/reservation')(app);
 
 // authentication
 // app.post('/api/sessions', );
