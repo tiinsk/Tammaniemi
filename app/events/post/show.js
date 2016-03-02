@@ -4,8 +4,16 @@ import PostActions from './post_actions';
 import {Link} from 'react-router';
 import _ from 'underscore';
 
+import history from '../../history';
+
+import Row from 'muicss/lib/react/row';
+import Col from 'muicss/lib/react/col';
+
 import Authenticated from '../../authentication/components/authenticated';
 import CommentBox from '../comment/comments';
+//import PostLayout from "./post_layout";
+//import PostLayoutShort from "./post_short_layout";
+import Event from "../event_layout";
 
 class ShowPost extends React.Component {
   constructor(props) {
@@ -28,7 +36,13 @@ class ShowPost extends React.Component {
   }
 
   handleDelete(postId){
+    console.log("handleDelete: ", postId);
     PostActions.deletePost(postId, this.props.jwt);
+  }
+
+  handleUpdate(postId){
+    console.log("handleDelete: ", postId);
+    history.pushState(null, '/posts/update/'+ postId );
   }
 
   render() {    
@@ -42,28 +56,20 @@ class ShowPost extends React.Component {
       }
       else{
         postData = (
-          <div>
-            <div>Title: {this.state.post.title}</div>
-            <div>Content: {this.state.post.content}</div>
-            <div>CreatedAt: {this.state.post.createdAt}</div>
-            <div>UserId: {this.state.post.userId}</div>
-            <div>
-              <a onClick={this.handleDelete.bind(this, this.state.post._id)}>Delete</a>
-            </div>
-            <div>
-              <Link to={`/posts/update/${this.state.post._id}`}>Update</Link>
-            </div>
-            <CommentBox comments={this.state.post.comments} eventId={this.state.post._id} />
-          </div>
-          
-        )
+          <Event className="post" event={this.state.post} delete={this.handleDelete} update={this.handleUpdate}>{this.state.post.content}</Event>
+        );
       }
     }
     
 
     return (
       <div className='container'>
-        {postData}
+        <Row>
+          <Col md="8" md-offset="4" >
+            {postData}
+          </Col>
+        </Row>
+
       </div>
     );
   }

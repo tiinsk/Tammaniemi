@@ -1,0 +1,44 @@
+@import '../../node_modules/muicss/lib/sass/mui/_colors.scss';
+
+// customize MUI variables
+$mui-primary-color:       mui-color('purple', '500');
+$mui-primary-color-dark:  mui-color('purple', '700');
+$mui-primary-color-light: mui-color('purple', '100');
+
+$mui-accent-color:        mui-color('green', 'A200');
+$mui-accent-color-dark:   mui-color('green', 'A100');
+$mui-accent-color-light:  mui-color('green', 'A400');
+
+$mui-appbar-bg-color: transparent;
+$mui-appbar-font-color:	mui-color('white');
+
+@import '../../node_modules/muicss/lib/sass/mui.scss';
+
+
+@import './app.scss';
+
+.btn{
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 17px;
+    padding: 5px 10px;
+    font-family: Roboto, sans-serif;
+}
+
+.btn:hover{
+	color: black;
+	background: white;
+	text-decoration: none;
+}
+
+.btn:focus{
+	color: black;
+	background: white;
+	text-decoration: none;
+}
+
+.mui-row{
+	margin: 0px; /*sivuttaispalkki ilmestyy ilman margin nollaa!!!*/
+}

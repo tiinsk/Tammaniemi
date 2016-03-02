@@ -3,6 +3,10 @@ import PostForm from './form';
 import PostActions from './post_actions';
 import PostStore from './post_store';
 
+import Row from 'muicss/lib/react/row';
+import Col from 'muicss/lib/react/col';
+
+
 import Authenticated from '../../authentication/components/authenticated';
 
 class AddPost extends React.Component {
@@ -31,7 +35,12 @@ class AddPost extends React.Component {
 
   render() {
     return (
-      <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)}/>
+      <Row>
+          <Col md="8" md-offset="2" >
+            <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)}/>
+          </Col>
+        </Row>
+      
     );
   }
 }

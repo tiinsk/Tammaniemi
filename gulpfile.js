@@ -4,7 +4,7 @@ var gulpif = require('gulp-if');
 var streamify = require('gulp-streamify');
 var autoprefixer = require('gulp-autoprefixer');
 var cssmin = require('gulp-cssmin');
-var less = require('gulp-less');
+var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
 var source = require('vinyl-source-stream');
@@ -17,7 +17,6 @@ var production = process.env.NODE_ENV === 'production';
 
 var dependencies = [
   'alt',
-  'react',
   'react-router',
   'underscore'
 ];
@@ -101,16 +100,16 @@ gulp.task('browserify-watch', ['browserify-vendor'], function() {
  |--------------------------------------------------------------------------
  */
 gulp.task('styles', function() {
-  return gulp.src('app/stylesheets/main.less')
+  return gulp.src('app/stylesheets/main.scss')
     .pipe(plumber())
-    .pipe(less())
+    .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulpif(production, cssmin()))
     .pipe(gulp.dest('public/css'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch('app/stylesheets/**/*.less', ['styles']);
+  gulp.watch('app/**/*.scss', ['styles']);
 });
 
 gulp.task('default', ['styles', 'vendor', 'browserify-watch', 'watch']);
