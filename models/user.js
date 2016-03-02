@@ -39,14 +39,14 @@ userSchema.pre('save', function(next) {
   });
 });
 
-userSchema.methods.comparePassword = (candidatePassword, cb) => {
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) cb(err);
     cb(null, isMatch);
   });
 };
 
-userSchema.methods.isPasswordValid = (candidatePassword) => {
+userSchema.methods.isPasswordValid = function(candidatePassword) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     isMatch();
   });

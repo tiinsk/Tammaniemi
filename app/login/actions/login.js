@@ -17,7 +17,7 @@ class LoginActions {
       data: { email: email, password: password }
     })
       .done((data) => {
-        localStorage.setItem('jwt', data.token);
+        //localStorage.setItem('jwt', data.token);
         this.loginUserSuccess(data.token);
       })
       .fail((jqXhr) => {

@@ -3,6 +3,15 @@ module.exports = {
     development: 'localhost/tammaniemi',
     test: 'localhost/test',
   },
-  jwt_secret: 'tammaniemi',
+  jwt: {
+    development: {
+      secret: 'tammaniemi',
+      ignoreExpiration: false
+    },
+    test: {
+      secret: 'tammaniemi',
+      ignoreExpiration: true
+    },
+  }
 };
 

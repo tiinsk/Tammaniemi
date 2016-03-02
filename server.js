@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
@@ -18,6 +19,7 @@ mongoose.connection.on('error', () => {
 
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
+app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
@@ -55,9 +57,12 @@ app.post('/api/sessions', (req, res, next) => {
       name: user.name,
       id: user._id
     }, config.jwt_secret);
-    return res.json({
-      token
+    console.log(token);
+    res.cookie('JWT', token, {
+      httpOnly: true
     });
+
+    return res.json(user);
   })(req, res, next);
 });
 

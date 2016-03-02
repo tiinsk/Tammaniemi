@@ -1,54 +1,66 @@
-var config = require('../config');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var JwtStrategy = require('passport-jwt').Strategy;
-var User = require('../models/user');
+'use strict';
 
+const config = require('../config');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
+const User = require('../models/user');
 
-
-function authUser(email, password, done){
-	User.findOne({ email: email }, function(err, user) {
-	  console.log("user:");
-	  console.log(user);
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, null, { message: 'Incorrect username.' });
+function authUser(email, password, done) {
+  User.findOne({
+    email
+  }, (err, user) => {
+    if (err) {
+      return done(err);
+    }
+    if (!user) {
+      return done(null, null, {
+        message: 'Incorrect username.'
+      });
+    }
+    user.comparePassword(password, (err, isMatch) => {
+      if (err) {
+        return done(err);
+      } else if (isMatch) {
+        return done(null, user);
       }
-      user.comparePassword(password, function(err, isMatch){
-      	if (err) { return done(err);}
-      	else if (isMatch) {
-      		return done(null, user);
-      	}
-      	return done(null, null, {message: "Incorrect email"} );
+      return done(null, null, {
+        message: 'Incorrect email'
       });
     });
+  });
+}
 
-};
+function authUserJWT(jwtPayload, done) {
+  User.findById(jwtPayload.id, (err, user) => {
+    if (err) {
+      return done(err, false);
+    }
+    if (user) {
+      return done(null, user);
+    }
+    return done(null, false);
+  });
+}
 
-function authUserJWT(jwtPayload, done){
-	console.log(jwtPayload);
-	User.findById(jwtPayload.id, function(err, user){
-		if (err) {
- 			return done(err, false);
- 		}
-		if (user) {
-			return done(null, user);
-		}
- 		else{
- 			return done(null, false);
- 		}
- 	});
-};
+function cookieExtract(req) {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies.JWT;
+  }
+  return token;
+}
 
 
-passport.use(new LocalStrategy(
-  {
-    usernameField: 'email',
-    passwordField: 'password'
-  }, authUser));
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+}, authUser));
 
-var opts ={};
-opts.secretOrKey=config.jwt_secret;
+const opts = {};
+opts.secretOrKey = config.jwt[process.env.NODE_ENV].secret;
+opts.ignoreExpiration = config.jwt[process.env.NODE_ENV].ignoreExpiration;
+opts.jwtFromRequest = cookieExtract;
 passport.use(new JwtStrategy(opts, authUserJWT));
 
 module.exports = passport;
