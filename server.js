@@ -56,7 +56,7 @@ app.post('/api/sessions', (req, res, next) => {
     const token = jwt.sign({
       name: user.name,
       id: user._id
-    }, config.jwt_secret);
+    }, config.jwt[app.settings.env].secret);
     console.log(token);
     res.cookie('JWT', token, {
       httpOnly: true
