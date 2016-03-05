@@ -9,6 +9,7 @@ const expect = chai.expect;
 const app = require('../../server');
 const Reservation = require('../../models/reservation');
 const User = require('../../models/user');
+const utility = require('../utility');
 
 import { user1, user2, reservation1, reservation2 } from '../data.js';
 
@@ -122,6 +123,7 @@ describe('Reservation', () => {
   it('All should return two reservation', (done) => {
     chai.request(app)
     .get('/api/reservations')
+    .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);
       res.should.be.json;
@@ -141,6 +143,7 @@ describe('Reservation', () => {
   it('should return one reservation', (done) => {
     chai.request(app)
     .get(`/api/reservations/${reservation1._id}`)
+    .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);
       res.should.be.json;

@@ -9,7 +9,7 @@ module.exports = {
       ignoreExpiration: false
     },
     test: {
-      secret: 'tammaniemi',
+      secret: 'testi_secret',
       ignoreExpiration: true
     },
   }

@@ -8,6 +8,7 @@ const should = chai.should();
 const app = require('../../server');
 const Post = require('../../models/post');
 const User = require('../../models/user');
+const utility = require('../utility');
 
 import { user1, user2, post1, post2 } from '../data.js';
 
@@ -41,6 +42,7 @@ describe('Post', () => {
   it('should return two post', (done) => {
     chai.request(app)
     .get('/api/posts')
+    .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);
       res.should.be.json;
