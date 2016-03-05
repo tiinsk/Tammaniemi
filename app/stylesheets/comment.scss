@@ -1,0 +1,25 @@
+.comment-box{
+  .comment-list{
+    .comment{
+      margin: 10px;
+      position: relative;
+      font-size: 16px;
+      .user{
+        font-weight: 500;
+      }
+      .user:before{
+        font-family: "FontAwesome";
+        content:"\f007";
+        padding-right: 2px;
+      }
+      .delete{
+        position: absolute;
+        right: 0px;
+        color: #FFD2D2;
+      }
+      .delete:hover{
+        color: #F57373;
+      }
+    }
+  }
+}

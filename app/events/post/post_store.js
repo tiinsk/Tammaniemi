@@ -21,7 +21,9 @@ class PostStore {
 
 // GET ONE POST
   onGetPostSuccess(post) {
-    this.post = post;
+    this.setState({
+      post
+    });
   }
 
   onGetPostFail(message) {
@@ -29,8 +31,11 @@ class PostStore {
   }
 
 //GET ALL POSTS
-  onGetPostsSuccess(post) {
-    this.posts = post;
+  onGetPostsSuccess(posts) {
+    console.log("qweqweqwe");
+    this.setState({
+      posts
+    });
   }
 
   onGetPostsFail(errorMessage) {
@@ -47,6 +52,13 @@ class PostStore {
     toastr.error(errorMessage);
   }
 
+  addComment(comment) {
+    this.posts.forEach((post) => {
+      if(post._id === comment.eventId) {
+        post.comments.push(comment);
+      }
+    })
+  }
 }
 
 

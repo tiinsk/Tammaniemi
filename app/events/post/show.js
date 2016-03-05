@@ -9,9 +9,6 @@ import history from '../../history';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
-import CommentBox from '../comment/comments';
-//import PostLayout from "./post_layout";
-//import PostLayoutShort from "./post_short_layout";
 import Event from "../event_layout";
 
 class ShowPost extends React.Component {
@@ -35,14 +32,17 @@ class ShowPost extends React.Component {
   }
 
   handleDelete(postId){
-    console.log("handleDelete: ", postId);
     PostActions.deletePost(postId, this.props.jwt);
   }
 
   handleUpdate(postId){
-    console.log("handleDelete: ", postId);
     history.pushState(null, '/posts/update/'+ postId );
   }
+
+  handleAddComment(comment) {
+    PostActions.addComment(comment);
+  }
+
 
   render() {
     let postData;
@@ -55,7 +55,7 @@ class ShowPost extends React.Component {
       }
       else{
         postData = (
-          <Event className="post" event={this.state.post} delete={this.handleDelete} update={this.handleUpdate}>{this.state.post.content}</Event>
+          <Event className="post" event={this.state.post} addComment={this.handleAddComment}  delete={this.handleDelete} update={this.handleUpdate}>{this.state.post.content}</Event>
         );
       }
     }
@@ -64,7 +64,7 @@ class ShowPost extends React.Component {
     return (
       <div className='container'>
         <Row>
-          <Col md="8" md-offset="4" >
+          <Col md="6" md-offset="3" >
             {postData}
           </Col>
         </Row>
@@ -75,3 +75,4 @@ class ShowPost extends React.Component {
 }
 
 export default ShowPost;
+

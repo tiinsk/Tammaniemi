@@ -24,6 +24,7 @@
     "jsonwebtoken": "^5.4.1",
     "lodash": "^4.6.1",
     "material-ui": "^0.14.4",
+    "moment": "^2.11.2",
     "mongoose": "^4.4.2",
     "morgan": "^1.6.1",
     "muicss": "^0.4.6",

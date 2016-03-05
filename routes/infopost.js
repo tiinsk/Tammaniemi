@@ -7,7 +7,9 @@ module.exports = function(app) {
 
 	app.get('/api/infoposts', function(req, res) {
 
-		InfoPost.find({}, function(err, infoposts) {
+		InfoPost.find({})
+		.populate('comments')
+		.exec( function(err, infoposts) {
 			if (err) {
 				res.send(500);
 				return;

@@ -6,7 +6,9 @@ module.exports = function(app) {
   //Posts
   app.get('/api/posts', function(req, res) {
 
-    Post.find({}, function(err, posts) {
+    Post.find({})
+    .populate('comments')
+    .exec( function(err, posts) {
       if (err) {
         res.sendStatus(500);
         return;

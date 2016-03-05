@@ -10,7 +10,8 @@ class InfoPostActions {
       'getInfoPostFail',
       'deleteInfoPostSuccess',
       'deleteInfoPostFail',
-      'setEmptyInfoPost'
+      'setEmptyInfoPost',
+      'addComment'
     );
   }
 

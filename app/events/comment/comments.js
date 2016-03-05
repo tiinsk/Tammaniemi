@@ -1,11 +1,9 @@
 import React from 'react';
+import PostActions from '../post/post_actions';
 
 class CommentBox extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {
-      comments: props.comments
-    }
   }
 
   handleCommentSubmit(comment) {
@@ -17,9 +15,7 @@ class CommentBox extends React.Component{
         })
         .done((data) => {
           toastr.success("Comment created successfully!");
-          let comments = this.state.comments;
-          comments.push(data);
-          this.setState({comments: comments});
+          this.props.addComment(data);
         })
         .fail((jqXhr) => {
          toastr.error(jqXhr.responseJSON.message);
@@ -35,7 +31,7 @@ class CommentBox extends React.Component{
     })
       .done((data) => {
           toastr.success("Comment deleted successfully!");
-          let comments = this.state.comments.filter(comment => comment._id !== commentId );
+          let comments = this.props.comments.filter(comment => comment._id !== commentId );
           this.setState({comments: comments});
       })
       .fail((jqXhr) => {
@@ -46,9 +42,8 @@ class CommentBox extends React.Component{
 
   render() {
     return (
-      <div className="commentBox">
-        <div>Comments</div>
-        <CommentList onCommentDelete={this.handleCommentDelete.bind(this)} data={this.state.comments} />
+      <div className="comment-box">
+        <CommentList onCommentDelete={this.handleCommentDelete.bind(this)} data={this.props.comments} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
       </div>
     );
@@ -79,14 +74,19 @@ class CommentForm extends React.Component{
 
   render() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit.bind(this)}>
-        <input
-          type="text"
-          placeholder="Write comment..."
-          value={this.state.content}
-          onChange={this.handleTextChange.bind(this)}
-        />
-        <input type="submit" value="Post" />
+      <form onSubmit={this.handleSubmit.bind(this)}>
+        <div className="input-group">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Write comment..."
+            value={this.state.content}
+            onChange={this.handleTextChange.bind(this)}
+          />
+          <span className="input-group-btn">
+            <button className="btn" type="submit">Comment</button>
+          </span>
+        </div>
       </form>
     );
   }
@@ -104,15 +104,16 @@ class CommentList extends React.Component{
   render() {
     var self = this;
     var comment = this.props.data.map(function(comment) {
+      console.log(comment);
       return (
         <div className="comment" key={comment._id}>
-          {comment.userId}: {comment.content}
-          <a onClick={self.handleDelete.bind(self, comment._id)}> Delete</a>
+          <span className="user">{comment.userId}</span><span>{comment.content}</span>
+          <i className="delete fa fa-trash" onClick={self.handleDelete.bind(self, comment._id)}></i>
         </div>
       );
     });
     return (
-      <div className="commentList">
+      <div className="comment-list">
         {comment}
       </div>
     );
@@ -120,3 +121,4 @@ class CommentList extends React.Component{
 };
 
 export default CommentBox;
+

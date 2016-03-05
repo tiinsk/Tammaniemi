@@ -4,6 +4,13 @@ import {isEqual} from 'underscore';
 import InfoPostStore from './infopost_store';
 import InfoPostActions from './infopost_actions';
 
+import history from '../../history';
+
+import Row from 'muicss/lib/react/row';
+import Col from 'muicss/lib/react/col';
+
+import Event from "../event_layout";
+
 class IndexInfoPosts extends React.Component {
   constructor(props) {
     super(props);
@@ -27,6 +34,19 @@ class IndexInfoPosts extends React.Component {
     }
   }
 */
+  handleDelete(infopostId){
+    console.log("handleDelete: ", infopostId);
+    InfoPostActions.deletePost(infopostId, this.props.jwt);
+  }
+
+  handleUpdate(infopostId){
+    history.pushState(null, '/infoposts/update/'+ infopostId );
+  }
+
+  handleAddComment(comment) {
+    InfoPostActions.addComment(comment);
+  }
+
   onChange(state) {
     this.setState(state);
   }
@@ -34,20 +54,18 @@ class IndexInfoPosts extends React.Component {
   render() {
     let infopostList = this.state.infoposts.map((infopost, index) => {
       return (
-              <div key={infopost._id} className=''>
-                <h4>
-                  <Link to={`/infoposts/${infopost._id}`}>{infopost.title}</Link>
-                </h4>
 
-              </div>
+          <Event key={infopost._id} className="infopost" event={infopost} to={`/infoposts/${infopost._id}`} secondarySymbol={infopost.category} addComment={this.handleAddComment} delete={this.handleDelete} update={this.handleUpdate}>{infopost.content}</Event>
       );
     });
 
     return (
       <div className='container'>
-        <div className='list-group'>
-          {infopostList}
-        </div>
+        <Row>
+          <Col md="6" md-offset="3" >
+            {infopostList}
+          </Col>
+        </Row>
       </div>
     );
   }

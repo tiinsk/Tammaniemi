@@ -1,0 +1,236 @@
+.event{
+  margin: 60px 10px 60px 150px;
+  .box{
+    position: relative;
+    padding: 35px;
+    border: 1px solid #E8E8E8;
+    .title{
+        text-transform: uppercase;
+        font-size: 24px;
+    }
+    .content{
+      margin: 20px 0px;
+      font-size: 18px;
+      color: grey;
+    }
+    .left-details{
+      position: absolute;
+      top: 45px;
+      right: 100%;
+      text-align: right;
+      white-space: nowrap;
+      margin-right: -13px;
+      line-height: 22px;
+      .created-at{
+        position: relative;
+        right: 0px;
+      }
+      .created-at:after{
+        padding-left: 10px;
+        font-size: 30px;
+        font-family: "FontAwesome";
+        content: "\f073";
+      }
+      .user:after{
+        padding-left: 10px;
+        font-size: 30px;
+        font-family: "FontAwesome";
+        content:"\f007";
+      }
+      .comment-count:after{
+        padding-left: 10px;
+        font-size: 30px;
+        font-family: "FontAwesome";
+        content:"\f075";
+      }
+    }
+    .edit-menu{
+      position: absolute;
+      top: 0px;
+      right: -12px;
+      .delete{
+        font-size: 34px;
+        color: #FFD2D2;
+        padding: 2px;
+        display: block;
+      }
+      .delete:hover{
+        color: #F57373;
+      }
+      .update{
+        font-size: 30px;
+        color: #B7E2BA;
+        padding: 2px;
+        display: block;
+      }
+      .update:hover{
+        color: #69A96D;
+      }
+    }
+    .show-comments-btn{
+      display: inline-block;
+      position: absolute;
+      bottom: -19px;
+      right: 50%;
+      font-size: 25px;
+      color: #E4E4E4;
+      .img{
+        padding: 2px;
+      }
+
+    }
+    .show-comments-btn:hover{
+        color: grey;
+    }
+
+    .primary-symbol{
+      position: absolute;
+      top: -35px;
+      left: -35px;
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+      .img{
+        font-family: "FontAwesome";
+        color: white;
+        font-size: 35px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .secondary-symbol{
+      position: absolute;
+      top: -25px;
+      left: 38px;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      .img{
+        font-family: "FontAwesome";
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
+
+$post-primary-color: #5cffa8;
+$post-secondary-color: #43bf7d;
+
+.post{
+  .title{
+    color: $post-secondary-color;
+  }
+  .left-details{
+    .created-at:after, .user:after, .comment-count:after{
+      color: $post-secondary-color;
+    }
+  }
+  .comment-box{
+    .user{
+      color: $post-secondary-color;
+    }
+    .btn{
+      color: $post-secondary-color;
+      border: 2px solid $post-secondary-color;
+    }
+
+    .btn:hover{
+      color: white;
+      background: $post-secondary-color;
+    }
+
+    .btn:focus{
+      color: white;
+      background: $post-secondary-color;
+    }
+  }
+  .primary-symbol{
+    background-color: $post-primary-color;
+    .img:before{
+      content:"\f040";
+    }
+  }
+}
+
+$infopost-primary-color: #5CD4FF;
+$infopost-secondary-color: #4396BF;
+
+.infopost{
+
+
+  .title{
+    color: $infopost-secondary-color;
+  }
+  .left-details{
+    .created-at:after, .user:after, .comment-count:after{
+      color: $infopost-secondary-color;
+    }
+  }
+
+  .comment-box{
+    .user{
+      color: $infopost-secondary-color;
+    }
+    .btn{
+      color: $infopost-secondary-color;
+      border: 2px solid $infopost-secondary-color;
+    }
+
+    .btn:hover{
+      color: white;
+      background: $infopost-secondary-color;
+    }
+
+    .btn:focus{
+      color: white;
+      background: $infopost-secondary-color;
+    }
+  }
+  .primary-symbol{
+    background-color: $infopost-primary-color;
+    .img:before{
+      content:"\f129";
+    }
+  }
+  .secondary-symbol{
+    background-color: $infopost-secondary-color;
+    .num0:before{
+      content:"\f15c";
+    }
+    .num1:before{
+      content:"\f06c";
+    }
+    .num2:before{
+      content:"\f0ad";
+    }
+    .num3:before{
+      content:"\f1bb";
+    }
+    .num4:before{
+      content:"\f06d";
+    }
+    .num5:before{
+      content:"\f0e7";
+    }
+    .num6:before{
+      content:"\f095";
+    }
+    .num7:before{
+      content:"\f13d";
+    }
+    .num8:before{
+      content:"\f043";
+    }
+    .num9:before{
+      content:"\f014";
+    }
+
+  }
+}

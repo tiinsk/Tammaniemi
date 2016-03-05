@@ -48,6 +48,14 @@ class InfoPostStore {
     toastr.error(errorMessage);
   }
 
+  addComment(comment) {
+    this.infoposts.forEach((info) => {
+      if(info._id === comment.eventId) {
+        info.comments.push(comment);
+      }
+    })
+  }
+
 }
 
 

@@ -4,7 +4,14 @@ import InfoPostActions from './infopost_actions';
 import {Link} from 'react-router';
 import _ from 'underscore';
 
-import CommentBox from '../comment/comments';
+
+import history from '../../history';
+
+import Row from 'muicss/lib/react/row';
+import Col from 'muicss/lib/react/col';
+
+import Event from "../event_layout";
+
 
 class ShowInfoPost extends React.Component {
   constructor(props) {
@@ -30,6 +37,15 @@ class ShowInfoPost extends React.Component {
     InfoPostActions.deleteInfoPost(infopostId, this.props.jwt);
   }
 
+
+  handleUpdate(infopostId){
+    history.pushState(null, '/infoposts/update/'+ infopostId );
+  }
+
+  handleAddComment(comment) {
+    InfoPostActions.addComment(comment);
+  }
+
   render() {
     let infopostData;
     if(this.state.infopost) {
@@ -41,32 +57,23 @@ class ShowInfoPost extends React.Component {
       }
       else{
         infopostData = (
-          <div>
-            <div>Category: {this.state.infopost.category} </div>
-            <div>Title: {this.state.infopost.title}</div>
-            <div>Content: {this.state.infopost.content}</div>
-            <div>CreatedAt: {this.state.infopost.createdAt}</div>
-            <div>UserId: {this.state.infopost.userId}</div>
-            <div>
-              <a onClick={this.handleDelete.bind(this, this.state.infopost._id)}>Delete</a>
-            </div>
-            <div>
-              <Link to={`/infoposts/update/${this.state.infopost._id}`}>Update</Link>
-            </div>
-            <CommentBox comments={this.state.infopost.comments} eventId={this.state.infopost._id} />
-          </div>
 
+          <Event className="infopost" event={this.state.infopost} secondarySymbol={this.state.infopost.category} addComment={this.handleAddComment}  delete={this.handleDelete} update={this.handleUpdate}>{this.state.infopost.content}</Event>
         )
       }
     }
 
-
     return (
       <div className='container'>
-        {infopostData}
+        <Row>
+          <Col md="6" md-offset="3" >
+            {infopostData}
+          </Col>
+        </Row>
       </div>
     );
   }
 }
 
 export default ShowInfoPost;
+

@@ -4,6 +4,13 @@ import {isEqual} from 'underscore';
 import PostStore from './post_store';
 import PostActions from './post_actions';
 
+import Row from 'muicss/lib/react/row';
+import Col from 'muicss/lib/react/col';
+
+import history from '../../history';
+
+import Event from "../event_layout";
+
 class IndexPosts extends React.Component {
   constructor(props) {
     super(props);
@@ -19,14 +26,19 @@ class IndexPosts extends React.Component {
   componentWillUnmount() {
     PostStore.unlisten(this.onChange);
   }
-/*
-  componentDidUpdate(prevProps) {
-    console.log("updated");
-    if (!isEqual(prevProps.params, this.props.params)) {
-      PostActions.getPosts(this.props.params);
-    }
+
+  handleDelete(postId){
+    PostActions.deletePost(postId, this.props.jwt);
   }
-*/
+
+  handleUpdate(postId){
+    history.pushState(null, '/posts/update/'+ postId );
+  }
+
+  handleAddComment(comment) {
+    PostActions.addComment(comment);
+  }
+
   onChange(state) {
     this.setState(state);
   }
@@ -34,23 +46,22 @@ class IndexPosts extends React.Component {
   render() {
     let postList = this.state.posts.map((post, index) => {
       return (
-              <div key={post._id} className=''>
-                <h4>
-                  <Link to={`/posts/${post._id}`}>{post.title}</Link>
-                </h4>
-
-              </div>
+        <Event key={post._id} className="post" event={post} to={`/posts/${post._id}`} addComment={this.handleAddComment} delete={this.handleDelete} update={this.handleUpdate}>{post.content}</Event>
       );
     });
 
     return (
       <div className='container'>
-        <div className='list-group'>
-          {postList}
-        </div>
+        <Row>
+          <Col md="6" md-offset="3" >
+            {postList}
+          </Col>
+        </Row>
+
       </div>
     );
   }
 }
 
 export default IndexPosts;
+

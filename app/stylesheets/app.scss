@@ -9,7 +9,7 @@
 		width: 98%;
 		margin: 0 auto;
 		height: 100%;
-		padding: 15px 0; 
+		padding: 15px 0;
 		.logo:before{
 			content:"\f1bb";
 			font-family: FontAwesome;
@@ -30,7 +30,7 @@
 			}
 		}
 	}
-	
+
 }
 
 .jumbotron{
@@ -55,6 +55,7 @@
 .menuBar{
 	text-align: center;
 	border-bottom: 1px solid black;
+	font-family: Arial;
 	.content{
 		display: inline-block;
 		color: black;
@@ -77,10 +78,10 @@
     			}
 			}
 			.mui-btn:hover{
-				box-shadow: none; 
+				box-shadow: none;
 			}
 			.mui-btn:focus{
-				box-shadow: none; 
+				box-shadow: none;
 			}
 			.mui-dropdown__menu{
 				min-width: 100%;

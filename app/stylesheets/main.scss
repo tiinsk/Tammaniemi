@@ -16,6 +16,12 @@ $mui-appbar-font-color:	mui-color('white');
 
 
 @import './app.scss';
+@import './event.scss';
+@import './comment.scss';
+
+body{
+  font-family: Roboto, sans-serif;
+}
 
 .btn{
     color: white;
@@ -42,3 +48,31 @@ $mui-appbar-font-color:	mui-color('white');
 .mui-row{
 	margin: 0px; /*sivuttaispalkki ilmestyy ilman margin nollaa!!!*/
 }
+
+.input-group {
+  display: table;
+  margin: 17px 0px;
+  .form-control {
+    display: table-cell;
+    width: 100%;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .input-group-btn {
+    display: table-cell;
+    width: 1%;
+  }
+
+  .btn {
+      margin-left: -1px;
+      padding: 6px 12px;
+      font-size: 14px;
+      border: 1px solid transparent;
+  }
+}
+
+
+

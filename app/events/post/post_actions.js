@@ -10,7 +10,8 @@ class PostActions {
       'getPostFail',
       'deletePostSuccess',
       'deletePostFail',
-      'setEmptyPost'
+      'setEmptyPost',
+      'addComment'
     );
   }
 
