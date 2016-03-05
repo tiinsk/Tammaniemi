@@ -1,46 +1,52 @@
-var Post = require('../models/post');
-var passport = require('./passport.js');
+const Post = require('../models/post');
+const passport = require('./passport.js');
 
-module.exports = function(app) {
-
-  //Posts
-  app.get('/api/posts', function(req, res) {
-
+module.exports = (app) => {
+  /*
+   * GET all posts
+   */
+  app.get('/api/posts', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
     Post.find({})
     .populate('comments')
-    .exec( function(err, posts) {
+    .exec((err, posts) => {
       if (err) {
         res.sendStatus(500);
         return;
       }
-      if (posts.length == 0) {
+      if (posts.length === 0) {
         res.status(404).send({
-          message: "No posts found"
+          message: 'No posts found'
         });
         return;
       }
       res.json(posts);
-    })
+    });
   });
 
   /*
    * GET post information
    */
-  app.get('/api/posts/:postId', function(req, res) {
-
-    Post.findById(req.params.postId, "_id title content comments userId createdAt")
+  app.get('/api/posts/:postId', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    Post.findById(req.params.postId, '_id title content comments userId createdAt')
     .populate('comments')
-    .exec( function(err, post){
+    .exec((err, post) => {
       if (err) {
-        res.status(500).send({message: "Post not found"});
+        res.status(500).send({
+          message: 'Post not found'
+        });
         return;
       }
       if (post === null) {
-        res.status(404).send({message: "Post not found"});
+        res.status(404).send({
+          message: 'Post not found'
+        });
         return;
       }
       res.json(post);
-
     });
   });
 
@@ -49,24 +55,23 @@ module.exports = function(app) {
    */
   app.post('/api/posts', passport.authenticate('jwt', {
     session: false
-  }), function(req, res) {
-    var addPost = req.body;
+  }), (req, res) => {
+    const addPost = req.body;
     addPost.userId = req.user._id;
 
     if (addPost.title === undefined || addPost.content === undefined) {
       res.status(400).send({
-        message: "Invalid post data"
+        message: 'Invalid post data'
       });
       return;
-    };
+    }
 
+    const newPost = new Post(addPost);
 
-    var newPost = new Post(addPost);
-
-    newPost.save(function(err, post) {
+    newPost.save((err, post) => {
       if (err) {
         res.status(500).send({
-          message: "Creation failed"
+          message: 'Creation failed'
         });
         return;
       }
@@ -74,27 +79,25 @@ module.exports = function(app) {
       res.status(201).json({
         id: post.id
       });
-
     });
-
   });
+
   /*
    * PUT update post
    */
   app.put('/api/posts/:postId', passport.authenticate('jwt', {
     session: false
-  }), function(req, res) {
-
-    var updatedPost = req.body;
+  }), (req, res) => {
+    const updatedPost = req.body;
 
     if (updatedPost.title === undefined || updatedPost.content === undefined) {
       res.status(400).send({
-        message: "Invalid post data"
+        message: 'Invalid post data'
       });
       return;
-    };
+    }
 
-    Post.findById(req.params.postId, function(err, post) {
+    Post.findById(req.params.postId, (err, post) => {
       if (err) {
         res.sendStatus(500);
         return;
@@ -102,25 +105,24 @@ module.exports = function(app) {
 
       if (!post) {
         res.status(404).send({
-          message: "Post not found"
-        });
-        return;
-      };
-
-      if (!req.user._id.equals(post.userId)) {
-        res.status(403).send({
-          message: "Unauthorized"
+          message: 'Post not found'
         });
         return;
       }
 
-      post.update(updatedPost, function(err) {
+      if (!req.user._id.equals(post.userId)) {
+        res.status(403).send({
+          message: 'Unauthorized'
+        });
+        return;
+      }
+
+      post.update(updatedPost, (err) => {
         if (err) {
           res.sendStatus(500);
           return;
         }
         res.sendStatus(200);
-
       });
     });
   });
@@ -130,8 +132,8 @@ module.exports = function(app) {
    */
   app.delete('/api/posts/:postId', passport.authenticate('jwt', {
     session: false
-  }), function(req, res) {
-    Post.findById(req.params.postId, function(err, post) {
+  }), (req, res) => {
+    Post.findById(req.params.postId, (err, post) => {
       if (err) {
         res.sendStatus(500);
         return;
@@ -139,20 +141,19 @@ module.exports = function(app) {
 
       if (!post) {
         res.status(404).send({
-          message: "Post not found"
+          message: 'Post not found'
         });
         return;
-      };
+      }
 
       if (!req.user._id.equals(post.userId)) {
         res.status(403).send({
-          message: "Unauthorized"
+          message: 'Unauthorized'
         });
         return;
-      };
+      }
 
-
-      post.remove(function(err) {
+      post.remove((err) => {
         if (err) {
           res.sendStatus(500);
           return;
@@ -161,6 +162,4 @@ module.exports = function(app) {
       });
     });
   });
-
-
 };

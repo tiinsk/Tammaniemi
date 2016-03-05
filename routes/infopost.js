@@ -1,171 +1,163 @@
-var InfoPost = require('../models/infopost');
-var passport = require('./passport.js');
+const InfoPost = require('../models/infopost');
+const passport = require('./passport.js');
 
-//Infoposts
-module.exports = function(app) {
+module.exports = (app) => {
+  app.get('/api/infoposts', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    InfoPost.find({})
+    .populate('comments')
+    .exec((err, infoposts) => {
+      if (err) {
+        res.send(500);
+        return;
+      }
 
+      if (infoposts.length === 0) {
+        res.status(404).send({
+          message: 'No infoposts found'
+        });
+        return;
+      }
+      res.json(infoposts);
+    });
+  });
 
-	app.get('/api/infoposts', function(req, res) {
+  /*
+   * GET post information
+   */
+  app.get('/api/infoposts/:infopostId', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    InfoPost.findById(req.params.infopostId, '_id title category content comments userId createdAt')
+      .populate('comments')
+      .exec((err, infopost) => {
+        if (err) {
+          res.status(500).send({
+            message: 'Infopost not found'
+          });
+          return;
+        }
+        if (infopost === null) {
+          res.status(404).send({
+            message: 'Infopost not found'
+          });
+          return;
+        }
+        res.json(infopost);
+      });
+  });
 
-		InfoPost.find({})
-		.populate('comments')
-		.exec( function(err, infoposts) {
-			if (err) {
-				res.send(500);
-				return;
-			}
-			if (infoposts.length == 0) {
-				res.status(404).send({
-					message: "No infoposts found"
-				});
-				return;
-			}
-			res.json(infoposts);
-		})
-	});
+  /*
+   * POST add new post
+   */
+  app.post('/api/infoposts', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    const addInfoPost = req.body;
+    addInfoPost.userId = req.user._id;
 
+    if (addInfoPost.title === undefined || addInfoPost.content === undefined) {
+      res.status(400).send({
+        message: 'Invalid infopost data'
+      });
+      return;
+    }
 
+    const newInfoPost = new InfoPost(addInfoPost);
 
-	/*
-	 * GET post information
-	 */
-	app.get('/api/infoposts/:infopostId', function(req, res) {
+    newInfoPost.save((err, infopost) => {
+      if (err) {
+        res.status(500).send({
+          message: 'Creation failed'
+        });
+        return;
+      }
 
-		InfoPost.findById(req.params.infopostId, "_id title category content comments userId createdAt")
-			.populate('comments')
-			.exec(function(err, infopost) {
-				if (err) {
-					res.status(500).send({
-						message: "Infopost not found"
-					});
-					return;
-				}
-				if (infopost === null) {
-					res.status(404).send({
-						message: "Infopost not found"
-					});
-					return;
-				}
-				res.json(infopost);
+      res.status(201).json({
+        id: infopost.id
+      });
+    });
+  });
 
-			});
-	});
+  /*
+   * PUT update post
+   */
+  app.put('/api/infoposts/:infopostId', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    const updatedInfoPost = req.body;
 
-	/*
-	 * POST add new post
-	 */
-	app.post('/api/infoposts', passport.authenticate('jwt', {
-		session: false
-	}), function(req, res) {
-		var addInfoPost = req.body;
-		addInfoPost.userId = req.user._id;
+    if (updatedInfoPost.title === undefined || updatedInfoPost.content === undefined) {
+      res.status(400).send({
+        message: 'Invalid infopost data'
+      });
+      return;
+    }
 
-		if (addInfoPost.title === undefined || addInfoPost.content === undefined) {
-			res.status(400).send({
-				message: "Invalid infopost data"
-			});
-			return;
-		};
+    InfoPost.findById(req.params.infopostId, (err, infopost) => {
+      if (err) {
+        res.send(500);
+        return;
+      }
 
+      if (!infopost) {
+        res.status(404).send({
+          message: 'Infopost not found'
+        });
+        return;
+      }
 
-		var newInfoPost = new InfoPost(addInfoPost);
+      if (!req.user._id.equals(infopost.userId)) {
+        res.status(403).send({
+          message: 'Unauthorized'
+        });
+        return;
+      }
 
-		newInfoPost.save(function(err, infopost) {
-			if (err) {
-				res.status(500).send({
-					message: "Creation failed"
-				});
-				return;
-			}
+      infopost.update(updatedInfoPost, (err) => {
+        if (err) {
+          res.send(500);
+          return;
+        }
+        res.send(200);
+      });
+    });
+  });
 
-			res.status(201).json({
-				id: infopost.id
-			});
+  /*
+   * DELETE infopost
+   */
+  app.delete('/api/infoposts/:infopostId', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    InfoPost.findById(req.params.infopostId, (err, infopost) => {
+      if (err) {
+        res.send(500);
+        return;
+      }
 
-		});
-	});
+      if (!infopost) {
+        res.status(404).send({
+          message: 'Infopost not found'
+        });
+        return;
+      }
 
-	/*
-	 * PUT update post
-	 */
-	app.put('/api/infoposts/:infopostId', passport.authenticate('jwt', {
-		session: false
-	}), function(req, res) {
+      if (!req.user._id.equals(infopost.userId)) {
+        res.status(403).send({
+          message: 'Unauthorized'
+        });
+        return;
+      }
 
-		var updatedInfoPost = req.body;
-
-		if (updatedInfoPost.title === undefined || updatedInfoPost.content === undefined) {
-			res.status(400).send({
-				message: "Invalid infopost data"
-			});
-			return;
-		};
-
-		InfoPost.findById(req.params.infopostId, function(err, infopost) {
-			if (err) {
-				res.send(500);
-				return;
-			}
-
-			if (!infopost) {
-				res.status(404).send({
-					message: "Infopost not found"
-				});
-				return;
-			};
-
-			if (!req.user._id.equals(infopost.userId)) {
-				res.status(403).send({
-					message: "Unauthorized"
-				});
-				return;
-			}
-
-			infopost.update(updatedInfoPost, function(err) {
-				if (err) {
-					res.send(500);
-					return;
-				}
-				res.send(200);
-			});
-		});
-	});
-
-	/*
-	 * DELETE infopost
-	 */
-	app.delete('/api/infoposts/:infopostId', passport.authenticate('jwt', {
-		session: false
-	}), function(req, res) {
-		InfoPost.findById(req.params.infopostId, function(err, infopost) {
-			if (err) {
-				res.send(500);
-				return;
-			}
-
-			if (!infopost) {
-				res.status(404).send({
-					message: "Infopost not found"
-				});
-				return;
-			};
-
-			if (!req.user._id.equals(infopost.userId)) {
-				res.status(403).send({
-					message: "Unauthorized"
-				});
-				return;
-			};
-
-
-			infopost.remove(function(err) {
-				if (err) {
-					res.send(500);
-					return;
-				}
-				res.send(200);
-			});
-		});
-	});
-
+      infopost.remove((err) => {
+        if (err) {
+          res.send(500);
+          return;
+        }
+        res.send(200);
+      });
+    });
+  });
 };

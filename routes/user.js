@@ -1,19 +1,21 @@
-var User = require('../models/user');
+const User = require('../models/user');
+const passport = require('./passport.js');
 
-module.exports = function(app) {
-
+module.exports = (app) => {
   /*
    * GET all user information
    */
-  app.get('/api/users', function(req, res) {
-    User.find({}, function(err, users) {
+  app.get('/api/users', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    User.find({}, (err, users) => {
       if (err) {
         res.sendStatus(500);
         return;
       }
       if (users === null) {
         res.status(404).send({
-          message: "No users found"
+          message: 'No users found'
         });
         return;
       }
@@ -24,66 +26,66 @@ module.exports = function(app) {
   /*
    * GET user information
    */
-  app.get('/api/users/:userId', function(req, res) {
-
-    User.findById(req.params.userId, "_id name email password", function(err, user) {
+  app.get('/api/users/:userId', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    User.findById(req.params.userId, '_id name email password', (err, user) => {
       if (err) {
         res.sendStatus(500);
         return;
       }
       if (user === null) {
         res.status(404).send({
-          message: "User not found"
+          message: 'User not found'
         });
         return;
       }
       res.json(user);
-
     });
   });
 
   /*
    * POST add new user
    */
-  app.post('/api/users', function(req, res) {
+  app.post('/api/users', (req, res) => {
+    const addUser = req.body;
 
-    var addUser = req.body;
-
-    if (addUser.name === undefined || addUser.password === undefined || addUser.email === undefined) {
+    if (addUser.name === undefined ||
+        addUser.password === undefined ||
+        addUser.email === undefined) {
       res.status(400).send({
-        message: "Invalid user data"
+        message: 'Invalid user data'
       });
       return;
-    };
+    }
 
     User.findOne({
       email: addUser.email
-    }, function(err, user) {
+    }, (err, user) => {
       if (err) {
-        console.log(err);
         res.sendStatus(500);
         return;
       }
 
       if (user) {
         res.status(403).send({
-          message: "User already exists"
+          message: 'User already exists'
         });
         return;
-      };
+      }
 
-      var newUser = new User(addUser);
+      const newUser = new User(addUser);
 
-      newUser.save(function(err, user) {
+      newUser.save((err, user) => {
         if (err) {
-          console.log(err);
           res.status(500).send({
-            message: "Creation failed"
+            message: 'Creation failed'
           });
           return;
         }
-        res.send(201);
-
+        res.json({
+          _id: user._id
+        });
       });
     });
   });
@@ -91,11 +93,12 @@ module.exports = function(app) {
   /*
    * PUT update user information
    */
-  app.put('/api/users/:userId', function(req, res) {
+  app.put('/api/users/:userId', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    const updatedUser = req.body;
 
-    var updatedUser = req.body;
-
-    User.findById(req.params.userId, function(err, user) {
+    User.findById(req.params.userId, (err, user) => {
       if (err) {
         res.sendStatus(500);
         return;
@@ -103,33 +106,28 @@ module.exports = function(app) {
 
       if (!user) {
         res.status(404).send({
-          message: "User not found"
+          message: 'User not found'
         });
         return;
-      };
+      }
 
-      /*
-          if(req.user.username !== user.username){
-            res.send(403);
-            return;
-          }
+      if (req.user.username !== user.username) {
+        res.send(403);
+        return;
+      }
 
-          if (updatedUser.password === undefined || updatedUser.email === undefined || updatedUser.name === undefined ) {
-            res.send(400);
-            return;
-          }
-          if(updatedUser.newpassword !== '' && updatedUser.newpassword !== undefined){
-            updatedUser.password = updatedUser.newpassword;
-          }
-          delete updatedUser.newpassword;
-      */
-      user.update(updatedUser, function(err) {
+      if (updatedUser.email === undefined ||
+          updatedUser.name === undefined) {
+        res.send(400);
+        return;
+      }
+
+      user.update(updatedUser, (err) => {
         if (err) {
           res.sendStatus(500);
           return;
         }
         res.send(200);
-
       });
     });
   });
@@ -137,36 +135,37 @@ module.exports = function(app) {
   /*
    * DELETE user
    */
-  app.delete('/api/users/:userId', function(req, res) {
-    /*
-    User.findOne({userId: req.params.userId}, function(err, user){
+  app.delete('/api/users/:userId', passport.authenticate('jwt', {
+    session: false
+  }), (req, res) => {
+    User.findOne({
+      userId: req.params.userId
+    }, (err, user) => {
       if (err) {
         res.sendStatus(500);
         return;
       }
 
       if (!user) {
-        res.status(404).send({message: "User not found"});
+        res.status(404).send({
+          message: 'User not found'
+        });
         return;
-      };
+      }
 
-      if(req.user.username !== user.username){
+      if (req.user.username !== user.username) {
         res.send(403);
         return;
-      };
+      }
 
-
-      user.update({status: false}, function(err){
+      user.remove((err) => {
         if (err) {
           res.sendStatus(500);
           return;
         }
         req.logout();
         res.send(200);
-
       });
     });
-    */
   });
-
 };

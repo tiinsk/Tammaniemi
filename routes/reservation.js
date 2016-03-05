@@ -2,7 +2,9 @@ const Reservation = require('../models/reservation');
 const passport = require('./passport.js');
 
 module.exports = (app) => {
-  app.get('/api/reservations', (req, res) => {
+  app.get('/api/reservations', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
     Reservation.find({}, (err, reservations) => {
       if (err) {
         res.sendStatus(500);
@@ -21,7 +23,9 @@ module.exports = (app) => {
   /*
    * GET reservation information
    */
-  app.get('/api/reservations/:reservationId', (req, res) => {
+  app.get('/api/reservations/:reservationId', passport.authenticate('jwt', {
+    session: false,
+  }), (req, res) => {
     Reservation.findById(req.params.reservationId,
       '_id title startDate endDate comments userId createdAt', (err, reservation) => {
         if (err) {
