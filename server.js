@@ -42,7 +42,7 @@ require('./routes/reservation')(app);
 //   achieve the same functionality.
 
 
-app.post('/api/sessions', (req, res, next) => {
+app.post('/api/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err);
@@ -64,6 +64,23 @@ app.post('/api/sessions', (req, res, next) => {
 
     return res.json(user);
   })(req, res, next);
+});
+
+app.get('/api/logout', (req, res) => {
+  res.clearCookie('JWT', {
+    httpOnly: true
+  });
+  res.sendStatus(200);
+});
+
+app.get('/api/account', passport.authenticate('jwt', {
+  session: false
+}), (req, res) => {
+  if (req.user) {
+    return res.json(req.user);
+  }
+
+  return res.sendStatus(401);
 });
 
 app.get('/*', (req, res) => {
