@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Authenticated from '../authentication/components/authenticated';
-
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
@@ -15,7 +13,7 @@ class Home extends React.Component {
               <Row>
                 <Col lg="6" style={{"border": "1px solid black","height": "250px"}}>
                   <div>Posts</div>
-                  
+
                 </Col>
                 <Col lg="6" style={{"border": "1px solid black","height": "250px"}}>
                   <div>Tasks</div>
@@ -29,7 +27,7 @@ class Home extends React.Component {
                   <div>Infoposts</div>
                 </Col>
               </Row>
-        		  
+
             </Col>
             <Col lg="4" style={{"border": "1px solid black","height": "500px"}}>
               <div>Calendar</div>
@@ -40,4 +38,4 @@ class Home extends React.Component {
   }
 }
 
-export default Authenticated(Home);
+export default Home;

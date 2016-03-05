@@ -6,9 +6,6 @@ import PostStore from './post_store';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
-
-import Authenticated from '../../authentication/components/authenticated';
-
 class AddPost extends React.Component {
   constructor(props) {
     super(props);
@@ -40,9 +37,9 @@ class AddPost extends React.Component {
             <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)}/>
           </Col>
         </Row>
-      
+
     );
   }
 }
 
-export default Authenticated(AddPost);
+export default AddPost;

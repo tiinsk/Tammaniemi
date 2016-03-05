@@ -4,8 +4,6 @@ import {isEqual} from 'underscore';
 import InfoPostStore from './infopost_store';
 import InfoPostActions from './infopost_actions';
 
-import Authenticated from '../../authentication/components/authenticated';
-
 class IndexInfoPosts extends React.Component {
   constructor(props) {
     super(props);
@@ -40,7 +38,7 @@ class IndexInfoPosts extends React.Component {
                 <h4>
                   <Link to={`/infoposts/${infopost._id}`}>{infopost.title}</Link>
                 </h4>
-                
+
               </div>
       );
     });
@@ -55,4 +53,4 @@ class IndexInfoPosts extends React.Component {
   }
 }
 
-export default Authenticated(IndexInfoPosts);
+export default IndexInfoPosts;

@@ -3,8 +3,6 @@ import PostStore from './post_store';
 import PostActions from './post_actions';
 import PostForm from './form';
 
-import Authenticated from '../../authentication/components/authenticated';
-
 class UpdatePost extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,7 @@ class UpdatePost extends React.Component {
     PostStore.unlisten(this.onChange);
   }
 
-  onChange(state) {    
+  onChange(state) {
     this.setState(state);
   }
 
@@ -36,4 +34,4 @@ render() {
   }
 }
 
-export default Authenticated(UpdatePost);
+export default UpdatePost;

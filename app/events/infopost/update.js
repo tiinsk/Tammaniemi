@@ -3,8 +3,6 @@ import InfoPostStore from './infopost_store';
 import InfoPostActions from './infopost_actions';
 import InfoPostForm from './form';
 
-import Authenticated from '../../authentication/components/authenticated';
-
 class UpdateInfoPost extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +19,7 @@ class UpdateInfoPost extends React.Component {
     InfoPostStore.unlisten(this.onChange);
   }
 
-  onChange(state) {    
+  onChange(state) {
     this.setState(state);
   }
 
@@ -36,4 +34,4 @@ render() {
   }
 }
 
-export default Authenticated(UpdateInfoPost);
+export default UpdateInfoPost;

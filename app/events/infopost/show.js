@@ -4,14 +4,13 @@ import InfoPostActions from './infopost_actions';
 import {Link} from 'react-router';
 import _ from 'underscore';
 
-import Authenticated from '../../authentication/components/authenticated';
 import CommentBox from '../comment/comments';
 
 class ShowInfoPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.onChange = this.onChange.bind(this);    
+    this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
@@ -24,18 +23,18 @@ class ShowInfoPost extends React.Component {
   }
 
   onChange(state) {
-    this.setState(state);    
+    this.setState(state);
   }
 
   handleDelete(infopostId){
     InfoPostActions.deleteInfoPost(infopostId, this.props.jwt);
   }
 
-  render() {    
+  render() {
     let infopostData;
     if(this.state.infopost) {
       console.log(this.state.infopost._id);
-      if (!this.state.infopost._id) { 
+      if (!this.state.infopost._id) {
         infopostData = (
           <div className="alert alert-danger" role="alert">InfoPost not found!</div>
           );
@@ -56,11 +55,11 @@ class ShowInfoPost extends React.Component {
             </div>
             <CommentBox comments={this.state.infopost.comments} eventId={this.state.infopost._id} />
           </div>
-          
+
         )
       }
     }
-    
+
 
     return (
       <div className='container'>
@@ -70,4 +69,4 @@ class ShowInfoPost extends React.Component {
   }
 }
 
-export default Authenticated(ShowInfoPost);
+export default ShowInfoPost;

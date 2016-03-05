@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Authenticated from '../../authentication/components/authenticated';
-
 class CommentBox extends React.Component{
   constructor(props) {
     super(props);
@@ -121,4 +119,4 @@ class CommentList extends React.Component{
   }
 };
 
-export default Authenticated(CommentBox);
+export default CommentBox;

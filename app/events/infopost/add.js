@@ -3,7 +3,6 @@ import InfoPostForm from './form';
 import InfoPostActions from './infopost_actions';
 import InfoPostStore from './infopost_store';
 
-import Authenticated from '../../authentication/components/authenticated';
 
 class AddInfoPost extends React.Component {
   constructor(props) {
@@ -36,4 +35,4 @@ class AddInfoPost extends React.Component {
   }
 }
 
-export default Authenticated(AddInfoPost);
+export default AddInfoPost;

@@ -9,7 +9,6 @@ import history from '../../history';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
-import Authenticated from '../../authentication/components/authenticated';
 import CommentBox from '../comment/comments';
 //import PostLayout from "./post_layout";
 //import PostLayoutShort from "./post_short_layout";
@@ -19,7 +18,7 @@ class ShowPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.onChange = this.onChange.bind(this);    
+    this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
@@ -32,7 +31,7 @@ class ShowPost extends React.Component {
   }
 
   onChange(state) {
-    this.setState(state);    
+    this.setState(state);
   }
 
   handleDelete(postId){
@@ -45,11 +44,11 @@ class ShowPost extends React.Component {
     history.pushState(null, '/posts/update/'+ postId );
   }
 
-  render() {    
+  render() {
     let postData;
     if(this.state.post) {
       console.log(this.state.post._id);
-      if (!this.state.post._id) { 
+      if (!this.state.post._id) {
         postData = (
           <div className="alert alert-danger" role="alert">Post not found!</div>
           );
@@ -60,7 +59,7 @@ class ShowPost extends React.Component {
         );
       }
     }
-    
+
 
     return (
       <div className='container'>
@@ -75,4 +74,4 @@ class ShowPost extends React.Component {
   }
 }
 
-export default Authenticated(ShowPost);
+export default ShowPost;
