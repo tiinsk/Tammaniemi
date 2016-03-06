@@ -19,10 +19,13 @@ import UpdateInfoPost from './events/infopost/update';
 
 import LoginStore from './login/login_store';
 
-function requireAuth(nextState, replaceState) {
-  if (!LoginStore.getState().isLoggedIn) {
+function requireAuth(nextState, replaceState, next) {
+  LoginStore.getState().userPromise.then(() => {
+    next();
+  }, () => {
     replaceState({ nextPathname: nextState.location.pathname }, '/login');
-  }
+    next();
+  });
 }
 
 export default (

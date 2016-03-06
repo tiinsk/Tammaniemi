@@ -11,7 +11,7 @@ class LoginStore {
     this.errorMessage = '';
     this.isLoggedIn = false;
 
-    $.ajax({
+    this.userPromise = $.ajax({
       type: 'GET',
       url: '/api/account',
     })
@@ -20,13 +20,14 @@ class LoginStore {
         user: data,
         isLoggedIn: true
       });
-    });
+    }).promise();
   }
 
   onLoginUserSuccess(user) {
     this.setState({
       user,
-      isLoggedIn: true
+      isLoggedIn: true,
+      userPromise: Promise.resolve(user)
     });
   }
 
@@ -39,7 +40,8 @@ class LoginStore {
   onLogoutUserSuccess() {
     this.setState({
       user: {},
-      isLoggedIn: false
+      isLoggedIn: false,
+      userPromise: Promise.reject('Not logged in')
     });
   }
 
