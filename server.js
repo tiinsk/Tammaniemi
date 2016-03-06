@@ -31,6 +31,7 @@ require('./routes/task')(app);
 require('./routes/infopost')(app);
 require('./routes/comment')(app);
 require('./routes/reservation')(app);
+require('./routes/event')(app);
 
 app.get('/*', (req, res) => {
   res.sendFile('/views/index.html', {
