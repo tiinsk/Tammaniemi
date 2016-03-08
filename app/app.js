@@ -1,7 +1,9 @@
 import React from 'react';
 import {RouteHandler, IndexLink, Link} from 'react-router';
 import _ from 'lodash';
+
 import history from './history';
+
 
 import LoginStore from './login/login_store';
 import LoginActions from './login/login_actions';
@@ -89,6 +91,14 @@ class App extends React.Component {
               </DropdownItem>
               <DropdownItem >
                 <Link to="/users">Index</Link>
+              </DropdownItem>
+            </Dropdown>
+            <Dropdown className="menu-item" label="Reservations">
+               <DropdownItem >
+                <Link to="/reservations/new">New</Link>
+              </DropdownItem>
+              <DropdownItem >
+                <Link to="/reservations">Index</Link>
               </DropdownItem>
             </Dropdown>
           </div>

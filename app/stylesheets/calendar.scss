@@ -1,0 +1,138 @@
+$calendar-size: 13.7%;
+
+@media (max-width: 900px){
+  .calendar{
+    .number{
+      font-size: 15px !important;
+    }
+  }
+}
+
+@media (max-width: 768px){
+  .calendar{
+    .number{
+      font-size: 20px !important;
+    }
+  }
+}
+
+
+.calendar{
+  padding: 20px;
+  font-size: 0px;
+  text-align: center;
+  .month{
+    width: 100%;
+    margin: auto;
+    .header{
+      font-size: 20px;
+      .month-line{
+      margin: 20px 0;
+        .month-title{
+          font-size: 30px;
+          display: inline-block;
+          width: 50%;
+          text-transform: uppercase;
+          color: $reservation-secondary-color;
+        }
+        .next-month-btn{
+          display: inline-block;
+        }
+        .next-month-btn:before{
+          font-family: "FontAwesome";
+          content:"\f105";
+        }
+        .prev-month-btn{
+          display: inline-block;
+        }
+        .prev-month-btn:before{
+          font-family: "FontAwesome";
+          content:"\f104";
+        }
+      }
+      .weekday{
+        text-transform: uppercase;
+        margin: 0px;
+        background: transparent;
+        display: inline-block;
+        position: relative;
+        width: $calendar-size;
+      }
+    }
+    .day{
+      margin: 0px;
+      background: transparent;
+      border: 1px solid #E8E8E8;
+      display: inline-block;
+      position: relative;
+      width: $calendar-size;
+      padding-bottom: $calendar-size; /* = width for a 1:1 aspect ratio */
+      .container{
+        color: grey;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        text-align: left;
+
+        .number{
+          font-size: 20px;
+          margin: 5px;
+        }
+        .diff-month{
+          color: #DEDEDE;
+        }
+
+      }
+      .reserved-title{
+        position: relative;
+        font-size: 15px;
+        display: block;
+        color: white;
+        background: $reservation-secondary-color;
+        z-index: 200;
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+
+    }
+    .day, .first{
+      margin-left: -1px;
+    }
+  }
+}
+
+.calendar2{
+  position: relative;
+  .calendar-table{
+    width: 100%;
+    .day-h{
+      width: 13.7%;
+    }
+    .day{
+      width: 13.7%;
+      padding-bottom: 13.7%;
+      border: 1px solid black;
+    }
+  }
+  .calendar-content{
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    .week{
+      width: 100%;
+      border: 1px solid transparent;
+      padding-bottom: 13.7%;
+      position: relative;
+      .week-table{
+        width: 100%;
+        position: absolute;
+      }
+    }
+    .week-header{
+
+    }
+  }
+
+}

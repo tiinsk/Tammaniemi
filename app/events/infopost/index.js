@@ -36,7 +36,7 @@ class IndexInfoPosts extends React.Component {
 */
   handleDelete(infopostId){
     console.log("handleDelete: ", infopostId);
-    InfoPostActions.deletePost(infopostId, this.props.jwt);
+    InfoPostActions.deleteInfoPost(infopostId, this.props.jwt);
   }
 
   handleUpdate(infopostId){

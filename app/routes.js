@@ -17,6 +17,11 @@ import ShowInfoPost from './events/infopost/show';
 import IndexInfoPosts from './events/infopost/index';
 import UpdateInfoPost from './events/infopost/update';
 
+import AddReservation from './events/reservation/add';
+import ShowReservation from './events/reservation/show';
+import IndexReservations from './events/reservation/index';
+import UpdateReservation from './events/reservation/update';
+
 import LoginStore from './login/login_store';
 
 function requireAuth(nextState, replaceState, next) {
@@ -46,6 +51,11 @@ export default (
     <Route path="/infoposts" component={IndexInfoPosts} onEnter={requireAuth} />
     <Route path="/infoposts/:infopostId" component={ShowInfoPost} onEnter={requireAuth} />
     <Route path="/infoposts/update/:infopostId" component={UpdateInfoPost} onEnter={requireAuth} />
+
+    <Route path="/reservations/new" component={AddReservation} onEnter={requireAuth} />
+    <Route path="/reservations" component={IndexReservations} onEnter={requireAuth} />
+    <Route path="/reservations/:reservationId" component={ShowReservation} onEnter={requireAuth} />
+    <Route path="/reservations/update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />
 
   </Route>
 );
