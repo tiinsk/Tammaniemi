@@ -83,9 +83,7 @@ module.exports = (app) => {
           });
           return;
         }
-        res.json({
-          _id: user._id
-        });
+        res.json(user);
       });
     });
   });

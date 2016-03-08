@@ -5,7 +5,10 @@ module.exports = (app) => {
   app.get('/api/tasks', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-    Task.find({}, (err, tasks) => {
+    Task.find({})
+    .populate('comments')
+    .populate('userId')
+    .exec((err, tasks) => {
       if (err) {
         res.sendStatus(500);
         return;
@@ -27,8 +30,10 @@ module.exports = (app) => {
   app.get('/api/tasks/:taskId', passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
-    Task.findById(req.params.taskId, '_id title category comments userId createdAt',
-    (err, task) => {
+    Task.findById(req.params.taskId, '_id title category comments userId createdAt')
+    .populate('comments')
+    .populate('userId')
+    .exec((err, task) => {
       if (err) {
         res.status(500).send({
           message: 'Task not found'
@@ -72,9 +77,7 @@ module.exports = (app) => {
         return;
       }
 
-      res.status(201).json({
-        id: task.id
-      });
+      res.status(201).json(task);
     });
   });
 

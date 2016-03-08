@@ -5,7 +5,10 @@ module.exports = (app) => {
   app.get('/api/reservations', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
-    Reservation.find({}, (err, reservations) => {
+    Reservation.find({})
+    .populate('comments')
+    .populate('userId')
+    .exec((err, reservations) => {
       if (err) {
         res.sendStatus(500);
         return;
@@ -27,7 +30,10 @@ module.exports = (app) => {
     session: false,
   }), (req, res) => {
     Reservation.findById(req.params.reservationId,
-      '_id title startDate endDate comments userId createdAt', (err, reservation) => {
+      '_id title startDate endDate comments userId createdAt')
+      .populate('comments')
+      .populate('userId')
+      .exec((err, reservation) => {
         if (err) {
           res.status(500).send({
             message: 'Reservation not found',
@@ -72,9 +78,7 @@ module.exports = (app) => {
         return;
       }
 
-      res.status(201).json({
-        id: reservation.id,
-      });
+      res.status(201).json(reservation);
     });
   });
 

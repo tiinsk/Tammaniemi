@@ -7,6 +7,7 @@ module.exports = (app) => {
   }), (req, res) => {
     InfoPost.find({})
     .populate('comments')
+    .populate('userId')
     .exec((err, infoposts) => {
       if (err) {
         res.send(500);
@@ -31,6 +32,7 @@ module.exports = (app) => {
   }), (req, res) => {
     InfoPost.findById(req.params.infopostId, '_id title category content comments userId createdAt')
       .populate('comments')
+      .populate('userId')
       .exec((err, infopost) => {
         if (err) {
           res.status(500).send({
@@ -74,9 +76,7 @@ module.exports = (app) => {
         return;
       }
 
-      res.status(201).json({
-        id: infopost.id
-      });
+      res.status(201).json(infopost);
     });
   });
 

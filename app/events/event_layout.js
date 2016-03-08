@@ -54,7 +54,7 @@ export default class Event extends React.Component {
           </div>
           {secondarySymbol}
           <div className="left-details" >
-            <div className="user">{this.props.event.userId}</div>
+            <div className="user">{this.props.event.userId.name}</div>
             <div className="created-at" >{moment(this.props.event.createdAt).fromNow()}</div>
             <div className="comment-count">{this.props.event.comments.length}</div>
           </div>

@@ -10,6 +10,7 @@ module.exports = (app) => {
   }), (req, res) => {
     Post.find({})
     .populate('comments')
+    .populate('userId')
     .exec((err, posts) => {
       if (err) {
         res.sendStatus(500);
@@ -33,6 +34,7 @@ module.exports = (app) => {
   }), (req, res) => {
     Post.findById(req.params.postId, '_id title content comments userId createdAt')
     .populate('comments')
+    .populate('userId')
     .exec((err, post) => {
       if (err) {
         res.status(500).send({
@@ -76,9 +78,7 @@ module.exports = (app) => {
         return;
       }
 
-      res.status(201).json({
-        id: post.id
-      });
+      res.status(201).json(post);
     });
   });
 
