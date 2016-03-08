@@ -41,17 +41,19 @@ class PostForm extends React.Component {
     let titleValidationState = post.title ? 'has-success' : 'has-error';
     let contentValidationState = post.content ? 'has-success' : 'has-error';
     this.setState({
-      titleError: titleError, 
+      titleError: titleError,
       contentError: contentError,
-      titleValidationState: titleValidationState, 
+      titleValidationState: titleValidationState,
       contentValidationState: contentValidationState
     });
-
   }
 
   componentWillReceiveProps (newProps) {
-    this.setState(newProps.post);
+    this.setState({
+      post: newProps.post
+    });
   }
+
   handleSubmit(event) {
     event.preventDefault();
 

@@ -1,61 +1,65 @@
 import React from 'react';
-import PostStore from './post_store';
-import PostActions from './post_actions';
-import {Link} from 'react-router';
-import _ from 'underscore';
+import EventStore from '../event_store';
+import EventActions from '../event_actions';
 
 import history from '../../history';
 
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
-import Event from "../event_layout";
+import Event from '../event_layout';
 
 class ShowPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      post: EventStore.getByTypeAndId('posts', this.props.params.postId)
+    };
     this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
-    PostStore.listen(this.onChange);
-    PostActions.getPost(this.props.params.postId);
+    EventStore.listen(this.onChange);
   }
 
-   componentWillUnmount() {
-    PostStore.unlisten(this.onChange);
+  componentWillUnmount() {
+    EventStore.unlisten(this.onChange);
   }
 
-  onChange(state) {
-    this.setState(state);
+  onChange() {
+    this.setState({
+      post: EventStore.getByTypeAndId('posts', this.props.params.postId)
+    });
   }
 
-  handleDelete(postId){
-    PostActions.deletePost(postId, this.props.jwt);
+  handleDelete(postId) {
+    EventActions.delete({
+      type: 'posts',
+      id: postId
+    });
+    history.pushState(null, '/posts');
   }
 
-  handleUpdate(postId){
-    history.pushState(null, '/posts/update/'+ postId );
+  handleUpdate(postId) {
+    history.pushState(null, `/posts/update/${postId}`);
   }
-
-  handleAddComment(comment) {
-    PostActions.addComment(comment);
-  }
-
 
   render() {
     let postData;
-    if(this.state.post) {
-      console.log(this.state.post._id);
+    if (this.state.post) {
       if (!this.state.post._id) {
         postData = (
           <div className="alert alert-danger" role="alert">Post not found!</div>
           );
-      }
-      else{
+      } else {
         postData = (
-          <Event className="post" event={this.state.post} addComment={this.handleAddComment}  delete={this.handleDelete} update={this.handleUpdate}>{this.state.post.content}</Event>
+          <Event className="post"
+            event={this.state.post}
+            delete={this.handleDelete}
+            update={this.handleUpdate}
+          >
+            {this.state.post.content}
+          </Event>
         );
       }
     }

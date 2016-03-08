@@ -1,43 +1,26 @@
 import React from 'react';
-import PostActions from '../post/post_actions';
+import EventActions from '../event_actions';
 
-class CommentBox extends React.Component{
+class CommentBox extends React.Component {
   constructor(props) {
     super(props);
   }
 
   handleCommentSubmit(comment) {
-    $.ajax({
-          type: 'POST',
-          url: '/api/comments',
-          headers: {Authorization: 'JWT ' + this.props.jwt},
-          data: {content: comment.content, eventId: this.props.eventId}
-        })
-        .done((data) => {
-          toastr.success("Comment created successfully!");
-          this.props.addComment(data);
-        })
-        .fail((jqXhr) => {
-         toastr.error(jqXhr.responseJSON.message);
-        });
-        return true;
+    EventActions.create({
+      type: 'comments',
+      content: {
+        content: comment.content,
+        eventId: this.props.eventId
+      }
+    });
   }
 
   handleCommentDelete(commentId) {
-    $.ajax({
-      type: 'DELETE',
-      url: '/api/comments/' + commentId ,
-      headers: {Authorization: 'JWT ' + this.props.jwt}
-    })
-      .done((data) => {
-          toastr.success("Comment deleted successfully!");
-          let comments = this.props.comments.filter(comment => comment._id !== commentId );
-          this.setState({comments: comments});
-      })
-      .fail((jqXhr) => {
-        toastr.error(jqXhr.responseJSON.message);
-      });
-      return true;
+    EventActions.delete({
+      type: 'comments',
+      id: commentId
+    });
   }
 
   render() {
@@ -104,7 +87,6 @@ class CommentList extends React.Component{
   render() {
     var self = this;
     var comment = this.props.data.map(function(comment) {
-      console.log(comment);
       return (
         <div className="comment" key={comment._id}>
           <span className="user">{comment.userId}</span><span>{comment.content}</span>

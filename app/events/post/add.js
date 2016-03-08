@@ -1,7 +1,6 @@
 import React from 'react';
 import PostForm from './form';
-import PostActions from './post_actions';
-import PostStore from './post_store';
+import EventActions from '../event_actions';
 
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
@@ -9,32 +8,34 @@ import Col from 'muicss/lib/react/col';
 class AddPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = PostStore.getState();
+    this.state = {
+      post: {}
+    };
     this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
-    PostStore.listen(this.onChange);
-    PostActions.setEmptyPost();
   }
 
   componentWillUnmount() {
-    PostStore.unlisten(this.onChange);
   }
 
   onChange(state) {
     this.setState(state);
   }
 
-  handleSubmit(post){
-    PostActions.addPost(post, this.props.jwt);
+  handleSubmit(post) {
+    EventActions.create({
+      type: 'posts',
+      content: post
+    });
   }
 
   render() {
     return (
       <Row>
           <Col md="8" md-offset="2" >
-            <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)}/>
+            <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)} />
           </Col>
         </Row>
 

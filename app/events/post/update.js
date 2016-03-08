@@ -1,35 +1,45 @@
 import React from 'react';
-import PostStore from './post_store';
-import PostActions from './post_actions';
+import EventStore from '../event_store';
+import EventActions from '../event_actions';
 import PostForm from './form';
 
 class UpdatePost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = PostStore.getState();
+    this.state = {
+      post: EventStore.getByTypeAndId('posts', this.props.params.postId)
+    };
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    PostStore.listen(this.onChange);
-    PostActions.getPost(this.props.params.postId);
+    EventStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    PostStore.unlisten(this.onChange);
+    EventStore.unlisten(this.onChange);
   }
 
-  onChange(state) {
-    this.setState(state);
+  onChange() {
+    this.setState({
+      post: EventStore.getByTypeAndId('posts', this.props.params.postId)
+    });
   }
 
   handleSubmit(data) {
-    PostActions.updatePost(this.props.params.postId, data.title, data.content, this.props.jwt);
+    const content = this.state.post;
+    content.title = data.title;
+    content.content = data.content;
+
+    EventActions.update({
+      type: 'posts',
+      content
+    });
   }
 
-render() {
+  render() {
     return (
-      <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)}/>
+      <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)} />
     );
   }
 }
