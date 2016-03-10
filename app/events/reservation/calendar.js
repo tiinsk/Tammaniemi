@@ -82,17 +82,15 @@ export default class Calendar extends React.Component {
       <div className="calendar" >
         <div className="month">
           <div className="header">
-            <div className="month-line">
               <div className="prev-month-btn" onClick={this.prevMonth.bind(this)} ></div>
-              <div className="month-title">
-                {moment(this.state.firstDayOfMonth).format("MMMM")}
+              <div className="title">
+                {moment(this.state.firstDayOfMonth).format("MMMM")} {moment(this.state.firstDayOfMonth).format("YYYY")}
               </div>
               <div className="next-month-btn" onClick={this.nextMonth.bind(this)} ></div>
             </div>
-            <div className="weekdays">
-              {weekdays}
-            </div>
-        </div>
+          <div className="weekdays">
+            {weekdays}
+          </div>
           {month}
         </div>
       </div>

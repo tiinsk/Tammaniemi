@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {isEqual} from 'underscore';
+import moment from 'moment';
+
 import ReservationStore from './reservation_store';
 import ReservationActions from './reservation_actions';
 import Calendar from './calendar';
@@ -46,8 +48,15 @@ class IndexReservations extends React.Component {
 
   render() {
     let reservationList = this.state.reservations.map((reservation, index) => {
+      let reservationContent = (
+        <div className="dates">
+          <span className="start-date">{moment(reservation.startDate).format("DD.MM.YYYY")}</span>
+          <span className="separator">-</span>
+          <span className="end-date">{moment(reservation.endDate).format("DD.MM.YYYY")}</span>
+        </div>
+      );
       return (
-          <Event key={reservation._id} className="reservation" event={reservation} to={`/reservations/${reservation._id}`} addComment={this.handleAddComment} delete={this.handleDelete} update={this.handleUpdate}>{reservation.startDate}-{reservation.endDate}</Event>
+          <Event key={reservation._id} className="reservation" event={reservation} to={`/reservations/${reservation._id}`} addComment={this.handleAddComment} delete={this.handleDelete} update={this.handleUpdate}>{reservationContent}</Event>
       );
     });
 

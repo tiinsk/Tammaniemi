@@ -1,0 +1,219 @@
+.task{
+  margin: 60px 10px 60px 150px;
+  .box{
+    position: relative;
+    padding: 22px 50px;
+    border: 1px solid #E8E8E8;
+    .title{
+        text-transform: uppercase;
+        font-size: 24px;
+    }
+    .overlined{
+      text-decoration: line-through;
+    }
+    .content{
+      margin: 20px 0px;
+      font-size: 18px;
+      color: grey;
+    }
+    .details{
+      margin-top: 10px;
+      .created-at{
+        padding-right: 20px;
+      }
+      .user{
+        padding-right: 20px;
+      }
+      .comment-count{
+        padding-right: 20px;
+      }
+      .created-at:before{
+        padding-right: 5px;
+        font-size: 20px;
+        font-family: "FontAwesome";
+        content: "\f073";
+      }
+      .user:before{
+        padding-right: 5px;
+        font-size: 20px;
+        font-family: "FontAwesome";
+        content:"\f007";
+      }
+      .comment-count:before{
+        padding-right: 5px;
+        font-size: 20px;
+        font-family: "FontAwesome";
+        content:"\f075";
+      }
+    }
+    .edit-menu{
+      position: absolute;
+      top: 0px;
+      right: -12px;
+      .delete{
+        font-size: 34px;
+        color: #FFD2D2;
+        padding: 2px;
+        display: block;
+      }
+      .delete:hover{
+        color: #F57373;
+      }
+      .update{
+        font-size: 30px;
+        color: #B7E2BA;
+        padding: 2px;
+        display: block;
+      }
+      .update:hover{
+        color: #69A96D;
+      }
+    }
+    .show-comments-btn{
+      display: inline-block;
+      position: absolute;
+      bottom: -19px;
+      right: 50%;
+      font-size: 25px;
+      color: #E4E4E4;
+      .img{
+        padding: 2px;
+      }
+
+    }
+    .show-comments-btn:hover{
+        color: grey;
+    }
+
+    .primary-symbol{
+      position: absolute;
+      top: -2px;
+      left: -35px;
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+      .chekbox{
+        font-size: 35px;
+        position: absolute;
+        height: 32px;
+        width: 32px;
+        top: 20px;
+        left: 19px;
+        background: white;
+        border-radius: 12%;
+
+        .checkmark{
+          color: #FFF0D8;
+          font-size: 34px;
+        }
+        .checkmark:before{
+          font-family: "FontAwesome";
+          content: "\f00c";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+        }
+        .checkmark:hover{
+          color: #64D600;
+          font-size: 50px;
+        }
+        .checked{
+          color: #64D600;
+          font-size: 50px
+        }
+      }
+    }
+    .secondary-symbol{
+      position: absolute;
+      top: 68px;
+      left: -25px;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      .img{
+        font-family: "FontAwesome";
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
+
+$task-primary-color: #FFB236;
+$task-secondary-color: #F37800;
+
+.task{
+  .title{
+    color: $task-secondary-color;
+  }
+  .details{
+    .created-at:before, .user:before, .comment-count:before{
+      color: $task-secondary-color;
+    }
+  }
+  .dates{
+    .start-date:before{
+      padding: 0 5px;
+      font-family: "FontAwesome";
+      content:"\f073";
+    }
+    .end-date:before{
+      padding: 0 5px;
+      font-family: "FontAwesome";
+      content:"\f073";
+    }
+    .separator{
+      padding: 0 5px;
+    }
+  }
+  .comment-box{
+    .user{
+      color: $task-secondary-color;
+    }
+    .btn{
+      color: $task-secondary-color;
+      border: 2px solid $task-secondary-color;
+    }
+
+    .btn:hover{
+      color: white;
+      background: $task-secondary-color;
+    }
+
+    .btn:focus{
+      color: white;
+      background: $task-secondary-color;
+    }
+  }
+
+  .primary-symbol{
+    background-color: $task-primary-color;
+  }
+
+  .secondary-symbol{
+    background-color: $task-secondary-color;
+    .img0:before{
+      content:"\f07a";
+    }
+    .img1:before{
+      content:"\f0f5";
+    }
+    .img2:before{
+      content:"\f0ad";
+    }
+    .img3:before{
+      content:"\f06c";
+    }
+    .img4:before{
+      content:"\f085";
+    }
+  }
+}
+
+

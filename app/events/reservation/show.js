@@ -1,6 +1,7 @@
 import React from 'react';
 import ReservationStore from './reservation_store';
 import ReservationActions from './reservation_actions';
+import moment from 'moment';
 import {Link} from 'react-router';
 import _ from 'underscore';
 
@@ -55,9 +56,15 @@ class ShowReservation extends React.Component {
           );
       }
       else{
+        let reservationContent = (
+          <div className="dates">
+            <span className="start-date">{moment(this.state.reservation.startDate).format("DD.MM.YYYY")}</span>
+            <span className="separator">-</span>
+            <span className="end-date">{moment(this.state.reservation.endDate).format("DD.MM.YYYY")}</span>
+          </div>
+        );
         reservationData = (
-
-          <Event className="reservation" event={this.state.reservation}addComment={this.handleAddComment}  delete={this.handleDelete} update={this.handleUpdate}>{this.state.reservation.startDate}-{this.state.reservation.endDate}</Event>
+          <Event className="reservation" event={this.state.reservation}addComment={this.handleAddComment}  delete={this.handleDelete} update={this.handleUpdate}>{reservationContent}</Event>
         )
       }
     }

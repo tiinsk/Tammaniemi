@@ -247,6 +247,21 @@ $reservation-secondary-color: #D43353;
       color: $reservation-secondary-color;
     }
   }
+  .dates{
+    .start-date:before{
+      padding: 0 5px;
+      font-family: "FontAwesome";
+      content:"\f073";
+    }
+    .end-date:before{
+      padding: 0 5px;
+      font-family: "FontAwesome";
+      content:"\f073";
+    }
+    .separator{
+      padding: 0 5px;
+    }
+  }
   .comment-box{
     .user{
       color: $reservation-secondary-color;
@@ -273,3 +288,5 @@ $reservation-secondary-color: #D43353;
     }
   }
 }
+
+

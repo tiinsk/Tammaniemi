@@ -101,6 +101,14 @@ class App extends React.Component {
                 <Link to="/reservations">Index</Link>
               </DropdownItem>
             </Dropdown>
+            <Dropdown className="menu-item" label="Tasks">
+               <DropdownItem >
+                <Link to="/tasks/new">New</Link>
+              </DropdownItem>
+              <DropdownItem >
+                <Link to="/tasks">Index</Link>
+              </DropdownItem>
+            </Dropdown>
           </div>
         </AppBar>
           {this.props.children}

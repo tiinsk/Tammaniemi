@@ -22,6 +22,11 @@ import ShowReservation from './events/reservation/show';
 import IndexReservations from './events/reservation/index';
 import UpdateReservation from './events/reservation/update';
 
+import AddTask from './events/task/add';
+import ShowTask from './events/task/show';
+import IndexTasks from './events/task/index';
+import UpdateTask from './events/task/update';
+
 import LoginStore from './login/login_store';
 
 function requireAuth(nextState, replaceState, next) {
@@ -56,6 +61,11 @@ export default (
     <Route path="/reservations" component={IndexReservations} onEnter={requireAuth} />
     <Route path="/reservations/:reservationId" component={ShowReservation} onEnter={requireAuth} />
     <Route path="/reservations/update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />
+
+    <Route path="/tasks/new" component={AddTask} onEnter={requireAuth} />
+    <Route path="/tasks" component={IndexTasks} onEnter={requireAuth} />
+    <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth} />
+    <Route path="/tasks/update/:taskId" component={UpdateTask} onEnter={requireAuth} />
 
   </Route>
 );
