@@ -8,6 +8,7 @@ module.exports = (app) => {
     Task.find({})
     .populate('comments')
     .populate('userId')
+    .populate('doneByUser')
     .exec((err, tasks) => {
       if (err) {
         res.sendStatus(500);
@@ -33,6 +34,7 @@ module.exports = (app) => {
     Task.findById(req.params.taskId, '_id title category comments userId createdAt')
     .populate('comments')
     .populate('userId')
+    .populate('doneByUser')
     .exec((err, task) => {
       if (err) {
         res.status(500).send({
