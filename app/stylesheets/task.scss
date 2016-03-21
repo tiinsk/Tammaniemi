@@ -1,9 +1,103 @@
-.task{
-  margin: 60px 10px 60px 150px;
+.index-layout{
+  .header-section{
+    padding: 20px 20px;
+    min-height: 110px;
+    margin-top: 20px;
+    .title{
+      text-transform: uppercase;
+      font-weight: normal;
+      color: #9E9E9E;
+      vertical-align: middle;
+      font-size: 40px;
+      display: inline-block;
+    }
+
+
+    .new-task{
+      float: right;
+      position: relative;
+      margin-left: 34px;
+      display: inline-block;
+      border: 1px solid #E8E8E8;
+      padding: 16px 49px;
+      cursor: pointer;
+      .symbol{
+        display: inline-block;
+        height: 70px;
+        width: 70px;
+        background: #FF8C59;
+        border-radius: 50%;
+        position: absolute;
+        color: white;
+        /* top: 5px; */
+        /* left: -75px; */
+        top: -1px;
+        left: -34px;
+        .img:before{
+          font-family: "FontAwesome";
+          font-size: 40px;
+          content:"\f067";
+          position: absolute;
+          top: 54%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+      }
+      .header{
+        display: inline-block;
+        font-size: 25px;
+        color: grey;
+      }
+
+    }
+  }
+  .column{
+    min-height: 200px;
+    padding: 0px;
+    .section{
+      position: relative;
+      margin: 20px;
+      padding: 20px;
+      background: rgba(224, 206, 176, 0.24);
+      .header{
+        display: inline-block;
+        color: #949494;
+      }
+      .symbol{
+        font-family: "FontAwesome";
+        font-size: 40px;
+        color: #F7D0BF;
+        display: inline-block;
+        margin-right: 20px;
+      }
+      .symbol_buy:before{
+        content:"\f07a";
+      }
+      .symbol_fix:before{
+        content:"\f0ad";
+      }
+      .symbol_food:before{
+        content:"\f0f5";
+      }
+      .symbol_other:before{
+        content:"\f085";
+      }
+      .symbol_nature:before{
+        content:"\f06c";
+      }
+    }
+  }
+}
+
+
+.task, .task-s{
+  margin: 30px;
   .box{
     position: relative;
     padding: 22px 50px;
     border: 1px solid #E8E8E8;
+    background: white;
     .title{
         text-transform: uppercase;
         font-size: 24px;
@@ -95,15 +189,15 @@
       .chekbox{
         font-size: 35px;
         position: absolute;
-        height: 32px;
-        width: 32px;
-        top: 20px;
-        left: 19px;
+        height: 40px;
+        width: 40px;
+        top: 16px;
+        left: 16px;
         background: white;
         border-radius: 12%;
 
         .checkmark{
-          color: #FFF0D8;
+          color: #FFF4EF;
           font-size: 34px;
         }
         .checkmark:before{
@@ -116,12 +210,12 @@
 
         }
         .checkmark:hover{
-          color: #64D600;
-          font-size: 50px;
+          color: #00D82D;
+
         }
         .checked{
-          color: #64D600;
-          font-size: 50px
+          color: #00D82D;
+
         }
       }
     }
@@ -145,12 +239,33 @@
   }
 }
 
-$task-primary-color: #FFB236;
-$task-secondary-color: #F37800;
+.task-s{
+  .box{
+    padding: 2px 50px;
+    border: 0px;
+    .title-container{
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .details{
+      margin-top: 0px;
+    }
+    .show-comments-btn{
+      color: #F7D0BF;
+    }
+  }
+}
 
-.task{
+/*$task-primary-color: #FFB236;
+$task-secondary-color: #F37800;
+*/
+
+$task-primary-color: #FFAE8A;
+$task-secondary-color: #F7D0BF;
+.task, .task-s{
   .title{
-    color: $task-secondary-color;
+    color: $task-primary-color;
   }
   .details{
     .created-at:before, .user:before, .comment-count:before{
