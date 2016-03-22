@@ -108,9 +108,16 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('public/css'));
 });
 
+gulp.task('vendorCss', function() {
+  return gulp.src([
+    'node_modules/draft-js/dist/Draft.css'
+  ]).pipe(concat('vendor.css'))
+    .pipe(gulp.dest('public/css'));
+});
+
 gulp.task('watch', function() {
   gulp.watch('app/**/*.scss', ['styles']);
 });
 
-gulp.task('default', ['styles', 'vendor', 'browserify-watch', 'watch']);
+gulp.task('default', ['styles', 'vendor', 'vendorCss', 'browserify-watch', 'watch']);
 gulp.task('build', ['styles', 'vendor', 'browserify']);

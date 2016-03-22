@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import moment from 'moment';
+import remarkable from '../remarkable';
 
 import CommentBox from './comment/comments';
 
@@ -16,6 +17,10 @@ export default class Event extends React.Component {
     this.setState({
       "isCommentsShown": !this.state.isCommentsShown
     })
+  }
+
+  markupToHtml() {
+    return { __html: remarkable.render(this.props.children.toString()) };
   }
 
   render() {
@@ -59,7 +64,7 @@ export default class Event extends React.Component {
             <div className="comment-count">{this.props.event.comments.length}</div>
           </div>
           {title}
-          <div className="content"> {this.props.children} </div>
+          <div className="content" dangerouslySetInnerHTML={this.markupToHtml()}></div>
           <div className="edit-menu">
               <i className="update fa fa-pencil-square" onClick={this.props.update.bind(this, this.props.event._id)}></i>
               <i className="delete fa fa-trash" onClick={this.props.delete.bind(this, this.props.event._id)}></i>

@@ -12,6 +12,7 @@
       "space-before-function-paren": 0,
       "comma-dangle": 0,
       "no-shadow": 0,
-      "func-names": 0
+      "func-names": 0,
+      "no-multi-comp": 0
     }
 }

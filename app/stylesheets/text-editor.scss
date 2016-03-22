@@ -1,0 +1,17 @@
+.text-editor {
+  .button-bar {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    .button {
+      cursor: pointer;
+      display: inline-block;
+      padding: 10px 20px;
+      background: aliceblue;
+
+      &.active {
+        background: blue;
+      }
+    }
+  }
+}

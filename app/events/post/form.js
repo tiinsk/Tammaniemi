@@ -1,4 +1,5 @@
 import React from 'react';
+import TextEditor from '../../partials/text_editor';
 
 class PostForm extends React.Component {
   constructor(props) {
@@ -10,7 +11,13 @@ class PostForm extends React.Component {
       errorMessage: '',
       titleValidationState: '',
       contentValidationState: '',
-    }
+    };
+  }
+
+  componentWillReceiveProps (newProps) {
+    this.setState({
+      post: newProps.post
+    });
   }
 
   updateTitle(event) {
@@ -23,11 +30,11 @@ class PostForm extends React.Component {
     });
   }
 
-  updateContent(event) {
-    let post = this.state.post;
-    post.content = event.target.value;
+  updateContent(markdown) {
+    const post = this.state.post;
+    post.content = markdown;
     this.setState({
-      post: post,
+      post,
       titleValidationState: '',
       titleError: '',
     });
@@ -48,46 +55,38 @@ class PostForm extends React.Component {
     });
   }
 
-  componentWillReceiveProps (newProps) {
-    this.setState({
-      post: newProps.post
-    });
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
     if (this.state.post.title && this.state.post.content) {
       this.props.onPostSubmit(this.state.post);
-    }
-    else{
+    } else {
       this.invalidData(this.state.post);
     }
   }
 
   render() {
     return (
-      <div className='container'>
-        <div className='row flipInX animated'>
-          <div className='col-sm-8'>
-            <div className='panel panel-default'>
-              <div className='panel-heading'>Post</div>
-              <div className='panel-body'>
+      <div className="container">
+        <div className="row flipInX animated">
+          <div className="col-sm-8">
+            <div className="panel panel-default">
+              <div className="panel-heading">Post</div>
+              <div className="panel-body">
                 <form onSubmit={this.handleSubmit.bind(this)}>
-                  <div className={'form-group ' + this.state.titleValidationState}>
-                    <label className='control-label'>Title</label>
-                    <input type='text' className='form-control' value={this.state.post.title}
+                  <div className={"form-group " + this.state.titleValidationState}>
+                    <label className="control-label">Title</label>
+                    <input type="text" className="form-control" value={this.state.post.title}
                            onChange={this.updateTitle.bind(this)} autoFocus/>
-                    <span className='help-block'>{this.state.titleError}</span>
+                    <span className="help-block">{this.state.titleError}</span>
                   </div>
-                  <div className={'form-group ' + this.state.contentValidationState}>
-                    <label className='control-label'>Content</label>
-                    <input type='text' className='form-control' value={this.state.post.content}
-                           onChange={this.updateContent.bind(this)} autoFocus/>
-                    <span className='help-block'>{this.state.contentError}</span>
+                  <div className={"form-group " + this.state.contentValidationState}>
+                    <label className="control-label">Content</label>
+                    <TextEditor markdown={this.state.post.content} onChange={this.updateContent.bind(this)} />
+                    <span className="help-block">{this.state.contentError}</span>
                   </div>
 
-                  <button type='submit' className='btn btn-primary'>Submit</button>
+                  <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
               </div>
             </div>
