@@ -10,7 +10,7 @@ import Col from 'muicss/lib/react/col';
 import history from '../../history';
 import Event from '../event_layout';
 
-import {ListBox} from './list';
+import NavigationBox from './navigation';
 
 class IndexPosts extends React.Component {
   constructor(props) {
@@ -101,7 +101,7 @@ class IndexPosts extends React.Component {
 
   render() {
     let selectedPosts = [];
-    if (this.state.year && this.state.month) {
+    if (this.state.year != undefined && this.state.month != undefined) {
       selectedPosts = this.state.posts[this.state.year][this.state.month];
     };
     const postList = selectedPosts.map((post) =>
@@ -121,16 +121,6 @@ class IndexPosts extends React.Component {
 
     const years = Object.keys(this.state.posts);
     const months = moment.months();
-    const amountsPerYear = _.map(this.state.posts, (year) => {
-      return Object.keys(year).length;
-    });
-
-    const amountsPerMonth = _.range(12).map((index) => {
-      if(this.state.posts[this.state.year] && this.state.posts[this.state.year][index]){
-        return Object.keys(this.state.posts[this.state.year][index]).length;
-      }
-      return 0;
-    });
 
     const yearObjects = years.map((year) => {
       console.log(year);
@@ -146,8 +136,6 @@ class IndexPosts extends React.Component {
       return obj;
     });
 
-
-
     const monthObjects = months.map((month, index) => {
       let obj = {header: month };
       if(this.state.posts[this.state.year] && this.state.posts[this.state.year][index]){
@@ -162,7 +150,7 @@ class IndexPosts extends React.Component {
       <div className="container">
         <Row>
           <Col md="3">
-            <ListBox
+            <NavigationBox
               update={this.update.bind(this)}
               chosenYear={years.indexOf(this.state.year)}
               years={yearObjects}
