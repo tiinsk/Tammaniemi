@@ -157,6 +157,21 @@ $post-secondary-color: #43bf7d;
       content:"\f040";
     }
   }
+
+}
+
+.post.category-list{
+  .selected{
+    color: $post-secondary-color;
+    .item-count{
+      background: $post-secondary-color !important;
+    }
+  }
+}
+.post.item-list{
+  a{
+    color: $post-secondary-color;
+  }
 }
 
 $infopost-primary-color: #5CD4FF;
