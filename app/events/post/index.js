@@ -108,6 +108,7 @@ class IndexPosts extends React.Component {
       (
         <Event key={post._id} className="post"
           event={post}
+          markdownContent
           to={`/posts/${post._id}`}
           delete={this.handleDelete}
           update={this.handleUpdate}

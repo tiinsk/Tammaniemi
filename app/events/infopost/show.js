@@ -58,7 +58,7 @@ class ShowInfoPost extends React.Component {
       else{
         infopostData = (
 
-          <Event className="infopost" event={this.state.infopost} secondarySymbol={this.state.infopost.category} addComment={this.handleAddComment}  delete={this.handleDelete} update={this.handleUpdate}>{this.state.infopost.content}</Event>
+          <Event className="infopost" event={this.state.infopost} markdownContent secondarySymbol={this.state.infopost.category} addComment={this.handleAddComment}  delete={this.handleDelete} update={this.handleUpdate}>{this.state.infopost.content}</Event>
         )
       }
     }

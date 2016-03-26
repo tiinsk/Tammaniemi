@@ -56,6 +56,7 @@ class Home extends React.Component {
   }
 
   render() {
+    const markdown = {"post": true, "infopost": true};
     const events = this.state.events.map((event) => {
       const type = event.__t.toLowerCase();
       if (type === 'task') {
@@ -71,6 +72,7 @@ class Home extends React.Component {
       return (
         <Event key={event._id} className={type}
           event={event}
+          markdownContent={markdown[type]}
           to={`/${type}s/${event._id}`}
           delete={this.handleDelete}
           update={this.handleUpdate}

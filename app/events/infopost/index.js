@@ -55,7 +55,7 @@ class IndexInfoPosts extends React.Component {
     let infopostList = this.state.infoposts.map((infopost, index) => {
       return (
 
-          <Event key={infopost._id} className="infopost" event={infopost} to={`/infoposts/${infopost._id}`} secondarySymbol={infopost.category} addComment={this.handleAddComment} delete={this.handleDelete} update={this.handleUpdate}>{infopost.content}</Event>
+          <Event key={infopost._id} markdownContent className="infopost" event={infopost} to={`/infoposts/${infopost._id}`} secondarySymbol={infopost.category} addComment={this.handleAddComment} delete={this.handleDelete} update={this.handleUpdate}>{infopost.content}</Event>
       );
     });
 

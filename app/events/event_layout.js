@@ -50,6 +50,12 @@ export default class Event extends React.Component {
         <CommentBox comments={this.props.event.comments} eventId={this.props.event._id} addComment={this.props.addComment} />
         );
     }
+    let content;
+    if (this.props.markdownContent) {
+      content = (<div className="content" dangerouslySetInnerHTML={this.markupToHtml()}></div>);
+    } else {
+      content = (<div className="content">{this.props.children}</div>);
+    }
 
     return (
       <div className={"event " + this.props.className} >
@@ -64,7 +70,7 @@ export default class Event extends React.Component {
             <div className="comment-count">{this.props.event.comments.length}</div>
           </div>
           {title}
-          <div className="content" dangerouslySetInnerHTML={this.markupToHtml()}></div>
+          {content}
           <div className="edit-menu">
               <i className="update fa fa-pencil-square" onClick={this.props.update.bind(this, this.props.event._id)}></i>
               <i className="delete fa fa-trash" onClick={this.props.delete.bind(this, this.props.event._id)}></i>

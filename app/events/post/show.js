@@ -55,6 +55,7 @@ class ShowPost extends React.Component {
         postData = (
           <Event className="post"
             event={this.state.post}
+            markdownContent
             delete={this.handleDelete}
             update={this.handleUpdate}
           >
