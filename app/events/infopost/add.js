@@ -1,23 +1,15 @@
 import React from 'react';
 import InfoPostForm from './form';
-import InfoPostActions from './infopost_actions';
-import InfoPostStore from './infopost_store';
+import EventActions from '../event_actions';
 
 
 class AddInfoPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = InfoPostStore.getState();
+    this.state = {
+      infopost: {}
+    };
     this.onChange = this.onChange.bind(this);
-  }
-
-  componentWillMount() {
-    InfoPostStore.listen(this.onChange);
-    InfoPostActions.setEmptyInfoPost();
-  }
-
-  componentWillUnmount() {
-    InfoPostStore.unlisten(this.onChange);
   }
 
   onChange(state) {
@@ -25,7 +17,10 @@ class AddInfoPost extends React.Component {
   }
 
   handleSubmit(infopost){
-    InfoPostActions.addInfoPost(infopost, this.props.jwt);
+    EventActions.create({
+      type: 'infoposts',
+      content: infopost
+    });
   }
 
   render() {
