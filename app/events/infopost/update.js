@@ -1,30 +1,44 @@
 import React from 'react';
-import InfoPostStore from './infopost_store';
-import InfoPostActions from './infopost_actions';
+/*import InfoPostStore from './infopost_store';
+import InfoPostActions from './infopost_actions';*/
+import EventStore from '../event_store';
+import EventActions from '../event_actions';
 import InfoPostForm from './form';
 
 class UpdateInfoPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = InfoPostStore.getState();
+    this.state = {
+      infopost: EventStore.getByTypeAndId('infoposts', this.props.params.infopostId)
+    };
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    InfoPostStore.listen(this.onChange);
-    InfoPostActions.getInfoPost(this.props.params.infopostId);
+     EventStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    InfoPostStore.unlisten(this.onChange);
+     EventStore.unlisten(this.onChange);
   }
 
   onChange(state) {
-    this.setState(state);
+    this.setState({
+      infopost: EventStore.getByTypeAndId('infoposts', this.props.params.infopostId)
+    });
   }
 
   handleSubmit(data) {
-    InfoPostActions.updateInfoPost(this.props.params.infopostId, data.title, data.content, this.props.jwt);
+    const content = this.state.infopost;
+    content.title = data.title;
+    content.content = data.content;
+    content.category = data.category;
+
+    EventActions.update({
+      type: 'infoposts',
+      content
+    });
+
   }
 
 render() {

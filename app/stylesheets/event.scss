@@ -250,6 +250,21 @@ $infopost-secondary-color: #4396BF;
   }
 }
 
+.infopost.category-list{
+  .selected{
+    color: $infopost-secondary-color;
+    .item-count{
+      background: $infopost-secondary-color !important;
+    }
+  }
+}
+.infopost.item-list{
+  a{
+    color: $infopost-secondary-color;
+  }
+}
+
+
 $reservation-primary-color: #FF5C7C;
 $reservation-secondary-color: #D43353;
 

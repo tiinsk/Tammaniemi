@@ -1,6 +1,7 @@
 import React from 'react';
-import InfoPostStore from './infopost_store';
-import InfoPostActions from './infopost_actions';
+import EventStore from '../event_store';
+import EventActions from '../event_actions';
+
 import {Link} from 'react-router';
 import _ from 'underscore';
 
@@ -16,34 +17,37 @@ import Event from "../event_layout";
 class ShowInfoPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      infopost: EventStore.getByTypeAndId('infoposts', this.props.params.infopostId)
+    };
     this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
-    InfoPostStore.listen(this.onChange);
-    InfoPostActions.getInfoPost(this.props.params.infopostId);
+    EventStore.listen(this.onChange);
   }
 
    componentWillUnmount() {
-    InfoPostStore.unlisten(this.onChange);
+    EventStore.unlisten(this.onChange);
   }
 
   onChange(state) {
-    this.setState(state);
+    this.setState({
+      infopost: EventStore.getByTypeAndId('infoposts', this.props.params.infopostId)
+    });
   }
 
   handleDelete(infopostId){
-    InfoPostActions.deleteInfoPost(infopostId, this.props.jwt);
+    EventActions.delete({
+      type: 'infoposts',
+      id: infopostId
+    });
+    history.pushState(null, '/infoposts');
   }
 
 
   handleUpdate(infopostId){
-    history.pushState(null, '/infoposts/update/'+ infopostId );
-  }
-
-  handleAddComment(comment) {
-    InfoPostActions.addComment(comment);
+    history.pushState(null, `/infoposts/update/${infopostId}`);
   }
 
   render() {

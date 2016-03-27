@@ -49,9 +49,9 @@ class InfoPostForm extends React.Component {
     let titleValidationState = infopost.title ? 'has-success' : 'has-error';
     let contentValidationState = infopost.content ? 'has-success' : 'has-error';
     this.setState({
-      titleError: titleError, 
+      titleError: titleError,
       contentError: contentError,
-      titleValidationState: titleValidationState, 
+      titleValidationState: titleValidationState,
       contentValidationState: contentValidationState
     });
 
@@ -110,11 +110,11 @@ class CategorySelect extends React.Component{
       super(props);
       this.state = {
         categories: [
-          "Yleistä",  
-          "Kevät- ja syystyöt", 
+          "Yleistä",
+          "Kevät- ja syystyöt",
           "Kunnossapito",
-          "Piha", 
-          "Sauna", 
+          "Piha",
+          "Sauna",
           "Sähkö",
           "Tärkeät yhteystiedot",
           "Vene ja vesistö",
@@ -126,7 +126,7 @@ class CategorySelect extends React.Component{
     render() {
       var categories = this.state.categories.map((category, index) => {
         return(
-          <option key={index} value={index}> {category}</option> )
+          <option selected={this.props.value == index} key={index} value={index}> {category}</option> )
       })
       return (
           <select onChange={this.props.onCategoryChange}>{categories}</select>
