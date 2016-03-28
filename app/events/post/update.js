@@ -3,6 +3,9 @@ import EventStore from '../event_store';
 import EventActions from '../event_actions';
 import PostForm from './form';
 
+import Row from 'muicss/lib/react/row';
+import Col from 'muicss/lib/react/col';
+
 class UpdatePost extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +42,11 @@ class UpdatePost extends React.Component {
 
   render() {
     return (
-      <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)} />
+      <Row>
+        <Col md="6" md-offset="3" >
+          <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)} />
+        </Col>
+      </Row>
     );
   }
 }

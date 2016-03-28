@@ -87,3 +87,45 @@ $infopost-secondary-color: #4396BF;
     color: $infopost-secondary-color;
   }
 }
+
+.infopost-form{
+  .title{
+    color: $infopost-secondary-color;
+  }
+
+  .mui--is-empty.mui--is-dirty:focus{
+    border-color: $infopost-secondary-color;
+    &~label {
+      color: $infopost-secondary-color;
+    }
+  }
+  .mui-select:focus > select{
+    border-color: $infopost-secondary-color;
+  }
+
+  .submit-btn{
+      border: 2px solid $infopost-secondary-color;
+      color: $infopost-secondary-color;
+  }
+  .submit-btn:hover, .submit-btn:focus{
+      background: $infopost-secondary-color;
+  }
+  .text-editor {
+    .controls{
+      background-color: $infopost-primary-color;
+      .button-bar{
+        .button {
+          &.active {
+            background: $infopost-secondary-color;
+            border: 1px solid $infopost-secondary-color;
+          }
+        }
+      }
+      .button-bar:first-child{
+        .button:first-child{
+          border-top-left-radius: 4px;
+        }
+      }
+    }
+  }
+}

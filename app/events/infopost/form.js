@@ -1,15 +1,18 @@
 import React from 'react';
+import Form from 'muicss/lib/react/form';
+import Input from 'muicss/lib/react/input';
+import Select from 'muicss/lib/react/select';
+import Option from 'muicss/lib/react/option';
+
+import TextEditor from '../../partials/text_editor';
+
 
 class InfoPostForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       infopost: props.infopost,
-      titleError: '',
-      contentError: '',
-      errorMessage: '',
-      titleValidationState: '',
-      contentValidationState: '',
+      contentError: ''
     }
   }
 
@@ -17,42 +20,31 @@ class InfoPostForm extends React.Component {
     let infopost = this.state.infopost;
     infopost.title = event.target.value;
     this.setState({
-      infopost: infopost,
-      titleValidationState: '',
-      titleError: '',
+      infopost
     });
   }
 
-  updateContent(event) {
+  updateContent(markdown) {
     let infopost = this.state.infopost;
-    infopost.content = event.target.value;
+    infopost.content = markdown;
     this.setState({
-      infopost: infopost,
-      titleValidationState: '',
-      titleError: '',
+      infopost,
+      contentError: ''
     });
   }
 
   updateCategory(event) {
     let infopost = this.state.infopost;
-    console.log("updateCategory:", event.target.value);
-    infopost.category = event.target.value;
+    infopost.category = parseInt(event);
     this.setState({
-      infopost: infopost
+      infopost
     });
   }
 
   invalidData(infopost) {
-    let titleError = infopost.title ? '' : 'Please enter title!';
     let contentError = infopost.content ? '' : 'Please enter content!';
-
-    let titleValidationState = infopost.title ? 'has-success' : 'has-error';
-    let contentValidationState = infopost.content ? 'has-success' : 'has-error';
     this.setState({
-      titleError: titleError,
-      contentError: contentError,
-      titleValidationState: titleValidationState,
-      contentValidationState: contentValidationState
+      contentError: contentError
     });
 
   }
@@ -60,6 +52,7 @@ class InfoPostForm extends React.Component {
   componentWillReceiveProps (newProps) {
     this.setState(newProps.infopost);
   }
+
   handleSubmit(event) {
     event.preventDefault();
     console.log(this.state.infopost);
@@ -73,33 +66,18 @@ class InfoPostForm extends React.Component {
 
   render() {
     return (
-      <div className='container'>
-        <div className='row flipInX animated'>
-          <div className='col-sm-8'>
-            <div className='panel panel-default'>
-              <div className='panel-heading'>InfoPost</div>
-              <div className='panel-body'>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <CategorySelect value={this.state.infopost.category}onCategoryChange={this.updateCategory.bind(this)} ></CategorySelect>
-                  <div className={'form-group ' + this.state.titleValidationState}>
-                    <label className='control-label'>Title</label>
-                    <input type='text' className='form-control' value={this.state.infopost.title}
-                           onChange={this.updateTitle.bind(this)} autoFocus/>
-                    <span className='help-block'>{this.state.titleError}</span>
-                  </div>
-                  <div className={'form-group ' + this.state.contentValidationState}>
-                    <label className='control-label'>Content</label>
-                    <input type='text' className='form-control' value={this.state.infopost.content}
-                           onChange={this.updateContent.bind(this)} autoFocus/>
-                    <span className='help-block'>{this.state.contentError}</span>
-                  </div>
-
-                  <button type='submit' className='btn btn-primary'>Submit</button>
-                </form>
-              </div>
-            </div>
+      <div className='form infopost-form'>
+        <Form onSubmit={this.handleSubmit.bind(this)}>
+          <legend className="title">Add new infopost</legend>
+          <CategorySelect value={this.state.infopost.category}onCategoryChange={this.updateCategory.bind(this)} ></CategorySelect>
+          <Input label="Title" floatingLabel={true} required={true} value={this.state.infopost.title} onChange={this.updateTitle.bind(this)} />
+          <div className="content">
+            <label className={"label " + (this.state.contentError != "" ? "error" : "")}>Content</label>
+            <span className="error-message">{this.state.contentError}</span>
+            <TextEditor markdown={this.state.infopost.content} onChange={this.updateContent.bind(this)} />
           </div>
-        </div>
+          <button type="submit" className="submit-btn">Submit</button>
+        </Form>
       </div>
     );
   }
@@ -109,28 +87,29 @@ class CategorySelect extends React.Component{
     constructor(props){
       super(props);
       this.state = {
-        categories: [
-          "Yleistä",
-          "Kevät- ja syystyöt",
-          "Kunnossapito",
-          "Piha",
-          "Sauna",
-          "Sähkö",
-          "Tärkeät yhteystiedot",
-          "Vene ja vesistö",
-          "Vesi",
-          "WC ja jätteet"
-          ]
+
       }
     }
     render() {
-      var categories = this.state.categories.map((category, index) => {
+      let categories = [
+        "Yleistä",
+        "Kevät- ja syystyöt",
+        "Kunnossapito",
+        "Piha",
+        "Sauna",
+        "Sähkö",
+        "Tärkeät yhteystiedot",
+        "Vene ja vesistö",
+        "Vesi",
+        "WC ja jätteet"
+        ];
+      var categoryOptions = categories.map((category, index) => {
         return(
-          <option selected={this.props.value == index} key={index} value={index}> {category}</option> )
+          <Option className="index" key={index} value={index.toString()} label={category} /> )
       })
       return (
-          <select onChange={this.props.onCategoryChange}>{categories}</select>
-        )
+        <Select onChange={this.props.onCategoryChange} defaultValue={this.props.value.toString()}>{categoryOptions} </Select>
+      );
     }
 };
 
