@@ -1,0 +1,93 @@
+$post-primary-color: #5cffa8;
+$post-secondary-color: #43bf7d;
+
+.post{
+  .title{
+    color: $post-secondary-color;
+  }
+  .left-details{
+    .created-at:after, .user:after, .comment-count:after{
+      color: $post-secondary-color;
+    }
+  }
+  .comment-box{
+    .user{
+      color: $post-secondary-color;
+    }
+    .btn{
+      color: $post-secondary-color;
+      border: 2px solid $post-secondary-color;
+    }
+
+    .btn:hover{
+      color: white;
+      background: $post-secondary-color;
+    }
+
+    .btn:focus{
+      color: white;
+      background: $post-secondary-color;
+    }
+  }
+  .primary-symbol{
+    background-color: $post-primary-color;
+    .img:before{
+      content:"\f040";
+    }
+  }
+
+}
+
+.post.category-list{
+  .selected{
+    color: $post-secondary-color;
+    .item-count{
+      background: $post-secondary-color !important;
+    }
+  }
+}
+.post.item-list{
+  a{
+    color: $post-secondary-color;
+  }
+}
+
+.post-form{
+  .title{
+    color: $post-secondary-color;
+  }
+
+  .mui--is-empty.mui--is-dirty:focus{
+    border-color: $post-secondary-color;
+    &~label {
+      color: $post-secondary-color;
+    }
+  }
+
+  .submit-btn{
+      border: 2px solid $post-secondary-color;
+      color: $post-secondary-color;
+  }
+  .submit-btn:hover, .submit-btn:focus{
+      background: $post-secondary-color;
+  }
+  .text-editor {
+    .controls{
+      background-color: $post-primary-color;
+      .button-bar{
+        .button {
+          &.active {
+            background: $post-secondary-color;
+            border: 1px solid $post-secondary-color;
+          }
+        }
+      }
+      .button-bar:first-child{
+        .button:first-child{
+          border-top-left-radius: 4px;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,89 @@
+$infopost-primary-color: #5CD4FF;
+$infopost-secondary-color: #4396BF;
+
+.infopost{
+
+
+  .title{
+    color: $infopost-secondary-color;
+  }
+  .left-details{
+    .created-at:after, .user:after, .comment-count:after{
+      color: $infopost-secondary-color;
+    }
+  }
+
+  .comment-box{
+    .user{
+      color: $infopost-secondary-color;
+    }
+    .btn{
+      color: $infopost-secondary-color;
+      border: 2px solid $infopost-secondary-color;
+    }
+
+    .btn:hover{
+      color: white;
+      background: $infopost-secondary-color;
+    }
+
+    .btn:focus{
+      color: white;
+      background: $infopost-secondary-color;
+    }
+  }
+  .primary-symbol{
+    background-color: $infopost-primary-color;
+    .img:before{
+      content:"\f129";
+    }
+  }
+  .secondary-symbol{
+    background-color: $infopost-secondary-color;
+    .num0:before{
+      content:"\f15c";
+    }
+    .num1:before{
+      content:"\f06c";
+    }
+    .num2:before{
+      content:"\f0ad";
+    }
+    .num3:before{
+      content:"\f1bb";
+    }
+    .num4:before{
+      content:"\f06d";
+    }
+    .num5:before{
+      content:"\f0e7";
+    }
+    .num6:before{
+      content:"\f095";
+    }
+    .num7:before{
+      content:"\f13d";
+    }
+    .num8:before{
+      content:"\f043";
+    }
+    .num9:before{
+      content:"\f014";
+    }
+
+  }
+}
+
+.infopost.category-list{
+  .selected{
+    color: $infopost-secondary-color;
+    .item-count{
+      background: $infopost-secondary-color !important;
+    }
+  }
+}
+.infopost.item-list{
+  a{
+    color: $infopost-secondary-color;
+  }
+}

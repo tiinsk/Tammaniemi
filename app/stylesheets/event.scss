@@ -120,202 +120,66 @@
   }
 }
 
-$post-primary-color: #5cffa8;
-$post-secondary-color: #43bf7d;
 
-.post{
+.form{
+  margin: 30px 10px;
   .title{
-    color: $post-secondary-color;
+    text-transform: uppercase;
+    color: grey;
+
   }
-  .left-details{
-    .created-at:after, .user:after, .comment-count:after{
-      color: $post-secondary-color;
+
+  .mui--is-empty.mui--is-dirty:focus{
+    border-color: grey;
+    &~label {
+      color: grey;
     }
   }
-  .comment-box{
-    .user{
-      color: $post-secondary-color;
+
+  input:invalid:not(:focus):required.mui--is-empty.mui--is-dirty{
+    border-color: red;
+    &~label {
+      color: red;
     }
-    .btn{
-      color: $post-secondary-color;
-      border: 2px solid $post-secondary-color;
+  }
+
+  .mui--is-not-empty:focus, .mui--is-not-empty{
+    border-color: green;
+    border-width: 2px;
+    &~label{
+      color: green;
+    }
+  }
+  .content{
+    margin: 20px 0px;
+    .label{
+      font-size: 16px;
+      color: #B9B9B9;
+      font-weight: 100;
+      &.error{
+        color: red;
+        font-weight: 500;
+        margin-right: 10px;
+      }
+    }
+    .error-message{
+      color: red;
+      font-style: italic;
     }
 
-    .btn:hover{
+  }
+  .submit-btn{
+      background: white;
+      border: 2px solid grey;
+      border-radius: 5px;
+      color: grey;
+      text-transform: uppercase;
+      padding: 5px 15px;
+      font-size: 16px;
+  }
+  .submit-btn:hover, .submit-btn:focus{
+      background: grey;
       color: white;
-      background: $post-secondary-color;
-    }
-
-    .btn:focus{
-      color: white;
-      background: $post-secondary-color;
-    }
-  }
-  .primary-symbol{
-    background-color: $post-primary-color;
-    .img:before{
-      content:"\f040";
-    }
-  }
-
-}
-
-.post.category-list{
-  .selected{
-    color: $post-secondary-color;
-    .item-count{
-      background: $post-secondary-color !important;
-    }
-  }
-}
-.post.item-list{
-  a{
-    color: $post-secondary-color;
-  }
-}
-
-$infopost-primary-color: #5CD4FF;
-$infopost-secondary-color: #4396BF;
-
-.infopost{
-
-
-  .title{
-    color: $infopost-secondary-color;
-  }
-  .left-details{
-    .created-at:after, .user:after, .comment-count:after{
-      color: $infopost-secondary-color;
-    }
-  }
-
-  .comment-box{
-    .user{
-      color: $infopost-secondary-color;
-    }
-    .btn{
-      color: $infopost-secondary-color;
-      border: 2px solid $infopost-secondary-color;
-    }
-
-    .btn:hover{
-      color: white;
-      background: $infopost-secondary-color;
-    }
-
-    .btn:focus{
-      color: white;
-      background: $infopost-secondary-color;
-    }
-  }
-  .primary-symbol{
-    background-color: $infopost-primary-color;
-    .img:before{
-      content:"\f129";
-    }
-  }
-  .secondary-symbol{
-    background-color: $infopost-secondary-color;
-    .num0:before{
-      content:"\f15c";
-    }
-    .num1:before{
-      content:"\f06c";
-    }
-    .num2:before{
-      content:"\f0ad";
-    }
-    .num3:before{
-      content:"\f1bb";
-    }
-    .num4:before{
-      content:"\f06d";
-    }
-    .num5:before{
-      content:"\f0e7";
-    }
-    .num6:before{
-      content:"\f095";
-    }
-    .num7:before{
-      content:"\f13d";
-    }
-    .num8:before{
-      content:"\f043";
-    }
-    .num9:before{
-      content:"\f014";
-    }
-
-  }
-}
-
-.infopost.category-list{
-  .selected{
-    color: $infopost-secondary-color;
-    .item-count{
-      background: $infopost-secondary-color !important;
-    }
-  }
-}
-.infopost.item-list{
-  a{
-    color: $infopost-secondary-color;
-  }
-}
-
-
-$reservation-primary-color: #FF5C7C;
-$reservation-secondary-color: #D43353;
-
-.reservation{
-  .title{
-    color: $reservation-secondary-color;
-  }
-  .left-details{
-    .created-at:after, .user:after, .comment-count:after{
-      color: $reservation-secondary-color;
-    }
-  }
-  .dates{
-    .start-date:before{
-      padding: 0 5px;
-      font-family: "FontAwesome";
-      content:"\f073";
-    }
-    .end-date:before{
-      padding: 0 5px;
-      font-family: "FontAwesome";
-      content:"\f073";
-    }
-    .separator{
-      padding: 0 5px;
-    }
-  }
-  .comment-box{
-    .user{
-      color: $reservation-secondary-color;
-    }
-    .btn{
-      color: $reservation-secondary-color;
-      border: 2px solid $reservation-secondary-color;
-    }
-
-    .btn:hover{
-      color: white;
-      background: $reservation-secondary-color;
-    }
-
-    .btn:focus{
-      color: white;
-      background: $reservation-secondary-color;
-    }
-  }
-  .primary-symbol{
-    background-color: $reservation-primary-color;
-    .img:before{
-      content:"\f133";
-    }
   }
 }
 

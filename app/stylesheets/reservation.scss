@@ -1,0 +1,53 @@
+$reservation-primary-color: #FF5C7C;
+$reservation-secondary-color: #D43353;
+
+.reservation{
+  .title{
+    color: $reservation-secondary-color;
+  }
+  .left-details{
+    .created-at:after, .user:after, .comment-count:after{
+      color: $reservation-secondary-color;
+    }
+  }
+  .dates{
+    .start-date:before{
+      padding: 0 5px;
+      font-family: "FontAwesome";
+      content:"\f073";
+    }
+    .end-date:before{
+      padding: 0 5px;
+      font-family: "FontAwesome";
+      content:"\f073";
+    }
+    .separator{
+      padding: 0 5px;
+    }
+  }
+  .comment-box{
+    .user{
+      color: $reservation-secondary-color;
+    }
+    .btn{
+      color: $reservation-secondary-color;
+      border: 2px solid $reservation-secondary-color;
+    }
+
+    .btn:hover{
+      color: white;
+      background: $reservation-secondary-color;
+    }
+
+    .btn:focus{
+      color: white;
+      background: $reservation-secondary-color;
+    }
+  }
+  .primary-symbol{
+    background-color: $reservation-primary-color;
+    .img:before{
+      content:"\f133";
+    }
+  }
+}

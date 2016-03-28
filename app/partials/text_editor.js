@@ -68,16 +68,16 @@ class TextEditor extends React.Component {
     const { editorState } = this.state;
 
     const BLOCK_TYPES = [
-      { label: 'H2', style: 'header-two' },
-      { label: 'H3', style: 'header-three' },
-      { label: 'UL', style: 'unordered-list-item' },
-      { label: 'OL', style: 'ordered-list-item' }
+/*      { label: 'H2', style: 'header-two' },*/
+      { label: '\uf1dc', style: 'header-three' },
+      { label: '\uf0ca', style: 'unordered-list-item' },
+      { label: '\uf0cb', style: 'ordered-list-item' }
     ];
 
     const INLINE_STYLES = [
-      { label: 'Bold', style: 'BOLD' },
-      { label: 'Italic', style: 'ITALIC' },
-      { label: 'Underline', style: 'UNDERLINE' }
+      { label: '\uf032', style: 'BOLD' },
+      { label: '\uf033', style: 'ITALIC' },
+      { label: '\uf0cd', style: 'UNDERLINE' }
     ];
 
     const InlineStyleControls = (props) => {
@@ -122,15 +122,17 @@ class TextEditor extends React.Component {
 
     return (
       <div className="text-editor" >
-        <BlockStyleControls
-          editorState={editorState}
-          onToggle={this.toggleBlockType.bind(this)}
-        />
-        <InlineStyleControls
-          editorState={editorState}
-          onToggle={this.toggleInlineStyle.bind(this)}
-        />
-        <div onClick={this.focus.bind(this)}>
+        <div className="controls">
+          <BlockStyleControls
+            editorState={editorState}
+            onToggle={this.toggleBlockType.bind(this)}
+          />
+          <InlineStyleControls
+            editorState={editorState}
+            onToggle={this.toggleInlineStyle.bind(this)}
+          />
+        </div>
+        <div className="editor" onClick={this.focus.bind(this)}>
           <Editor editorState={editorState}
             onChange={this.onChange.bind(this)}
             handleKeyCommand={this.handleKeyCommand.bind(this)}

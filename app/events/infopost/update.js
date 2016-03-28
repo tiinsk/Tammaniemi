@@ -1,6 +1,4 @@
 import React from 'react';
-/*import InfoPostStore from './infopost_store';
-import InfoPostActions from './infopost_actions';*/
 import EventStore from '../event_store';
 import EventActions from '../event_actions';
 import InfoPostForm from './form';

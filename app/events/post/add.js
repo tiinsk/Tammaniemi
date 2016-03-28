@@ -14,12 +14,6 @@ class AddPost extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  componentWillMount() {
-  }
-
-  componentWillUnmount() {
-  }
-
   onChange(state) {
     this.setState(state);
   }
@@ -34,7 +28,7 @@ class AddPost extends React.Component {
   render() {
     return (
       <Row>
-          <Col md="8" md-offset="2" >
+          <Col md="6" md-offset="3" >
             <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)} />
           </Col>
         </Row>
