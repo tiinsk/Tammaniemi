@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import alt from '../alt';
 import LoginActions from './login_actions';
 
@@ -11,16 +13,14 @@ class LoginStore {
     this.errorMessage = '';
     this.isLoggedIn = false;
 
-    this.userPromise = $.ajax({
-      type: 'GET',
-      url: '/api/account',
-    })
-    .done((data) => {
+    this.userPromise = axios
+    .get('/api/account')
+    .then((response) => {
       this.setState({
-        user: data,
+        user: response.data,
         isLoggedIn: true
       });
-    }).promise();
+    });
   }
 
   onLoginUserSuccess(user) {

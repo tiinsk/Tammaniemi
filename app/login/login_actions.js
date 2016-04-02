@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import alt from '../alt';
 import history from './../history';
 
@@ -12,33 +14,23 @@ class LoginActions {
   }
 
   loginUser(email, password) {
-    $.ajax({
-      type: 'POST',
-      url: '/api/login',
-      data: {
-        email,
-        password
-      }
+    axios
+    .post('/api/login', {
+      email,
+      password
     })
-    .done((data) => {
-      this.loginUserSuccess(data);
+    .then((response) => {
+      this.loginUserSuccess(response.data);
       history.replaceState(null, '/');
-    })
-    .fail((jqXhr) => {
-      this.loginUserFail(jqXhr.responseJSON.message);
     });
   }
 
   logout() {
-    $.ajax({
-      url: '/api/logout'
-    })
-    .done((data) => {
-      this.logoutUserSuccess(data);
+    axios
+    .get('/api/logout')
+    .then((response) => {
+      this.logoutUserSuccess(response.data);
       history.replaceState(null, '/');
-    })
-    .fail((jqXhr) => {
-      this.logoutUserFail(jqXhr.responseJSON.message);
     });
   }
 
