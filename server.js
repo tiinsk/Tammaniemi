@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 
+const Flickr = require('flickrapi');
+
 const app = express();
 
 mongoose.connect(config.database[app.settings.env]);
@@ -33,15 +35,18 @@ require('./routes/comment')(app);
 require('./routes/reservation')(app);
 require('./routes/event')(app);
 
-app.get('/*', (req, res) => {
-  res.sendFile('/views/index.html', {
-    root: __dirname
+Flickr.authenticate(config.flickrOptions, (error, flickr) => {
+  require('./routes/flickr')(app, flickr);
+
+  app.get('/*', (req, res) => {
+    res.sendFile('/views/index.html', {
+      root: __dirname
+    });
+  });
+
+  app.listen(app.get('port'), () => {
+    console.log(`Express server listening on port ${app.get('port')}`);
   });
 });
-
-app.listen(app.get('port'), () => {
-  console.log(`Express server listening on port ${app.get('port')}`);
-});
-
 
 module.exports = app;

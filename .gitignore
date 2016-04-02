@@ -3,5 +3,6 @@ public/
 *.sublime-project
 *.sublime-workspace
 bower_components/
+data/flickr/
 *.log
 
