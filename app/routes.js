@@ -27,6 +27,9 @@ import ShowTask from './events/task/show';
 import IndexTasks from './events/task/index';
 import UpdateTask from './events/task/update';
 
+import IndexGallery from './events/gallery/index';
+import ShowGallery from './events/gallery/show';
+
 import LoginStore from './login/login_store';
 
 function requireAuth(nextState, replaceState, next) {
@@ -66,6 +69,9 @@ export default (
     <Route path="/tasks" component={IndexTasks} onEnter={requireAuth} />
     <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth} />
     <Route path="/tasks/update/:taskId" component={UpdateTask} onEnter={requireAuth} />
+
+    <Route path="/gallery" component={IndexGallery} onEnter={requireAuth} />
+    <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth} />
 
   </Route>
 );

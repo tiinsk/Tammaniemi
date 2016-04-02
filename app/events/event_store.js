@@ -11,6 +11,7 @@ class EventStore {
     this.infoposts = [];
     this.tasks = [];
     this.reservations = [];
+    this.photosets = [];
 
     this.exportPublicMethods({
       getByType: this.getByType,
@@ -28,6 +29,13 @@ class EventStore {
   }
 
   onFetchOneSuccess({ type, event }) {
+    const index = this[type].findIndex((e) =>
+      e._id === event._id || e.id === event.id
+    );
+    if (index !== -1) {
+      this[type][index] = event;
+      return;
+    }
     this[type].push(event);
   }
 
@@ -96,8 +104,13 @@ class EventStore {
     return [];
   }
 
-  getByTypeAndId(type, id) {
-    const event = this.getState()[type].find((event) => event._id === id);
+  getByTypeAndId(type, id, forceFetch) {
+    if (forceFetch) {
+      EventSource.fetchOne(type, id);
+      return {};
+    }
+
+    const event = this.getState()[type].find((event) => event._id === id || event.id === id);
     if (event) {
       return event;
     }

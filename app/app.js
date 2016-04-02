@@ -109,6 +109,11 @@ class App extends React.Component {
                 <Link to="/tasks">Index</Link>
               </DropdownItem>
             </Dropdown>
+            <div className="mui-dropdown menu-item" >
+              <Button className="mui-btn">
+                  <Link to="/gallery">Gallery</Link>
+                </Button>
+              </div>
           </div>
         </AppBar>
           {this.props.children}
