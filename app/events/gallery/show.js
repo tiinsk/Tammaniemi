@@ -1,10 +1,9 @@
 import React from 'react';
-import _ from 'lodash';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
 import EventStore from '../event_store';
-import EventActions from '../event_actions';
+
 
 class ShowGallery extends React.Component {
   constructor(props) {
@@ -42,10 +41,11 @@ class ShowGallery extends React.Component {
     return this.getWidth() / ratioSum;
   }
 
+
   * rowGenerator(photos = []) {
     let row = [];
-
     let height = 0;
+
     for (const img of photos) {
       height = this.shouldAddToRow(row, img);
 
