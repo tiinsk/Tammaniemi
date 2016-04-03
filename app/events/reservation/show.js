@@ -1,10 +1,9 @@
 import React from 'react';
-import ReservationStore from './reservation_store';
-import ReservationActions from './reservation_actions';
+import EventStore from '../event_store';
+import EventActions from '../event_actions';
 import moment from 'moment';
 import {Link} from 'react-router';
 import _ from 'underscore';
-
 
 import history from '../../history';
 
@@ -17,34 +16,37 @@ import Event from "../event_layout";
 class ShowReservation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      reservation: EventStore.getByTypeAndId('reservations', this.props.params.reservationId)
+    };
     this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
-    ReservationStore.listen(this.onChange);
-    ReservationActions.getReservation(this.props.params.reservationId);
+    EventStore.listen(this.onChange);
   }
 
-   componentWillUnmount() {
-    ReservationStore.unlisten(this.onChange);
+  componentWillUnmount() {
+    EventStore.unlisten(this.onChange);
   }
 
-  onChange(state) {
-    this.setState(state);
+  onChange() {
+    this.setState({
+      reservation: EventStore.getByTypeAndId('reservations', this.props.params.reservationId)
+    });
   }
 
-  handleDelete(reservationId){
-    ReservationActions.deleteReservation(reservationId, this.props.jwt);
+  handleDelete(reservationId) {
+    EventActions.delete({
+      type: 'reservations',
+      id: reservationId
+    });
+    history.pushState(null, '/reservations');
   }
 
 
   handleUpdate(reservationId){
     history.pushState(null, '/reservations/update/'+ reservationId );
-  }
-
-  handleAddComment(comment) {
-    ReservationActions.addComment(comment);
   }
 
   render() {
@@ -64,7 +66,7 @@ class ShowReservation extends React.Component {
           </div>
         );
         reservationData = (
-          <Event className="reservation" event={this.state.reservation}addComment={this.handleAddComment}  delete={this.handleDelete} update={this.handleUpdate}>{reservationContent}</Event>
+          <Event className="reservation" event={this.state.reservation}  delete={this.handleDelete} update={this.handleUpdate}>{reservationContent}</Event>
         )
       }
     }

@@ -3,8 +3,8 @@ import {Link} from 'react-router';
 import {isEqual} from 'underscore';
 import moment from 'moment';
 
-import ReservationStore from './reservation_store';
-import ReservationActions from './reservation_actions';
+import EventActions from '../event_actions';
+import EventStore from '../event_store';
 import Calendar from './calendar';
 
 import history from '../../history';
@@ -17,33 +17,35 @@ import Event from "../event_layout";
 class IndexReservations extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ReservationStore.getState();
+    this.state = {
+      reservations: EventStore.getByType('reservations')
+    };
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    ReservationStore.listen(this.onChange);
-    ReservationActions.getReservations(this.props.params);
+    EventStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    ReservationStore.unlisten(this.onChange);
-  }
-
-  handleDelete(reservationId){
-    ReservationActions.deleteReservation(reservationId, this.props.jwt);
-  }
-
-  handleUpdate(reservationId){
-    history.pushState(null, '/reservations/update/'+ reservationId );
-  }
-
-  handleAddComment(comment) {
-    ReservationActions.addComment(comment);
+    EventStore.unlisten(this.onChange);
   }
 
   onChange(state) {
-    this.setState(state);
+    this.setState({
+      reservations: state.reservations
+    });
+  }
+
+  handleDelete(reservationId) {
+    EventActions.delete({
+      type: 'reservationa',
+      id: reservationId
+    });
+  }
+
+  handleUpdate(reservationId){
+    history.pushState(null, `/reservations/update/${reservationId}`);
   }
 
   render() {

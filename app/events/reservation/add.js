@@ -1,36 +1,53 @@
 import React from 'react';
 import ReservationForm from './form';
-import ReservationActions from './reservation_actions';
-import ReservationStore from './reservation_store';
+import EventActions from '../event_actions';
+import EventStore from '../event_store';
 
+import Row from 'muicss/lib/react/row';
+import Col from 'muicss/lib/react/col';
 
 class AddReservation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ReservationStore.getState();
+    this.state = {
+      reservations: EventStore.getByType('reservations'),
+      reservation: {
+        startDate: undefined,
+        endDate: undefined
+      }
+    };
     this.onChange = this.onChange.bind(this);
   }
 
-  componentWillMount() {
-    ReservationStore.listen(this.onChange);
-    ReservationActions.setEmptyReservation();
+  componentDidMount() {
+    EventStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    ReservationStore.unlisten(this.onChange);
+    EventStore.unlisten(this.onChange);
   }
 
   onChange(state) {
-    this.setState(state);
+    this.setState({
+      reservations: state.reservations
+    });
   }
 
   handleSubmit(reservation){
-    ReservationActions.addReservation(reservation, this.props.jwt);
+    console.log("handleSubmit");
+    EventActions.create({
+      type: 'reservations',
+      content: reservation
+    });
   }
 
   render() {
     return (
-      <ReservationForm reservation={this.state.reservation} onReservationSubmit={this.handleSubmit.bind(this)}/>
+      <Row>
+        <Col md="6" md-offset="3" >
+          <ReservationForm reservations={this.state.reservations} reservation={this.state.reservation} onReservationSubmit={this.handleSubmit.bind(this)}/>
+        </Col>
+      </Row>
     );
   }
 }

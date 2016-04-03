@@ -51,3 +51,58 @@ $reservation-secondary-color: #D43353;
     }
   }
 }
+
+
+.reservation-form{
+  .title{
+    color: $reservation-secondary-color;
+  }
+
+  .mui--is-empty.mui--is-dirty:focus{
+    border-color: $reservation-secondary-color;
+    &~label {
+      color: $reservation-secondary-color;
+    }
+  }
+  .date{
+    border-bottom: 1px solid #BDBDBD;
+    height: 47px;
+    font-size: 16px;
+    color: #BFBFBF;
+    font-weight: 100;
+    padding-top: 15px;
+    margin-bottom: 20px;
+    &.filled{
+      color: black;
+      border-bottom: 2px solid green;
+      font-weight: normal;
+    }
+  }
+
+  .submit-btn{
+      border: 2px solid $reservation-secondary-color;
+      color: $reservation-secondary-color;
+  }
+  .submit-btn:hover, .submit-btn:focus{
+      background: $reservation-secondary-color;
+  }
+  .text-editor {
+    .controls{
+      background-color: $reservation-primary-color;
+      .button-bar{
+        .button {
+          &.active {
+            background: $reservation-secondary-color;
+            border: 1px solid $reservation-secondary-color;
+          }
+        }
+      }
+      .button-bar:first-child{
+        .button:first-child{
+          border-top-left-radius: 4px;
+        }
+      }
+    }
+  }
+}
+
