@@ -1,6 +1,7 @@
 import React from 'react';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
+import LightBox from './lightBox';
 
 import EventStore from '../event_store';
 
@@ -10,7 +11,9 @@ class ShowGallery extends React.Component {
     super(props);
     this.state = {
       maxHeight: 350,
-      photoset: EventStore.getByTypeAndId('photosets', this.props.params.galleryId, true)
+      photoset: EventStore.getByTypeAndId('photosets', this.props.params.galleryId, true),
+      lightBoxIsOpen: false,
+      lightBoxImage: 0
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -45,6 +48,7 @@ class ShowGallery extends React.Component {
   * rowGenerator(photos = []) {
     let row = [];
     let height = 0;
+    let photoIndex = 0;
 
     for (const img of photos) {
       height = this.shouldAddToRow(row, img);
@@ -52,15 +56,48 @@ class ShowGallery extends React.Component {
       if (height >= this.state.maxHeight) {
         row.push(img);
       } else {
-        yield row.map((photo) => (<Photo photo={photo} key={photo.id} height={height} />));
+        yield row.map((photo) => (
+          <Photo photo={photo}
+            key={photo.id}
+            height={height}
+            onClick={this.openLightBox.bind(this, photoIndex++)}
+            index={photoIndex}
+          />
+        ));
         row = [img];
       }
     }
-    yield row.map((photo) => (<Photo photo={photo} key={photo.id} height={this.state.maxHeight} />));
+    yield row.map((photo) => (
+      <Photo photo={photo}
+        key={photo.id}
+        height={this.state.maxHeight}
+        onClick={this.openLightBox.bind(this, photoIndex++)}
+        index={photoIndex}
+      />
+    ));
+  }
+
+  openLightBox(index) {
+    this.setState({
+      lightBoxIsOpen: true,
+      lightBoxImage: index
+    });
+  }
+
+  closeLightbox() {
+    this.setState({
+      lightBoxIsOpen: false
+    });
   }
 
   render() {
-    const rows = [...this.rowGenerator(this.state.photoset.photo)];
+    const photosetPhotos = this.state.photoset.photo || [];
+    const lightBoxImages = photosetPhotos.map((photo) => (
+      { src: photo.url_c,
+        caption: photo.title
+      }
+    ));
+    const rows = [...this.rowGenerator(photosetPhotos)];
 
     const photos = rows ?
       rows.map((photos, index) => (
@@ -73,6 +110,11 @@ class ShowGallery extends React.Component {
       <h2> Loading </h2>;
     return (
       <section className="gallery">
+        <LightBox images = {lightBoxImages}
+          currentImage = {this.state.lightBoxImage}
+          lightboxIsOpen = {this.state.lightBoxIsOpen}
+          closeLightboxCb = {this.closeLightbox.bind(this)}
+        />
         {photos}
       </section>
     );
@@ -87,7 +129,7 @@ class Photo extends React.Component {
       height: this.props.height
     };
     return (
-      <div className="photo" style={style}>
+      <div className="photo" style={style} onClick={this.props.onClick}>
         <img src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`} />
       </div>
     );
