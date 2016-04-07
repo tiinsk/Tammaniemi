@@ -21,7 +21,7 @@ class LoginActions {
     })
     .then((response) => {
       this.loginUserSuccess(response.data);
-      history.replaceState(null, '/');
+      history.replaceState(null, '/home');
     });
   }
 

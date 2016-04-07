@@ -66,7 +66,7 @@ class App extends React.Component {
           <div className="mui--appbar-height content">
             <div className="mui-dropdown menu-item" >
               <Button className="mui-btn">
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
               </Button>
             </div>
             <Dropdown className="menu-item" label="Posts">

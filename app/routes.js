@@ -1,8 +1,9 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import App from './app';
+import Root from './root';
 import Home from './home/home';
-import AddUser from './user/components/add';
+
 import ShowUser from './user/components/show';
 import IndexUsers from './user/components/index';
 import Login from './login/login';
@@ -33,45 +34,55 @@ import ShowGallery from './events/gallery/show';
 import LoginStore from './login/login_store';
 
 function requireAuth(nextState, replaceState, next) {
+  console.log("requireAuth");
   LoginStore.getState().userPromise.then(() => {
     next();
   }, () => {
-    replaceState({ nextPathname: nextState.location.pathname }, '/login');
+    replaceState({ nextPathname: nextState.location.pathname }, '/');
+    next();
+  });
+}
+
+function isLoggedIn (nextState, replaceState, next) {
+  console.log("isLoggedIn");
+  LoginStore.getState().userPromise.then(() => {
+    replaceState({ nextPathname: nextState.location.pathname }, '/home');
+    next();
+  }, () => {
     next();
   });
 }
 
 export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={Home} />
-    <Route path="/login" component={Login} />
+  <Route path="/" component={Root}>
+    <IndexRoute component={Login} onEnter={isLoggedIn} />
+    <Route path="/" component={App}>
+      <Route path="/home" component={Home} onEnter={requireAuth} />
+      <Route path="/users/:userId" component={ShowUser} onEnter={requireAuth} />
+      <Route path="/users" component={IndexUsers} onEnter={requireAuth} />
 
-    <Route path="/users/new" component={AddUser} onEnter={requireAuth} />
-    <Route path="/users/:userId" component={ShowUser} onEnter={requireAuth} />
-    <Route path="/users" component={IndexUsers} onEnter={requireAuth} />
+      <Route path="/posts/new" component={AddPost} onEnter={requireAuth} />
+      <Route path="/posts" component={IndexPosts} onEnter={requireAuth} />
+      <Route path="/posts/:postId" component={ShowPost} onEnter={requireAuth} />
+      <Route path="/posts/update/:postId" component={UpdatePost} onEnter={requireAuth} />
 
-    <Route path="/posts/new" component={AddPost} onEnter={requireAuth} />
-    <Route path="/posts" component={IndexPosts} onEnter={requireAuth} />
-    <Route path="/posts/:postId" component={ShowPost} onEnter={requireAuth} />
-    <Route path="/posts/update/:postId" component={UpdatePost} onEnter={requireAuth} />
+      <Route path="/infoposts/new" component={AddInfoPost} onEnter={requireAuth} />
+      <Route path="/infoposts" component={IndexInfoPosts} onEnter={requireAuth} />
+      <Route path="/infoposts/:infopostId" component={ShowInfoPost} onEnter={requireAuth} />
+      <Route path="/infoposts/update/:infopostId" component={UpdateInfoPost} onEnter={requireAuth} />
 
-    <Route path="/infoposts/new" component={AddInfoPost} onEnter={requireAuth} />
-    <Route path="/infoposts" component={IndexInfoPosts} onEnter={requireAuth} />
-    <Route path="/infoposts/:infopostId" component={ShowInfoPost} onEnter={requireAuth} />
-    <Route path="/infoposts/update/:infopostId" component={UpdateInfoPost} onEnter={requireAuth} />
+      <Route path="/reservations/new" component={AddReservation} onEnter={requireAuth} />
+      <Route path="/reservations" component={IndexReservations} onEnter={requireAuth} />
+      <Route path="/reservations/:reservationId" component={ShowReservation} onEnter={requireAuth} />
+      <Route path="/reservations/update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />
 
-    <Route path="/reservations/new" component={AddReservation} onEnter={requireAuth} />
-    <Route path="/reservations" component={IndexReservations} onEnter={requireAuth} />
-    <Route path="/reservations/:reservationId" component={ShowReservation} onEnter={requireAuth} />
-    <Route path="/reservations/update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />
+      <Route path="/tasks/new" component={AddTask} onEnter={requireAuth} />
+      <Route path="/tasks" component={IndexTasks} onEnter={requireAuth} />
+      <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth} />
+      <Route path="/tasks/update/:taskId" component={UpdateTask} onEnter={requireAuth} />
 
-    <Route path="/tasks/new" component={AddTask} onEnter={requireAuth} />
-    <Route path="/tasks" component={IndexTasks} onEnter={requireAuth} />
-    <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth} />
-    <Route path="/tasks/update/:taskId" component={UpdateTask} onEnter={requireAuth} />
-
-    <Route path="/gallery" component={IndexGallery} onEnter={requireAuth} />
-    <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth} />
-
+      <Route path="/gallery" component={IndexGallery} onEnter={requireAuth} />
+      <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth} />
+    </Route>
   </Route>
 );

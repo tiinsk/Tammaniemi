@@ -1,0 +1,118 @@
+.login{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  .overlay{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    //background: radial-gradient(transparent, transparent, rgba(0,0,0,0.5));
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+  }
+  .img{
+    background-size: cover;
+    background-position: center center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .new-user-btn{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    border: 1px solid #BDBDBD;
+    border-radius: 5px;
+    color: #BDBDBD;
+    padding: 5px 10px;
+    margin: 20px;
+    background: transparent;
+  }
+  .new-user-btn:hover, .new-user-btn:focus{
+    border: 1px solid white;
+    color: white;
+  }
+
+  .content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    textarea:focus, input:focus{
+      outline: none;
+    }
+
+    .title{
+      width: 460px;
+      font-size: 100px;
+      color: white;
+      //font-family: 'Euphoria Script', cursive;
+      //font-family: 'Dancing Script', cursive;
+      //font-family: 'Kaushan Script', cursive;
+      font-family: 'Sacramento', cursive;
+      //font-family: 'Cabin Sketch', cursive;
+    }
+
+    @media(max-width: 500px){
+      .title{
+        font-size: 20vw;
+        width: 100vw;
+      }
+    }
+
+    .login-form-input{
+      display: block;
+      width: 80%;
+      height: 40px;
+      padding: 6px 12px;
+      font-size: 17px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+      -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+      margin: auto;
+      margin-bottom: 15px;
+      font-weight: 100;
+
+    }
+    .login-btn{
+      border: 2px solid white;
+      text-transform: uppercase;
+      color: white;
+      /* padding: 10px 20px; */
+      background: transparent;
+      width: 80%;
+      border-radius: 20px;
+      margin: auto;
+      margin-bottom: 5px;
+      height: 40px;
+      font-size: 20px;
+    }
+    .login-btn:hover, .login-btn:focus{
+      color: black;
+      background: white;
+    }
+/*     .new-user-btn{
+      width: 80%;
+      margin: auto;
+      color: #669FBB;
+      font-style: italic;
+      text-align: left;
+    } */
+  }
+}
