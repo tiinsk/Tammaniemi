@@ -1,9 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router';
 import _ from 'lodash';
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
+import Button from 'muicss/lib/react/button';
 
 import history from '../../history';
 
@@ -82,6 +84,9 @@ class IndexTasks extends React.Component {
               <div className="header"> Add new task </div>
             </div>
           </div>
+            <Button>
+              <Link to="/tasks/new">New</Link>
+            </Button>
         <Row>
           <Col className="column" lg="6">
             <div className="section">

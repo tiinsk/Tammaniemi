@@ -50,16 +50,16 @@ export default class Login extends React.Component {
   giveRandPic(){
     var pics = [
       "IMGP1145.jpg",
-      "IMGP1147.jpg",
+      //"IMGP1147.jpg",
       "IMGP1158.jpg",
       "IMGP1166.jpg",
       "IMGP1167.jpg",
       "IMGP1245.jpg",
       "IMGP1273.jpg",
-      "IMGP1388.jpg",
+      //"IMGP1388.jpg",
       "IMGP1410.jpg"
       ];
-    return pics[Math.floor(Math.random() * 9)];
+    return pics[Math.floor(Math.random() * 7)];
     //return pics[1];
   }
 

@@ -14,6 +14,7 @@ $mui-appbar-font-color:	mui-color('white');
 
 @import '../../node_modules/muicss/lib/sass/mui.scss';
 
+
 @import './app.scss';
 @import './login.scss';
 @import './event.scss';
@@ -32,10 +33,21 @@ $mui-appbar-font-color:	mui-color('white');
 @import './list.scss';
 @import './gallery.scss';
 
+@import './main_menu.scss';
+
 body{
   font-family: Roboto, sans-serif;
 }
 
+
+.page-title{
+  color: white;
+  position: absolute;
+  top: 161px;
+  left: 17px;
+  font-size: 39px;
+  padding: 20px 10px;
+}
 
 .btn{
     color: white;

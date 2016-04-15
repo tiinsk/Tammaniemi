@@ -1,0 +1,117 @@
+.appBar{
+  position: absolute;
+  z-index: 100;
+  font-family: Roboto, sans-serif;
+  font-size: 18px;
+  top: 0px;
+  width: 100%;
+  background: rgba(60, 0, 255, 0.13);
+  .content{
+    width: 98%;
+    margin: 0 auto;
+    height: 100%;
+    text-align: center;
+    .center-menu{
+      display: inline-block;
+      .menu-btn{
+        display: inline-block;
+        background: transparent;
+        color: white;
+        height: 100%;
+        padding: 22px;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 100;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+      }
+      .menu-btn:focus, .menu-btn:hover{
+        background: rgba(128, 0, 29, 0.45);
+      }
+    }
+/*     .logo:before{
+      content:"\f1bb";
+      font-family: FontAwesome;
+      padding: 0 10px;
+      text-shadow: 0px 0px 18px black;
+    } */
+    .logo{
+      font-size: 43px;
+      display: inline;
+      text-shadow: 0px 0px 18px black;
+      float: left;
+      padding-top: 4px;
+      font-family: 'Sacramento', cursive;
+    }
+    .right-menu{
+      float: right;
+      padding: 19px 0px;
+      .user-logo{
+        color: white;
+        margin: 0 15px;
+        text-shadow: 0px 0px 18px black;
+      }
+    }
+  }
+
+}
+
+.jumbotron{
+  position: relative;
+  height: 250px;
+  .overlay{
+    position: absolute;
+    height: 250px;
+    /* background: rgba(150, 173, 124, 0.48); */
+    background: rgba(213, 228, 196, 0.48);
+    width: 100%;
+  }
+  .img{
+    height: 250px;
+    background-size: auto 556px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 0;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.menuBar{
+  text-align: center;
+  font-family: Arial;
+  position: absolute;
+  width: 100%;
+  z-index: 300;
+
+      /* &.home:hover, &.home:focus{
+        color: #38F5EE;
+        border-bottom: 1px solid #38F5EE;
+      }
+      &.users:hover, &.users:focus{
+        color: #38F5EE;
+        border-bottom: 1px solid #56DFEE;
+      }
+      &.posts:hover, &.posts:focus{
+        color: $post-primary-color;
+        border-bottom: 1px solid $post-primary-color;
+      }
+      &.infoposts:hover, &.infoposts:focus{
+        color: $infopost-primary-color;
+        border-bottom: 1px solid $infopost-primary-color;
+      }
+      &.tasks:hover, &.tasks:focus{
+        color: $task-primary-color;
+        border-bottom: 1px solid $task-primary-color;
+      }
+      &.reservations:hover, &.reservations:focus{
+        color: $reservation-primary-color;
+        border-bottom: 1px solid $reservation-primary-color;
+      }
+      &.gallery:hover, &.gallery:focus{
+        color: $gallery-primary-color;
+        border-bottom: 1px solid $gallery-primary-color;
+      } */
+
+
+}

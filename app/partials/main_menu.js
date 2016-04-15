@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'react-router';
+import {Link} from 'react-router';
 import _ from 'lodash';
 
 import AppBar from 'muicss/lib/react/appbar';
@@ -7,85 +7,50 @@ import Button from 'muicss/lib/react/button';
 import Dropdown from 'muicss/lib/react/dropdown';
 import DropdownItem from 'muicss/lib/react/dropdown-item';
 
+import history from '../history';
+
 import LoginStore from '../login/login_store';
 import LoginActions from '../login/login_actions';
+
 
 export default class MainMenu extends React.Component{
   constructor(props){
     super(props);
   }
-  render() {
+
+  goTo(place) {
+    history.pushState(null, place);
+  }
+
+  render(){
     return(
       <div>
         <AppBar className="appBar">
           <div className="mui--appbar-height content">
             <div className="logo">Tammaniemi</div>
+              <div className="center-menu">
+                <div className="menu-btn home" onClick={this.goTo.bind(this,"/home")}>Home</div>
+                <div className="menu-btn posts" onClick={this.goTo.bind(this, "/posts")}>Posts</div>
+                <div className="menu-btn infoposts" onClick={this.goTo.bind(this, "/infoposts")}>Infoposts</div>
+                <div className="menu-btn users" onClick={this.goTo.bind(this, "/users")}>Users</div>
+
+                <div className="menu-btn reservations" onClick={this.goTo.bind(this, "/reservations")}>Reservations</div>
+                <div className="menu-btn tasks" onClick={this.goTo.bind(this, "/tasks")}>Tasks</div>
+                <div className="menu-btn gallery" onClick={this.goTo.bind(this, "/gallery")}>Gallery</div>
+              </div>
+
             <div className="right-menu">
-              <UserMenu />
+              <LoginMenu />
             </div>
           </div>
         </AppBar>
         <Jumbotron/>
-        <AppBar className="menuBar">
-          <div className="mui--appbar-height content">
-            <div className="mui-dropdown menu-item" >
-              <Button className="mui-btn">
-                <Link to="/home">Home</Link>
-              </Button>
-            </div>
-            <Dropdown className="menu-item" label="Posts">
-              <DropdownItem >
-                <Link to="/posts/new">New</Link>
-              </DropdownItem>
-              <DropdownItem >
-                <Link to="/posts">Index</Link>
-              </DropdownItem>
-            </Dropdown>
-            <Dropdown className="menu-item" label="Infoposts">
-               <DropdownItem >
-                <Link to="/infoposts/new">New</Link>
-              </DropdownItem>
-              <DropdownItem >
-                <Link to="/infoposts">Index</Link>
-              </DropdownItem>
-            </Dropdown>
-            <Dropdown className="menu-item" label="Users">
-               <DropdownItem >
-                <Link to="/users/new">New</Link>
-              </DropdownItem>
-              <DropdownItem >
-                <Link to="/users">Index</Link>
-              </DropdownItem>
-            </Dropdown>
-            <Dropdown className="menu-item" label="Reservations">
-               <DropdownItem >
-                <Link to="/reservations/new">New</Link>
-              </DropdownItem>
-              <DropdownItem >
-                <Link to="/reservations">Index</Link>
-              </DropdownItem>
-            </Dropdown>
-            <Dropdown className="menu-item" label="Tasks">
-               <DropdownItem >
-                <Link to="/tasks/new">New</Link>
-              </DropdownItem>
-              <DropdownItem >
-                <Link to="/tasks">Index</Link>
-              </DropdownItem>
-            </Dropdown>
-            <div className="mui-dropdown menu-item" >
-              <Button className="mui-btn">
-                  <Link to="/gallery">Gallery</Link>
-                </Button>
-              </div>
-          </div>
-        </AppBar>
       </div>
     );
   }
 }
 
-class UserMenu extends React.Component{
+class LoginMenu extends React.Component{
   constructor(props) {
     super(props);
     this.state = LoginStore.getState();
@@ -111,7 +76,7 @@ class UserMenu extends React.Component{
   }
 
   render() {
-    const userMenu = () => {
+    const loginMenu = () => {
       if (_.isEmpty(this.state.user)) {
         return (
           <Link className="btn" to="/login">Login</Link>
@@ -129,7 +94,7 @@ class UserMenu extends React.Component{
     };
 
     return (
-        userMenu()
+        loginMenu()
       );
   }
 }
@@ -161,8 +126,8 @@ class Jumbotron extends React.Component{
       "IMGP1273.jpg",
       "IMGP1410.jpg"
       ];
-    return pics[Math.floor(Math.random() * 9)];
-    //return pics[1];
+    //return pics[Math.floor(Math.random() * 9)];
+    return pics[0];
   }
 
   render(){
@@ -177,3 +142,4 @@ class Jumbotron extends React.Component{
       );
   }
 }
+

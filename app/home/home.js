@@ -69,6 +69,26 @@ class Home extends React.Component {
           />
         );
       }
+      if(type === 'reservation'){
+        let reservationContent = (
+          <div className="dates">
+            <span className="start-date">{moment(event.startDate).format("DD.MM.YYYY")}</span>
+            <span className="separator">-</span>
+            <span className="end-date">{moment(event.endDate).format("DD.MM.YYYY")}</span>
+          </div>
+        );
+        return(
+          <Event key={event._id} className={type}
+            event={event}
+            markdownContent={markdown[type]}
+            to={`/${type}s/${event._id}`}
+            delete={this.handleDelete}
+            update={this.handleUpdate}
+          >
+            {reservationContent}
+          </Event>
+        );
+      }
       return (
         <Event key={event._id} className={type}
           event={event}
@@ -84,8 +104,9 @@ class Home extends React.Component {
 
     return (
       <div className="container">
+        <div className="page-title">News feed</div>
         <Row>
-          <Col md="6" md-offset="3" >
+          <Col md="8" md-offset="2">
             {events}
           </Col>
         </Row>

@@ -7,6 +7,9 @@ import EventStore from '../event_store';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
+import {Link} from 'react-router';
+import Button from 'muicss/lib/react/button';
+
 import history from '../../history';
 import Event from '../event_layout';
 
@@ -159,6 +162,9 @@ class IndexPosts extends React.Component {
               posts={selectedPosts} />
           </Col>
           <Col md="6">
+            <Button>
+              <Link to="/posts/new">New</Link>
+            </Button>
             {postList}
           </Col>
         </Row>

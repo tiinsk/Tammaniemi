@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import {isEqual} from 'underscore';
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
+import Button from 'muicss/lib/react/button';
 
 import history from '../../history';
 
@@ -138,6 +139,9 @@ class IndexInfoPosts extends React.Component {
               infoposts={selectedInfoposts} />
           </Col>
           <Col md="6">
+            <Button>
+              <Link to="/infoposts/new">New</Link>
+            </Button>
             {infopostList}
           </Col>
         </Row>

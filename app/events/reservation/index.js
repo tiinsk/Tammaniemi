@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {isEqual} from 'underscore';
 import moment from 'moment';
+import Button from 'muicss/lib/react/button';
 
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
@@ -66,6 +67,9 @@ class IndexReservations extends React.Component {
       <div className='container'>
         <Row>
           <Col md="6" md-offset="3" >
+            <Button>
+              <Link to="/reservations/new">New</Link>
+            </Button>
             <Calendar reservations={this.state.reservations}/>
             {reservationList}
           </Col>
