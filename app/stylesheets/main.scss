@@ -35,6 +35,8 @@ $mui-appbar-font-color:	mui-color('white');
 
 @import './main_menu.scss';
 
+@import './spinner_overlay';
+
 body{
   font-family: Roboto, sans-serif;
 }

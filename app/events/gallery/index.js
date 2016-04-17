@@ -1,8 +1,9 @@
 import React from 'react';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
+import { Link } from 'react-router';
+import Button from 'muicss/lib/react/button';
 
-import EventActions from '../event_actions';
 import EventStore from '../event_store';
 
 import history from '../../history';
@@ -39,6 +40,9 @@ class IndexGallery extends React.Component {
       <section className="gallery">
         <Row>
           <Col md="8" md-offset="2">
+            <Button>
+              <Link to="/gallery/new">New</Link>
+            </Button>
             <div className="photoset-container">
               {galleryList}
             </div>

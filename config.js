@@ -1,4 +1,4 @@
-const flickrOptions = require("./flickr.config.js");
+const flickrOptions = require('./flickr.config.js');
 module.exports = {
   database: {
     development: 'localhost/tammaniemi',
@@ -14,6 +14,5 @@ module.exports = {
       ignoreExpiration: true
     },
   },
-  flickrOptions: flickrOptions
+  flickrOptions
 };
-

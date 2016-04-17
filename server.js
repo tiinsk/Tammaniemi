@@ -1,7 +1,6 @@
 const config = require('./config');
 const webpackConfig = require('./webpack.config.js');
-const webpackMiddleware = require("webpack-dev-middleware");
-const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack')(webpackConfig);
 const express = require('express');
 const path = require('path');
@@ -9,6 +8,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 
 const Flickr = require('flickrapi');
 
@@ -27,6 +27,10 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+// default options, no immediate parsing
+app.use(fileUpload());
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(webpackMiddleware(webpack, {
   publicPath: '/js/'
 }));
@@ -43,6 +47,7 @@ require('./routes/event')(app);
 
 Flickr.authenticate(config.flickrOptions, (error, flickr) => {
   require('./routes/flickr')(app, flickr);
+  require('./routes/flickr_upload')(app, flickr);
 
   app.get('/*', (req, res) => {
     res.sendFile('/views/index.html', {
