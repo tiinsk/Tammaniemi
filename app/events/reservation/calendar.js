@@ -24,6 +24,12 @@ export default class Calendar extends React.Component {
     });
   }
 
+  changeMonthAndYear(month, year){
+    this.setState({
+      firstDayOfMonth: moment(this.state.firstDayOfMonth).add(year, 'year').add(month,'month')
+    });
+  }
+
   currentMonth(){
     this.setState({
       firstDayOfMonth: moment().startOf('month')
@@ -79,14 +85,16 @@ export default class Calendar extends React.Component {
 
 
     return(
-      <div className="calendar" >
+      <div className={"calendar " +(this.props.small ? "small" : "")} >
         <div className="month">
           <div className="header">
-              <div className="prev-month-btn" onClick={this.prevMonth.bind(this)} ></div>
+              <div className="prev-year-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 0, -1)} ></div>
+              <div className="prev-month-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, -1, 0)} ></div>
               <div className="title">
                 {moment(this.state.firstDayOfMonth).format("MMMM")} {moment(this.state.firstDayOfMonth).format("YYYY")}
               </div>
-              <div className="next-month-btn" onClick={this.nextMonth.bind(this)} ></div>
+              <div className="next-month-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 1, 0)} ></div>
+              <div className="next-year-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 0, 1)} ></div>
             </div>
           <div className="weekdays">
             {weekdays}

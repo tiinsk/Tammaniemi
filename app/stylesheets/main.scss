@@ -14,7 +14,7 @@ $mui-appbar-font-color:	mui-color('white');
 
 @import '../../node_modules/muicss/lib/sass/mui.scss';
 
-
+@import './grid.scss';
 @import './app.scss';
 @import './login.scss';
 @import './event.scss';
@@ -38,6 +38,21 @@ $mui-appbar-font-color:	mui-color('white');
 body{
   font-family: Roboto, sans-serif;
 }
+
+::selection {
+  background: #57D294;
+  color: white;
+}
+
+::-moz-selection {
+  background: #57D294;
+  color: white;
+}
+
+.main-view{
+  padding: 0px;
+}
+
 
 
 .page-title{
@@ -73,6 +88,7 @@ body{
 
 .mui-row{
 	margin: 0px; /*sivuttaispalkki ilmestyy ilman margin nollaa!!!*/
+  //padding: 10px 30px;
 }
 
 .input-group {

@@ -2,11 +2,6 @@ import React from 'react';
 import {Link} from 'react-router';
 import _ from 'lodash';
 
-import AppBar from 'muicss/lib/react/appbar';
-import Button from 'muicss/lib/react/button';
-import Dropdown from 'muicss/lib/react/dropdown';
-import DropdownItem from 'muicss/lib/react/dropdown-item';
-
 import history from '../history';
 
 import LoginStore from '../login/login_store';
@@ -18,34 +13,56 @@ export default class MainMenu extends React.Component{
     super(props);
   }
 
+  render(){
+    return(
+      <div>
+        <MenuBar />
+        <div className="jumbotron">
+          <div className="img" style={{"backgroundImage": "url(/img/IMGP1145.jpg)"}}></div>
+          <div className="overlay"></div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class MenuBar extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      responsive: false
+    }
+  }
+
   goTo(place) {
     history.pushState(null, place);
   }
 
+  toggleMenu(){
+    console.log("toggleMenu");
+    this.setState({
+      responsive: !this.state.responsive
+    })
+  }
+
   render(){
     return(
-      <div>
-        <AppBar className="appBar">
-          <div className="mui--appbar-height content">
-            <div className="logo">Tammaniemi</div>
-              <div className="center-menu">
-                <div className="menu-btn home" onClick={this.goTo.bind(this,"/home")}>Home</div>
-                <div className="menu-btn posts" onClick={this.goTo.bind(this, "/posts")}>Posts</div>
-                <div className="menu-btn infoposts" onClick={this.goTo.bind(this, "/infoposts")}>Infoposts</div>
-                <div className="menu-btn users" onClick={this.goTo.bind(this, "/users")}>Users</div>
+      <ul className={"menu-bar " + (this.state.responsive ? "responsive" : "")}>
+        <li className="logo" onClick={this.goTo.bind(this,"/home")}>Tammaniemi</li>
+        <li className="menu-btn" onClick={this.goTo.bind(this, "/posts")}>Posts</li>
+        <li className="menu-btn" onClick={this.goTo.bind(this, "/infoposts")}>Infoposts</li>
+        <li className="menu-btn" onClick={this.goTo.bind(this, "/users")}>Users</li>
 
-                <div className="menu-btn reservations" onClick={this.goTo.bind(this, "/reservations")}>Reservations</div>
-                <div className="menu-btn tasks" onClick={this.goTo.bind(this, "/tasks")}>Tasks</div>
-                <div className="menu-btn gallery" onClick={this.goTo.bind(this, "/gallery")}>Gallery</div>
-              </div>
-
-            <div className="right-menu">
-              <LoginMenu />
-            </div>
-          </div>
-        </AppBar>
-        <Jumbotron/>
-      </div>
+        <li className="menu-btn" onClick={this.goTo.bind(this, "/reservations")}>Reservations</li>
+        <li className="menu-btn" onClick={this.goTo.bind(this, "/tasks")}>Tasks</li>
+        <li className="menu-btn" onClick={this.goTo.bind(this, "/gallery")}>Gallery</li>
+        <li className="right-menu">
+          <LoginMenu />
+        </li>
+        <li className="icon" onClick={this.toggleMenu.bind(this)}>
+          <div>&#9776;</div>
+        </li>
+      </ul>
     );
   }
 }
@@ -55,8 +72,6 @@ class LoginMenu extends React.Component{
     super(props);
     this.state = LoginStore.getState();
     this.onChange = this.onChange.bind(this);
-    console.log(this.state);
-    console.log(this.state.isLoggedIn);
   }
 
   componentDidMount() {
@@ -76,70 +91,14 @@ class LoginMenu extends React.Component{
   }
 
   render() {
-    const loginMenu = () => {
-      if (_.isEmpty(this.state.user)) {
-        return (
-          <Link className="btn" to="/login">Login</Link>
-        );
-      }
-
-      return (
-        <div>
-          <span className="user-logo"> Hi {this.state.user.name}, welcome back! </span>
-          <span className="btn" onClick={this.logout.bind(this)} >
-            Logout
-          </span>
-        </div>
-      );
-    };
 
     return (
-        loginMenu()
-      );
-  }
-}
-
-class Jumbotron extends React.Component{
-  constructor(){
-    super();
-    this.state = {
-      "randPic": this.giveRandPic()
-    }
-  }
-
-  componentWillMount(){
-    this.setState({
-      "randPic": this.giveRandPic()
-    });
-    console.log(this.state.randPic);
-  }
-
-  giveRandPic(){
-    var pics = [
-      "IMGP1145.jpg",
-      "IMGP1147.jpg",
-      "IMGP1158.jpg",
-      "IMGP1166.jpg",
-      "IMGP1169.jpg",
-      "IMGP1232.jpg",
-      "IMGP1245.jpg",
-      "IMGP1273.jpg",
-      "IMGP1410.jpg"
-      ];
-    //return pics[Math.floor(Math.random() * 9)];
-    return pics[0];
-  }
-
-  render(){
-    var imgStyle = {
-      "backgroundImage": `url(/img/${this.state.randPic})`,
-    }
-    return(
-      <div className="jumbotron">
-        <div className="img" style={imgStyle}></div>
-        <div className="overlay"></div>
+      <div >
+        <span className="user-logo"> {this.state.user.name}</span>
+        <span className="btn" onClick={this.logout.bind(this)} >
+          Logout
+        </span>
       </div>
       );
   }
 }
-

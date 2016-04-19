@@ -4,10 +4,9 @@ import React from 'react';
 import EventStore from '../events/event_store';
 import Event from '../events/event_layout';
 
+import Calendar from '../events/reservation/calendar';
 import Task from '../events/task/task_layout';
 
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
 
 class Home extends React.Component {
   constructor(props) {
@@ -102,14 +101,19 @@ class Home extends React.Component {
       );
     });
 
+    const reservations = this.state.events.filter(event => event.__t === "Reservation" );
+    console.log(reservations);
     return (
       <div className="container">
         <div className="page-title">News feed</div>
-        <Row>
-          <Col md="8" md-offset="2">
+        <div className="app-row">
+          <div className="col-main-home">
             {events}
-          </Col>
-        </Row>
+          </div>
+          <div className="col-side">
+            <Calendar small reservations={reservations}/>
+          </div>
+        </div>
       </div>
     );
   }
