@@ -1,5 +1,10 @@
 .comment-box{
   margin-top: 20px;
+  .btn{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-width: 1px;
+  }
   .comment-list{
     .comment{
       margin: 10px;

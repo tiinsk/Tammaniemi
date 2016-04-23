@@ -13,6 +13,14 @@ export default class Event extends React.Component {
     }
   }
 
+  componentWillMount(){
+    if (this.props.commentsOpen) {
+      this.setState({
+        isCommentsShown: true
+      })
+    };
+  }
+
   toggleComments(){
     this.setState({
       "isCommentsShown": !this.state.isCommentsShown

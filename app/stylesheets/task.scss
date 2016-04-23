@@ -293,7 +293,7 @@ $task-secondary-color: #F7D0BF;
     }
     .btn{
       color: $task-secondary-color;
-      border: 2px solid $task-secondary-color;
+      border-color: $task-secondary-color;
     }
 
     .btn:hover{

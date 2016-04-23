@@ -1,6 +1,6 @@
 $infopost-primary-color: #5CD4FF;
 $infopost-secondary-color: #4396BF;
-
+$infopost-tertiary-color: #DAE9F1;
 .infopost{
 
 
@@ -19,7 +19,7 @@ $infopost-secondary-color: #4396BF;
     }
     .btn{
       color: $infopost-secondary-color;
-      border: 2px solid $infopost-secondary-color;
+      border-color: $infopost-secondary-color;
     }
 
     .btn:hover{
@@ -81,9 +81,34 @@ $infopost-secondary-color: #4396BF;
       background: $infopost-secondary-color !important;
     }
   }
+  .selectable.header:hover{
+    color: $infopost-secondary-color;
+    font-weight: 500;
+    .item-count{
+      background-color: $infopost-secondary-color !important;
+    }
+  }
 }
 .infopost.item-list{
-  a{
+  .item:hover{
+    background-color: $infopost-secondary-color;
+    .title{
+      color: white;
+    }
+  }
+  .item:before{
+    content:"\f129";
+  }
+  .item{
+    background-color: $infopost-tertiary-color;
+    &.selected{
+      background: $infopost-secondary-color;
+      .title{
+        color: white;
+      }
+    }
+  }
+  .title{
     color: $infopost-secondary-color;
   }
 }

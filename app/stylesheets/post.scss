@@ -1,6 +1,14 @@
 $post-primary-color: #5cffa8;
 $post-secondary-color: #43bf7d;
+$post-tertiary-color: #C8FFE1;
 
+/* .post.add-new{
+  background: $post-primary-color;
+  &:hover{
+    background: $post-secondary-color;
+  }
+}
+ */
 .post{
   .title{
     color: $post-secondary-color;
@@ -16,7 +24,7 @@ $post-secondary-color: #43bf7d;
     }
     .btn{
       color: $post-secondary-color;
-      border: 2px solid $post-secondary-color;
+      border-color: $post-secondary-color;
     }
 
     .btn:hover{
@@ -45,9 +53,34 @@ $post-secondary-color: #43bf7d;
       background: $post-secondary-color !important;
     }
   }
+  .selectable.header:hover{
+    color: $post-secondary-color;
+    font-weight: 500;
+    .item-count{
+      background-color: $post-secondary-color !important;
+    }
+  }
 }
 .post.item-list{
-  a{
+  .item:hover{
+    background-color: $post-secondary-color;
+    .title{
+      color: white;
+    }
+  }
+  .item:before{
+    content:"\f040";
+  }
+  .item{
+    background: $post-tertiary-color;
+    &.selected{
+      background: $post-secondary-color;
+      .title{
+        color: white;
+      }
+    }
+  }
+  .title{
     color: $post-secondary-color;
   }
 }

@@ -4,8 +4,8 @@ import _ from 'lodash';
 
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
+/*import Row from 'muicss/lib/react/row';
+import Col from 'muicss/lib/react/col';*/
 
 import {Link} from 'react-router';
 import Button from 'muicss/lib/react/button';
@@ -23,16 +23,19 @@ class IndexPosts extends React.Component {
       let organizedPosts = this.getPostsByYearAndMonth(posts);
       let year = Object.keys(organizedPosts)[0];
       let month = Object.keys(organizedPosts[year])[0];
+      let post = Object.keys(organizedPosts[year][month])[0];
       this.state = {
         posts: organizedPosts,
         year: year,
-        month: month
+        month: month,
+        post: post
       };
     }else{
       this.state = {
         posts: [],
         year: undefined,
-        month: undefined
+        month: undefined,
+        post: undefined
       };
     }
     this.onChange = this.onChange.bind(this);
@@ -51,10 +54,12 @@ class IndexPosts extends React.Component {
     let organizedPosts = this.getPostsByYearAndMonth(posts);
     let year = _.last(Object.keys(organizedPosts));
     let month = _.last(Object.keys(organizedPosts[year]));
+    let post = _.last(Object.keys(organizedPosts[year][month]));
     this.setState({
       posts: organizedPosts,
       year: year,
-      month: month
+      month: month,
+      post: post
     });
 
   }
@@ -88,45 +93,60 @@ class IndexPosts extends React.Component {
 
   update(obj){
     if (obj.month != undefined) {
+      let post = _.last(Object.keys(this.state.posts[this.state.year][obj.month]));
       this.setState({
-        month: obj.month
+        month: obj.month,
+        post: post
       });
     }
     if (obj.year != undefined) {
       let year = Object.keys(this.state.posts)[obj.year];
       let month = _.last(Object.keys(this.state.posts[year]));
+      let post = _.last(Object.keys(this.state.posts[year][month]));
       this.setState({
         year: year,
-        month: month
+        month: month,
+        post: post
+      });
+    }
+    if (obj.item != undefined){
+      this.setState({
+        post: obj.item
       });
     }
   }
 
+  goTo(link){
+    history.pushState(null, link);
+  }
+
   render() {
-    let selectedPosts = [];
-    if (this.state.year != undefined && this.state.month != undefined) {
-      selectedPosts = this.state.posts[this.state.year][this.state.month];
-    };
-    const postList = selectedPosts.map((post) =>
-      (
-        <Event key={post._id} className="post"
-          event={post}
+    let selectedPost;
+    if (this.state.year != undefined && this.state.month != undefined && this.state.post != undefined) {
+      let postData = this.state.posts[this.state.year][this.state.month][this.state.post];
+      selectedPost = (
+        <Event key={postData._id} className="post"
+          commentsOpen
+          event={postData}
           markdownContent
-          to={`/posts/${post._id}`}
+          to={`/posts/${postData._id}`}
           delete={this.handleDelete}
           update={this.handleUpdate}
         >
-          {post.content}
+          {postData.content}
         </Event>
-      )
-    );
+      );
+    };
 
+    let postObjects;
+    if(this.state.year != undefined && this.state.month != undefined){
+      postObjects = this.state.posts[this.state.year][this.state.month];
+    }
 
     const years = Object.keys(this.state.posts);
     const months = moment.months();
 
     const yearObjects = years.map((year) => {
-      console.log(year);
       let obj = {header: year };
       if(this.state.posts){
         obj.amount = _.reduce(this.state.posts[year], (res, month) =>{
@@ -151,23 +171,27 @@ class IndexPosts extends React.Component {
 
     return (
       <div className="container">
-        <Row>
-          <Col md="3">
+        <div className="page-title">
+          Posts
+          <div className="add-new post" onClick={this.goTo.bind(this, "/posts/new")}>
+            <span>+</span>
+          </div>
+        </div>
+        <div className="app-row-center">
+          <div className="col-left" >
             <NavigationBox
               update={this.update.bind(this)}
               chosenYear={years.indexOf(this.state.year)}
               years={yearObjects}
               chosenMonth={this.state.month}
               months={monthObjects}
-              posts={selectedPosts} />
-          </Col>
-          <Col md="6">
-            <Button>
-              <Link to="/posts/new">New</Link>
-            </Button>
-            {postList}
-          </Col>
-        </Row>
+              chosenPost = {this.state.post}
+              posts={postObjects} />
+          </div>
+          <div className="col-main" >
+            {selectedPost}
+          </div>
+        </div>
 
       </div>
     );

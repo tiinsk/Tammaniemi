@@ -66,6 +66,29 @@ body{
   padding: 20px 10px;
 }
 
+.add-new{
+  display: inline-block;
+  cursor: pointer;
+  position: absolute;
+  top: 30px;
+  right: -50px;
+  color: white;
+  font-size: 39px;
+  border-radius: 50%;
+  background: rgba(159, 0, 255, 0.47);
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  span{
+    position: relative;
+    top: -7px;
+  }
+  &:hover{
+    background: rgba(212, 0, 184, 0.74);
+  }
+}
+
+
 .btn{
     color: white;
     background: transparent;

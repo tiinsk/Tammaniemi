@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import {Link} from 'react-router';
 import {isEqual} from 'underscore';
 import EventActions from '../event_actions';
@@ -21,14 +22,17 @@ class IndexInfoPosts extends React.Component {
     if(infoposts.length > 0){
       let organizedInfoposts = this.getInfopostsByCategory(infoposts);
       let category = Object.keys(organizedInfoposts)[0];
+      let infopost = Object.keys(organizedInfoposts[catgory])[0];
       this.state = {
         infoposts: organizedInfoposts,
-        category: category
+        category: category,
+        infopost: infopost
       };
     }else{
       this.state = {
         infoposts: [],
-        category: undefined
+        category: undefined,
+        infopost: undefined
       };
     }
     this.onChange = this.onChange.bind(this);
@@ -46,9 +50,11 @@ class IndexInfoPosts extends React.Component {
     let infoposts = state.infoposts;
     let organizedInfoposts = this.getInfopostsByCategory(infoposts);
     let category = Object.keys(organizedInfoposts)[0];
+    let infopost = _.last(Object.keys(organizedInfoposts[category]));
     this.setState({
       infoposts: organizedInfoposts,
-      category: category
+      category: category,
+      infopost: infopost
     });
 
   }
@@ -77,33 +83,48 @@ class IndexInfoPosts extends React.Component {
     }, {});
   }
 
-  update(category){
-    this.setState({
-      category: category
-    });
+  update(obj){
+    if (obj.category != undefined) {
+      let infopost = _.last(Object.keys(this.state.infoposts[obj.category]));
+      this.setState({
+        category: obj.category,
+        infopost: infopost
+      });
+    }
+    if (obj.item != undefined) {
+      this.setState({
+        infopost: obj.item
+      });
+    }
+  }
+
+  goTo(link){
+    history.pushState(null, link);
   }
 
   render() {
-    let selectedInfoposts = [];
-    if (this.state.category != undefined) {
-      selectedInfoposts = this.state.infoposts[this.state.category];
-    };
-    let infopostList = selectedInfoposts.map((infopost) => {
-      return (
-          <Event key={infopost._id}
+    let selectedInfopost;
+    if (this.state.category != undefined && this.state.infopost != undefined) {
+      let data = this.state.infoposts[this.state.category][this.state.infopost];
+      selectedInfopost = (
+          <Event key={data._id}
             markdownContent
             className="infopost"
-            event={infopost}
-            to={`/infoposts/${infopost._id}`}
-            secondarySymbol={infopost.category}
+            event={data}
+            to={`/infoposts/${data._id}`}
+            secondarySymbol={data.category}
             addComment={this.handleAddComment}
             delete={this.handleDelete}
             update={this.handleUpdate}
           >
-            {infopost.content}
+            {data.content}
           </Event>
       );
-    });
+    };
+    let infopostObjects;
+    if (this.state.category != undefined) {
+      infopostObjects = this.state.infoposts[this.state.category];
+    };
 
     const categories = [
           "Yleistä",
@@ -130,21 +151,25 @@ class IndexInfoPosts extends React.Component {
 
     return (
       <div className='container'>
-        <Row>
-        <Col md="3">
+        <div className="page-title">
+          Infoposts
+          <div className="add-new post" onClick={this.goTo.bind(this, "/infoposts/new")}>
+            <span>+</span>
+          </div>
+        </div>
+        <div className="app-row-center">
+        <div className="col-left">
             <NavigationBox
               update={this.update.bind(this)}
               chosenCategory={this.state.category}
               categories={categoryObjects}
-              infoposts={selectedInfoposts} />
-          </Col>
-          <Col md="6">
-            <Button>
-              <Link to="/infoposts/new">New</Link>
-            </Button>
-            {infopostList}
-          </Col>
-        </Row>
+              chosenInfopost = {this.state.infopost}
+              infoposts={infopostObjects} />
+          </div>
+          <div className="col-main">
+            {selectedInfopost}
+          </div>
+        </div>
       </div>
     );
   }

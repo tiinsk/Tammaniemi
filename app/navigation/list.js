@@ -3,6 +3,8 @@ import {Link} from 'react-router';
 import _ from 'lodash';
 import moment from 'moment';
 
+import history from '../history';
+
 export class CategoryList extends React.Component{
   constructor(props){
     super(props);
@@ -12,7 +14,7 @@ export class CategoryList extends React.Component{
     let headers = this.props.headers.map((header, index) => {
       if (header.amount > 0) {
         return(
-          <div key={index} className={"header " + (this.props.chosenItem == index ? "selected" : "" )} onClick={this.props.updateChosen.bind(this, index)}>
+          <div key={index} className={"header selectable " + (this.props.chosenItem == index ? "selected" : "" )} onClick={this.props.updateChosen.bind(this, index)}>
             <span>{header.header}</span>
             <span className="item-count">{header.amount}</span>
           </div>
@@ -45,18 +47,22 @@ export class ItemList extends React.Component {
     let items = _.map(this.props.items, (item, index) => {
       let type = item.__t.toLowerCase();
       return(
-        <div key={index}>
-          <Link to={`/${type}s/${item._id}`} >
-            {item.title}
-          </Link>
-        </div>
+        <li className={"item " + (this.props.chosenItem == index ? "selected" : "" )} onClick={this.props.updateChosen.bind(this, index)} key={index}>
+          <div className="content">
+            <div className="title" >{item.title}</div>
+            <div className="details">
+              <div className="user">{item.userId.name}</div>
+              <div className="time">{moment(item.createdAt).format("D. MMM YYYY H:mm")}</div>
+          </div>
+          </div>
+        </li>
       );
     });
 
     return(
-      <div className={"item-list "  + this.props.className}>
+      <ul className={"item-list "  + this.props.className}>
         {items}
-      </div>
+      </ul>
     );
 
   }
