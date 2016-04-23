@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginStore from './login_store';
 import LoginActions from './login_actions';
-import NewUserModal from '../user/new_user_modal';
+import NewUserModal from '../user/components/new_user_modal';
 
 export default class Login extends React.Component {
 

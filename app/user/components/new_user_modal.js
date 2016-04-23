@@ -5,22 +5,23 @@ import Input from 'muicss/lib/react/input';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
+import UserActions from '../user_actions';
 
 export default class NewUserModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {
-        name: "",
-        email: "",
-        password: "",
-        verifyPassword: ""
+        name: '',
+        email: '',
+        password: '',
+        verifyPassword: ''
       },
-      secret: "",
-      secretError: "",
-      passwordError: "",
+      secret: '',
+      secretError: '',
+      passwordError: '',
       displayModal: false
-    }
+    };
   }
 
   updateName(event) {
@@ -83,7 +84,12 @@ export default class NewUserModal extends React.Component {
     }
 
     if (name && email && password && verifyPassword) {
-      //this.props.addUser(user);
+      UserActions.create({
+        name,
+        email,
+        password
+      });
+      this.closeModal();
       console.log({name, email, password});
     }
   }
