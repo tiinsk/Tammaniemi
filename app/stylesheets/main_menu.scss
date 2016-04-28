@@ -60,13 +60,23 @@
   .menu-btn{
     background: transparent;
     color: white;
-    height: 100%;
-    padding: 22px 1vw;
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 100;
     font-family: Arial, sans-serif;
     cursor: pointer;
+
+    a {
+      color: white;
+      text-decoration: none;
+      height: 100%;
+      padding: 22px 1vw;
+      display: block;
+
+      &.active {
+        background: rgba(128, 0, 29, 0.45);
+      }
+    }
   }
   .menu-btn:focus, .menu-btn:hover{
     background: rgba(128, 0, 29, 0.45);

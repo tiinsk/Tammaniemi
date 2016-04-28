@@ -34,10 +34,6 @@ class MenuBar extends React.Component{
     }
   }
 
-  goTo(place) {
-    history.pushState(null, place);
-  }
-
   toggleMenu(){
     console.log("toggleMenu");
     this.setState({
@@ -45,17 +41,45 @@ class MenuBar extends React.Component{
     })
   }
 
-  render(){
-    return(
-      <ul className={"menu-bar " + (this.state.responsive ? "responsive" : "")}>
-        <li className="logo" onClick={this.goTo.bind(this,"/home")}>Tammaniemi</li>
-        <li className="menu-btn" onClick={this.goTo.bind(this, "/posts")}>Posts</li>
-        <li className="menu-btn" onClick={this.goTo.bind(this, "/infoposts")}>Infoposts</li>
-        <li className="menu-btn" onClick={this.goTo.bind(this, "/users")}>Users</li>
+  render() {
+    return (
+      <ul className={`menu-bar ${(this.state.responsive ? 'responsive' : '')}`}>
+        <li className="logo" >
+          <Link to="/home" activeClassName="active">
+            Tammaniemi
+          </Link>
+        </li>
+        <li className="menu-btn" >
+          <Link to="/posts" activeClassName="active">
+            Posts
+          </Link>
+        </li>
+        <li className="menu-btn" >
+          <Link to="/infoposts" activeClassName="active">
+            Infoposts
+          </Link>
+        </li>
+        <li className="menu-btn" >
+          <Link to="/users" activeClassName="active">
+            Users
+          </Link>
+        </li>
 
-        <li className="menu-btn" onClick={this.goTo.bind(this, "/reservations")}>Reservations</li>
-        <li className="menu-btn" onClick={this.goTo.bind(this, "/tasks")}>Tasks</li>
-        <li className="menu-btn" onClick={this.goTo.bind(this, "/gallery")}>Gallery</li>
+        <li className="menu-btn" >
+          <Link to="/reservations" activeClassName="active">
+            Reservations
+          </Link>
+        </li>
+        <li className="menu-btn" >
+          <Link to="/tasks" activeClassName="active">
+            Tasks
+          </Link>
+        </li>
+        <li className="menu-btn" >
+          <Link to="/gallery" activeClassName="active">
+            Gallery
+          </Link>
+        </li>
         <li className="right-menu">
           <LoginMenu />
         </li>
