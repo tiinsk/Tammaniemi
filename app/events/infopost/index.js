@@ -108,6 +108,7 @@ class IndexInfoPosts extends React.Component {
       let data = this.state.infoposts[this.state.category][this.state.infopost];
       selectedInfopost = (
           <Event key={data._id}
+            commentsOpen
             markdownContent
             className="infopost"
             event={data}

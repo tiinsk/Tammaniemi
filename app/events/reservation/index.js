@@ -2,24 +2,26 @@ import React from 'react';
 import {Link} from 'react-router';
 import {isEqual} from 'underscore';
 import moment from 'moment';
-import Button from 'muicss/lib/react/button';
+
+import ReservationForm from './form';
 
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
 import Calendar from './calendar';
 
 import history from '../../history';
-
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
-
+import {Tabs, Tab} from '../../partials/tabs';
 import Event from "../event_layout";
 
-class IndexReservations extends React.Component {
+export default class IndexReservations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reservations: EventStore.getByType('reservations')
+      reservations: EventStore.getByType('reservations'),
+      reservation: {
+        startDate: undefined,
+        endDate: undefined
+      }
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -45,12 +47,27 @@ class IndexReservations extends React.Component {
     });
   }
 
+  handleSubmit(reservation){
+    console.log("handleSubmit");
+    EventActions.create({
+      type: 'reservations',
+      content: reservation
+    });
+  }
+
   handleUpdate(reservationId){
     history.pushState(null, `/reservations/update/${reservationId}`);
   }
 
+  goTo(link){
+    history.pushState(null, link);
+  }
+
+
+
+
   render() {
-    let reservationList = this.state.reservations.map((reservation, index) => {
+    let reservationList = this.state.reservations.filter(reservation => moment(reservation.endDate).isAfter(moment()) ).map((reservation, index) => {
       let reservationContent = (
         <div className="dates">
           <span className="start-date">{moment(reservation.startDate).format("DD.MM.YYYY")}</span>
@@ -65,18 +82,29 @@ class IndexReservations extends React.Component {
 
     return (
       <div className='container'>
-        <Row>
-          <Col md="6" md-offset="3" >
-            <Button>
-              <Link to="/reservations/new">New</Link>
-            </Button>
+        <div className="page-title">
+          Reservations
+          <div className="add-new post" onClick={this.goTo.bind(this, "/reservations/new")}>
+            <span>+</span>
+          </div>
+        </div>
+        <div className="app-row-50">
+          <div className="col-left" >
             <Calendar reservations={this.state.reservations}/>
-            {reservationList}
-          </Col>
-        </Row>
+          </div>
+          <div className="col-right">
+            <Tabs>
+              <Tab title="Recently Added">{reservationList}</Tab>
+              <Tab title="Upcoming">{reservationList}</Tab>
+              <Tab title="Add new">
+                <ReservationForm reservations={this.state.reservations} reservation={this.state.reservation} onReservationSubmit={this.handleSubmit.bind(this)}/>
+              </Tab>
+            </Tabs>
+          </div>
+        </div>
       </div>
     );
   }
-}
+};
 
-export default IndexReservations;
+

@@ -1,5 +1,6 @@
 $reservation-primary-color: #FF5C7C;
 $reservation-secondary-color: #D43353;
+$reservation-dark-color: #A72841;
 
 .reservation{
   .title{
@@ -102,6 +103,41 @@ $reservation-secondary-color: #D43353;
           border-top-left-radius: 4px;
         }
       }
+    }
+  }
+}
+
+
+.tabs{
+  .tab-headers{
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    white-space: nowrap;
+    overflow-x: auto;
+    border-bottom: 2px solid #E4E4E4;
+    overflow: inherit;
+    li{
+      cursor: pointer;
+      display: inline-block;
+      //display: block;
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.87);
+      height: 48px;
+      line-height: 48px;
+      padding-left: 24px;
+      padding-right: 24px;
+      user-select: none;
+      position: relative;
+      bottom: -2px;
+    }
+    .active{
+      color: $reservation-secondary-color;
+      border-bottom: 3px solid $reservation-secondary-color;
     }
   }
 }

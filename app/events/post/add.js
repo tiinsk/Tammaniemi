@@ -27,11 +27,16 @@ class AddPost extends React.Component {
 
   render() {
     return (
-      <Row>
-        <Col md="6" md-offset="3" >
-          <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)} />
-        </Col>
-      </Row>
+      <div className="container">
+        <div className="page-title">
+          Add new post
+        </div>
+        <div className="app-row-only">
+          <div className="col-main-only">
+            <PostForm post={this.state.post} onPostSubmit={this.handleSubmit.bind(this)} />
+          </div>
+        </div>
+      </div>
     );
   }
 }

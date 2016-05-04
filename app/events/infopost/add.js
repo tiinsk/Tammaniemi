@@ -29,11 +29,16 @@ class AddInfoPost extends React.Component {
 
   render() {
     return (
-      <Row>
-        <Col md="6" md-offset="3" >
-          <InfoPostForm infopost={this.state.infopost} onInfoPostSubmit={this.handleSubmit.bind(this)}/>
-        </Col>
-      </Row>
+      <div className="container">
+        <div className="page-title">
+          Add new infopost
+        </div>
+        <div className="app-row-only">
+          <div className="col-main-only" >
+            <InfoPostForm infopost={this.state.infopost} onInfoPostSubmit={this.handleSubmit.bind(this)}/>
+          </div>
+        </div>
+      </div>
     );
   }
 }
