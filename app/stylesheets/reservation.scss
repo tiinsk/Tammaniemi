@@ -121,7 +121,6 @@ $reservation-dark-color: #A72841;
     li{
       cursor: pointer;
       display: inline-block;
-      //display: block;
       white-space: nowrap;
       text-transform: uppercase;
       font-weight: 500;
@@ -134,6 +133,22 @@ $reservation-dark-color: #A72841;
       user-select: none;
       position: relative;
       bottom: -2px;
+      .close-btn{
+        color: #FFFFFF;
+        display: inline-block;
+        width: 20px;
+        text-align: center;
+        background: #E4E4E4;
+        border-radius: 50%;
+        height: 20px;
+        line-height: 23px;
+        margin-left: 6px;
+        margin-right: -13px;
+      }
+      .close-btn:hover{
+        color: #FFFFFF;
+        background: #9E9E9E;
+      }
     }
     .active{
       color: $reservation-secondary-color;

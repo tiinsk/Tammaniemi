@@ -7,14 +7,12 @@ import _ from 'underscore';
 
 import history from '../../history';
 
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
-
 import Event from "../event_layout";
 
 
 class ShowReservation extends React.Component {
   constructor(props) {
+    console.log("ShowReservation");
     super(props);
     this.state = {
       reservation: EventStore.getByTypeAndId('reservations', this.props.params.reservationId)
@@ -30,7 +28,19 @@ class ShowReservation extends React.Component {
     EventStore.unlisten(this.onChange);
   }
 
+  componentDidUpdate (prevProps) {
+    // respond to parameter change in scenario 3
+    let oldId = prevProps.params.reservationId
+    let newId = this.props.params.reservationId
+    if (newId !== oldId)
+      this.update();
+  }
+
   onChange() {
+    this.update();
+  }
+
+  update(){
     this.setState({
       reservation: EventStore.getByTypeAndId('reservations', this.props.params.reservationId)
     });
@@ -73,11 +83,7 @@ class ShowReservation extends React.Component {
 
     return (
       <div className='container'>
-        <Row>
-          <Col md="6" md-offset="3" >
-            {reservationData}
-          </Col>
-        </Row>
+        {reservationData}
       </div>
     );
   }

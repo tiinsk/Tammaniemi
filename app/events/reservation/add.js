@@ -43,11 +43,9 @@ class AddReservation extends React.Component {
 
   render() {
     return (
-      <Row>
-        <Col md="6" md-offset="3" >
+      <div>
           <ReservationForm reservations={this.state.reservations} reservation={this.state.reservation} onReservationSubmit={this.handleSubmit.bind(this)}/>
-        </Col>
-      </Row>
+      </div>
     );
   }
 }
