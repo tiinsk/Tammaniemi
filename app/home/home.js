@@ -12,7 +12,9 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: this.sortEvents(EventStore.getByType('events'))
+      events: this.sortEvents(EventStore.getByType('events')),
+      itemsPerPage: 3,
+      currentPage: 1
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -54,9 +56,22 @@ class Home extends React.Component {
     return true;
   }
 
+  getEndItem() {
+    return this.state.currentPage * this.state.itemsPerPage;
+  }
+
+  changePage() {
+    if ((this.state.currentPage + 1) * this.state.itemsPerPage < this.state.events.length) {
+      this.setState({
+        currentPage: this.state.currentPage + 1
+      });
+    }
+  }
+
   render() {
-    const markdown = {"post": true, "infopost": true};
-    const events = this.state.events.map((event) => {
+    const markdown = {post: true, infopost: true};
+
+    const events = this.state.events.slice(0, this.getEndItem()).map((event) => {
       const type = event.__t.toLowerCase();
       if (type === 'task') {
         return (
@@ -68,7 +83,7 @@ class Home extends React.Component {
           />
         );
       }
-      if(type === 'reservation'){
+      if (type === 'reservation') {
         let reservationContent = (
           <div className="dates">
             <span className="start-date">{moment(event.startDate).format("DD.MM.YYYY")}</span>
@@ -76,7 +91,7 @@ class Home extends React.Component {
             <span className="end-date">{moment(event.endDate).format("DD.MM.YYYY")}</span>
           </div>
         );
-        return(
+        return (
           <Event key={event._id} className={type}
             event={event}
             markdownContent={markdown[type]}
@@ -101,7 +116,7 @@ class Home extends React.Component {
       );
     });
 
-    const reservations = this.state.events.filter(event => event.__t === "Reservation" );
+    const reservations = this.state.events.filter(event => event.__t === 'Reservation');
     console.log(reservations);
     return (
       <div className="container">
@@ -111,8 +126,12 @@ class Home extends React.Component {
             {events}
           </div>
           <div className="col-side">
-            <Calendar small reservations={reservations}/>
+            <Calendar small reservations={reservations} />
           </div>
+        </div>
+
+        <div className="show-more" onClick={this.changePage.bind(this)}>
+          <span>Show more</span>
         </div>
       </div>
     );
