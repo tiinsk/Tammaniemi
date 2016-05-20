@@ -19,6 +19,7 @@ class UpdateReservation extends React.Component {
 
   componentDidMount() {
     EventStore.listen(this.onChange);
+    console.log(this.state);
   }
 
   componentWillUnmount() {
@@ -45,11 +46,7 @@ class UpdateReservation extends React.Component {
 
 render() {
     return (
-      <Row>
-        <Col md="6" md-offset="3" >
-          <ReservationForm reservations={this.state.reservations} reservation={this.state.reservation} onReservationSubmit={this.handleSubmit.bind(this)}/>
-        </Col>
-      </Row>
+      <ReservationForm reservations={this.state.reservations} reservation={this.state.reservation} onReservationSubmit={this.handleSubmit.bind(this)}/>
     );
   }
 }
