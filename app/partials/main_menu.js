@@ -66,7 +66,7 @@ class MenuBar extends React.Component{
         </li>
 
         <li className="menu-btn" >
-          <Link to="/reservations" activeClassName="active">
+          <Link to="/reservations/recently-added" activeClassName="active">
             Reservations
           </Link>
         </li>

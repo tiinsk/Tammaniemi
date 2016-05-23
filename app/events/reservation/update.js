@@ -19,7 +19,7 @@ class UpdateReservation extends React.Component {
 
   componentDidMount() {
     EventStore.listen(this.onChange);
-    console.log(this.state);
+    console.log("update:", this.state);
   }
 
   componentWillUnmount() {

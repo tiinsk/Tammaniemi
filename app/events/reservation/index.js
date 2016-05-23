@@ -31,35 +31,34 @@ export default class IndexReservations extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
-    console.log(this.props);
     EventStore.listen(this.onChange);
     let id = this.props.params.reservationId;
     let tabs = this.state.tabItems;
-    if (tabs.length > 2) {
-      tabs.pop();
-    }
-
-    if (id){
-      tabs.push({name: "Reservation", closable: true, path: "/reservations/" + id});
-      this.setState({tabItems: tabs});
-    }
-
+    this.addTab(id, this.props.location.pathname);
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("componentWillReceiveProps", nextProps, this.props);
-    let oldId = this.props.params.reservationId;
     let newId = nextProps.params.reservationId;
-    let tabs = this.state.tabItems;
+    let location = nextProps.location.pathname;
+    this.addTab(newId, location);
+  }
 
-    console.log("last route:", this.props.routes[this.props.routes.length-1]);
-
-    if (tabs.length > 2){
-      tabs.pop();
-    }
+  addTab(newId, location){
     if(newId){
-      tabs.push({name: "Reservation", closable: true, path: "/reservations/" + newId});
+      let tabs = this.state.tabItems;
+      if(/\w+\/update\/.+/.test(location)){
+        if (tabs.length > 2){
+          tabs.pop();
+        }
+        tabs.push({name: "Update: reservation", closable: true, path: "/reservations/update/" + newId});
+      }
+      else{
+        if (tabs.length > 2){
+          tabs.pop();
+        }
+        tabs.push({name: "Reservation", closable: true, path: "/reservations/" + newId});
+      }
+
       this.setState({tabItems: tabs});
     }
   }
@@ -94,8 +93,12 @@ export default class IndexReservations extends React.Component {
   }
 
   goTo(link){
-    console.log("linkki:" , link);
     history.pushState(null, link);
+  }
+
+  closeTab(){
+    this.state.tabItems.pop();
+    this.goTo('/reservations/recently-added');
   }
 
   render() {
@@ -115,7 +118,7 @@ export default class IndexReservations extends React.Component {
           <div className="col-right">
             <Tabs
               items = {this.state.tabItems}
-              closeItem = {this.goTo.bind(this, '/reservations/recently-added')}
+              closeItem = {() => this.closeTab()}
             />
             {this.props.children}
           </div>

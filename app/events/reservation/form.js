@@ -139,6 +139,13 @@ class ReservationForm extends React.Component {
                          onChange={this.updateTitle.bind(this)} autoFocus/>
                 <span className='error-message'>{this.state.titleError}</span>
 
+{/*                <div className="form-item">
+
+                  <input className="form-input" value={this.state.reservation.title} onChange={(event)=> this.updateTitle(event)} />
+                  <label className="legend">Title</label>
+                </div>*/}
+
+
                 <div className={"date " +(this.state.reservation.startDate ? "filled" : "")} >{this.state.reservation.startDate ? this.state.reservation.startDate.format("DD.MM.YYYY") : "Start Date"}
                 </div>
                 <span className='error-message'>{this.state.startDateError}</span>
