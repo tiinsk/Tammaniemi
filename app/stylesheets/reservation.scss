@@ -2,6 +2,18 @@ $reservation-primary-color: #FF5C7C;
 $reservation-secondary-color: #D43353;
 $reservation-dark-color: #A72841;
 
+.reservations-index {
+  .pagination ul li {
+      border: 2px solid $reservation-secondary-color;
+      color: $reservation-secondary-color;
+
+      &.active {
+        background: $reservation-secondary-color;
+        color: white;
+      }
+    }
+}
+
 .reservation{
   .title{
     color: $reservation-secondary-color;

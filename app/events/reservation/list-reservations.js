@@ -1,39 +1,37 @@
 import React from 'react';
-import {Link} from 'react-router';
-import {isEqual} from 'underscore';
 import moment from 'moment';
 
-import ReservationForm from './form';
+import history from '../../history';
 
 import EventActions from '../event_actions';
-import EventStore from '../event_store';
-import Calendar from './calendar';
+import Event from '../event_layout';
 
-import history from '../../history';
-import {Tabs2, Tab} from '../../partials/tabs';
-import Event from "../event_layout";
+import Pagination from '../../navigation/pagination';
 
 export default class ListReservations extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      reservations: EventStore.getByType('reservations')
+      itemsPerPage: 3,
+      currentPage: 1
     };
-    this.onChange = this.onChange.bind(this);
   }
 
-  componentDidMount() {
-    EventStore.listen(this.onChange);
+  getStartItem() {
+    return this.state.itemsPerPage * (this.state.currentPage - 1);
   }
 
-  componentWillUnmount() {
-    EventStore.unlisten(this.onChange);
+  getEndItem() {
+    return this.getStartItem() + this.state.itemsPerPage;
   }
 
-  onChange(state) {
-    this.setState({
-      reservations: state.reservations
-    });
+  changePage(nextPage) {
+    if (nextPage > 0 && nextPage <= Math.ceil(this.props.reservations.length / this.state.itemsPerPage)) {
+      this.setState({
+        currentPage: nextPage
+      });
+    }
   }
 
   handleDelete(reservationId) {
@@ -43,42 +41,46 @@ export default class ListReservations extends React.Component {
     });
   }
 
-  handleSubmit(reservation){
-    console.log("handleSubmit");
-    EventActions.create({
-      type: 'reservations',
-      content: reservation
-    });
-  }
-
-  handleUpdate(reservationId){
+  handleUpdate(reservationId) {
     history.pushState(null, `/reservations/update/${reservationId}`);
   }
 
-  goTo(link){
+  goTo(link) {
     history.pushState(null, link);
   }
 
   render() {
-    let reservationList = this.state.reservations.filter(reservation => moment(reservation.endDate).isAfter(moment()) ).map((reservation, index) => {
-      let reservationContent = (
+    console.log(this.getStartItem(), this.getEndItem());
+    const reservationList = this.props.reservations
+    .slice(this.getStartItem(), this.getEndItem())
+    .map((reservation, index) => {
+      const reservationContent = (
         <div className="dates">
-          <span className="start-date">{moment(reservation.startDate).format("DD.MM.YYYY")}</span>
+          <span className="start-date">{moment(reservation.startDate).format('DD.MM.YYYY')}</span>
           <span className="separator">-</span>
-          <span className="end-date">{moment(reservation.endDate).format("DD.MM.YYYY")}</span>
+          <span className="end-date">{moment(reservation.endDate).format('DD.MM.YYYY')}</span>
         </div>
       );
       return (
-          <Event key={index} className="reservation" event={reservation} to={`/reservations/${reservation._id}`} addComment={this.handleAddComment} delete={this.handleDelete} update={this.handleUpdate}>{reservationContent}</Event>
+        <Event key={index} className="reservation"
+          event={reservation}
+          to={`/reservations/${reservation._id}`}
+          addComment={this.handleAddComment}
+          delete={this.handleDelete}
+          update={this.handleUpdate}
+        >{reservationContent}</Event>
       );
     });
 
-
     return (
-      <div className='container'>
+      <div className="container">
         {reservationList}
+        <Pagination amount={this.props.reservations.length}
+          itemsPerPage={this.state.itemsPerPage}
+          currentPage={this.state.currentPage}
+          changePage={this.changePage.bind(this)}
+        />
       </div>
     );
   }
-};
-
+}

@@ -22,7 +22,8 @@ import AddReservation from './events/reservation/add';
 import ShowReservation from './events/reservation/show';
 import IndexReservations from './events/reservation/index';
 import UpdateReservation from './events/reservation/update';
-import ListReservations from './events/reservation/list-reservations';
+import RecentlyAdded from './events/reservation/recently-added';
+import UpcomingReservations from './events/reservation/upcoming-reservations';
 
 import AddTask from './events/task/add';
 import ShowTask from './events/task/show';
@@ -73,20 +74,17 @@ export default (
       <Route path="/infoposts/:infopostId" component={ShowInfoPost} onEnter={requireAuth} />
       <Route path="/infoposts/update/:infopostId" component={UpdateInfoPost} onEnter={requireAuth} />
 
-{/*      <Route path="/reservations/new" component={AddReservation} onEnter={requireAuth} />
-      <Route path="/reservations" component={IndexReservations} onEnter={requireAuth} />
-      <Route path="/reservations/:reservationId" component={ShowReservation} onEnter={requireAuth} />
-      <Route path="/reservations/update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />*/}
       <Route path="/reservations" component={IndexReservations} onEnter={requireAuth}>
 
         <Route path="new" component={AddReservation} onEnter={requireAuth} />
         <Route path="update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />
-        <Route path="recently-added" component={ListReservations} onEnter={requireAuth} />
+        <Route path="recently-added" component={RecentlyAdded} onEnter={requireAuth} />
+        <Route path="upcoming" component={UpcomingReservations} onEnter={requireAuth} />
         <Route path=":reservationId" component={ShowReservation} onEnter={requireAuth} />
 
       </Route>
 
-      <Redirect from= "reservations" to="reservations/recently-added"/>
+      <Redirect from= "reservations" to="reservations/recently-added" />
       <Route path="/tasks/new" component={AddTask} onEnter={requireAuth} />
       <Route path="/tasks" component={IndexTasks} onEnter={requireAuth} />
       <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth} />

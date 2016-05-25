@@ -1,17 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router';
-import {isEqual} from 'underscore';
-import moment from 'moment';
-
-import ReservationForm from './form';
 
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
 import Calendar from './calendar';
 
 import history from '../../history';
-import {Tabs, Tab} from '../../partials/tabs';
-import Event from "../event_layout";
+import {Tabs} from '../../partials/tabs';
 
 export default class IndexReservations extends React.Component {
   constructor(props) {
@@ -23,8 +17,9 @@ export default class IndexReservations extends React.Component {
         endDate: undefined
       },
       tabItems: [
-        {name: "Recently Added", closable: false, path:"/reservations/recently-added"},
-        {name: "Add new", closable: false, path: "/reservations/new"}
+        {name: 'Upcoming', closable: false, path: '/reservations/upcoming'},
+        {name: 'Recently Added', closable: false, path: '/reservations/recently-added'},
+        {name: 'Add new', closable: false, path: '/reservations/new'}
       ]
     };
     this.onChange = this.onChange.bind(this);
@@ -32,37 +27,15 @@ export default class IndexReservations extends React.Component {
 
   componentDidMount() {
     EventStore.listen(this.onChange);
-    let id = this.props.params.reservationId;
-    let tabs = this.state.tabItems;
+    const id = this.props.params.reservationId;
     this.addTab(id, this.props.location.pathname);
   }
 
-  componentWillReceiveProps(nextProps){
-    let newId = nextProps.params.reservationId;
-    let location = nextProps.location.pathname;
+  componentWillReceiveProps(nextProps) {
+    const newId = nextProps.params.reservationId;
+    const location = nextProps.location.pathname;
     this.addTab(newId, location);
   }
-
-  addTab(newId, location){
-    if(newId){
-      let tabs = this.state.tabItems;
-      if(/\w+\/update\/.+/.test(location)){
-        if (tabs.length > 2){
-          tabs.pop();
-        }
-        tabs.push({name: "Update: reservation", closable: true, path: "/reservations/update/" + newId});
-      }
-      else{
-        if (tabs.length > 2){
-          tabs.pop();
-        }
-        tabs.push({name: "Reservation", closable: true, path: "/reservations/" + newId});
-      }
-
-      this.setState({tabItems: tabs});
-    }
-  }
-
 
   componentWillUnmount() {
     EventStore.unlisten(this.onChange);
@@ -74,6 +47,33 @@ export default class IndexReservations extends React.Component {
     });
   }
 
+  addTab(newId, location) {
+    if (newId) {
+      const tabs = this.state.tabItems;
+      if (/\w+\/update\/.+/.test(location)) {
+        if (tabs.length > 2) {
+          tabs.pop();
+        }
+        tabs.push({
+          name: 'Update: reservation',
+          closable: true,
+          path: `/reservations/update/${newId}`
+        });
+      }
+      else {
+        if (tabs.length > 2) {
+          tabs.pop();
+        }
+        tabs.push({
+          name: 'Reservation',
+          closable: true,
+          path: `/reservations/${newId}`});
+      }
+
+      this.setState({tabItems: tabs});
+    }
+  }
+
   handleDelete(reservationId) {
     EventActions.delete({
       type: 'reservationa',
@@ -81,39 +81,38 @@ export default class IndexReservations extends React.Component {
     });
   }
 
-  handleSubmit(reservation){
+  handleSubmit(reservation) {
     EventActions.create({
       type: 'reservations',
       content: reservation
     });
   }
 
-  handleUpdate(reservationId){
+  handleUpdate(reservationId) {
     history.pushState(null, `/reservations/update/${reservationId}`);
   }
 
-  goTo(link){
+  goTo(link) {
     history.pushState(null, link);
   }
 
-  closeTab(){
+  closeTab() {
     this.state.tabItems.pop();
     this.goTo('/reservations/recently-added');
   }
 
   render() {
-
     return (
-      <div className='container'>
+      <div className="container reservations-index">
         <div className="page-title">
           Reservations
-          <div className="add-new post" onClick={this.goTo.bind(this, "/reservations/new")}>
+          <div className="add-new post" onClick={this.goTo.bind(this, '/reservations/new')}>
             <span>+</span>
           </div>
         </div>
         <div className="app-row-50">
           <div className="col-left" >
-            <Calendar reservations={this.state.reservations}/>
+            <Calendar reservations={this.state.reservations} />
           </div>
           <div className="col-right">
             <Tabs
@@ -126,6 +125,4 @@ export default class IndexReservations extends React.Component {
       </div>
     );
   }
-};
-
-
+}
