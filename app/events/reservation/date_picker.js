@@ -6,10 +6,17 @@ import _ from 'lodash';
 export default class DatePicker extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      firstDayOfMonth: moment()
+    };
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.startDate !== this.props.startDate || nextProps.endDate !== this.props.endDate || nextProps.reservations !== this.props.reservations ;
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, nextState);
+    return !this.state.firstDayOfMonth.isSame(nextState.firstDayOfMonth) ||
+           nextProps.startDate !== this.props.startDate ||
+           nextProps.endDate !== this.props.endDate ||
+           nextProps.reservations !== this.props.reservations;
   }
 
   componentWillMount(){
