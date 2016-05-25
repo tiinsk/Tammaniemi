@@ -4,6 +4,7 @@
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border-width: 1px;
+    background: white;
   }
   .comment-list{
     .comment{
@@ -21,7 +22,7 @@
       .delete{
         position: absolute;
         right: 0px;
-        color: #FFD2D2;
+        color: rgba(0, 0, 0, 0.18);
       }
       .delete:hover{
         color: #F57373;

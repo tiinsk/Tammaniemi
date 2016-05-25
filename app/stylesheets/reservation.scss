@@ -18,10 +18,8 @@ $reservation-dark-color: #A72841;
   .title{
     color: $reservation-secondary-color;
   }
-  .left-details{
-    .created-at:after, .user:after, .comment-count:after{
-      color: $reservation-secondary-color;
-    }
+  .details .user{
+    color: $reservation-secondary-color !important;
   }
   .dates{
     .start-date:before{

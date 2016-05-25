@@ -74,47 +74,52 @@ $calendar-size: 13.7%;
       display: inline-block;
       position: relative;
       width: $calendar-size;
-    }
-    .day{
-      margin: 0px;
-      background: transparent;
-      border: 1px solid #E8E8E8;
-      display: inline-block;
-      position: relative;
-      width: $calendar-size;
-      padding-bottom: $calendar-size; /* = width for a 1:1 aspect ratio */
-      .container{
-        color: grey;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        text-align: left;
-
-        .number{
-          font-size: 20px;
-          margin: 5px;
-        }
-        .diff-month{
-          color: #DEDEDE;
-        }
-
-      }
-      .reserved-title{
-        position: relative;
-        font-size: 15px;
-        display: block;
-        color: white;
-        background: $reservation-secondary-color;
-        z-index: 200;
-        text-decoration: none;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-
-    }
-    .day, .first{
       margin-left: -1px;
+    }
+    .day-container{
+      //box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      .day{
+        margin: 0px;
+        background: transparent;
+        border: 1px solid #E8E8E8;
+        display: inline-block;
+        position: relative;
+        width: $calendar-size;
+        padding-bottom: $calendar-size; /* = width for a 1:1 aspect ratio */
+        .container{
+          color: grey;
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          text-align: left;
+          background: white;
+
+          .number{
+            font-size: 20px;
+            margin: 5px;
+          }
+          .diff-month{
+            color: #DEDEDE;
+          }
+
+        }
+        .reserved-title{
+          position: relative;
+          font-size: 15px;
+          display: block;
+          color: white;
+          background: $reservation-secondary-color;
+          z-index: 200;
+          text-decoration: none;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+
+      }
+      .day, .first{
+        margin-left: -1px;
+      }
     }
   }
 }
@@ -125,20 +130,20 @@ $calendar-size: 13.7%;
   .month{
     .header{
       .title{
-        font-size: 20px;
+        font-size: 18px;
       }
     }
     .weekday{
-      font-size: 15px;
+      font-size: 14px;
     }
     .day{
       .container{
         .number{
-          font-size: 15px;
+          font-size: 18px;
         }
       }
       .reserved-title{
-        font-size:  13px;
+        font-size:  14px;
       }
 
     }

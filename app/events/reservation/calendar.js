@@ -99,7 +99,9 @@ export default class Calendar extends React.Component {
           <div className="weekdays">
             {weekdays}
           </div>
-          {month}
+          <div className="day-container">
+            {month}
+          </div>
         </div>
       </div>
 

@@ -2,16 +2,21 @@
   display: flex;
   justify-content: flex-end;
   .col-main-home{
-    flex: 0 0 60%;
+    flex: 0 0 53%;
+    min-width: 850px;
   }
   .col-side{
-    flex: 0 0 25%;
-    min-width: 350px;
+    flex: 0 0 26%;
+    min-width: 415px;
   }
 
-  @media(max-width: 900px){
+  @media(max-width: 1300px){
+    .app-row{
+      justify-content: center;
+    }
     .col-main-home{
-      flex: 0 0 100%;
+      flex: 0 0 95%;
+      min-width: 450px;
     }
     .col-side{
       display: none;

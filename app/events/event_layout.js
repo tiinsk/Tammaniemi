@@ -66,7 +66,7 @@ export default class Event extends React.Component {
     }
 
     return (
-      <div className={"event " + this.props.className} >
+/*      <div className={"event " + this.props.className} >
         <div className="box">
           <div className="primary-symbol">
             <div className="img"></div>
@@ -90,6 +90,32 @@ export default class Event extends React.Component {
         </div>
         {commentBox}
       </div>
+*/
+      <div className={"event " + this.props.className} >
+        <div className="box">
+          <div className="primary-symbol">
+            <div className="img"></div>
+          </div>
+          {secondarySymbol}
+          {title}
+          {content}
+          <div className="details" >
+            <span className="detail user">{this.props.event.userId.name}</span>
+            <span className="detail created-at" >{moment(this.props.event.createdAt).fromNow()}</span>
+            <span className="detail comment-count">{this.props.event.comments.length}</span>
+          </div>
+          <div className="edit-menu">
+            <i className="update fa fa-pencil-square" onClick={this.props.update.bind(this, this.props.event._id)}></i>
+            <i className="delete fa fa-trash" onClick={this.props.delete.bind(this, this.props.event._id)}></i>
+          </div>
+          <div className="show-comments-btn" onClick={this.toggleComments.bind(this)} >
+              <i className="img fa fa-caret-down"></i>
+              <i className="img fa fa-comment"></i>
+          </div>
+        </div>
+        {commentBox}
+      </div>
+
 
 
     );

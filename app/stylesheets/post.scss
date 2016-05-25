@@ -13,10 +13,8 @@ $post-tertiary-color: #C8FFE1;
   .title{
     color: $post-secondary-color;
   }
-  .left-details{
-    .created-at:after, .user:after, .comment-count:after{
-      color: $post-secondary-color;
-    }
+  .details .user{
+    color: $post-secondary-color !important;
   }
   .comment-box{
     .user{

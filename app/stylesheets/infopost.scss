@@ -7,10 +7,8 @@ $infopost-tertiary-color: #DAE9F1;
   .title{
     color: $infopost-secondary-color;
   }
-  .left-details{
-    .created-at:after, .user:after, .comment-count:after{
-      color: $infopost-secondary-color;
-    }
+  .details .user{
+    color: $infopost-secondary-color !important;
   }
 
   .comment-box{
