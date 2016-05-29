@@ -1,13 +1,12 @@
 import React from 'react';
-
+import { withRouter } from 'react-router';
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
 import Calendar from './calendar';
 
-import history from '../../history';
 import {Tabs} from '../../partials/tabs';
 
-export default class IndexReservations extends React.Component {
+class IndexReservations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,7 +74,7 @@ export default class IndexReservations extends React.Component {
   }
 
   goTo(link) {
-    history.pushState(null, link);
+    this.props.router.push(link);
   }
 
   closeTab() {
@@ -108,3 +107,5 @@ export default class IndexReservations extends React.Component {
     );
   }
 }
+
+export default withRouter(IndexReservations);

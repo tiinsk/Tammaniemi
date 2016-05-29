@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router';
 import _ from 'lodash';
 
-import history from '../history';
 
 import LoginStore from '../login/login_store';
 import LoginActions from '../login/login_actions';

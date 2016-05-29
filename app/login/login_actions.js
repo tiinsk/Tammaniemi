@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { withRouter } from 'react-router';
 
 import alt from '../alt';
-import history from './../history';
 
 class LoginActions {
   constructor() {
@@ -36,4 +36,4 @@ class LoginActions {
 
 }
 
-export default alt.createActions(LoginActions);
+export default alt.createActions(withRouter(LoginActions));

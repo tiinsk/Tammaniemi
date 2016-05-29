@@ -1,7 +1,7 @@
 import alt from '../alt';
 import UserActions from './user_actions';
 import UserSource from './user_source';
-import history from '../history';
+import { browserHistory } from 'react-router';
 
 class UserStore {
   constructor() {
@@ -39,15 +39,14 @@ class UserStore {
 
   onNewSuccess({ created }) {
     this.users.push(created);
-    console.log('new', created);
-    history.pushState(null, `/users/${created._id}`);
+    browserHistory.push(`/users/${created._id}`);
   }
 
   onNewFail() {
   }
 
   onUpdateSuccess() {
-    history.pushState(null, '/users');
+    browserHistory.push('/users');
   }
 
   onUpdateFail() {

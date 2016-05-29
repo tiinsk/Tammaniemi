@@ -1,15 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
-import {Link} from 'react-router';
-import {isEqual} from 'underscore';
+import { withRouter } from 'react-router';
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
-import Button from 'muicss/lib/react/button';
-
-import history from '../../history';
-
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
 
 import Event from "../event_layout";
 
@@ -67,7 +60,7 @@ class IndexInfoPosts extends React.Component {
   }
 
   handleUpdate(infopostId){
-    history.pushState(null, `/infoposts/update/${infopostId}` );
+    this.props.router.push(`/infoposts/update/${infopostId}` );
   }
 
 
@@ -99,7 +92,7 @@ class IndexInfoPosts extends React.Component {
   }
 
   goTo(link){
-    history.pushState(null, link);
+    this.props.router.push(link);
   }
 
   render() {
@@ -115,8 +108,8 @@ class IndexInfoPosts extends React.Component {
             to={`/infoposts/${data._id}`}
             secondarySymbol={data.category}
             addComment={this.handleAddComment}
-            delete={this.handleDelete}
-            update={this.handleUpdate}
+            delete={this.handleDelete.bind(this)}
+            update={this.handleUpdate.bind(this)}
           >
             {data.content}
           </Event>
@@ -176,4 +169,4 @@ class IndexInfoPosts extends React.Component {
   }
 }
 
-export default IndexInfoPosts;
+export default withRouter(IndexInfoPosts);

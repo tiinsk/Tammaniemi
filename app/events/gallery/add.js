@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import SpinnerOverlay from '../../partials/spinner_overlay';
 import GalleryForm from './form';
-import history from '../../history';
+import { withRouter } from 'react-router';
 
 class AddGallery extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class AddGallery extends React.Component {
       this.setState({
         spinnerVisible: false
       });
-      history.pushState(null, `/gallery/${response.data.id}`);
+      this.props.router.push(`/gallery/${response.data.id}`);
     });
   }
 
@@ -45,4 +45,4 @@ class AddGallery extends React.Component {
   }
 }
 
-export default AddGallery;
+export default withRouter(AddGallery);

@@ -1,8 +1,7 @@
 import React from 'react';
 import EventStore from '../event_store';
 import EventActions from '../event_actions';
-
-import history from '../../history';
+import { withRouter } from 'react-router';
 
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
@@ -37,11 +36,11 @@ class ShowTask extends React.Component {
       type: 'tasks',
       id: taskId
     });
-    history.pushState(null, '/tasks');
+    this.props.router.push('/tasks');
   }
 
   handleUpdate(taskId) {
-    history.pushState(null, `/tasks/update/${taskId}`);
+    this.props.router.push(`/tasks/update/${taskId}`);
   }
 
   render() {
@@ -76,5 +75,5 @@ class ShowTask extends React.Component {
   }
 }
 
-export default ShowTask;
+export default withRouter(ShowTask);
 

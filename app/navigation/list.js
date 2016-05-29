@@ -3,8 +3,6 @@ import {Link} from 'react-router';
 import _ from 'lodash';
 import moment from 'moment';
 
-import history from '../history';
-
 export class CategoryList extends React.Component{
   constructor(props){
     super(props);

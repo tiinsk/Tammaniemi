@@ -1,13 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router';
-import _ from 'lodash';
+import { withRouter } from 'react-router';
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 import Button from 'muicss/lib/react/button';
-
-import history from '../../history';
 
 import Task_S from './task_layout_s';
 
@@ -42,7 +40,7 @@ class IndexTasks extends React.Component {
   }
 
   handleUpdate(taskId) {
-    history.pushState(null, `/tasks/update/${taskId}`);
+    this.props.router.push(`/tasks/update/${taskId}`);
   }
 
   handleChecked(taskId){
@@ -124,5 +122,5 @@ class IndexTasks extends React.Component {
   }
 }
 
-export default IndexTasks;
+export default withRouter(IndexTasks);
 

@@ -2,10 +2,8 @@ import React from 'react';
 import EventStore from '../event_store';
 import EventActions from '../event_actions';
 import moment from 'moment';
-import {Link} from 'react-router';
+import { withRouter } from 'react-router';
 import _ from 'underscore';
-
-import history from '../../history';
 
 import Event from "../event_layout";
 
@@ -51,12 +49,12 @@ class ShowReservation extends React.Component {
       type: 'reservations',
       id: reservationId
     });
-    history.pushState(null, '/reservations');
+    this.props.router.push('/reservations');
   }
 
 
   handleUpdate(reservationId){
-    history.pushState(null, '/reservations/update/'+ reservationId );
+    this.props.router.push('/reservations/update/'+ reservationId );
   }
 
   render() {
@@ -89,5 +87,5 @@ class ShowReservation extends React.Component {
   }
 }
 
-export default ShowReservation;
+export default withRouter(ShowReservation);
 

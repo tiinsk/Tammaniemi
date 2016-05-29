@@ -1,14 +1,13 @@
 import React from 'react';
 import moment from 'moment';
-
-import history from '../../history';
+import { withRouter } from 'react-router';
 
 import EventActions from '../event_actions';
 import Event from '../event_layout';
 
 import Pagination from '../../navigation/pagination';
 
-export default class ListReservations extends React.Component {
+class ListReservations extends React.Component {
 
   constructor(props) {
     super(props);
@@ -43,11 +42,11 @@ export default class ListReservations extends React.Component {
   }
 
   handleUpdate(reservationId) {
-    history.pushState(null, `/reservations/update/${reservationId}`);
+    this.props.router.push(`/reservations/update/${reservationId}`);
   }
 
   goTo(link) {
-    history.pushState(null, link);
+    this.props.router.push(link);
   }
 
   render() {
@@ -84,3 +83,5 @@ export default class ListReservations extends React.Component {
     );
   }
 }
+
+export default withRouter(ListReservations);

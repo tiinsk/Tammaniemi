@@ -2,17 +2,11 @@ import React from 'react';
 import EventStore from '../event_store';
 import EventActions from '../event_actions';
 
-import {Link} from 'react-router';
-import _ from 'underscore';
-
-
-import history from '../../history';
-
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
 import Event from "../event_layout";
-
+import { withRouter } from 'react-router';
 
 class ShowInfoPost extends React.Component {
   constructor(props) {
@@ -42,12 +36,12 @@ class ShowInfoPost extends React.Component {
       type: 'infoposts',
       id: infopostId
     });
-    history.pushState(null, '/infoposts');
+    this.props.router.push('/infoposts');
   }
 
 
   handleUpdate(infopostId){
-    history.pushState(null, `/infoposts/update/${infopostId}`);
+    this.props.router.push(`/infoposts/update/${infopostId}`);
   }
 
   render() {
@@ -79,5 +73,5 @@ class ShowInfoPost extends React.Component {
   }
 }
 
-export default ShowInfoPost;
+export default withRouter(ShowInfoPost);
 

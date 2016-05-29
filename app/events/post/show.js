@@ -1,8 +1,7 @@
 import React from 'react';
 import EventStore from '../event_store';
 import EventActions from '../event_actions';
-
-import history from '../../history';
+import { withRouter } from 'react-router';
 
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
@@ -37,11 +36,11 @@ class ShowPost extends React.Component {
       type: 'posts',
       id: postId
     });
-    history.pushState(null, '/posts');
+    this.props.router.push('/posts');
   }
 
   handleUpdate(postId) {
-    history.pushState(null, `/posts/update/${postId}`);
+    this.props.router.push(`/posts/update/${postId}`);
   }
 
   render() {
@@ -56,8 +55,8 @@ class ShowPost extends React.Component {
           <Event className="post"
             event={this.state.post}
             markdownContent
-            delete={this.handleDelete}
-            update={this.handleUpdate}
+            delete={this.handleDelete.bind(this)}
+            update={this.handleUpdate.bind(this)}
           >
             {this.state.post.content}
           </Event>
@@ -79,5 +78,5 @@ class ShowPost extends React.Component {
   }
 }
 
-export default ShowPost;
+export default withRouter(ShowPost);
 

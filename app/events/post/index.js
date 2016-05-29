@@ -1,16 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 import _ from 'lodash';
+import { withRouter } from 'react-router';
 
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
-/*import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';*/
 
-import {Link} from 'react-router';
-import Button from 'muicss/lib/react/button';
-
-import history from '../../history';
 import Event from '../event_layout';
 
 import NavigationBox from './navigation';
@@ -72,7 +67,7 @@ class IndexPosts extends React.Component {
   }
 
   handleUpdate(postId) {
-    history.pushState(null, `/posts/update/${postId}`);
+    this.props.router.push(`/posts/update/${postId}`);
   }
 
   getPostsByYearAndMonth(posts){
@@ -117,7 +112,7 @@ class IndexPosts extends React.Component {
   }
 
   goTo(link){
-    history.pushState(null, link);
+    this.props.router.push(link);
   }
 
   render() {
@@ -130,8 +125,8 @@ class IndexPosts extends React.Component {
           event={postData}
           markdownContent
           to={`/posts/${postData._id}`}
-          delete={this.handleDelete}
-          update={this.handleUpdate}
+          delete={this.handleDelete.bind(this)}
+          update={this.handleUpdate.bind(this)}
         >
           {postData.content}
         </Event>
@@ -198,5 +193,5 @@ class IndexPosts extends React.Component {
   }
 }
 
-export default IndexPosts;
+export default withRouter(IndexPosts);
 

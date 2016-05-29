@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import alt from '../alt';
-import history from '../history';
+import { browserHistory } from 'react-router';
 import EventSource from './event_source';
 import EventActions from './event_actions';
 
@@ -59,15 +59,14 @@ class EventStore {
       });
       return;
     }
-    this[type].push(created);
-    history.pushState(null, `/${type}/${created._id}`);
+    browserHistory.push(`/${type}/${created._id}`);
   }
 
   onNewFail() {
   }
 
   onUpdateSuccess({ type }) {
-    history.pushState(null, `/${type}`);
+    browserHistory.push(`/${type}`);
   }
 
   onUpdateFail() {

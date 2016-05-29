@@ -3,10 +3,9 @@ import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 import { Link } from 'react-router';
 import Button from 'muicss/lib/react/button';
+import { withRouter } from 'react-router';
 
 import EventStore from '../event_store';
-
-import history from '../../history';
 
 class IndexGallery extends React.Component {
   constructor(props) {
@@ -57,7 +56,7 @@ class IndexGallery extends React.Component {
 class Photoset extends React.Component {
 
   goTo(id) {
-    history.pushState(null, `/gallery/${id}`);
+    this.props.router.push(`/gallery/${id}`);
   }
 
   render() {
@@ -74,4 +73,4 @@ class Photoset extends React.Component {
   }
 }
 
-export default IndexGallery;
+export default withRouter(IndexGallery);
