@@ -3,28 +3,45 @@ import {Link} from 'react-router';
 import moment from 'moment';
 import remarkable from '../remarkable';
 
-import CommentBox from './comment/comments';
+import commentBox from './comment/comments';
+import LoginStore from './../login/login_store';
 
 export default class Event extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      "isCommentsShown": false
-    }
+      isCommentsShown: false,
+      user: LoginStore.getState().user
+    };
+    this.onChange = this.onChange.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     if (this.props.commentsOpen) {
       this.setState({
         isCommentsShown: true
-      })
-    };
+      });
+    }
   }
 
-  toggleComments(){
+  componentDidMount() {
+    LoginStore.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    LoginStore.unlisten(this.onChange);
+  }
+
+  onChange(state) {
     this.setState({
-      "isCommentsShown": !this.state.isCommentsShown
-    })
+      user: state.user
+    });
+  }
+
+  toggleComments() {
+    this.setState({
+      isCommentsShown: !this.state.isCommentsShown
+    });
   }
 
   markupToHtml() {
@@ -33,30 +50,28 @@ export default class Event extends React.Component {
 
   render() {
     let secondarySymbol;
-    if (this.props.secondarySymbol != null) {
+    if (this.props.secondarySymbol !== null) {
       secondarySymbol = (
         <div className="secondary-symbol">
-          <div className={"img num" + this.props.secondarySymbol}></div>
+          <div className={`img num${this.props.secondarySymbol}`}></div>
         </div>
       );
     }
 
     let title;
-    if(this.props.to != null){
+    if (this.props.to !== null) {
       title = (
           <Link className="title" to={this.props.to}>{this.props.event.title}</Link>
         );
-    }else{
-      title= (
+    } else {
+      title = (
         <div className="title" >{this.props.event.title}</div>
         );
     }
 
-    let commentBox;
+    let commentList;
     if (this.state.isCommentsShown) {
-      commentBox = (
-        <CommentBox comments={this.props.event.comments} eventId={this.props.event._id} addComment={this.props.addComment} />
-        );
+      commentList = commentBox(this.props.event.comments, this.props.event._id, this.state.user);
     }
     let content;
     if (this.props.markdownContent) {
@@ -65,33 +80,22 @@ export default class Event extends React.Component {
       content = (<div className="content">{this.props.children}</div>);
     }
 
+    const editMenu = (this.state.user._id === this.props.event.userId._id) ?
+      (
+        <span>
+          <i
+            className="update fa fa-pencil-square"
+            onClick={this.props.update.bind(this, this.props.event._id)}
+          ></i>
+          <i
+            className="delete fa fa-trash"
+            onClick={this.props.delete.bind(this, this.props.event._id)}
+          ></i>
+        </span>
+      ) : '';
+
     return (
-/*      <div className={"event " + this.props.className} >
-        <div className="box">
-          <div className="primary-symbol">
-            <div className="img"></div>
-          </div>
-          {secondarySymbol}
-          <div className="left-details" >
-            <div className="user">{this.props.event.userId.name}</div>
-            <div className="created-at" >{moment(this.props.event.createdAt).fromNow()}</div>
-            <div className="comment-count">{this.props.event.comments.length}</div>
-          </div>
-          {title}
-          {content}
-          <div className="edit-menu">
-              <i className="update fa fa-pencil-square" onClick={this.props.update.bind(this, this.props.event._id)}></i>
-              <i className="delete fa fa-trash" onClick={this.props.delete.bind(this, this.props.event._id)}></i>
-          </div>
-          <div className="show-comments-btn" onClick={this.toggleComments.bind(this)} >
-            <i className="img fa fa-caret-down"></i>
-            <i className="img fa fa-comment"></i>
-          </div>
-        </div>
-        {commentBox}
-      </div>
-*/
-      <div className={"event " + this.props.className} >
+      <div className={`event ${this.props.className}`} >
         <div className="box">
           <div className="primary-symbol">
             <div className="img"></div>
@@ -101,23 +105,21 @@ export default class Event extends React.Component {
           {content}
           <div className="details" >
             <span className="detail user">{this.props.event.userId.name}</span>
-            <span className="detail created-at" >{moment(this.props.event.createdAt).fromNow()}</span>
+            <span className="detail created-at" >
+              {moment(this.props.event.createdAt).fromNow()}
+            </span>
             <span className="detail comment-count">{this.props.event.comments.length}</span>
           </div>
           <div className="edit-menu">
-            <i className="update fa fa-pencil-square" onClick={this.props.update.bind(this, this.props.event._id)}></i>
-            <i className="delete fa fa-trash" onClick={this.props.delete.bind(this, this.props.event._id)}></i>
+          {editMenu}
           </div>
           <div className="show-comments-btn" onClick={this.toggleComments.bind(this)} >
               <i className="img fa fa-caret-down"></i>
               <i className="img fa fa-comment"></i>
           </div>
         </div>
-        {commentBox}
+        {commentList}
       </div>
-
-
-
     );
   }
 }

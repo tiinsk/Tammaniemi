@@ -1,53 +1,45 @@
 import React from 'react';
 import EventActions from '../event_actions';
 
-class CommentBox extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const commentList = (comments, onCommentDelete, user) => {
+  const deleteMenu = (comment) => comment.userId._id === user._id ?
+    (<i
+      className="delete fa fa-trash"
+      onClick={() => {
+        onCommentDelete(comment._id);
+      }}
+    ></i>) : '';
 
-  handleCommentSubmit(comment) {
-    EventActions.create({
-      type: 'comments',
-      content: {
-        content: comment.content,
-        eventId: this.props.eventId
-      }
-    });
-  }
-
-  handleCommentDelete(commentId) {
-    EventActions.delete({
-      type: 'comments',
-      id: commentId
-    });
-  }
-
-  render() {
-    return (
-      <div className="comment-box">
-        <CommentList onCommentDelete={this.handleCommentDelete.bind(this)} data={this.props.comments} />
-        <CommentForm onCommentSubmit={this.handleCommentSubmit.bind(this)} />
+  const commentList = comments.map((comment) =>
+    (
+      <div className="comment" key={comment._id}>
+        <span className="user">{comment.userId.name}</span><span>{comment.content}</span>
+        {deleteMenu(comment)}
       </div>
-    );
-  }
+    )
+  );
+  return (
+    <div className="comment-list">
+      {commentList}
+    </div>
+  );
 };
 
-class CommentForm extends React.Component{
-  constructor(props){
+class CommentForm extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      content: ""
-    }
+      content: ''
+    };
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    var content = this.state.content;
+    const content = this.state.content;
     if (!content) {
       return;
     }
-    this.props.onCommentSubmit({content: content});
+    this.props.onCommentSubmit({content});
     this.setState({content: ''});
   }
 
@@ -73,34 +65,33 @@ class CommentForm extends React.Component{
       </form>
     );
   }
-};
+}
 
-class CommentList extends React.Component{
-  constructor(props){
-    super(props);
-  }
-
-  handleDelete(commentId) {
-    this.props.onCommentDelete(commentId);
-  }
-
-  render() {
-    var self = this;
-    var comment = this.props.data.map(function(comment) {
-      return (
-        <div className="comment" key={comment._id}>
-          <span className="user">{comment.userId.name}</span><span>{comment.content}</span>
-          <i className="delete fa fa-trash" onClick={self.handleDelete.bind(self, comment._id)}></i>
-        </div>
-      );
+const commentBox = (comments, eventId, user) => {
+  function handleCommentSubmit(comment) {
+    EventActions.create({
+      type: 'comments',
+      content: {
+        content: comment.content,
+        eventId
+      }
     });
-    return (
-      <div className="comment-list">
-        {comment}
-      </div>
-    );
   }
+
+  function handleCommentDelete(commentId) {
+    EventActions.delete({
+      type: 'comments',
+      id: commentId
+    });
+  }
+
+  return (
+    <div className="comment-box">
+      {commentList(comments, handleCommentDelete, user)}
+      <CommentForm onCommentSubmit={handleCommentSubmit} />
+    </div>
+  );
 };
 
-export default CommentBox;
+export default commentBox;
 
