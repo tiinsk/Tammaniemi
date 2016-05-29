@@ -14,6 +14,8 @@
       "no-shadow": 0,
       "func-names": 0,
       "no-multi-comp": 0,
-      "object-curly-spacing": 0
+      "object-curly-spacing": 0,
+      "react/prop-types": 0,
+      "react/jsx-no-bind": 0
     }
 }
