@@ -6,7 +6,12 @@ module.exports = (app) => {
     session: false,
   }), (req, res) => {
     Reservation.find({})
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId'
+      }
+    })
     .populate('userId')
     .exec((err, reservations) => {
       if (err) {
@@ -31,7 +36,12 @@ module.exports = (app) => {
   }), (req, res) => {
     Reservation.findById(req.params.reservationId,
       '_id title startDate endDate comments userId createdAt')
-      .populate('comments')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId'
+        }
+      })
       .populate('userId')
       .exec((err, reservation) => {
         if (err) {

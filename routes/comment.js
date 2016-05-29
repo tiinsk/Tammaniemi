@@ -52,7 +52,15 @@ module.exports = (app) => {
             res.send(500);
             return;
           }
-          res.status(201).json(comment);
+          comment.populate('userId', (err, comment) => {
+            if (err) {
+              res.status(500).send({
+                message: 'Error occured'
+              });
+              return;
+            }
+            res.status(201).json(comment);
+          });
         });
       });
     });

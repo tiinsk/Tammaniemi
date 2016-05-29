@@ -6,7 +6,12 @@ module.exports = (app) => {
     session: false,
   }), (req, res) => {
     Task.find({})
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId'
+      }
+    })
     .populate('userId')
     .populate('doneByUser')
     .exec((err, tasks) => {
@@ -32,7 +37,12 @@ module.exports = (app) => {
     session: false
   }), (req, res) => {
     Task.findById(req.params.taskId, '_id title category comments userId createdAt')
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId'
+      }
+    })
     .populate('userId')
     .populate('doneByUser')
     .exec((err, task) => {

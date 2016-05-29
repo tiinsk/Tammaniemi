@@ -89,7 +89,7 @@ class CommentList extends React.Component{
     var comment = this.props.data.map(function(comment) {
       return (
         <div className="comment" key={comment._id}>
-          <span className="user">{comment.userId}</span><span>{comment.content}</span>
+          <span className="user">{comment.userId.name}</span><span>{comment.content}</span>
           <i className="delete fa fa-trash" onClick={self.handleDelete.bind(self, comment._id)}></i>
         </div>
       );

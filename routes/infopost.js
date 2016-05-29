@@ -6,7 +6,12 @@ module.exports = (app) => {
     session: false
   }), (req, res) => {
     InfoPost.find({})
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId'
+      }
+    })
     .populate('userId')
     .exec((err, infoposts) => {
       if (err) {
@@ -31,7 +36,12 @@ module.exports = (app) => {
     session: false
   }), (req, res) => {
     InfoPost.findById(req.params.infopostId, '_id title category content comments userId createdAt')
-      .populate('comments')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId'
+        }
+      })
       .populate('userId')
       .exec((err, infopost) => {
         if (err) {

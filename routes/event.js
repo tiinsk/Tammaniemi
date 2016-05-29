@@ -9,7 +9,12 @@ module.exports = (app) => {
     session: false
   }), (req, res) => {
     Event.find({})
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId'
+      }
+    })
     .populate('userId')
     .exec((err, events) => {
       if (err) {

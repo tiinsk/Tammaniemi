@@ -9,7 +9,12 @@ module.exports = (app) => {
     session: false
   }), (req, res) => {
     Post.find({})
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId'
+      }
+    })
     .populate('userId')
     .exec((err, posts) => {
       if (err) {
@@ -33,7 +38,12 @@ module.exports = (app) => {
     session: false
   }), (req, res) => {
     Post.findById(req.params.postId, '_id title content comments userId createdAt')
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId'
+      }
+    })
     .populate('userId')
     .exec((err, post) => {
       if (err) {
