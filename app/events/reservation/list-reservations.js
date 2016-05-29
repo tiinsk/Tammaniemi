@@ -35,6 +35,7 @@ export default class ListReservations extends React.Component {
   }
 
   handleDelete(reservationId) {
+    this.setState({currentPage: 1});
     EventActions.delete({
       type: 'reservations',
       id: reservationId
@@ -50,7 +51,6 @@ export default class ListReservations extends React.Component {
   }
 
   render() {
-    console.log(this.getStartItem(), this.getEndItem());
     const reservationList = this.props.reservations
     .slice(this.getStartItem(), this.getEndItem())
     .map((reservation, index) => {
@@ -66,8 +66,8 @@ export default class ListReservations extends React.Component {
           event={reservation}
           to={`/reservations/${reservation._id}`}
           addComment={this.handleAddComment}
-          delete={this.handleDelete}
-          update={this.handleUpdate}
+          delete={this.handleDelete.bind(this)}
+          update={this.handleUpdate.bind(this)}
         >{reservationContent}</Event>
       );
     });

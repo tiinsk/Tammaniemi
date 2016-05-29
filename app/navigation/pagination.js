@@ -36,12 +36,15 @@ class Pagination extends React.Component {
       );
     }
 
+    const prevButton = buckets ? (<li className="prev-button" onClick={this.prevPage.bind(this)}></li>) : '';
+    const nextButton = buckets ? (<li className="next-button" onClick={this.nextPage.bind(this)}></li>) : '';
+
     return (
       <div className="pagination">
         <ul>
-          <li className="prev-button" onClick={this.prevPage.bind(this)}></li>
+          {prevButton}
           {pages}
-          <li className="next-button" onClick={this.nextPage.bind(this)}></li>
+          {nextButton}
         </ul>
       </div>
     );

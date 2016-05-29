@@ -12,7 +12,6 @@ export default class DatePicker extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps, nextState);
     return !this.state.firstDayOfMonth.isSame(nextState.firstDayOfMonth) ||
            nextProps.startDate !== this.props.startDate ||
            nextProps.endDate !== this.props.endDate ||

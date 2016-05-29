@@ -51,7 +51,7 @@ export default class IndexReservations extends React.Component {
     if (newId) {
       const tabs = this.state.tabItems;
       if (/\w+\/update\/.+/.test(location)) {
-        if (tabs.length > 2) {
+        if (tabs.length > 3) {
           tabs.pop();
         }
         tabs.push({
@@ -61,7 +61,7 @@ export default class IndexReservations extends React.Component {
         });
       }
       else {
-        if (tabs.length > 2) {
+        if (tabs.length > 3) {
           tabs.pop();
         }
         tabs.push({
@@ -72,24 +72,6 @@ export default class IndexReservations extends React.Component {
 
       this.setState({tabItems: tabs});
     }
-  }
-
-  handleDelete(reservationId) {
-    EventActions.delete({
-      type: 'reservationa',
-      id: reservationId
-    });
-  }
-
-  handleSubmit(reservation) {
-    EventActions.create({
-      type: 'reservations',
-      content: reservation
-    });
-  }
-
-  handleUpdate(reservationId) {
-    history.pushState(null, `/reservations/update/${reservationId}`);
   }
 
   goTo(link) {
