@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, IndexRoute, Redirect} from 'react-router';
+import {Route, IndexRoute, IndexRedirect} from 'react-router';
 import App from './app';
 import Root from './root';
 import Home from './home/home';
@@ -75,6 +75,7 @@ export default (
       <Route path="/infoposts/update/:infopostId" component={UpdateInfoPost} onEnter={requireAuth} />
 
       <Route path="/reservations" component={IndexReservations} onEnter={requireAuth}>
+        <IndexRedirect to="recently-added" />
 
         <Route path="new" component={AddReservation} onEnter={requireAuth} />
         <Route path="update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />
@@ -84,7 +85,6 @@ export default (
 
       </Route>
 
-      <Redirect from= "reservations" to="reservations/recently-added" />
       <Route path="/tasks/new" component={AddTask} onEnter={requireAuth} />
       <Route path="/tasks" component={IndexTasks} onEnter={requireAuth} />
       <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth} />
