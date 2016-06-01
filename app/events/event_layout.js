@@ -59,7 +59,7 @@ export default class Event extends React.Component {
     }
 
     let title;
-    if (this.props.to !== null) {
+    if (this.props.to) {
       title = (
           <Link className="title" to={this.props.to}>{this.props.event.title}</Link>
         );
