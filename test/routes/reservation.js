@@ -147,9 +147,10 @@ describe('Reservation', () => {
     .then((res) => {
       res.should.have.status(200);
       res.should.be.json;
+      res.body.should.be.an('object');
       res.body._id.should.equal(reservation1._id);
       res.body.title.should.equal(reservation1.title);
-      res.body.userId.should.equal(reservation1.userId);
+      res.body.userId._id.should.equal(reservation1.userId);
       res.body.startDate.should.equal(reservation1.startDate.toISOString());
       res.body.endDate.should.equal(reservation1.endDate.toISOString());
       done();

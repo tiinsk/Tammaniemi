@@ -31,9 +31,11 @@ app.use(bodyParser.urlencoded({
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(webpackMiddleware(webpack, {
-  publicPath: '/js/'
-}));
+if (app.settings.env === 'development') {
+  app.use(webpackMiddleware(webpack, {
+    publicPath: '/js/'
+  }));
+}
 app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 require('./routes/auth')(app);

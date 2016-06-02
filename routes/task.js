@@ -101,13 +101,6 @@ module.exports = (app) => {
   }), (req, res) => {
     const updatedTask = req.body;
 
-    if (updatedTask.title === undefined || updatedTask.category === undefined) {
-      res.status(400).send({
-        message: 'Invalid task data'
-      });
-      return;
-    }
-
     Task.findById(req.params.taskId, (err, task) => {
       if (err) {
         res.sendStatus(500);
@@ -122,13 +115,13 @@ module.exports = (app) => {
       }
 
       if (!req.user._id.equals(task.userId)) {
-        res.status(403).send({
-          message: 'Unauthorized'
-        });
-        return;
+        task.isDone = updatedTask.isDone;
+        task.doneByUser = updatedTask.doneByUser;
+      } else {
+        Object.assign(task, updatedTask);
       }
 
-      task.update(updatedTask, (err) => {
+      task.save((err) => {
         if (err) {
           res.sendStatus(500);
           return;

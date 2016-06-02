@@ -40,4 +40,21 @@ const reservation2 = {
   endDate: new Date(2016, 7, 15),
 };
 
-export { user1, user2, post1, post2, reservation1, reservation2 };
+const task1 = {
+  _id: '56d0998f23dfbff0256e0003',
+  title: 'New Task',
+  userId: user1._id,
+  category: 2,
+  isDone: false
+};
+
+const task2 = {
+  _id: '56d0998f23dfbff0256e0004',
+  title: 'New Task',
+  userId: user2._id,
+  category: 1,
+  isDone: false
+};
+
+
+export { user1, user2, post1, post2, reservation1, reservation2, task1, task2 };
