@@ -8,7 +8,7 @@ module.exports = (app) => {
   app.get('/api/users', passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
-    User.find({}, (err, users) => {
+    User.find({}, '_id name email', (err, users) => {
       if (err) {
         res.sendStatus(500);
         return;
@@ -29,7 +29,7 @@ module.exports = (app) => {
   app.get('/api/users/:userId', passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
-    User.findById(req.params.userId, '_id name email password', (err, user) => {
+    User.findById(req.params.userId, '_id name email', (err, user) => {
       if (err) {
         res.sendStatus(500);
         return;
