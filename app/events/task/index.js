@@ -9,12 +9,30 @@ import Button from 'muicss/lib/react/button';
 
 import Task_S from './task_layout_s';
 
+import NavigationBox from './navigation';
+
 class IndexTasks extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tasks: EventStore.getByType('tasks')
-    };
+    let tasks = EventStore.getByType('tasks');
+    if(tasks.length > 0){
+      let organizedTasks = this.getTasksByCategory(tasks);
+      let category = Object.keys(organizedTasks)[0];
+
+      this.state = {
+        tasks: organizedTasks,
+        category: category,
+        showDone: false,
+        showUndone: true
+      };
+    }else{
+      this.state = {
+        tasks: [],
+        category: undefined,
+        showDone: false,
+        showUndone: true
+      };
+    }
     this.onChange = this.onChange.bind(this);
   }
 
@@ -27,9 +45,15 @@ class IndexTasks extends React.Component {
   }
 
   onChange(state) {
+    let tasks = state.tasks;
+    let organizedTasks = this.getTasksByCategory(tasks);
+    let category = Object.keys(organizedTasks)[0];
+
     this.setState({
-      tasks: state.tasks
+      tasks: organizedTasks,
+      category: category
     });
+
   }
 
   handleDelete(taskId) {
@@ -44,13 +68,13 @@ class IndexTasks extends React.Component {
   }
 
   handleChecked(taskId){
-    let updatedTask = this.state.tasks.find((task) => task._id === taskId );
+    let updatedTask = this.state.tasks[this.state.category].find((task) => task._id === taskId );
     updatedTask.isDone = !updatedTask.isDone;
 
     EventActions.update({type: 'tasks', content: updatedTask});
   }
 
-  getTasksByCategory(){
+/*  getTasksByCategory(){
     const grouped = this.state.tasks.reduce((result, task) => {
       if (!result[task.category]) {
         result[task.category] = [];
@@ -67,56 +91,124 @@ class IndexTasks extends React.Component {
       return result;
     }, {});
     return grouped;
+  }*/
+  update(category){
+    this.setState({
+      category: category
+    });
+  }
+
+  getTasksByCategory(tasks){
+    return tasks.reduce((result, task) => {
+      let category = task.category;
+      if (!result[category]) {
+        result[category] = [];
+      }
+      result[task.category].push(task);
+      return result;
+    }, {});
+  }
+
+  goTo(link) {
+    history.pushState(null, link);
+  }
+
+  toggleDoneShow(){
+    console.log("toggleDoneShow");
+    this.setState({
+      showDone: !this.state.showDone
+    });
+  }
+
+  toggleUndoneShow(){
+    console.log("toggleUndoneShow");
+    this.setState({
+      showUndone: !this.state.showUndone
+    });
   }
 
   render() {
-    const grouped = this.getTasksByCategory();
-    return (
-      <div className="index-layout">
-          <div md="6" className="header-section">
-              <div className="title" > Tasks </div>
-              <div className="new-task">
-              <div className="symbol">
-                <div className="img" ></div>
-              </div>
-              <div className="header"> Add new task </div>
-            </div>
+  let selectedTasks;
+    if (this.state.category != undefined) {
+      let tasks = this.state.tasks[this.state.category].filter((task) => {
+        if(this.state.showDone && task.isDone){
+          return true;
+        }
+        if(this.state.showUndone && !task.isDone){
+          return true;
+        }
+        return false;
+      });
+      selectedTasks =  tasks.map((task, index) => {
+        return(
+          <Task_S key={task._id}
+            task={task}
+            to={`/tasks/${task._id}`}
+            delete={this.handleDelete}
+            update={this.handleUpdate}
+            toggleChecked={this.handleChecked.bind(this)}
+          />
+        );
+      });
+      if(selectedTasks.length == 0){
+        selectedTasks = (
+          <div className="no-tasks">
+            No tasks to show
           </div>
-            <Button>
-              <Link to="/tasks/new">New</Link>
-            </Button>
-        <Row>
-          <Col className="column" lg="6">
-            <div className="section">
-              <div className="symbol symbol_buy"></div>
-              <h2 className="header">To Buy</h2>
-              {grouped[0]}
-            </div>
-            <div className="section">
-              <div className="symbol symbol_fix"></div>
-              <h2 className="header">Fix These</h2>
-              {grouped[2]}
-            </div>
-            <div className="section">
-              <div className="symbol symbol_other"></div>
-              <h2 className="header">Others</h2>
-              {grouped[4]}
-            </div>
-          </Col>
-          <Col className="column" lg="6">
-            <div className="section">
-              <div className="symbol symbol_food"></div>
-              <h2 className="header">Food to Buy</h2>
-              {grouped[1]}
-            </div>
-            <div className="section">
-              <div className="symbol symbol_nature"></div>
-              <h2 className="header">Leafy Things</h2>
-              {grouped[3]}
-            </div>
-          </Col>
-        </Row>
+        );
+      }
+    };
 
+    const categories = [
+          "To Buy",
+          "Food to Buy",
+          "To Fix",
+          "Outdoor Tasks",
+          "Others"
+          ];
+
+    const categoryObjects = categories.map((category, index) => {
+      let obj = {header: category };
+      if(this.state.tasks[index]){
+        if(this.state.showDone){
+          obj.doneAmount = this.state.tasks[index].filter( task => task.isDone ).length;
+        }
+        if(this.state.showUndone){
+          obj.undoneAmount = this.state.tasks[index].filter( task => !task.isDone ).length;
+        }
+      }else{
+       obj.doneAmount = 0;
+       obj.undoneAmount = 0;
+      }
+      return obj;
+    });
+
+    return (
+      <div className='container'>
+        <div className="page-title">
+          Tasks
+          <div className="add-new" onClick={this.goTo.bind(this, "/tasks/new")}>
+            <span>+</span>
+          </div>
+        </div>
+        <div className="app-row-center">
+        <div className="col-left">
+            <NavigationBox
+              update={this.update.bind(this)}
+              chosenCategory={this.state.category}
+              categories={categoryObjects}
+            />
+            <OptionMenu
+              showDone={this.state.showDone}
+              showUndone={this.state.showUndone}
+              onShowDoneChange={ () => this.toggleDoneShow()}
+              onShowUndoneChange={ () => this.toggleUndoneShow()}
+            />
+          </div>
+          <div className="col-main">
+            {selectedTasks}
+          </div>
+        </div>
       </div>
     );
   }
@@ -124,3 +216,30 @@ class IndexTasks extends React.Component {
 
 export default withRouter(IndexTasks);
 
+const OptionMenu = ({showUndone, showDone, onShowUndoneChange, onShowDoneChange}) => {
+  return(
+    <div className="option-menu">
+      <Option
+        title="Show Undone"
+        selected={showUndone}
+        onSelectedChange={onShowUndoneChange}
+      />
+      <Option
+        title="Show Done"
+        selected={showDone}
+        onSelectedChange={onShowDoneChange}
+      />
+    </div>
+  );
+}
+
+const Option = ({title, selected, onSelectedChange}) => {
+  return(
+    <div className="option" onClick={onSelectedChange} >
+      <div className={"checkbox" + (selected ? " selected" : "" )}>
+        <div className={"mark" + (selected ? " selected" : "" )}></div>
+      </div>
+      <div className="title">{title}</div>
+    </div>
+  );
+}

@@ -53,9 +53,9 @@ export default class Task_S extends React.Component {
           </div>
           {title}
           <div className="details" >
-            <span className="user">{this.props.task.userId.name}</span>
-            <span className="created-at" >{moment(this.props.task.createdAt).fromNow()}</span>
-            <span className="comment-count">{this.props.task.comments.length}</span>
+            <span className="detail user">{this.props.task.userId.name}</span>
+            <span className="detail created-at" >{moment(this.props.task.createdAt).fromNow()}</span>
+            <span className="detail comment-count">{this.props.task.comments.length}</span>
           </div>
           <div className="edit-menu">
               <i className="update fa fa-pencil-square" onClick={this.props.update.bind(this, this.props.task._id)}></i>

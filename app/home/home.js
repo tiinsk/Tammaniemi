@@ -5,7 +5,7 @@ import EventStore from '../events/event_store';
 import Event from '../events/event_layout';
 
 import Calendar from '../events/reservation/calendar';
-import Task from '../events/task/task_layout';
+import Task_S from '../events/task/task_layout_s';
 
 
 class Home extends React.Component {
@@ -75,7 +75,7 @@ class Home extends React.Component {
       const type = event.__t.toLowerCase();
       if (type === 'task') {
         return (
-          <Task key={event._id}
+          <Task_S key={event._id}
             task={event}
             to={`/tasks/${event._id}`}
             delete={this.handleDelete}

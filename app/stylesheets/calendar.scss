@@ -1,4 +1,4 @@
-$calendar-size: 13.7%;
+$calendar-size: calc(100% / 7);
 
 @media (max-width: 900px){
   .calendar{
@@ -119,6 +119,7 @@ $calendar-size: 13.7%;
       }
       .day, .first{
         margin-left: -1px;
+        margin-top: -1px;
       }
     }
   }
@@ -126,7 +127,8 @@ $calendar-size: 13.7%;
 
 .calendar.small{
   margin-top: 50px;
-  margin-right: 20px;
+  margin-right: 50px;
+  margin-left: 20px;
   .month{
     .header{
       .title{
