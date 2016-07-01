@@ -98,7 +98,6 @@ class ShowGallery extends React.Component {
       }
     ));
     const rows = [...this.rowGenerator(photosetPhotos)];
-
     const photos = rows ?
       rows.map((photos, index) => (
           <Row key={index}>
@@ -110,6 +109,12 @@ class ShowGallery extends React.Component {
       <h2> Loading </h2>;
     return (
       <section className="gallery">
+        <div className="page-title">
+          {this.state.photoset.title}
+          <div className="add-new" onClick={() => {}}>
+          <span>+</span>
+          </div>
+        </div>
         <LightBox images = {lightBoxImages}
           currentImage = {this.state.lightBoxImage}
           lightboxIsOpen = {this.state.lightBoxIsOpen}
