@@ -51,6 +51,9 @@ export default class Task_S extends React.Component {
               <div onClick={this.toggleChecked.bind(this)} className={"checkmark " + (this.props.task.isDone ? "checked" : "") } ></div>
             </div>
           </div>
+          <div className="secondary-symbol">
+            <div className={"img img"+ this.props.task.category} ></div>
+          </div>
           {title}
           <div className="details" >
             <span className="detail user">{this.props.task.userId.name}</span>

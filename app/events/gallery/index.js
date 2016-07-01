@@ -33,20 +33,23 @@ class IndexGallery extends React.Component {
 
   render() {
     const galleryList = this.state.photosets.length ? this.state.photosets.map((photoset) =>
-      (<Photoset photoset={photoset} key={photoset.id} />)
+      (<Photoset photoset={photoset} key={photoset.id} router={this.props.router} />)
     ) : <h2>Loading</h2>;
     return (
       <section className="gallery">
-        <Row>
-          <Col md="8" md-offset="2">
-            <Button>
-              <Link to="/gallery/new">New</Link>
-            </Button>
+        <div className="page-title">
+          Gallery
+          <div className="add-new gallery" onClick={() => this.props.router.push("/gallery/new")}>
+            <span>+</span>
+          </div>
+        </div>
+        <div className="app-row-only-1100">
+          <div className="col-main-only">
             <div className="photoset-container">
               {galleryList}
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </section>
     );
   }
@@ -65,9 +68,16 @@ class Photoset extends React.Component {
       backgroundImage: `url("//farm${photoset.farm}.staticflickr.com/${photoset.server}/${photoset.primary}_${photoset.secret}_m.jpg")`
     };
     return (
-      <div className="photoset" style={style} onClick={this.goTo.bind(this, photoset.id)} >
-        <div className="overlay"></div>
-        <h3>{photoset.title._content} <span className="amount"> {photoset.photos}photos</span></h3>
+      <div className="photoset-frame" onClick={this.goTo.bind(this, photoset.id)} >
+        <div className="photoset" style={style} />
+        <div className="details">
+          <span className="title">
+            {photoset.title._content}
+          </span>
+          <span className="amount">
+            {photoset.photos} photos
+          </span>
+        </div>
       </div>
     );
   }

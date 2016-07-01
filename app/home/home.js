@@ -107,6 +107,7 @@ class Home extends React.Component {
         <Event key={event._id} className={type}
           event={event}
           markdownContent={markdown[type]}
+          secondarySymbol={event.category}
           to={`/${type}s/${event._id}`}
           delete={this.handleDelete}
           update={this.handleUpdate}
@@ -124,14 +125,13 @@ class Home extends React.Component {
         <div className="app-row">
           <div className="col-main-home">
             {events}
+            <div className="show-more" onClick={this.changePage.bind(this)}>
+              <span>Show more</span>
+            </div>
           </div>
           <div className="col-side">
             <Calendar small reservations={reservations} />
           </div>
-        </div>
-
-        <div className="show-more" onClick={this.changePage.bind(this)}>
-          <span>Show more</span>
         </div>
       </div>
     );

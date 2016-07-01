@@ -67,10 +67,13 @@
   display: flex;
   justify-content: center;
   span {
-    padding: 15px 30px;
-    border: 1px solid orange;
+    padding: 10px 78px;
     font-size: 15px;
     cursor: pointer;
+    background: #a55279;
+    border-radius: 5px;
+    color: #ffffff;
+
   }
 }
 
