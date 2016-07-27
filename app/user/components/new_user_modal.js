@@ -66,10 +66,11 @@ export default class NewUserModal extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    var name = this.state.user.name;
-    var email = this.state.user.email;
-    var password = this.state.user.password;
-    var verifyPassword = this.state.user.verifyPassword;
+    const name = this.state.user.name;
+    const email = this.state.user.email;
+    const password = this.state.user.password;
+    const verifyPassword = this.state.user.verifyPassword;
+    const token = this.state.secret;
 
     if (verifyPassword !== password) {
       this.setState({
@@ -77,17 +78,14 @@ export default class NewUserModal extends React.Component {
       });
     }
 
-    if(this.state.secret != "TAMMANIEMI"){
-      this.setState({
-        secretError: "Secret incorrect!"
-      });
-    }
-
     if (name && email && password && verifyPassword) {
       UserActions.create({
-        name,
-        email,
-        password
+        user: {
+          name,
+          email,
+          password
+        },
+        token
       });
       this.closeModal();
       console.log({name, email, password});

@@ -12,6 +12,10 @@ const fileUpload = require('express-fileupload');
 
 const Flickr = require('flickrapi');
 
+const nodemailer = require('nodemailer');
+const markdown = require('nodemailer-markdown').markdown;
+const stubTransport = require('nodemailer-stub-transport');
+
 const app = express();
 
 mongoose.Promise = global.Promise;
@@ -19,6 +23,18 @@ mongoose.connect(config.database[app.settings.env]);
 mongoose.connection.on('error', () => {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
 });
+
+let nodemailerTransport = {};
+
+if (app.settings.env === 'development') {
+  nodemailerTransport = nodemailer.createTransport(stubTransport());
+  nodemailerTransport.use('compile', markdown());
+}
+
+if (app.settings.env === 'production') {
+  // Setup production email provider
+}
+
 
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
@@ -40,6 +56,7 @@ if (app.settings.env === 'development') {
 app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 require('./routes/auth')(app);
+require('./routes/invite')(app, nodemailerTransport);
 require('./routes/user')(app);
 require('./routes/post')(app);
 require('./routes/task')(app);
