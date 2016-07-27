@@ -1,3 +1,5 @@
+const utility = require('./utility');
+
 const user1 = {
   _id: '56d0998f23dfbff0256ec001',
   name: 'Teppo Testaaja',
@@ -56,5 +58,39 @@ const task2 = {
   isDone: false
 };
 
+const token1 = {
+  _id: '56d0998f23dfbff0256e0005',
+  token: utility.generateToken()
+};
 
-export { user1, user2, post1, post2, reservation1, reservation2, task1, task2 };
+const expiredToken = {
+  _id: '56d0998f23dfbff0256e0006',
+  token: utility.generateToken(),
+  validUntil: (() => {
+    const now = new Date();
+    now.setHours(now.getHours() - 4);
+
+    return now;
+  })()
+};
+
+const usedToken = {
+  _id: '56d0998f23dfbff0256e0007',
+  token: utility.generateToken(),
+  active: false
+};
+
+
+export {
+  user1,
+  user2,
+  post1,
+  post2,
+  reservation1,
+  reservation2,
+  task1,
+  task2,
+  token1,
+  expiredToken,
+  usedToken
+};

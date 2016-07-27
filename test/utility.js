@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt-nodejs');
 const config = require('../config');
 
 function getUserCookie(user) {
@@ -8,4 +9,10 @@ function getUserCookie(user) {
   }, config.jwt[process.env.NODE_ENV].secret);
 }
 
-export { getUserCookie };
+function generateToken() {
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(Date.now(), salt);
+  return (new Buffer(hash)).toString('base64');
+}
+
+export { getUserCookie, generateToken };

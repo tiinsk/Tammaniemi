@@ -14,6 +14,7 @@ const Flickr = require('flickrapi');
 
 const app = express();
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database[app.settings.env]);
 mongoose.connection.on('error', () => {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
@@ -55,6 +56,13 @@ Flickr.authenticate(config.flickrOptions, (error, flickr) => {
     res.sendFile('/views/index.html', {
       root: __dirname
     });
+  });
+
+  app.use((err, req, res, next) => {
+    /* We log the error internaly */
+    console.log(err);
+    res.status(500).json(err);
+    next();
   });
 
   app.listen(app.get('port'), () => {

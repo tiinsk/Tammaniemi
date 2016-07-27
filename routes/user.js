@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const AuthToken = require('../models/authtoken');
 const passport = require('./passport.js');
 
 module.exports = (app) => {
@@ -7,20 +8,16 @@ module.exports = (app) => {
    */
   app.get('/api/users', passport.authenticate('jwt', {
     session: false
-  }), (req, res) => {
-    User.find({}, '_id name email', (err, users) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
+  }), (req, res, next) => {
+    User.find({}, '_id name email')
+    .exec()
+    .then((users) => {
       if (users === null) {
-        res.status(404).send({
-          message: 'No users found'
-        });
-        return;
+        throw new Error('No users found');
       }
       res.json(users);
-    });
+    })
+    .then(null, next);
   });
 
   /*
@@ -28,64 +25,61 @@ module.exports = (app) => {
    */
   app.get('/api/users/:userId', passport.authenticate('jwt', {
     session: false
-  }), (req, res) => {
-    User.findById(req.params.userId, '_id name email', (err, user) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
+  }), (req, res, next) => {
+    User.findById(req.params.userId, '_id name email')
+    .exec()
+    .then((user) => {
       if (user === null) {
-        res.status(404).send({
-          message: 'User not found'
-        });
-        return;
+        throw new Error('User not found');
       }
       res.json(user);
-    });
+    })
+    .then(null, next);
   });
 
   /*
    * POST add new user
    */
-  app.post('/api/users', (req, res) => {
-    const addUser = req.body;
+  app.post('/api/users', (req, res, next) => {
+    const addUser = req.body.user;
+    const token = req.body.token;
 
-    if (addUser.name === undefined ||
-        addUser.password === undefined ||
-        addUser.email === undefined) {
-      res.status(400).send({
-        message: 'Invalid user data'
-      });
-      return;
-    }
-
-    User.findOne({
-      email: addUser.email
-    }, (err, user) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
+    AuthToken.findOne({
+      token
+    }).exec()
+    .then((token) => {
+      if (token && token.isValid()) {
+        return User.findOne({
+          email: addUser.email
+        }).exec();
       }
-
+      throw new Error('Invalid token');
+    })
+    .then((user) => {
       if (user) {
-        res.status(403).send({
-          message: 'User already exists'
-        });
-        return;
+        throw new Error('User exists');
       }
 
       const newUser = new User(addUser);
+      if (newUser.validateSync()) {
+        throw new Error('Incorrect user data');
+      }
 
-      newUser.save((err, user) => {
-        if (err) {
-          res.status(500).send({
-            message: 'Creation failed'
-          });
-          return;
-        }
-        res.json(user);
+      return newUser.save();
+    })
+    .then((user) => {
+      res.json({
+        name: user.name,
+        email: user.email,
+        _id: user._id
       });
-    });
+    })
+    .then(() => AuthToken.findOneAndUpdate({
+      token
+    }, {active: false})
+      .exec()
+    )
+    .then(null, next);
   });
 
   /*
@@ -93,41 +87,34 @@ module.exports = (app) => {
    */
   app.put('/api/users/:userId', passport.authenticate('jwt', {
     session: false
-  }), (req, res) => {
+  }), (req, res, next) => {
     const updatedUser = req.body;
 
-    User.findById(req.params.userId, (err, user) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-
+    User.findById(req.params.userId)
+    .exec()
+    .then((user) => {
       if (!user) {
-        res.status(404).send({
-          message: 'User not found'
-        });
-        return;
+        throw new Error('User does not exist');
       }
 
-      if (req.user.username !== user.username) {
-        res.send(403);
-        return;
+      if (req.user.email !== user.email) {
+        throw new Error('Can not update other users');
       }
 
-      if (updatedUser.email === undefined ||
-          updatedUser.name === undefined) {
-        res.send(400);
-        return;
+      if (updatedUser.password) {
+        user.password = updatedUser.password;
       }
-
-      user.update(updatedUser, (err) => {
-        if (err) {
-          res.sendStatus(500);
-          return;
-        }
-        res.send(200);
+      user.name = updatedUser.name;
+      return user.save();
+    })
+    .then((user) => {
+      res.json({
+        name: user.name,
+        email: user.email,
+        _id: user._id
       });
-    });
+    })
+    .then(null, next);
   });
 
   /*
@@ -135,35 +122,24 @@ module.exports = (app) => {
    */
   app.delete('/api/users/:userId', passport.authenticate('jwt', {
     session: false
-  }), (req, res) => {
-    User.findOne({
-      userId: req.params.userId
-    }, (err, user) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-
+  }), (req, res, next) => {
+    User.findById(req.params.userId)
+    .exec()
+    .then((user) => {
       if (!user) {
-        res.status(404).send({
-          message: 'User not found'
-        });
-        return;
+        throw new Error('User not found');
       }
 
-      if (req.user.username !== user.username) {
-        res.send(403);
-        return;
+      if (req.user.email !== user.email) {
+        throw new Error('Can not delete other users');
       }
 
-      user.remove((err) => {
-        if (err) {
-          res.sendStatus(500);
-          return;
-        }
-        req.logout();
-        res.send(200);
-      });
-    });
+      return User.remove({_id: user._id}).exec();
+    })
+    .then((user) => {
+      req.logout();
+      res.sendStatus(201);
+    })
+    .then(null, next);
   });
 };
