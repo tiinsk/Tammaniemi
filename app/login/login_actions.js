@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { withRouter } from 'react-router';
+import { browserHistory } from 'react-router';
 
 import alt from '../alt';
 
@@ -21,7 +21,7 @@ class LoginActions {
     })
     .then((response) => {
       this.loginUserSuccess(response.data);
-      history.replaceState(null, '/home');
+      browserHistory.push('/home');
     });
   }
 
@@ -30,10 +30,10 @@ class LoginActions {
     .get('/api/logout')
     .then((response) => {
       this.logoutUserSuccess(response.data);
-      history.replaceState(null, '/');
+      browserHistory.push('/');
     });
   }
 
 }
 
-export default alt.createActions(withRouter(LoginActions));
+export default alt.createActions(LoginActions);

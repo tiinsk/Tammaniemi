@@ -37,19 +37,19 @@ import AddGallery from './events/gallery/add';
 import LoginStore from './login/login_store';
 
 function requireAuth(nextState, replaceState, next) {
-  console.log("requireAuth");
+  console.log('requireAuth');
   LoginStore.getState().userPromise.then(() => {
     next();
   }, () => {
-    replaceState({ nextPathname: nextState.location.pathname }, '/');
+    replaceState({ pathname: '/'});
     next();
   });
 }
 
 function isLoggedIn (nextState, replaceState, next) {
-  console.log("isLoggedIn");
+  console.log('isLoggedIn');
   LoginStore.getState().userPromise.then(() => {
-    replaceState({ nextPathname: nextState.location.pathname }, '/home');
+    replaceState({ pathname: '/home'});
     next();
   }, () => {
     next();
