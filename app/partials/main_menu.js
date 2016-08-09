@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import _ from 'lodash';
 
+import InviteUserModal from '../user/components/invite_user_modal';
 
 import LoginStore from '../login/login_store';
 import LoginActions from '../login/login_actions';
@@ -78,6 +79,9 @@ class MenuBar extends React.Component{
           <Link to="/gallery" activeClassName="active">
             Gallery
           </Link>
+        </li>
+        <li className="right-menu">
+          <InviteUserModal />
         </li>
         <li className="right-menu">
           <LoginMenu />

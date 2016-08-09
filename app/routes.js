@@ -36,6 +36,8 @@ import AddGallery from './events/gallery/add';
 
 import LoginStore from './login/login_store';
 
+import CreateUser from './user/components/create_user';
+
 function requireAuth(nextState, replaceState, next) {
   console.log('requireAuth');
   LoginStore.getState().userPromise.then(() => {
@@ -94,5 +96,7 @@ export default (
       <Route path="/gallery/new" component={AddGallery} onEnter={requireAuth} />
       <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth} />
     </Route>
+
+    <Route path="/invite/:token" component={CreateUser} />
   </Route>
 );

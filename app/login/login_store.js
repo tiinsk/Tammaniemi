@@ -20,6 +20,9 @@ class LoginStore {
         user: response.data,
         isLoggedIn: true
       });
+    }, () => {
+      console.log('Not logged in');
+      return Promise.reject('Not logged in');
     });
   }
 
