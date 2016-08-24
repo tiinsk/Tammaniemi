@@ -2,13 +2,36 @@ $infopost-primary-color: #5CD4FF;
 $infopost-secondary-color: #4396BF;
 $infopost-tertiary-color: #DAE9F1;
 .infopost{
-
-
   .title{
     color: $infopost-secondary-color;
   }
   .details .user{
     color: $infopost-secondary-color !important;
+  }
+
+  .details{
+    .edit-menu{
+      .circle{
+        &.edit{
+          background: #68b0ca;
+        }
+        &.delete{
+          background-color: $infopost-secondary-color;
+        }
+        &.comments{
+          background: $infopost-primary-color;
+        }
+        &.edit:hover, &.edit:focus{
+          background: #5793a9;
+        }
+        &.delete:hover, &.delete:focus{
+          background-color: #3c86ab;
+        }
+        &.comments:hover, &.comments:focus{
+          background: #54c6ef;
+        }
+      }
+    }
   }
 
   .comment-box{

@@ -50,15 +50,15 @@ class CommentForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <div className="input-group">
+        <div className="comment-input">
           <input
-            className="form-control"
+            className="comment-input-field"
             type="text"
             placeholder="Write comment..."
             value={this.state.content}
             onChange={this.handleTextChange.bind(this)}
           />
-          <span className="input-group-btn">
+          <span className="comment-btn">
             <button className="btn" type="submit">Comment</button>
           </span>
         </div>

@@ -38,173 +38,6 @@
 }
 
 
-/* .task, .task-s{
-  margin: 60px 60px 60px 130px;
-  .box{
-    position: relative;
-    padding: 22px 50px;
-    border: 1px solid #E8E8E8;
-    background: white;
-    .title{
-        text-transform: uppercase;
-        font-size: 24px;
-    }
-    .overlined{
-      text-decoration: line-through;
-    }
-    .content{
-      margin: 20px 0px;
-      font-size: 18px;
-      color: grey;
-    }
-    .details{
-      margin-top: 10px;
-      .created-at{
-        padding-right: 20px;
-      }
-      .user{
-        padding-right: 20px;
-      }
-      .comment-count{
-        padding-right: 20px;
-      }
-      .created-at:before{
-        padding-right: 5px;
-        font-size: 20px;
-        font-family: "FontAwesome";
-        content: "\f073";
-      }
-      .user:before{
-        padding-right: 5px;
-        font-size: 20px;
-        font-family: "FontAwesome";
-        content:"\f007";
-      }
-      .comment-count:before{
-        padding-right: 5px;
-        font-size: 20px;
-        font-family: "FontAwesome";
-        content:"\f075";
-      }
-    }
-    .edit-menu{
-      position: absolute;
-      top: 0px;
-      right: -12px;
-      .delete{
-        font-size: 34px;
-        color: #FFE0E7;
-        padding: 2px;
-        display: block;
-      }
-      .delete:hover{
-        color: #F57373;
-      }
-      .update{
-        font-size: 30px;
-        color: #B9F7DE;
-        padding: 2px;
-        display: block;
-      }
-      .update:hover{
-        color: #69A96D;
-      }
-    }
-    .show-comments-btn{
-      display: inline-block;
-      position: absolute;
-      bottom: -19px;
-      right: 50%;
-      font-size: 25px;
-      color: #E4E4E4;
-      .img{
-        padding: 2px;
-      }
-
-    }
-    .show-comments-btn:hover{
-        color: grey;
-    }
-
-    .primary-symbol{
-      position: absolute;
-      top: -2px;
-      left: -35px;
-      height: 70px;
-      width: 70px;
-      border-radius: 50%;
-      .chekbox{
-        font-size: 35px;
-        position: absolute;
-        height: 40px;
-        width: 40px;
-        top: 16px;
-        left: 16px;
-        background: white;
-        border-radius: 12%;
-
-        .checkmark{
-          color: #FFF4EF;
-          font-size: 34px;
-        }
-        .checkmark:before{
-          font-family: "FontAwesome";
-          content: "\f00c";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-
-        }
-        .checkmark:hover{
-          color: #00D82D;
-
-        }
-        .checked{
-          color: #00D82D;
-
-        }
-      }
-    }
-    .secondary-symbol{
-      position: absolute;
-      top: 68px;
-      left: -25px;
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      .img{
-        font-family: "FontAwesome";
-        color: white;
-        font-size: 20px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-  }
-}
-
-.task-s{
-  .box{
-    padding: 2px 50px;
-    border: 0px;
-    .title-container{
-      width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .details{
-      margin-top: 0px;
-    }
-    .show-comments-btn{
-      color: #F7D0BF;
-    }
-  }
-}
- */
-
 .task-s{
   margin: 60px;
   .box{
@@ -226,6 +59,7 @@
       color: rgba(0, 0, 0, 0.54);
     }
     .details{
+      position: relative;
       .detail{
         margin-right: 20px;
         color: rgba(0, 0, 0, 0.3);
@@ -243,50 +77,58 @@
         color: #4A4A4A;
         font-weight: 400px;
       }
-/*       .user:before{
-        content:"\f007";
-      } */
       .comment-count:before{
         content:"\f075";
       }
+      .edit-menu{
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        color: rgba(0, 0, 0, 0.18);
+        .circle{
+          height: 32px;
+          width: 32px;
+          border-radius: 50%;
+          background: red;
+          color: white;
+          position: relative;
+          display: inline-block;
+          margin: 0px 2px;
+          cursor: pointer;
+          .fa{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          .delete{
+            font-size: 25px;
+            padding: 2px;
+          }
+          .delete:hover{
+            color: #F57373;
+          }
+          .update{
+            font-size: 22px;
+            padding: 2px;
+          }
+          .update:hover{
+            color: #69A96D;
+          }
+        }
+        .comments{
+          display: inline-block;
+          .fa-caret-down{
+            left: 7px;
+            top: 17px;
+            font-size: 10px;
+          }
+          .fa-comment{
+            left: 18px;
+          }
+        }
+      }
     }
-    .edit-menu{
-      position: absolute;
-      top: 0px;
-      right: 2px;
-      margin: 12px 10px;
-      color: rgba(0, 0, 0, 0.18);
-      .delete{
-        font-size: 25px;
-        padding: 2px;
-      }
-      .delete:hover{
-        color: #F57373;
-      }
-      .update{
-        font-size: 22px;
-        padding: 2px;
-      }
-      .update:hover{
-        color: #69A96D;
-      }
-    }
-    .show-comments-btn{
-      display: inline-block;
-      position: absolute;
-      bottom: -19px;
-      right: 50%;
-      font-size: 25px;
-      color: #E4E4E4;
-      .img{
-        padding: 2px;
-      }
-
-    }
-    .show-comments-btn:hover{
-        color: grey;
-    }
-
     .primary-symbol{
       position: absolute;
       top: 0px;
@@ -367,6 +209,32 @@ $task-tertiary-color: #FFF0CA;
   .user{
     color: $task-secondary-color !important;
   }
+
+  .details{
+    .edit-menu{
+      .circle{
+        &.edit{
+          background: #f7b064;
+        }
+        &.delete{
+          background-color: $task-secondary-color;
+        }
+        &.comments{
+          background: $task-primary-color;
+        }
+        &.edit:hover, &.edit:focus{
+          background: #eca253;
+        }
+        &.delete:hover, &.delete:focus{
+          background-color: #f5932b;
+        }
+        &.comments:hover, &.comments:focus{
+          background: #f1af00;
+        }
+      }
+    }
+  }
+
   .dates{
     .start-date:before{
       padding: 0 5px;

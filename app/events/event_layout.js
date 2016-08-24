@@ -83,14 +83,12 @@ export default class Event extends React.Component {
     const editMenu = (this.state.user._id === this.props.event.userId._id) ?
       (
         <span>
-          <i
-            className="update fa fa-pencil-square"
-            onClick={this.props.update.bind(this, this.props.event._id)}
-          ></i>
-          <i
-            className="delete fa fa-trash"
-            onClick={this.props.delete.bind(this, this.props.event._id)}
-          ></i>
+          <div className="edit circle" onClick={this.props.update.bind(this, this.props.event._id)}>
+            <i className="fa fa-pencil"></i>
+          </div>
+          <div className="delete circle" onClick={this.props.delete.bind(this, this.props.event._id)}>
+          <i className="fa fa-trash"></i>
+          </div>
         </span>
       ) : '';
 
@@ -109,13 +107,13 @@ export default class Event extends React.Component {
               {moment(this.props.event.createdAt).fromNow()}
             </span>
             <span className="detail comment-count">{this.props.event.comments.length}</span>
-          </div>
-          <div className="edit-menu">
-          {editMenu}
-          </div>
-          <div className="show-comments-btn" onClick={this.toggleComments.bind(this)} >
-              <i className="img fa fa-caret-down"></i>
-              <i className="img fa fa-comment"></i>
+            <div className="edit-menu">
+              <div className="circle comments" onClick={this.toggleComments.bind(this)} >
+                <i className="fa fa-caret-down"></i>
+                <i className="fa fa-comment"></i>
+              </div>
+              {editMenu}
+            </div>
           </div>
         </div>
         {commentList}

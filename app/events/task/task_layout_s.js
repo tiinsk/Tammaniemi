@@ -3,12 +3,14 @@ import {Link} from 'react-router';
 import moment from 'moment';
 
 import CommentBox from '../comment/comments';
+import LoginStore from './../../login/login_store';
 
 export default class Task_S extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      "isCommentsShown": false
+      "isCommentsShown": false,
+      user: LoginStore.getState().user
     }
   }
 
@@ -20,6 +22,12 @@ export default class Task_S extends React.Component {
 
   toggleChecked(){
     this.props.toggleChecked(this.props.task._id)
+  }
+
+  onChange(state) {
+    this.setState({
+      user: state.user
+    });
   }
 
   render() {
@@ -43,6 +51,18 @@ export default class Task_S extends React.Component {
         );
     }
 
+    const editMenu = (this.state.user._id === this.props.task.userId._id) ?
+      (
+        <span>
+          <div className="edit circle" onClick={this.props.update.bind(this, this.props.task._id)}>
+            <i className="fa fa-pencil"></i>
+          </div>
+          <div className="delete circle" onClick={this.props.delete.bind(this, this.props.task._id)}>
+          <i className="fa fa-trash"></i>
+          </div>
+        </span>
+      ) : '';
+
     return (
       <div className="task-s" >
         <div className="box">
@@ -59,14 +79,13 @@ export default class Task_S extends React.Component {
             <span className="detail user">{this.props.task.userId.name}</span>
             <span className="detail created-at" >{moment(this.props.task.createdAt).fromNow()}</span>
             <span className="detail comment-count">{this.props.task.comments.length}</span>
-          </div>
-          <div className="edit-menu">
-              <i className="update fa fa-pencil-square" onClick={this.props.update.bind(this, this.props.task._id)}></i>
-              <i className="delete fa fa-trash" onClick={this.props.delete.bind(this, this.props.task._id)}></i>
-          </div>
-          <div className="show-comments-btn" onClick={this.toggleComments.bind(this)} >
-            <i className="img fa fa-caret-down"></i>
-            <i className="img fa fa-comment"></i>
+            <div className="edit-menu">
+              <div className="circle comments" onClick={this.toggleComments.bind(this)} >
+                <i className="fa fa-caret-down"></i>
+                <i className="fa fa-comment"></i>
+              </div>
+              {editMenu}
+            </div>
           </div>
         </div>
         {commentBox}

@@ -21,6 +21,32 @@ $reservation-dark-color: #A72841;
   .details .user{
     color: $reservation-secondary-color !important;
   }
+
+  .details{
+    .edit-menu{
+      .circle{
+        &.edit{
+          background: #ec5a77;
+        }
+        &.delete{
+          background-color: $reservation-secondary-color;
+        }
+        &.comments{
+          background: $reservation-primary-color;
+        }
+        &.edit:hover, &.edit:focus{
+          background: #de536f;
+        }
+        &.delete:hover, &.delete:focus{
+          background-color: #c72c4b;
+        }
+        &.comments:hover, &.comments:focus{
+          background: #f35876;
+        }
+      }
+    }
+  }
+
   .dates{
     .start-date:before{
       padding: 0 5px;

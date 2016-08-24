@@ -16,6 +16,32 @@ $post-tertiary-color: #C8FFE1;
   .details .user{
     color: $post-secondary-color !important;
   }
+
+  .details{
+    .edit-menu{
+      .circle{
+        &.edit{
+          background: #4ae894;
+        }
+        &.delete{
+          background-color: $post-secondary-color;
+        }
+        &.comments{
+          background: $post-primary-color;
+        }
+        &.edit:hover, &.edit:focus{
+          background: #44d689;
+        }
+        &.delete:hover, &.delete:focus{
+          background-color: #3daf72;
+        }
+        &.comments:hover, &.comments:focus{
+          background: #56e699;
+        }
+      }
+    }
+  }
+
   .comment-box{
     .user{
       color: $post-secondary-color;

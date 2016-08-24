@@ -1,130 +1,3 @@
-/* .event{
-  margin: 60px 60px 60px 130px;
-  .box{
-    position: relative;
-    padding: 35px;
-    //border: 1px solid #E8E8E8;
-    min-height: 150px;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0,0,0,.04);
-    border: 1px solid rgba(0,0,0,.09);
-    .title{
-        text-transform: uppercase;
-        font-size: 24px;
-    }
-    .content{
-      margin: 20px 0px;
-      font-size: 18px;
-      color: grey;
-    }
-    .left-details{
-      position: absolute;
-      top: 45px;
-      right: 100%;
-      text-align: right;
-      white-space: nowrap;
-      margin-right: -13px;
-      line-height: 22px;
-      .created-at{
-        position: relative;
-        right: 0px;
-      }
-      .created-at:after{
-        padding-left: 10px;
-        font-size: 30px;
-        font-family: "FontAwesome";
-        content: "\f073";
-      }
-      .user:after{
-        padding-left: 10px;
-        font-size: 30px;
-        font-family: "FontAwesome";
-        content:"\f007";
-      }
-      .comment-count:after{
-        padding-left: 10px;
-        font-size: 30px;
-        font-family: "FontAwesome";
-        content:"\f075";
-      }
-    }
-    .edit-menu{
-      position: absolute;
-      top: 0px;
-      right: -12px;
-      .delete{
-        font-size: 34px;
-        color: #FFE0E7;
-        padding: 2px;
-        display: block;
-      }
-      .delete:hover{
-        color: #F57373;
-      }
-      .update{
-        font-size: 30px;
-        color: #B9F7DE;
-        padding: 2px;
-        display: block;
-      }
-      .update:hover{
-        color: #69A96D;
-      }
-    }
-    .show-comments-btn{
-      display: inline-block;
-      position: absolute;
-      bottom: -19px;
-      right: 50%;
-      font-size: 25px;
-      color: #E4E4E4;
-      .img{
-        padding: 2px;
-      }
-
-    }
-    .show-comments-btn:hover{
-        color: grey;
-    }
-
-    .primary-symbol{
-      position: absolute;
-      top: -35px;
-      left: -35px;
-      height: 70px;
-      width: 70px;
-      border-radius: 50%;
-      .img{
-        font-family: "FontAwesome";
-        color: white;
-        font-size: 35px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-    .secondary-symbol{
-      position: absolute;
-      top: -25px;
-      left: 38px;
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      .img{
-        font-family: "FontAwesome";
-        color: white;
-        font-size: 20px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-  }
-} */
-
-
 .event{
   margin: 60px;
   .box{
@@ -145,6 +18,7 @@
       color: rgba(0, 0, 0, 0.54);
     }
     .details{
+      position: relative;
       .detail{
         margin-right: 20px;
         color: rgba(0, 0, 0, 0.3);
@@ -168,42 +42,54 @@
       .comment-count:before{
         content:"\f075";
       }
-    }
-    .edit-menu{
-      position: absolute;
-      top: 0px;
-      right: 2px;
-      margin: 12px 10px;
-      color: rgba(0, 0, 0, 0.18);
-      .delete{
-        font-size: 25px;
-        padding: 2px;
+      .edit-menu{
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        color: rgba(0, 0, 0, 0.18);
+        .circle{
+          height: 32px;
+          width: 32px;
+          border-radius: 50%;
+          background: red;
+          color: white;
+          position: relative;
+          display: inline-block;
+          margin: 0px 2px;
+          cursor: pointer;
+          .fa{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          .delete{
+            font-size: 25px;
+            padding: 2px;
+          }
+          .delete:hover{
+            color: #F57373;
+          }
+          .update{
+            font-size: 22px;
+            padding: 2px;
+          }
+          .update:hover{
+            color: #69A96D;
+          }
+        }
+        .comments{
+          display: inline-block;
+          .fa-caret-down{
+            left: 7px;
+            top: 17px;
+            font-size: 10px;
+          }
+          .fa-comment{
+            left: 18px;
+          }
+        }
       }
-      .delete:hover{
-        color: #F57373;
-      }
-      .update{
-        font-size: 22px;
-        padding: 2px;
-      }
-      .update:hover{
-        color: #69A96D;
-      }
-    }
-    .show-comments-btn{
-      display: inline-block;
-      position: absolute;
-      bottom: -19px;
-      right: 50%;
-      font-size: 25px;
-      color: #E4E4E4;
-      .img{
-        padding: 2px;
-      }
-
-    }
-    .show-comments-btn:hover{
-        color: grey;
     }
 
     .primary-symbol{
