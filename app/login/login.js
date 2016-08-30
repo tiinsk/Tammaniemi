@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginStore from './login_store';
 import LoginActions from './login_actions';
+import NewUserModal from '../user/components/invite_user_modal';
 
 export default class Login extends React.Component {
 
@@ -64,12 +65,14 @@ export default class Login extends React.Component {
 
   render() {
     var imgStyle = {
-      "backgroundImage": `url(/img/whole-imgs/${this.state.randPic})`,
+      "backgroundImage": `url(${require('../../assets/whole-imgs/'+this.state.randPic)})`,
     }
+
     return (
       <div className="login">
         <div className="img" style={imgStyle}></div>
         <div className="overlay"></div>
+        <NewUserModal />
         <div className="content">
           <div className="title">Tammaniemi</div>
           <form role="form">

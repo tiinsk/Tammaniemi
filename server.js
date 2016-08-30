@@ -1,7 +1,4 @@
 const config = require('./config');
-const webpackConfig = require('./webpack.config.js');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack')(webpackConfig);
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
@@ -49,11 +46,28 @@ app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (app.settings.env === 'development') {
-  app.use(webpackMiddleware(webpack, {
-    publicPath: '/js/'
+  const webpack = require('webpack');
+  const webpackMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require( 'webpack-hot-middleware');
+  const webConfig = require('./webpack.dev.config.js');
+  const compiler = webpack(webConfig);
+
+  app.use(webpackMiddleware(compiler, {
+  hot: true,
+  filename: 'bundle.js',
+  publicPath: webConfig.output.publicPath,
+  stats: {
+    colors: true,
+    },
+    historyApiFallback: true,
+  }));
+  app.use(webpackHotMiddleware(compiler, {
+    log: console.log,
+    path: "/__webpack_hmr",
+    heartbeat: 10 * 1000,
   }));
 }
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 // Routes
 require('./routes/auth')(app);
 require('./routes/invite')(app, nodemailerTransport);

@@ -18,7 +18,7 @@ export default class MainMenu extends React.Component{
       <div>
         <MenuBar />
         <div className="jumbotron">
-          <div className="img" style={{"backgroundImage": "url(/img/IMGP1145.jpg)"}}></div>
+          <div className="img" ></div>
           <div className="overlay"></div>
         </div>
       </div>
