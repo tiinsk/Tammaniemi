@@ -38,7 +38,7 @@ import LoginStore from './login/login_store';
 
 import CreateUser from './user/components/create_user';
 
-function requireAuth(nextState, replaceState, next) {
+/*function requireAuth(nextState, replaceState, next) {
   console.log('requireAuth');
   LoginStore.getState().userPromise.then(() => {
     next();
@@ -46,9 +46,9 @@ function requireAuth(nextState, replaceState, next) {
     replaceState({ pathname: '/'});
     next();
   });
-}
+}*/
 
-function isLoggedIn (nextState, replaceState, next) {
+/*function isLoggedIn (nextState, replaceState, next) {
   console.log('isLoggedIn');
   LoginStore.getState().userPromise.then(() => {
     replaceState({ pathname: '/home'});
@@ -56,47 +56,74 @@ function isLoggedIn (nextState, replaceState, next) {
   }, () => {
     next();
   });
+}*/
+
+const requireAuth = (store) => {
+  return (nextState, replaceState, next) =>  {
+    console.log("requireAuth");
+    if (!store.getState().login.user) {
+      // redirect back to login.
+      console.log("not isLoggedIn");
+      replaceState({ pathname: '/'});
+      next();
+    }
+    next();
+  }
 }
 
-export default (
-  <Route path="/" component={Root}>
-    <IndexRoute component={Login} onEnter={isLoggedIn} />
-    <Route path="/" component={App}>
-      <Route path="/home" component={Home} onEnter={requireAuth} />
-      <Route path="/users/:userId" component={ShowUser} onEnter={requireAuth} />
-      <Route path="/users" component={IndexUsers} onEnter={requireAuth} />
+const isLoggedIn = (store) => {
+  return (nextState, replaceState, next) => {
+    console.log('isLoggedIn');
+    if(store.getState().login.user){
+      console.log(store);
+      replaceState({pathname: '/home'})
+      next();
+    }
+    next();
+  }
+}
 
-      <Route path="/posts/new" component={AddPost} onEnter={requireAuth} />
-      <Route path="/posts" component={IndexPosts} onEnter={requireAuth} />
-      <Route path="/posts/:postId" component={ShowPost} onEnter={requireAuth} />
-      <Route path="/posts/update/:postId" component={UpdatePost} onEnter={requireAuth} />
+export default (store) => {
+  return(
+    <Route path="/" component={Root}>
+      <IndexRoute component={Login} onEnter={isLoggedIn(store)} />
+      <Route path="/" component={App}>
+        <Route path="/home" component={Home} onEnter={requireAuth(store)} />
+        <Route path="/users/:userId" component={ShowUser} onEnter={requireAuth} />
+        <Route path="/users" component={IndexUsers} onEnter={requireAuth} />
 
-      <Route path="/infoposts/new" component={AddInfoPost} onEnter={requireAuth} />
-      <Route path="/infoposts" component={IndexInfoPosts} onEnter={requireAuth} />
-      <Route path="/infoposts/:infopostId" component={ShowInfoPost} onEnter={requireAuth} />
-      <Route path="/infoposts/update/:infopostId" component={UpdateInfoPost} onEnter={requireAuth} />
+        <Route path="/posts/new" component={AddPost} onEnter={requireAuth} />
+        <Route path="/posts" component={IndexPosts} onEnter={requireAuth} />
+        <Route path="/posts/:postId" component={ShowPost} onEnter={requireAuth} />
+        <Route path="/posts/update/:postId" component={UpdatePost} onEnter={requireAuth} />
 
-      <Route path="/reservations" component={IndexReservations} onEnter={requireAuth}>
-        <IndexRedirect to="recently-added" />
+        <Route path="/infoposts/new" component={AddInfoPost} onEnter={requireAuth} />
+        <Route path="/infoposts" component={IndexInfoPosts} onEnter={requireAuth} />
+        <Route path="/infoposts/:infopostId" component={ShowInfoPost} onEnter={requireAuth} />
+        <Route path="/infoposts/update/:infopostId" component={UpdateInfoPost} onEnter={requireAuth} />
 
-        <Route path="new" component={AddReservation} onEnter={requireAuth} />
-        <Route path="update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />
-        <Route path="recently-added" component={RecentlyAdded} onEnter={requireAuth} />
-        <Route path="upcoming" component={UpcomingReservations} onEnter={requireAuth} />
-        <Route path=":reservationId" component={ShowReservation} onEnter={requireAuth} />
+        <Route path="/reservations" component={IndexReservations} onEnter={requireAuth}>
+          <IndexRedirect to="recently-added" />
 
+          <Route path="new" component={AddReservation} onEnter={requireAuth} />
+          <Route path="update/:reservationId" component={UpdateReservation} onEnter={requireAuth} />
+          <Route path="recently-added" component={RecentlyAdded} onEnter={requireAuth} />
+          <Route path="upcoming" component={UpcomingReservations} onEnter={requireAuth} />
+          <Route path=":reservationId" component={ShowReservation} onEnter={requireAuth} />
+
+        </Route>
+
+        <Route path="/tasks/new" component={AddTask} onEnter={requireAuth} />
+        <Route path="/tasks" component={IndexTasks} onEnter={requireAuth} />
+        <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth} />
+        <Route path="/tasks/update/:taskId" component={UpdateTask} onEnter={requireAuth} />
+
+        <Route path="/gallery" component={IndexGallery} onEnter={requireAuth} />
+        <Route path="/gallery/new" component={AddGallery} onEnter={requireAuth} />
+        <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth} />
       </Route>
 
-      <Route path="/tasks/new" component={AddTask} onEnter={requireAuth} />
-      <Route path="/tasks" component={IndexTasks} onEnter={requireAuth} />
-      <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth} />
-      <Route path="/tasks/update/:taskId" component={UpdateTask} onEnter={requireAuth} />
-
-      <Route path="/gallery" component={IndexGallery} onEnter={requireAuth} />
-      <Route path="/gallery/new" component={AddGallery} onEnter={requireAuth} />
-      <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth} />
+      <Route path="/invite/:token" component={CreateUser} />
     </Route>
-
-    <Route path="/invite/:token" component={CreateUser} />
-  </Route>
-);
+  );
+};

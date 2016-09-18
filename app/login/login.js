@@ -1,33 +1,44 @@
 import React from 'react';
-import LoginStore from './login_store';
-import LoginActions from './login_actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
+//import LoginStore from './login_store';
+//import LoginActions from './login_actions';
+import { loginUser } from '../actions/login_actions';
 import NewUserModal from '../user/components/invite_user_modal';
 
-export default class Login extends React.Component {
+export class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = LoginStore.getState();
-    this.onChange = this.onChange.bind(this);
+    //this.state = LoginStore.getState();
+    //this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount(){
     this.setState({
       "randPic": this.giveRandPic()
     });
-    console.log(this.state.randPic);
+    //console.log(this.state.randPic);
   }
 
   componentDidMount() {
-    LoginStore.listen(this.onChange);
+    //LoginStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    LoginStore.unlisten(this.onChange);
+    //LoginStore.unlisten(this.onChange);
   }
 
   onChange(state) {
-    this.setState(state);
+    //this.setState(state);
+  }
+
+  componentWillReceiveProps(newProps){
+    console.log("NEW_PROPS", newProps);
+    if(newProps.login.isLoggedIn){
+      browserHistory.push('/home');
+    }
   }
 
   updateEmail(event) {
@@ -44,7 +55,9 @@ export default class Login extends React.Component {
 
   login(e) {
     e.preventDefault();
-    LoginActions.loginUser(this.state.email, this.state.password);
+    //LoginActions.loginUser(this.state.email, this.state.password);
+    console.log("loginUser");
+    this.props.loginUser(this.state.email, this.state.password);
   }
 
   giveRandPic(){
@@ -90,3 +103,14 @@ export default class Login extends React.Component {
   }
 };
 
+function mapStateToProps({login}) {
+  return {
+    login
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({loginUser}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

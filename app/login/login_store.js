@@ -5,7 +5,7 @@ import LoginActions from './login_actions';
 
 class LoginStore {
 
-  constructor() {
+  /*constructor() {
     // First we register to the Dispatcher to listen for actions.
     this.bindActions(LoginActions);
 
@@ -52,7 +52,7 @@ class LoginStore {
     this.setState({
       errorMessage
     });
-  }
+  }*/
 }
 
 export default alt.createStore(LoginStore);

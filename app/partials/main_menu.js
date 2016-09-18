@@ -121,7 +121,7 @@ class LoginMenu extends React.Component{
 
     return (
       <div >
-        <span className="user-logo"> {this.state.user.name}</span>
+{/*        <span className="user-logo"> {this.state.user.name}</span>*/}
         <span className="btn" onClick={this.logout.bind(this)} >
           Logout
         </span>
