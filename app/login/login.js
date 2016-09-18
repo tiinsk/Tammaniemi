@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-//import LoginStore from './login_store';
-//import LoginActions from './login_actions';
 import { loginUser } from '../actions/login_actions';
 import NewUserModal from '../user/components/invite_user_modal';
 

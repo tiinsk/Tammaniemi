@@ -6,6 +6,8 @@ import { Router, browserHistory } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import { isUserLoggedIn } from './actions/login_actions';
+
 import routes from './routes';
 
 import configureStore from './configure_store';
@@ -18,4 +20,7 @@ render((
             {routes(store)}
         </Router>
     </Provider>
-), document.getElementById('app'));
+), document.getElementById('app'), () => {
+  store.dispatch(isUserLoggedIn());
+});
+

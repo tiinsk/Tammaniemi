@@ -38,48 +38,27 @@ import LoginStore from './login/login_store';
 
 import CreateUser from './user/components/create_user';
 
-/*function requireAuth(nextState, replaceState, next) {
-  console.log('requireAuth');
-  LoginStore.getState().userPromise.then(() => {
-    next();
-  }, () => {
-    replaceState({ pathname: '/'});
-    next();
-  });
-}*/
-
-/*function isLoggedIn (nextState, replaceState, next) {
-  console.log('isLoggedIn');
-  LoginStore.getState().userPromise.then(() => {
-    replaceState({ pathname: '/home'});
-    next();
-  }, () => {
-    next();
-  });
-}*/
-
 const requireAuth = (store) => {
   return (nextState, replaceState, next) =>  {
-    console.log("requireAuth");
-    if (!store.getState().login.user) {
-      // redirect back to login.
-      console.log("not isLoggedIn");
+    console.log("requireAuth", store.getState());
+    store.getState().login.userPromise.then(() => {
+      next();
+    }).catch(() => {
       replaceState({ pathname: '/'});
       next();
-    }
-    next();
+    });
   }
 }
 
 const isLoggedIn = (store) => {
   return (nextState, replaceState, next) => {
-    console.log('isLoggedIn');
-    if(store.getState().login.user){
-      console.log(store);
-      replaceState({pathname: '/home'})
+    console.log('isLoggedIn', store.getState());
+    store.getState().login.userPromise.then(() => {
+      replaceState({ pathname: '/home'});
       next();
-    }
-    next();
+    }).catch(() => {
+      next();
+    });
   }
 }
 
