@@ -6,7 +6,7 @@ import Home from './home/home';
 
 import ShowUser from './user/components/show';
 import IndexUsers from './user/components/index';
-import Login from './login/login';
+import Login from './components/containers/login';
 
 import AddPost from './events/post/add';
 import ShowPost from './events/post/show';
@@ -34,14 +34,12 @@ import IndexGallery from './events/gallery/index';
 import ShowGallery from './events/gallery/show';
 import AddGallery from './events/gallery/add';
 
-import LoginStore from './login/login_store';
-
 import CreateUser from './user/components/create_user';
 
 const requireAuth = (store) => {
   return (nextState, replaceState, next) =>  {
     console.log("requireAuth", store.getState());
-    store.getState().login.userPromise.then(() => {
+    store.getState().auth.userPromise.then(() => {
       next();
     }).catch(() => {
       replaceState({ pathname: '/'});
@@ -53,7 +51,7 @@ const requireAuth = (store) => {
 const isLoggedIn = (store) => {
   return (nextState, replaceState, next) => {
     console.log('isLoggedIn', store.getState());
-    store.getState().login.userPromise.then(() => {
+    store.getState().auth.userPromise.then(() => {
       replaceState({ pathname: '/home'});
       next();
     }).catch(() => {

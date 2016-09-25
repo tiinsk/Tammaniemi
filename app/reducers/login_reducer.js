@@ -18,18 +18,19 @@ const loginReducer = (state = initialState, action) => {
         let newState = {
             user: action.user,
             isLoggedIn: true,
+            error: undefined,
             userPromise: Promise.resolve(action.user)
         };
 
         return newState;
     case REMOVE_LOGGED_USER:
         userReject('Not logged in');
-
         return {
-            user: undefined,
+            user: {},
             isLoggedIn: false,
+            error: action.error,
             userPromise: Promise.reject('Not logged in')
-        }
+        };
     default:
       return state
   }

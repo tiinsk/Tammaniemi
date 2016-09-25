@@ -13,9 +13,8 @@ export function addLoggedUser(user, error){
 }
 
 export function loginUser(email, password){
-    console.log("loginUser action");
     return (dispatch) => {
-        axios
+        return axios
         .post('/api/login', {
           email,
           password
@@ -25,14 +24,16 @@ export function loginUser(email, password){
         })
         .catch( err => {
             console.log("err", err);
-            dispatch(removeLoggedUser(undefined, "LOGIN_ERROR"));
+            dispatch(removeLoggedUser("LOGIN_ERROR"));
+          throw 'login failed';
         });
     }
 }
 
-export function removeLoggedUser(){
+export function removeLoggedUser(error){
     return {
-        type: REMOVE_LOGGED_USER
+        type: REMOVE_LOGGED_USER,
+        error
     }
 }
 
@@ -41,6 +42,7 @@ export function logoutUser(){
         return axios
         .get('/api/logout')
         .then((response) => {
+          console.log("logout action");
           dispatch(removeLoggedUser());
         });
     }

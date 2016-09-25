@@ -71,7 +71,7 @@ class Home extends React.Component {
   render() {
     const markdown = {post: true, infopost: true};
 
-    const events = this.state.events.slice(0, this.getEndItem()).map((event) => {
+    /*const events = this.state.events.slice(0, this.getEndItem()).map((event) => {
       const type = event.__t.toLowerCase();
       if (type === 'task') {
         return (
@@ -115,7 +115,7 @@ class Home extends React.Component {
           {event.content}
         </Event>
       );
-    });
+    });*/
 
     const reservations = this.state.events.filter(event => event.__t === 'Reservation');
     console.log(reservations);
@@ -124,7 +124,7 @@ class Home extends React.Component {
         <div className="page-title">News feed</div>
         <div className="app-row">
           <div className="col-main-home">
-            {events}
+            {/*{events}*/}
             <div className="show-more" onClick={this.changePage.bind(this)}>
               <span>Show more</span>
             </div>
