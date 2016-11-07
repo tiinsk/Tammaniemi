@@ -1,9 +1,4 @@
 import React from 'react';
-import Form from 'muicss/lib/react/form';
-import Input from 'muicss/lib/react/input';
-
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
 
 import axios from 'axios';
 
@@ -48,13 +43,13 @@ export default class InviteUserModal extends React.Component {
   render() {
     return (
       <div className="login-modal">
-        <span className="btn" onClick={this.openModal.bind(this)}>
+        <div className="btn" onClick={this.openModal.bind(this)}>
           Invite new user
-        </span>
+        </div>
 
         <div className={`modal ${this.state.displayModal ? 'show-modal' : ''}`} >
           <div className="modal-content">
-            <Row>
+            {/*<Row>
               <Col md="8" md-offset="2" >
                 <Form className="form" onSubmit={this.handleSubmit.bind(this)}>
                   <legend className="title">Invite new user </legend>
@@ -76,7 +71,7 @@ export default class InviteUserModal extends React.Component {
                   </button>
                 </Form>
               </Col>
-            </Row>
+            </Row>*/}
           </div>
         </div>
       </div>

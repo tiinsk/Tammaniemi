@@ -1,12 +1,12 @@
 import React from 'react';
 import {Route, IndexRoute, IndexRedirect} from 'react-router';
-import App from './app';
+import App from './app.jsx';
 import Root from './root';
-import Home from './home/home';
+import Home from './components/containers/home.jsx';
 
 import ShowUser from './user/components/show';
 import IndexUsers from './user/components/index';
-import Login from './components/containers/login';
+import Login from './components/containers/login.jsx';
 
 import AddPost from './events/post/add';
 import ShowPost from './events/post/show';

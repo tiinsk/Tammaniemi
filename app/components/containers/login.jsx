@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { loginUser } from '../../actions/login_actions';
-import NewUserModal from '../../user/components/invite_user_modal';
+import { addNotification, removeNotificationByCategory } from '../../actions/notification_actions';
 
 export class Login extends React.Component {
 
@@ -31,7 +31,18 @@ export class Login extends React.Component {
 
   login() {
     this.props.loginUser(this.state.email, this.state.password)
-      .then(() => browserHistory.push('/home'));
+      .then(() => {
+        this.props.removeNotificationByCategory("login_error_msg");
+        browserHistory.push('/home');
+      })
+      .catch(() => {
+        this.props.addNotification(
+          { type: "error",
+            category: "login_error_msg",
+            content: "Login failed!",
+            fade: true
+          });
+      });
   }
 
   giveRandPic(){
@@ -59,10 +70,8 @@ export class Login extends React.Component {
       <div className="login">
         <div className="img" style={imgStyle}></div>
         <div className="overlay"></div>
-        <NewUserModal />
         <div className="content">
           <div className="title">Tammaniemi</div>
-          <div>{this.props.auth.error}</div>
           <input
             className="login-form-input"
             type="text"
@@ -91,7 +100,7 @@ function mapStateToProps({auth}) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({loginUser}, dispatch);
+  return bindActionCreators({loginUser, addNotification, removeNotificationByCategory}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

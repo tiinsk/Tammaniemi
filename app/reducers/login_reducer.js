@@ -18,7 +18,6 @@ const loginReducer = (state = initialState, action) => {
         let newState = {
             user: action.user,
             isLoggedIn: true,
-            error: undefined,
             userPromise: Promise.resolve(action.user)
         };
 
@@ -28,7 +27,6 @@ const loginReducer = (state = initialState, action) => {
         return {
             user: {},
             isLoggedIn: false,
-            error: action.error,
             userPromise: Promise.reject('Not logged in')
         };
     default:

@@ -19,11 +19,11 @@ class UserMenu extends React.Component{
 
   render() {
     return (
-      <div >
-        <span className="user-logo"> {this.props.auth.user.name}</span>
-        <span className="btn" onClick={() => this.logout()} >
+      <div className="user-menu">
+        <div className="user-logo"> {this.props.auth.user.name}</div>
+        <div className="btn" onClick={() => this.logout()} >
           Logout
-        </span>
+        </div>
       </div>
     );
   }

@@ -1,0 +1,43 @@
+.notifications{
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  .notification{
+    position: relative;
+    width: 70%;
+    padding: 20px 60px;
+    margin: 20px auto;
+    border-radius: 5px;
+    color: white;
+    background: rgba(0, 0, 0, 0.60);
+    .icon{
+      font-family: FontAwesome;
+      margin-right: 20px;
+      font-size: 20px;
+      position: absolute;
+      left: 20px;
+    }
+    &.error{
+      background: rgba(255, 0, 116, 0.60);
+      .icon:before{
+        content:"\f071";
+      }
+    }
+    &.success{
+      background: rgba(0, 255, 174, 0.60);
+      .icon:before{
+        content:"\f058";
+      }
+    }
+    .removeBtn{
+      display: inline-block;
+      float: right;
+      position: absolute;
+      right: 20px;
+      padding: 10px;
+      top: 12px;
+      cursor: pointer;
+    }
+  }
+}

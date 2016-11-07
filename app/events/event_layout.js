@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import {Link} from 'react-router';
 import moment from 'moment';
 import remarkable from '../remarkable';
@@ -6,14 +8,12 @@ import remarkable from '../remarkable';
 import commentBox from './comment/comments';
 import LoginStore from './../login/login_store';
 
-export default class Event extends React.Component {
+class Event extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isCommentsShown: false,
-      user: LoginStore.getState().user
     };
-    this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
@@ -22,20 +22,6 @@ export default class Event extends React.Component {
         isCommentsShown: true
       });
     }
-  }
-
-  componentDidMount() {
-    LoginStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    LoginStore.unlisten(this.onChange);
-  }
-
-  onChange(state) {
-    this.setState({
-      user: state.user
-    });
   }
 
   toggleComments() {
@@ -80,14 +66,14 @@ export default class Event extends React.Component {
       content = (<div className="content">{this.props.children}</div>);
     }
 
-    const editMenu = (this.state.user._id === this.props.event.userId._id) ?
+    const editMenu = (this.props.auth.user._id === this.props.event.userId._id) ?
       (
         <span>
-          <div className="edit circle" onClick={this.props.update.bind(this, this.props.event._id)}>
-            <i className="fa fa-pencil"></i>
+          <div className="edit color-circle" onClick={this.props.update.bind(this, this.props.event._id)}>
+            <div className="icon icon-pencil"></div>
           </div>
-          <div className="delete circle" onClick={this.props.delete.bind(this, this.props.event._id)}>
-          <i className="fa fa-trash"></i>
+          <div className="delete color-circle" onClick={this.props.delete.bind(this, this.props.event._id)}>
+            <div className="icon icon-trash"></div>
           </div>
         </span>
       ) : '';
@@ -108,9 +94,9 @@ export default class Event extends React.Component {
             </span>
             <span className="detail comment-count">{this.props.event.comments.length}</span>
             <div className="edit-menu">
-              <div className="circle comments" onClick={this.toggleComments.bind(this)} >
-                <i className="fa fa-caret-down"></i>
-                <i className="fa fa-comment"></i>
+              <div className="color-circle comments" onClick={this.toggleComments.bind(this)} >
+                <div className="icon icon-comment"></div>
+                <div className="icon icon-down"></div>
               </div>
               {editMenu}
             </div>
@@ -121,3 +107,11 @@ export default class Event extends React.Component {
     );
   }
 }
+
+function mapStateToProps({auth}) {
+  return {
+    auth
+  }
+}
+
+export default connect(mapStateToProps, null)(Event);

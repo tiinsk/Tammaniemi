@@ -1,19 +1,4 @@
-@import '../../node_modules/muicss/lib/sass/mui/_colors.scss';
-
-// customize MUI variables
-$mui-primary-color:       mui-color('purple', '500');
-$mui-primary-color-dark:  mui-color('purple', '700');
-$mui-primary-color-light: mui-color('purple', '100');
-
-$mui-accent-color:        mui-color('green', 'A200');
-$mui-accent-color-dark:   mui-color('green', 'A100');
-$mui-accent-color-light:  mui-color('green', 'A400');
-
-$mui-appbar-bg-color: transparent;
-$mui-appbar-font-color:	mui-color('white');
-
-@import '../../node_modules/muicss/lib/sass/mui.scss';
-
+@import './colors.scss';
 @import './grid.scss';
 @import './app.scss';
 @import './login.scss';
@@ -34,6 +19,9 @@ $mui-appbar-font-color:	mui-color('white');
 @import './gallery.scss';
 
 @import './main_menu.scss';
+@import "./nav_bar.scss";
+@import './user_menu.scss';
+@import "./notifications.scss";
 
 @import './spinner_overlay';
 
@@ -41,6 +29,11 @@ $mui-appbar-font-color:	mui-color('white');
 
 body{
   font-family: Roboto, sans-serif;
+  margin: 0;
+}
+
+*{
+  box-sizing: border-box;
 }
 
 ::selection {

@@ -9,8 +9,9 @@
     box-shadow: 0 1px 4px rgba(0,0,0,.04);
     border: 1px solid rgba(0,0,0,.09);
     .title{
-        text-transform: uppercase;
-        font-size: 24px;
+      text-transform: uppercase;
+      font-size: 24px;
+      text-decoration: none;
     }
     .content{
       margin: 20px 0px;
@@ -47,7 +48,7 @@
         bottom: 0px;
         right: 0px;
         color: rgba(0, 0, 0, 0.18);
-        .circle{
+        .color-circle {
           height: 32px;
           width: 32px;
           border-radius: 50%;
@@ -57,11 +58,29 @@
           display: inline-block;
           margin: 0px 2px;
           cursor: pointer;
-          .fa{
+          font-family: FontAwesome;
+          .icon:before{
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+          }
+          .icon-trash:before{
+            content:"\f1f8";
+          }
+          .icon-pencil:before{
+            content:"\f040";
+          }
+          .icon-comment:before{
+            content:"\f075";
+            left: 18px;
+            font-size: 15px;
+          }
+          .icon-down:before{
+            content:"\f0d7";
+            left: 6px;
+            top: 17px;
+            font-size: 9px;
           }
           .delete{
             font-size: 25px;
@@ -80,14 +99,6 @@
         }
         .comments{
           display: inline-block;
-          .fa-caret-down{
-            left: 7px;
-            top: 17px;
-            font-size: 10px;
-          }
-          .fa-comment{
-            left: 18px;
-          }
         }
       }
     }

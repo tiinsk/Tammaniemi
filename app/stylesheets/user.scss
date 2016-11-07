@@ -1,6 +1,8 @@
 $login-color: #6EC744;
 
 .login-modal{
+  display: inline-block;
+  margin: 5px 0;
   .modal {
     display: none;
     position: fixed;

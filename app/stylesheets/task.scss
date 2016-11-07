@@ -85,7 +85,7 @@
         bottom: 0px;
         right: 0px;
         color: rgba(0, 0, 0, 0.18);
-        .circle{
+        .color-circle {
           height: 32px;
           width: 32px;
           border-radius: 50%;
@@ -95,11 +95,29 @@
           display: inline-block;
           margin: 0px 2px;
           cursor: pointer;
-          .fa{
+          font-family: FontAwesome;
+          .icon:before{
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+          }
+          .icon-trash:before{
+            content:"\f1f8";
+          }
+          .icon-pencil:before{
+            content:"\f040";
+          }
+          .icon-comment:before{
+            content:"\f075";
+            left: 18px;
+            font-size: 15px;
+          }
+          .icon-down:before{
+            content:"\f0d7";
+            left: 6px;
+            top: 17px;
+            font-size: 9px;
           }
           .delete{
             font-size: 25px;
@@ -212,7 +230,7 @@ $task-tertiary-color: #FFF0CA;
 
   .details{
     .edit-menu{
-      .circle{
+      .color-circle {
         &.edit{
           background: #f7b064;
         }

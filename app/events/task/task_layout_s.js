@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {Link} from 'react-router';
 import moment from 'moment';
 
 import CommentBox from '../comment/comments';
 import LoginStore from './../../login/login_store';
 
-export default class Task_S extends React.Component {
+class Task_S extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,14 +52,14 @@ export default class Task_S extends React.Component {
         );
     }
 
-    const editMenu = (this.state.user._id === this.props.task.userId._id) ?
+    const editMenu = (this.props.auth.user._id === this.props.task.userId._id) ?
       (
         <span>
-          <div className="edit circle" onClick={this.props.update.bind(this, this.props.task._id)}>
-            <i className="fa fa-pencil"></i>
+          <div className="edit color-circle" onClick={this.props.update.bind(this, this.props.task._id)}>
+            <div className="icon icon-pencil"></div>
           </div>
-          <div className="delete circle" onClick={this.props.delete.bind(this, this.props.task._id)}>
-          <i className="fa fa-trash"></i>
+          <div className="delete color-circle" onClick={this.props.delete.bind(this, this.props.task._id)}>
+            <div className="icon icon-trash"></div>
           </div>
         </span>
       ) : '';
@@ -80,9 +81,9 @@ export default class Task_S extends React.Component {
             <span className="detail created-at" >{moment(this.props.task.createdAt).fromNow()}</span>
             <span className="detail comment-count">{this.props.task.comments.length}</span>
             <div className="edit-menu">
-              <div className="circle comments" onClick={this.toggleComments.bind(this)} >
-                <i className="fa fa-caret-down"></i>
-                <i className="fa fa-comment"></i>
+              <div className="color-circle comments" onClick={this.toggleComments.bind(this)} >
+                <div className="icon icon-comment"></div>
+                <div className="icon icon-down"></div>
               </div>
               {editMenu}
             </div>
@@ -95,3 +96,11 @@ export default class Task_S extends React.Component {
     );
   }
 }
+
+function mapStateToProps({auth}) {
+  return {
+    auth
+  }
+}
+
+export default connect(mapStateToProps, null)(Task_S);

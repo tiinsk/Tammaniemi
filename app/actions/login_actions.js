@@ -4,7 +4,6 @@ export const ADD_LOGGED_USER = 'ADD_LOGGED_USER';
 export const REMOVE_LOGGED_USER = 'REMOVE_LOGGED_USER';
 
 export function addLoggedUser(user, error){
-    console.log("addLoggedUser");
     return {
         type: ADD_LOGGED_USER,
         user,
@@ -24,16 +23,15 @@ export function loginUser(email, password){
         })
         .catch( err => {
             console.log("err", err);
-            dispatch(removeLoggedUser("LOGIN_ERROR"));
-          throw 'login failed';
+            dispatch(removeLoggedUser());
+            throw 'login failed';
         });
     }
 }
 
-export function removeLoggedUser(error){
+export function removeLoggedUser(){
     return {
-        type: REMOVE_LOGGED_USER,
-        error
+        type: REMOVE_LOGGED_USER
     }
 }
 
@@ -49,7 +47,6 @@ export function logoutUser(){
 }
 
 export function isUserLoggedIn(){
-    console.log('isloggedAction');
     return (dispatch) => {
         axios
         .get('/api/account')

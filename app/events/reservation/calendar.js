@@ -1,12 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {Link} from 'react-router';
 import moment from 'moment';
 import _ from 'lodash';
 
-export default class Calendar extends React.Component {
+import { fetchCalendar } from '../../actions/calendar_actions';
+
+class Calendar extends React.Component {
 
   componentWillMount() {
     this.currentMonth();
+    this.props.fetchCalendar();
   }
 
   // return reservation if "date" is first day of reservation or first day of week
@@ -19,18 +24,6 @@ export default class Calendar extends React.Component {
              moment(reservation.endDate).isSameOrAfter(date, 'day');
     });
     return reservation;
-  }
-
-  nextMonth() {
-    this.setState({
-      firstDayOfMonth: moment(this.state.firstDayOfMonth).add(1, 'month')
-    });
-  }
-
-  prevMonth() {
-    this.setState({
-      firstDayOfMonth: moment(this.state.firstDayOfMonth).subtract(1, 'month')
-    });
   }
 
   changeMonthAndYear(month, year) {
@@ -46,6 +39,7 @@ export default class Calendar extends React.Component {
   }
 
   render() {
+
     const month = _.range(42).map((index) => {
       const day = moment(this.state.firstDayOfMonth).startOf('week').add(index, 'days');
       const reserved = this.getReservation(day);
@@ -121,3 +115,15 @@ export default class Calendar extends React.Component {
   }
 
 }
+
+function mapStateToProps({calendar}) {
+  return {
+    reservations: calendar.events
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({fetchCalendar}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
