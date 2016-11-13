@@ -1,7 +1,3 @@
-$reservation-primary-color: #FF5C7C;
-$reservation-secondary-color: #D43353;
-$reservation-dark-color: #A72841;
-
 .reservations-index {
   .pagination ul li {
       border: 2px solid $reservation-secondary-color;
@@ -14,7 +10,7 @@ $reservation-dark-color: #A72841;
     }
 }
 
-.reservation{
+.event.reservation{
   .title{
     color: $reservation-secondary-color;
   }
@@ -22,32 +18,30 @@ $reservation-dark-color: #A72841;
     color: $reservation-secondary-color !important;
   }
 
-  .details{
-    .edit-menu{
-      .color-circle {
-        &.edit{
-          background: #ec5a77;
-        }
-        &.delete{
-          background-color: $reservation-secondary-color;
-        }
-        &.comments{
-          background: $reservation-primary-color;
-        }
-        &.edit:hover, &.edit:focus{
-          background: #de536f;
-        }
-        &.delete:hover, &.delete:focus{
-          background-color: #c72c4b;
-        }
-        &.comments:hover, &.comments:focus{
-          background: #f35876;
-        }
+  .edit-menu{
+    .color-circle {
+      &.edit{
+        background: $reservation-tertiary-color;
+      }
+      &.delete{
+        background-color: $reservation-secondary-color;
+      }
+      &.comments{
+        background: $reservation-primary-color;
+      }
+      &.edit:hover, &.edit:focus{
+        background: $reservation-tertiary-color-hover;
+      }
+      &.delete:hover, &.delete:focus{
+        background-color: $reservation-secondary-color-hover;
+      }
+      &.comments:hover, &.comments:focus{
+        background: $reservation-primary-color-hover;
       }
     }
   }
 
-  .dates{
+  .content{
     .start-date:before{
       padding: 0 5px;
       font-family: "FontAwesome";
@@ -195,48 +189,3 @@ $reservation-dark-color: #A72841;
     border-bottom: 3px solid $reservation-secondary-color;
   }
 }
-/*
-.form-item{
-    display: block;
-    padding-top: 15px;
-    margin-bottom: 20px;
-    position: relative;
-
-  .legend{
-      position: absolute;
-      transform: translate(0px, 15px);
-      font-size: 16px;
-      line-height: 32px;
-      color: rgba(0, 0, 0, 0.26);
-      text-overflow: clip;
-      cursor: text;
-      pointer-events: none;
-      top: 0;
-      transition: 0.15s ease-out;
-  }
-  .form-input{
-      height: 32px;
-      animation-duration: 0.0001s;
-      display: block;
-      background-color: transparent;
-      color: rgba(0, 0, 0, 0.87);
-      border: none;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.26);
-      outline: none;
-      width: 100%;
-      font-size: 16px;
-      padding: 0;
-      box-shadow: none;
-      border-radius: 0px;
-      background-image: none;
-    &:focus {
-      border-bottom: 2px solid green;
-      ~.legend {
-        transform: none;
-        font-size: 10px;
-        color: green;
-      }
-    }
-  }
-}
- */

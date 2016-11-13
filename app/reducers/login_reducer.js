@@ -27,8 +27,7 @@ const loginReducer = (state = initialState, action) => {
         return {
             user: {},
             isLoggedIn: false,
-            userPromise: Promise.reject('Not logged in').catch(() => {})
-
+            userPromise: Promise.reject('Not logged in')
         };
     default:
       return state

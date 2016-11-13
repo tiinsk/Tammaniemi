@@ -3,7 +3,7 @@ import moment from 'moment';
 import { withRouter } from 'react-router';
 
 import EventActions from '../event_actions';
-import Event from '../event_layout';
+import Event from '../../components/containers/event.jsx';
 
 import Pagination from '../../navigation/pagination';
 

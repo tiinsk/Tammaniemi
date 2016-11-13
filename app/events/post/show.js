@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
-import Event from '../event_layout';
+import Event from '../../components/containers/event.jsx';
 
 class ShowPost extends React.Component {
   constructor(props) {

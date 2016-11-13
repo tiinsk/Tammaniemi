@@ -37,190 +37,7 @@
   }
 }
 
-
-.task-s{
-  margin: 60px;
-  .box{
-    position: relative;
-    padding: 27px 50px;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0,0,0,.04);
-    border: 1px solid rgba(0,0,0,.09);
-    .title{
-        text-transform: uppercase;
-        font-size: 24px;
-    }
-    .overlined{
-      text-decoration: line-through;
-    }
-    .content{
-      margin: 20px 0px;
-      font-size: 16px;
-      color: rgba(0, 0, 0, 0.54);
-    }
-    .details{
-      position: relative;
-      .detail{
-        margin-right: 20px;
-        color: rgba(0, 0, 0, 0.3);
-        font-size: 15px;
-      }
-      .detail:before{
-        padding-right: 5px;
-        //font-size: 20px;
-        font-family: "FontAwesome";
-      }
-      .created-at:before{
-        content: "\f073";
-      }
-      .user{
-        color: #4A4A4A;
-        font-weight: 400px;
-      }
-      .comment-count:before{
-        content:"\f075";
-      }
-      .edit-menu{
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-        color: rgba(0, 0, 0, 0.18);
-        .color-circle {
-          height: 32px;
-          width: 32px;
-          border-radius: 50%;
-          background: red;
-          color: white;
-          position: relative;
-          display: inline-block;
-          margin: 0px 2px;
-          cursor: pointer;
-          font-family: FontAwesome;
-          .icon:before{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-          .icon-trash:before{
-            content:"\f1f8";
-          }
-          .icon-pencil:before{
-            content:"\f040";
-          }
-          .icon-comment:before{
-            content:"\f075";
-            left: 18px;
-            font-size: 15px;
-          }
-          .icon-down:before{
-            content:"\f0d7";
-            left: 6px;
-            top: 17px;
-            font-size: 9px;
-          }
-          .delete{
-            font-size: 25px;
-            padding: 2px;
-          }
-          .delete:hover{
-            color: #F57373;
-          }
-          .update{
-            font-size: 22px;
-            padding: 2px;
-          }
-          .update:hover{
-            color: #69A96D;
-          }
-        }
-        .comments{
-          display: inline-block;
-          .fa-caret-down{
-            left: 7px;
-            top: 17px;
-            font-size: 10px;
-          }
-          .fa-comment{
-            left: 18px;
-          }
-        }
-      }
-    }
-    .primary-symbol{
-      position: absolute;
-      top: 0px;
-      left: -35px;
-      height: 70px;
-      width: 70px;
-      border-radius: 50%;
-      .chekbox{
-        font-size: 35px;
-        position: absolute;
-        height: 40px;
-        width: 40px;
-        top: 16px;
-        left: 16px;
-        background: white;
-        border-radius: 12%;
-
-        .checkmark{
-          color: #FFF4EF;
-          font-size: 34px;
-        }
-        .checkmark:before{
-          font-family: "FontAwesome";
-          content: "\f00c";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-
-        }
-        .checkmark:hover{
-          color: #00D82D;
-
-        }
-        .checked{
-          color: #00D82D;
-
-        }
-      }
-    }
-
-
-    .secondary-symbol{
-      position: absolute;
-      top: 70px;
-      left: -20px;
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      .img{
-        font-family: "FontAwesome";
-        color: white;
-        font-size: 20px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-  }
-}
-
-
-/*$task-primary-color: #FFB236;
-$task-secondary-color: #F37800;
-*/
-
-/* $task-primary-color: #FFAE8A;
-$task-secondary-color: #F7D0BF; */
-$task-primary-color: #ffb900;//#FFDF8A;
-$task-secondary-color: #FF9C33;
-$task-tertiary-color: #FFF0CA;
-
-.task, .task-s{
+.event.task{
   .title{
     color: $task-secondary-color;
   }
@@ -228,46 +45,29 @@ $task-tertiary-color: #FFF0CA;
     color: $task-secondary-color !important;
   }
 
-  .details{
-    .edit-menu{
-      .color-circle {
-        &.edit{
-          background: #f7b064;
-        }
-        &.delete{
-          background-color: $task-secondary-color;
-        }
-        &.comments{
-          background: $task-primary-color;
-        }
-        &.edit:hover, &.edit:focus{
-          background: #eca253;
-        }
-        &.delete:hover, &.delete:focus{
-          background-color: #f5932b;
-        }
-        &.comments:hover, &.comments:focus{
-          background: #f1af00;
-        }
-      }
-    }
+  .edit-menu{
+     .color-circle {
+       &.edit{
+         background: $task-light-color;
+       }
+       &.delete{
+         background-color: $task-secondary-color;
+       }
+       &.comments{
+         background: $task-primary-color;
+       }
+       &.edit:hover, &.edit:focus{
+         background: $task-light-color-hover;
+       }
+       &.delete:hover, &.delete:focus{
+         background-color: $task-secondary-color-hover;
+       }
+       &.comments:hover, &.comments:focus{
+         background: $task-primary-color-hover;
+       }
+     }
   }
 
-  .dates{
-    .start-date:before{
-      padding: 0 5px;
-      font-family: "FontAwesome";
-      content:"\f073";
-    }
-    .end-date:before{
-      padding: 0 5px;
-      font-family: "FontAwesome";
-      content:"\f073";
-    }
-    .separator{
-      padding: 0 5px;
-    }
-  }
   .comment-box{
     .user{
       color: $task-secondary-color;
@@ -290,23 +90,56 @@ $task-tertiary-color: #FFF0CA;
 
   .primary-symbol{
     background-color: $task-primary-color;
-  }
+    top: 0px;
+    .chekbox{
+      font-size: 35px;
+      position: absolute;
+      height: 40px;
+      width: 40px;
+      top: 16px;
+      left: 16px;
+      background: white;
+      border-radius: 12%;
 
+      .checkmark{
+        color: #FFF4EF;
+        font-size: 34px;
+      }
+      .checkmark:before{
+        font-family: "FontAwesome";
+        content: "\f00c";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+      }
+      .checkmark:hover{
+        color: #00D82D;
+
+      }
+      .checked{
+        color: #00D82D;
+
+      }
+    }
+  }
   .secondary-symbol{
     background-color: $task-secondary-color;
-    .img0:before{
+    top: 70px;
+    .num0:before{
       content:"\f07a";
     }
-    .img1:before{
+    .num1:before{
       content:"\f0f5";
     }
-    .img2:before{
+    .num2:before{
       content:"\f0ad";
     }
-    .img3:before{
+    .num3:before{
       content:"\f06c";
     }
-    .img4:before{
+    .num4:before{
       content:"\f085";
     }
   }

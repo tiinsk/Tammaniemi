@@ -1,0 +1,28 @@
+.comment-form{
+  .comment-input{
+    display: table;
+    margin: 12px 0px;
+    .comment-input-field{
+      display: table-cell;
+      width: 100%;
+      padding: 7px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .comment-btn{
+      display: table-cell;
+      width: 1%;
+      .btn{
+        margin-left: -1px;
+        padding: 6px 12px;
+        font-size: 14px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-width: 1px;
+        background: white;
+      }
+    }
+  }
+}

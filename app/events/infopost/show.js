@@ -5,7 +5,7 @@ import EventActions from '../event_actions';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
-import Event from "../event_layout";
+import Event from "../../components/containers/event.jsx";
 import { withRouter } from 'react-router';
 
 class ShowInfoPost extends React.Component {

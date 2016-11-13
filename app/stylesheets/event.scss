@@ -2,9 +2,8 @@
   margin: 60px;
   .box{
     position: relative;
-    padding: 35px 50px;
-    //border: 1px solid #E8E8E8;
-    min-height: 150px;
+    padding: 35px 50px 50px 50px;
+    min-height: 122px;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,0,0,.04);
     border: 1px solid rgba(0,0,0,.09);
@@ -19,7 +18,8 @@
       color: rgba(0, 0, 0, 0.54);
     }
     .details{
-      position: relative;
+      position: absolute;
+      bottom: 25px;
       .detail{
         margin-right: 20px;
         color: rgba(0, 0, 0, 0.3);
@@ -27,7 +27,6 @@
       }
       .detail:before{
         padding-right: 5px;
-        //font-size: 20px;
         font-family: "FontAwesome";
       }
       .created-at:before{
@@ -35,71 +34,54 @@
       }
       .user{
         color: #4A4A4A;
-        font-weight: 400px;
+        font-weight: 400;
       }
-/*       .user:before{
-        content:"\f007";
-      } */
       .comment-count:before{
         content:"\f075";
       }
-      .edit-menu{
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-        color: rgba(0, 0, 0, 0.18);
-        .color-circle {
-          height: 32px;
-          width: 32px;
-          border-radius: 50%;
-          background: red;
-          color: white;
-          position: relative;
-          display: inline-block;
-          margin: 0px 2px;
-          cursor: pointer;
-          font-family: FontAwesome;
-          .icon:before{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-          .icon-trash:before{
-            content:"\f1f8";
-          }
-          .icon-pencil:before{
-            content:"\f040";
-          }
-          .icon-comment:before{
-            content:"\f075";
-            left: 18px;
-            font-size: 15px;
-          }
-          .icon-down:before{
-            content:"\f0d7";
-            left: 6px;
-            top: 17px;
-            font-size: 9px;
-          }
-          .delete{
-            font-size: 25px;
-            padding: 2px;
-          }
-          .delete:hover{
-            color: #F57373;
-          }
-          .update{
-            font-size: 22px;
-            padding: 2px;
-          }
-          .update:hover{
-            color: #69A96D;
-          }
+    }
+    .edit-menu{
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      color: rgba(0, 0, 0, 0.18);
+      .color-circle {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+        position: relative;
+        display: inline-block;
+        margin: 0px 2px;
+        cursor: pointer;
+        font-family: FontAwesome;
+        .icon:before{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
-        .comments{
-          display: inline-block;
+        .icon-trash:before{
+          content:"\f1f8";
         }
+        .icon-pencil:before{
+          content:"\f040";
+        }
+        .icon-comment:before{
+          content:"\f075";
+          left: 18px;
+          font-size: 15px;
+        }
+        .icon-down:before{
+          content:"\f0d7";
+          left: 6px;
+          top: 17px;
+          font-size: 9px;
+        }
+      }
+      .comments{
+        display: inline-block;
       }
     }
 

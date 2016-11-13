@@ -49,4 +49,4 @@ reservationSchema.pre('validate', function(next) {
   });
 });
 
-module.exports = mongoose.model('Reservation', Event.discriminator('Reservation', reservationSchema));
+module.exports = Event.discriminator('Reservation', reservationSchema);

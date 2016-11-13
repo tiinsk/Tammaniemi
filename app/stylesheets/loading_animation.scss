@@ -1,0 +1,91 @@
+.loading-animation {
+  $loader--width: 170px;
+  $loader-dot--size: 15px;
+
+  height: $loader-dot--size*3;
+  width: $loader--width;
+  margin: 50px auto;
+
+  .loader-dot {
+    animation: {
+      name: loader;
+      timing-function: ease-in-out;
+      duration: 3s;
+      iteration-count: infinite;
+    }
+    height: $loader-dot--size;
+    width: $loader-dot--size;
+    border-radius: 100%;
+    background-color: black;
+    position: absolute;
+    border: 2px solid white;
+    &:first-child {
+      background-color: $post-primary-color;
+      animation-delay: 0.5s;
+    }
+    &:nth-child(2) {
+      background-color: $infopost-primary-color;
+      animation-delay: 0.4s;
+    }
+    &:nth-child(3) {
+      background-color: $reservation-primary-color;
+      animation-delay: 0.3s;
+    }
+    &:nth-child(4) {
+      background-color: $task-primary-color;
+      animation-delay: 0.2s;
+    }
+    &:nth-child(5) {
+      background-color: $gallery-primary-color;
+      animation-delay: 0.1s;
+    }
+  }
+
+  .loader-text {
+    position: relative;
+    top: 20px;
+    left: 0;
+    right: 0;
+    width: 4rem;
+    margin: auto;
+    &:after {
+      content: "Loading";
+      font-weight: normal;
+      animation: {
+        name: loading-text;
+        duration: 3s;
+        iteration-count: infinite;
+      }
+    }
+  }
+
+  @keyframes loader {
+    15% {
+      transform: translateX(0);
+    }
+    45% {
+      transform: translateX($loader--width - $loader-dot--size);
+    }
+    65% {
+      transform: translateX($loader--width - $loader-dot--size);
+    }
+    95% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes loading-text {
+    0% {
+      content: "Loading"
+    }
+    25% {
+      content: "Loading."
+    }
+    50% {
+      content: "Loading.."
+    }
+    75% {
+      content: "Loading..."
+    }
+  }
+}

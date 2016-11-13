@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Event = require('./event');
 
-const taskSchema = Event.discriminator('Task', new mongoose.Schema({
+module.exports =  Event.discriminator('Task', new mongoose.Schema({
   category: {
     type: Number,
     required: true,
@@ -19,5 +19,3 @@ const taskSchema = Event.discriminator('Task', new mongoose.Schema({
   }
 
 }));
-
-module.exports = mongoose.model('Task', taskSchema);

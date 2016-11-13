@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import EventActions from '../event_actions';
 import EventStore from '../event_store';
 
-import Event from '../event_layout';
+import Event from '../../components/containers/event.jsx';
 
 import NavigationBox from './navigation';
 

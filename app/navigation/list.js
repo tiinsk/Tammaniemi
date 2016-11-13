@@ -10,6 +10,7 @@ export class CategoryList extends React.Component{
 
   render(){
     let headers = this.props.headers.map((header, index) => {
+
       if (header.amount > 0) {
         return(
           <div key={index} className={"header selectable " + (this.props.chosenItem == index ? "selected" : "" )} onClick={this.props.updateChosen.bind(this, index)}>

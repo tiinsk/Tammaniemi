@@ -1,15 +1,4 @@
-$post-primary-color: #5cffa8;
-$post-secondary-color: #43bf7d;
-$post-tertiary-color: #C8FFE1;
-
-/* .post.add-new{
-  background: $post-primary-color;
-  &:hover{
-    background: $post-secondary-color;
-  }
-}
- */
-.post{
+.event.post{
   .title{
     color: $post-secondary-color;
   }
@@ -17,27 +6,25 @@ $post-tertiary-color: #C8FFE1;
     color: $post-secondary-color !important;
   }
 
-  .details{
-    .edit-menu{
-      .color-circle {
-        &.edit{
-          background: #4ae894;
-        }
-        &.delete{
-          background-color: $post-secondary-color;
-        }
-        &.comments{
-          background: $post-primary-color;
-        }
-        &.edit:hover, &.edit:focus{
-          background: #44d689;
-        }
-        &.delete:hover, &.delete:focus{
-          background-color: #3daf72;
-        }
-        &.comments:hover, &.comments:focus{
-          background: #56e699;
-        }
+  .edit-menu{
+    .color-circle {
+      &.edit{
+        background: $post-light-color;
+      }
+      &.delete{
+        background-color: $post-secondary-color;
+      }
+      &.comments{
+        background: $post-primary-color;
+      }
+      &.edit:hover, &.edit:focus{
+        background: $post-light-color-hover;
+      }
+      &.delete:hover, &.delete:focus{
+        background-color: $post-secondary-color-hover;
+      }
+      &.comments:hover, &.comments:focus{
+        background: $post-primary-color-hover;
       }
     }
   }

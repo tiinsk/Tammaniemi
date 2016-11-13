@@ -1,4 +1,4 @@
-import { ADD_EVENTS, ADD_EVENT, LOADING, FETCH_ERROR } from '../actions/event_actions';
+import { ADD_EVENTS, ADD_EVENT, LOADING } from '../actions/event_actions';
 
 const INITIAL_STATE = {
   events: [],
@@ -19,10 +19,6 @@ const eventReducer = (state = INITIAL_STATE, action) => {
     case LOADING:
       return Object.assign({}, state, {
         loading: action.bln
-      });
-    case FETCH_ERROR:
-      return Object.assign({}, state, {
-        fetchError: action.bln
       });
     default:
       return state

@@ -5,7 +5,7 @@ import moment from 'moment';
 import { withRouter } from 'react-router';
 import _ from 'underscore';
 
-import Event from "../event_layout";
+import Event from "../../components/containers/event.jsx";
 
 
 class ShowReservation extends React.Component {

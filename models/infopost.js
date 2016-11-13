@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 var Event = require('./event');
 
-var infoPostSchema = Event.discriminator( 'InfoPost', new mongoose.Schema({
+module.exports =Event.discriminator( 'InfoPost', new mongoose.Schema({
 	content: {
-		type: String, 
-		required: true 
+		type: String,
+		required: true
 	},
 	category: {
 		type: Number,
@@ -13,5 +13,3 @@ var infoPostSchema = Event.discriminator( 'InfoPost', new mongoose.Schema({
 	}
 
 }));
-
-module.exports = mongoose.model('InfoPost', infoPostSchema);

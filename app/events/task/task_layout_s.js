@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router';
 import moment from 'moment';
 
-import CommentBox from '../comment/comments';
+import CommentBox from '../comment/comment_box.jsx';
 import LoginStore from './../../login/login_store';
 
 class Task_S extends React.Component {
@@ -68,9 +68,7 @@ class Task_S extends React.Component {
       <div className="task-s" >
         <div className="box">
           <div className="primary-symbol">
-            <div className="chekbox">
-              <div onClick={this.toggleChecked.bind(this)} className={"checkmark " + (this.props.task.isDone ? "checked" : "") } ></div>
-            </div>
+
           </div>
           <div className="secondary-symbol">
             <div className={"img img"+ this.props.task.category} ></div>

@@ -1,7 +1,4 @@
-$infopost-primary-color: #5CD4FF;
-$infopost-secondary-color: #4396BF;
-$infopost-tertiary-color: #DAE9F1;
-.infopost{
+.event.infopost{
   .title{
     color: $infopost-secondary-color;
   }
@@ -9,29 +6,28 @@ $infopost-tertiary-color: #DAE9F1;
     color: $infopost-secondary-color !important;
   }
 
-  .details{
-    .edit-menu{
-      .color-circle {
-        &.edit{
-          background: #68b0ca;
-        }
-        &.delete{
-          background-color: $infopost-secondary-color;
-        }
-        &.comments{
-          background: $infopost-primary-color;
-        }
-        &.edit:hover, &.edit:focus{
-          background: #5793a9;
-        }
-        &.delete:hover, &.delete:focus{
-          background-color: #3c86ab;
-        }
-        &.comments:hover, &.comments:focus{
-          background: #54c6ef;
-        }
+  .edit-menu{
+    .color-circle {
+      &.edit{
+        background: $infopost-light-color;
+      }
+      &.delete{
+        background-color: $infopost-secondary-color;
+      }
+      &.comments{
+        background: $infopost-primary-color;
+      }
+      &.edit:hover, &.edit:focus{
+        background: $infopost-light-color-hover;
+      }
+      &.delete:hover, &.delete:focus{
+        background-color: $infopost-secondary-color-hover;
+      }
+      &.comments:hover, &.comments:focus{
+        background: $infopost-primary-color-hover;
       }
     }
+
   }
 
   .comment-box{
