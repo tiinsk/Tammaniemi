@@ -41,7 +41,7 @@ describe('Post', () => {
 
   it('should return two post', (done) => {
     chai.request(app)
-    .get('/api/posts')
+    .get('/api/Post')
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);

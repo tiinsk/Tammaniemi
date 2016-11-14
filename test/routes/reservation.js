@@ -122,7 +122,7 @@ describe('Reservation', () => {
 
   it('All should return two reservation', (done) => {
     chai.request(app)
-    .get('/api/reservations')
+    .get('/api/Reservation')
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);
@@ -142,7 +142,7 @@ describe('Reservation', () => {
 
   it('should return one reservation', (done) => {
     chai.request(app)
-    .get(`/api/reservations/${reservation1._id}`)
+    .get(`/api/Reservation/${reservation1._id}`)
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);

@@ -2,7 +2,7 @@ const Reservation = require('../models/reservation');
 const passport = require('./passport.js');
 
 module.exports = (app) => {
-  app.get('/api/reservations', passport.authenticate('jwt', {
+  app.get('/api/Reservation', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     Reservation.find({})
@@ -31,7 +31,7 @@ module.exports = (app) => {
   /*
    * GET reservation information
    */
-  app.get('/api/reservations/:reservationId', passport.authenticate('jwt', {
+  app.get('/api/Reservation/:reservationId', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     Reservation.findById(req.params.reservationId,
@@ -63,7 +63,7 @@ module.exports = (app) => {
   /*
    * POST add new reservation
    */
-  app.post('/api/reservations', passport.authenticate('jwt', {
+  app.post('/api/Reservation', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     const addReservation = req.body;
@@ -95,7 +95,7 @@ module.exports = (app) => {
   /*
    * PUT update task
    */
-  app.put('/api/reservations/:taskId', passport.authenticate('jwt', {
+  app.put('/api/Reservation/:taskId', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     const updatedReservation = req.body;
@@ -140,7 +140,7 @@ module.exports = (app) => {
   /*
    * DELETE task
    */
-  app.delete('/api/reservations/:reservationId', passport.authenticate('jwt', {
+  app.delete('/api/Reservation/:reservationId', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     Reservation.findById(req.params.reservationId, (err, reservation) => {

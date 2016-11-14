@@ -2,7 +2,7 @@ const Task = require('../models/task');
 const passport = require('./passport.js');
 
 module.exports = (app) => {
-  app.get('/api/tasks', passport.authenticate('jwt', {
+  app.get('/api/Task', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     Task.find({})
@@ -33,7 +33,7 @@ module.exports = (app) => {
   /*
    * GET task information
    */
-  app.get('/api/tasks/:taskId', passport.authenticate('jwt', {
+  app.get('/api/Task/:taskId', passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     Task.findById(req.params.taskId, '_id title category comments userId createdAt')
@@ -66,7 +66,7 @@ module.exports = (app) => {
   /*
    * POST add new task
    */
-  app.post('/api/tasks', passport.authenticate('jwt', {
+  app.post('/api/Task', passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     const addTask = req.body;
@@ -96,7 +96,7 @@ module.exports = (app) => {
   /*
    * PUT update task
    */
-  app.put('/api/tasks/:taskId', passport.authenticate('jwt', {
+  app.put('/api/Task/:taskId', passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     const updatedTask = req.body;
@@ -134,7 +134,7 @@ module.exports = (app) => {
   /*
    * DELETE task
    */
-  app.delete('/api/tasks/:taskId', passport.authenticate('jwt', {
+  app.delete('/api/Task/:taskId', passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     Task.findById(req.params.taskId, (err, task) => {
