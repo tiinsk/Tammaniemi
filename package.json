@@ -26,6 +26,7 @@
     "draft-js-import-markdown": "^0.1.6",
     "express": "^4.13.4",
     "express-fileupload": "0.0.4",
+    "flexboxgrid": "^6.3.1",
     "flickrapi": "^0.5.0",
     "immutable": "^3.7.6",
     "jsonwebtoken": "^5.4.1",

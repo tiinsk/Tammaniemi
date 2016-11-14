@@ -5,16 +5,16 @@ import NewsFeed from './news_feed.jsx';
 
 export default () => {
   return (
-    <div className="container">
+    <div className="home">
       <div className="page-title">News feed</div>
-      <div className="app-row">
-        <div className="col-main-home">
+      <div className="row">
+        <div className="col-xs-offset-2 col-xs-7">
           <NewsFeed/>
         </div>
-        <div className="col-side">
+        <div className="calendar-container col-xs-3">
           <Calendar small />
         </div>
       </div>
     </div>
   );
-}
+};
