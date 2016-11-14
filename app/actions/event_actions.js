@@ -249,6 +249,7 @@ export function remove(type, id) {
       })
       .then(() => {
         dispatch(loading(true));
+        dispatch(fetchEvents('events', 'time'));
       });
   }
 }

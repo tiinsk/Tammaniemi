@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import {Link} from 'react-router';
 import moment from 'moment';
 import remarkable from '../../remarkable';
+
+import { remove } from '../../actions/event_actions';
 
 import TaskCheckBox from '../presentational/task_checkbox.jsx';
 import CommentBox from './comment/comment_box.jsx';
@@ -34,9 +37,8 @@ class Event extends React.Component {
     return { __html: remarkable.render(content.toString()) };
   }
 
-  handleDelete() {
-    console.log("Not yet implemented!!");
-    return true;
+  handleDelete(event) {
+    this.props.remove(event.__t, event._id);
   }
 
   handleUpdate() {
@@ -129,7 +131,7 @@ class Event extends React.Component {
                     <div className="edit color-circle" onClick={() => this.handleUpdate(this.props.event._id)}>
                       <div className="icon icon-pencil"></div>
                     </div>
-                    <div className="delete color-circle" onClick={() => this.handleDelete(this.props.event._id)}>
+                    <div className="delete color-circle" onClick={() => this.handleDelete(this.props.event)}>
                       <div className="icon icon-trash"></div>
                     </div>
                   </span>
@@ -156,4 +158,8 @@ function mapStateToProps({auth}) {
   }
 }
 
-export default connect(mapStateToProps, null)(Event);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({remove}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Event);
