@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
 
 import {Link} from 'react-router';
 import moment from 'moment';
@@ -41,9 +42,8 @@ class Event extends React.Component {
     this.props.remove(event.__t, event._id);
   }
 
-  handleUpdate() {
-    console.log("Not yet implemented!!");
-    return true;
+  handleUpdate(event) {
+    this.props.router.push(`/${event.__t}/update/${event._id}`);
   }
 
   render() {
@@ -128,7 +128,7 @@ class Event extends React.Component {
             </div>
             { (this.props.auth.user._id === this.props.event.userId._id) ?
               <span>
-                    <div className="edit color-circle" onClick={() => this.handleUpdate(this.props.event._id)}>
+                    <div className="edit color-circle" onClick={() => this.handleUpdate(this.props.event)}>
                       <div className="icon icon-pencil"></div>
                     </div>
                     <div className="delete color-circle" onClick={() => this.handleDelete(this.props.event)}>
@@ -162,4 +162,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({remove}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Event);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Event));

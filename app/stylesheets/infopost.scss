@@ -135,16 +135,6 @@
     color: $infopost-secondary-color;
   }
 
-  .mui--is-empty.mui--is-dirty:focus{
-    border-color: $infopost-secondary-color;
-    &~label {
-      color: $infopost-secondary-color;
-    }
-  }
-  .mui-select:focus > select{
-    border-color: $infopost-secondary-color;
-  }
-
   .submit-btn{
       border: 2px solid $infopost-secondary-color;
       color: $infopost-secondary-color;

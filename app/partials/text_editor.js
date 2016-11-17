@@ -30,10 +30,18 @@ class TextEditor extends React.Component {
 
     const markdown = props.markdown || '';
     this.state = {
-      editorState: EditorState.createWithContent(
-        stateFromMarkdown(markdown)
-      )
+      editorState: EditorState.createEmpty()
     };
+  }
+
+  componentWillReceiveProps({markdown}) {
+    if (!this.state.editorState.getCurrentContent().hasText()) {
+      this.setState({
+        editorState: EditorState.createWithContent(
+          stateFromMarkdown(markdown)
+        )
+      });
+    }
   }
 
   onChange(editorState) {
@@ -48,9 +56,10 @@ class TextEditor extends React.Component {
   }
 
   handleKeyCommand(command) {
-    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+    const {editorState} = this.state;
+    const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
-      this.updateContent(newState);
+      this.onChange(newState);
       return true;
     }
     return false;
@@ -68,7 +77,7 @@ class TextEditor extends React.Component {
     const { editorState } = this.state;
 
     const BLOCK_TYPES = [
-/*      { label: 'H2', style: 'header-two' },*/
+      //{ label: 'H2', style: 'header-two' },
       { label: '\uf1dc', style: 'header-three' },
       { label: '\uf0ca', style: 'unordered-list-item' },
       { label: '\uf0cb', style: 'ordered-list-item' }
@@ -91,7 +100,7 @@ class TextEditor extends React.Component {
               label={type.label}
               onToggle={props.onToggle}
               style={type.style}
-            />
+              />
           )}
         </div>
       );
@@ -114,7 +123,7 @@ class TextEditor extends React.Component {
               label={type.label}
               onToggle={props.onToggle}
               style={type.style}
-            />
+              />
           )}
         </div>
       );
@@ -126,18 +135,19 @@ class TextEditor extends React.Component {
           <BlockStyleControls
             editorState={editorState}
             onToggle={this.toggleBlockType.bind(this)}
-          />
+            />
           <InlineStyleControls
             editorState={editorState}
             onToggle={this.toggleInlineStyle.bind(this)}
-          />
+            />
         </div>
         <div className="editor" onClick={this.focus.bind(this)}>
-          <Editor editorState={editorState}
+          <Editor
+            editorState={editorState}
             onChange={this.onChange.bind(this)}
             handleKeyCommand={this.handleKeyCommand.bind(this)}
             ref="editor"
-          />
+            />
         </div>
       </div>
     );

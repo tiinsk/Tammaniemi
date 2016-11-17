@@ -101,13 +101,6 @@
     color: $post-secondary-color;
   }
 
-  .mui--is-empty.mui--is-dirty:focus{
-    border-color: $post-secondary-color;
-    &~label {
-      color: $post-secondary-color;
-    }
-  }
-
   .submit-btn{
       border: 2px solid $post-secondary-color;
       color: $post-secondary-color;

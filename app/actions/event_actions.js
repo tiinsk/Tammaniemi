@@ -1,11 +1,13 @@
 import axios from 'axios';
 import moment from 'moment';
 
+import { browserHistory } from 'react-router'
+import { addNotification } from './notification_actions';
+
 export const ADD_EVENTS = 'ADD_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
+export const CLEAR_EVENT = 'CLEAR_EVENT';
 export const LOADING = 'LOADING';
-
-import {addNotification} from './notification_actions';
 
 export function fetchEvents(type, order) {
   return (dispatch) => {
@@ -29,6 +31,19 @@ function addEvents(events, type, order) {
     type: ADD_EVENTS,
     events: orderBy(events, type, order),
     eventType: type
+  }
+}
+
+function addEvent(event){
+  return {
+    type: ADD_EVENT,
+    event
+  }
+}
+
+function clearEvent(){
+  return {
+    type: CLEAR_EVENT
   }
 }
 
@@ -158,19 +173,16 @@ export function fetchOne(type, id) {
     return axios
       .get(`/api/${type}/${id}`)
       .then((response) => {
-        EventActions.fetchOneSuccess({
-          type,
-          event: response.data
-        });
+        dispatch(addEvent(response.data));
       });
   }
 }
 
-export function create(type, event) {
+export function create(event){
   return (dispatch) => {
     dispatch(loading(true));
     return axios
-      .post(`/api/${type}`, event)
+      .post(`/api/${event.__t}`, event)
       .then((response) => {
         dispatch(addNotification(
           {
@@ -179,6 +191,8 @@ export function create(type, event) {
             content: "Creation successful!",
             fade: true
           }));
+          dispatch(loading(false));
+          browserHistory.push('/home');
       })
       .catch(() => {
         dispatch(addNotification(
@@ -188,18 +202,15 @@ export function create(type, event) {
             content: "Creation failed!",
             fade: true
           }));
-      })
-      .then(() => {
-        dispatch(loading(true));
       });
   }
 }
 
-export function update(type, event) {
+export function update(event){
   return (dispatch) => {
     dispatch(loading(true));
     return axios
-      .put(`/api/${type}/${updated._id}`, event)
+      .put(`/api/${event.__t}/${event._id}`, event)
       .then((response) => {
         dispatch(addNotification(
           {
@@ -208,6 +219,8 @@ export function update(type, event) {
             content: "Update successful!",
             fade: true
           }));
+          dispatch(loading(false));
+          browserHistory.push('/home');
       })
       .catch(() => {
         dispatch(addNotification(
@@ -217,9 +230,6 @@ export function update(type, event) {
             content: "Update failed!",
             fade: true
           }));
-      })
-      .then(() => {
-        dispatch(loading(true));
       });
   }
 }

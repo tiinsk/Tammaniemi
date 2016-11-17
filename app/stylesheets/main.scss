@@ -52,13 +52,6 @@ body{
   color: white;
 }
 
-
-textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
-  box-shadow: 0 0px 1px rgba(87, 209, 147, 0.12) inset, 0 0 2px rgba(87, 209, 147, 0.72);
-  outline: 0 none;
-  border: 1px solid rgba(87, 209, 147, 0.8) !important;
-}
-
 .main-view{
   padding: 0px;
 }

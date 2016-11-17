@@ -1,4 +1,4 @@
-import { ADD_EVENTS, ADD_EVENT, LOADING } from '../actions/event_actions';
+import { ADD_EVENTS, ADD_EVENT, LOADING, CLEAR_EVENT } from '../actions/event_actions';
 
 const INITIAL_STATE = {
   events: [],
@@ -19,6 +19,10 @@ const eventReducer = (state = INITIAL_STATE, action) => {
     case ADD_EVENT:
       return Object.assign({}, state, {
         event: action.event
+      });
+    case CLEAR_EVENT:
+      return Object.assign({}, state, {
+        event: null
       });
     case LOADING:
       return Object.assign({}, state, {
