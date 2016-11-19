@@ -1,4 +1,5 @@
 @import '../../node_modules/flexboxgrid/dist/flexboxgrid.min.css';
+@import '../../node_modules/material-design-lite/material.min.css';
 @import './home.scss';
 @import './colors.scss';
 @import './app.scss';
@@ -114,11 +115,6 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 	color: black;
 	background: white;
 	text-decoration: none;
-}
-
-.mui-row{
-	margin: 0px; /*sivuttaispalkki ilmestyy ilman margin nollaa!!!*/
-  //padding: 10px 30px;
 }
 
 .input-group {

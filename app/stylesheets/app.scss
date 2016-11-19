@@ -10,25 +10,10 @@
     color: grey;
 
   }
-
-  .mui--is-empty.mui--is-dirty:focus{
-    border-color: grey;
-    &~label {
-      color: grey;
-    }
-  }
-
   input:invalid:not(:focus):required.mui--is-empty.mui--is-dirty{
     border-color: #FF9D00;
   }
 
-  .mui--is-not-empty:focus, .mui--is-not-empty{
-    border-color: green;
-    border-width: 2px;
-    &~label{
-      color: green;
-    }
-  }
   .content{
     margin: 20px 0px;
     .label{

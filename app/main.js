@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 import './stylesheets/main.scss';
+import '../node_modules/material-design-lite/material.min.js';
+
 import React from 'react';
 import {render} from 'react-dom';
 import { Router, browserHistory } from 'react-router';
