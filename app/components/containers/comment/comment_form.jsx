@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { addComment, removeComment } from '../../actions/event_actions';
+import { addComment, removeComment } from '../../../actions/event_actions';
 
 class CommentForm extends React.Component {
   constructor(props) {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 
-import { logoutUser } from '../actions/login_actions';
+import { logoutUser } from '../../actions/login_actions';
 
 class UserMenu extends React.Component{
   constructor(props) {

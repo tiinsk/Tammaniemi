@@ -177,49 +177,6 @@
   }
 }
 
-.option-menu{
-  margin-left: 60px;
-  margin-top: 50px;
-  .option{
-    margin: 10px 0px;
-    .checkbox{
-      position: relative;
-      width: 50px;
-      height: 25px;
-      background-color: #E8E8E8;
-      border-radius: 20px;
-      display: inline-block;
-      top: 8px;
-      margin-right: 10px;
-      transition: background-color 0.05s linear;
-      .mark{
-        transition-timing-function: linear;
-        transition-duration: 0.1s;
-        position: absolute;
-        height: 27px;
-        width: 27px;
-        top: -2px;
-        transform: translate(-2px, 0px);
-        border-radius: 50%;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
-        background-color: #e8e8e8;
-        &.selected{
-          transform: translate(24px, 0px);
-        }
-      }
-      &.selected{
-        background-color: #78ef80;
-      }
-    }
-    .title{
-      display: inline-block;
-      font-size: 20px;
-      color: #CACACA;
-      font-weight: 100;
-    }
-  }
-}
-
 
 .no-tasks{
   text-align: center;

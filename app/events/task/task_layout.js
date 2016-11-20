@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import moment from 'moment';
 
-import CommentBox from '../comment/comment_box.jsx';
+import CommentBox from '../../components/containers/comment/comment_box.jsx';
 
 export default class Task extends React.Component {
   constructor(props) {

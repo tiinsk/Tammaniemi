@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router';
 import moment from 'moment';
 
-import CommentBox from '../comment/comment_box.jsx';
+import CommentBox from '../../components/containers/comment/comment_box.jsx';
 import LoginStore from './../../login/login_store';
 
 class Task_S extends React.Component {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 
-import { removeComment } from '../../actions/event_actions';
+import { removeComment } from '../../../actions/event_actions';
 
 const CommentList =({comments, user, removeComment}) => {
   const deleteMenu = (comment) => comment.userId._id === user._id ? (

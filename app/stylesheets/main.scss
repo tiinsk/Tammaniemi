@@ -1,7 +1,7 @@
 @import './colors.scss';
 @import './grid.scss';
 @import './app.scss';
-@import './login.scss';
+@import './refactored/login';
 @import './event.scss';
 
 @import './user.scss';
@@ -11,23 +11,25 @@
 @import './reservation.scss';
 @import './date_picker.scss';
 
-@import 'comment_box.scss';
-@import 'comment_list.scss';
-@import 'comment_form.scss';
+@import './refactored/comment_box';
+@import './refactored/comment_list';
+@import './refactored/comment_form';
 @import './calendar.scss';
 
 @import './text-editor.scss';
-@import './list.scss';
 @import './gallery.scss';
 
-@import './main_menu.scss';
-@import "./nav_bar.scss";
-@import './user_menu.scss';
-@import "./notifications.scss";
+@import './main_menu';
+@import "./refactored/nav_bar";
+@import './refactored/user_menu';
+@import "./refactored/notifications";
 
 @import './spinner_overlay';
 @import './pagination';
-@import './loading_animation.scss';
+@import './refactored/loading_animation';
+@import './refactored/category_list';
+@import './refactored/option_menu';
+@import './refactored/list_task';
 
 body{
   font-family: Roboto, sans-serif;

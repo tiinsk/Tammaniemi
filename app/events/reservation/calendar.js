@@ -5,13 +5,13 @@ import {Link} from 'react-router';
 import moment from 'moment';
 import _ from 'lodash';
 
-import { fetchCalendar } from '../../actions/calendar_actions';
+import { fetchEvents } from '../../actions/event_actions';
 
 class Calendar extends React.Component {
 
   componentWillMount() {
     this.currentMonth();
-    this.props.fetchCalendar();
+    this.props.fetchEvents('reservations', 'time');
   }
 
   // return reservation if "date" is first day of reservation or first day of week
@@ -116,14 +116,14 @@ class Calendar extends React.Component {
 
 }
 
-function mapStateToProps({calendar}) {
+function mapStateToProps({events}) {
   return {
-    reservations: calendar.events
+    reservations: events.reservations || []
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchCalendar}, dispatch);
+  return bindActionCreators({fetchEvents}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

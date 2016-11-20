@@ -2,20 +2,23 @@ import React from 'react';
 import {Route, IndexRoute, IndexRedirect} from 'react-router';
 import App from './app.jsx';
 import Root from './root';
+
+import Login from './components/containers/login.jsx';
 import Home from './components/containers/home.jsx';
+import PostList from './components/containers/list/list_posts.jsx';
+import InfopostList from './components/containers/list/list_infoposts.jsx';
+import TaskList from './components/containers/list/list_tasks.jsx';
+
 
 import ShowUser from './user/components/show';
 import IndexUsers from './user/components/index';
-import Login from './components/containers/login.jsx';
 
 import AddPost from './events/post/add';
 import ShowPost from './events/post/show';
-import IndexPosts from './events/post/index';
 import UpdatePost from './events/post/update';
 
 import AddInfoPost from './events/infopost/add';
 import ShowInfoPost from './events/infopost/show';
-import IndexInfoPosts from './events/infopost/index';
 import UpdateInfoPost from './events/infopost/update';
 
 import AddReservation from './events/reservation/add';
@@ -27,7 +30,6 @@ import UpcomingReservations from './events/reservation/upcoming-reservations';
 
 import AddTask from './events/task/add';
 import ShowTask from './events/task/show';
-import IndexTasks from './events/task/index';
 import UpdateTask from './events/task/update';
 
 import IndexGallery from './events/gallery/index';
@@ -41,7 +43,8 @@ const requireAuth = (store) => {
     console.log("requireAuth", store.getState());
     store.getState().auth.userPromise.then(() => {
       next();
-    }).catch(() => {
+    }).catch((err) => {
+      console.log(err);
       replaceState({ pathname: '/'});
       next();
     });
@@ -54,11 +57,12 @@ const isLoggedIn = (store) => {
     store.getState().auth.userPromise.then(() => {
       replaceState({ pathname: '/home'});
       next();
-    }).catch(() => {
+    }).catch((err) => {
+      console.log(err);
       next();
     });
   }
-}
+};
 
 export default (store) => {
   return(
@@ -70,12 +74,12 @@ export default (store) => {
         <Route path="/users" component={IndexUsers} onEnter={requireAuth(store)} />
 
         <Route path="/posts/new" component={AddPost} onEnter={requireAuth(store)} />
-        <Route path="/posts" component={IndexPosts} onEnter={requireAuth(store)} />
+        <Route path="/posts" component={PostList} onEnter={requireAuth(store)} />
         <Route path="/posts/:postId" component={ShowPost} onEnter={requireAuth(store)} />
         <Route path="/posts/update/:postId" component={UpdatePost} onEnter={requireAuth(store)} />
 
         <Route path="/infoposts/new" component={AddInfoPost} onEnter={requireAuth(store)} />
-        <Route path="/infoposts" component={IndexInfoPosts} onEnter={requireAuth(store)} />
+        <Route path="/infoposts" component={InfopostList} onEnter={requireAuth(store)} />
         <Route path="/infoposts/:infopostId" component={ShowInfoPost} onEnter={requireAuth(store)} />
         <Route path="/infoposts/update/:infopostId" component={UpdateInfoPost} onEnter={requireAuth(store)} />
 
@@ -91,7 +95,7 @@ export default (store) => {
         </Route>
 
         <Route path="/tasks/new" component={AddTask} onEnter={requireAuth(store)} />
-        <Route path="/tasks" component={IndexTasks} onEnter={requireAuth(store)} />
+        <Route path="/tasks" component={TaskList} onEnter={requireAuth(store)} />
         <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth(store)} />
         <Route path="/tasks/update/:taskId" component={UpdateTask} onEnter={requireAuth(store)} />
 

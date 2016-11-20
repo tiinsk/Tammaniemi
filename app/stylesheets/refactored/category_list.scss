@@ -1,0 +1,212 @@
+.side-list{
+  margin: 60px 0px;
+  .first-level-title {
+    color: white;
+    background: grey;
+    margin: 5px 0px;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+    padding-left: 50px;
+    height: 50px;
+    display: inline-block;
+    box-shadow: 0 1px 2px rgba(72, 65, 65, 0.33);
+    width: 210px;
+    &:before{
+      width: 10px;
+    }
+    .amount{
+      top: 17px !important;
+    }
+  }
+  .title{
+    display: inline-block;
+    line-height: 50px;
+    margin: 0px 50px;
+    font-weight: 100;
+    font-size: 24px;
+    &.open{
+      text-decoration: underline;
+    }
+  }
+  .line {
+    display: inline-block;
+    height: 50px;
+    width: 1px;
+    border-right: 1px solid #fafafa;
+    position: absolute;
+    left: 50px;
+
+  }
+  .icon {
+    display: inline-block;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 24px;
+    font-family: FontAwesome;
+  }
+  .icon:not(.open){
+    left: 19px;
+  }
+  .icon:not(.open):after {
+    content:"\f105";
+  }
+  .icon.open:after {
+    content:"\f107";
+  }
+  .second-level-title{
+    margin: 3px 0px;
+    color: white;
+    background: grey;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 1px 2px rgba(72, 65, 65, 0.33);
+    padding-left: 50px;
+    position: relative;
+    width: 210px;
+    .title{
+      font-size: 14px;
+      line-height: 35px;
+    }
+    .line{
+      height: 35px;
+    }
+    .icon{
+      top: 7px;
+    }
+  }
+  .amount{
+    background: white;
+    border-radius: 10px;
+    color: grey;
+    display: inline-block;
+    padding: 0px 7px;
+    font-size: 11px;
+    height: 18px;
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    text-align: center;
+    line-height: 20px;
+    margin-left: 4px;
+  }
+}
+
+.event-info{
+  margin: 5px 23px;
+  padding: 10px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  background: white;
+  cursor: pointer;
+  width: 250px;
+  &.open{
+    border-left: 5px solid grey;
+    margin-left: 40px;
+  }
+  .title{
+    margin: 10px 0;
+    color: grey;
+    line-height: 20px;
+    font-size: 20px;
+  }
+  .user, .date{
+    display: block;
+    font-size: 13px;
+    color: grey;
+    font-weight: 100;
+    color: rgb(183, 183, 183);
+  }
+  .user{
+    margin-top: 5px;
+  }
+  .date{
+    margin-left: 5px;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  .date:before{
+    content:"\f073";
+    font-family: FontAwesome;
+    margin-right: 5px;
+  }
+  .user:before{
+    content:"\f007";
+    font-family: FontAwesome;
+    margin-right: 5px;
+  }
+
+}
+
+
+.side-list.posts{
+  .first-level-title {
+    background: $post-secondary-color;
+    width: 210px;
+
+  }
+  .second-level-title {
+    background: $post-dark-color;
+    width: 210px;
+  }
+  .amount{
+    color: $post-dark-color;
+  }
+  .event-info{
+    &.open{
+      border-left: 5px solid $post-secondary-color;
+    }
+    .title{
+      color: $post-secondary-color;
+    }
+  }
+}
+
+
+
+.side-list.infoposts{
+  .first-level-title {
+    background: $infopost-secondary-color;
+    width: 300px;
+    .title{
+      margin: 0 25px;
+    }
+  }
+  .amount{
+    color: $infopost-secondary-color;
+  }
+  .event-info{
+    &.open{
+      border-left: 5px solid $infopost-secondary-color;
+    }
+    .title{
+      color: $infopost-secondary-color;
+    }
+  }
+}
+
+.side-list.tasks{
+  .first-level-title {
+    background: $task-secondary-color;
+    width: 300px;
+    .title{
+      margin: 0 25px;
+    }
+  }
+  .amount{
+    color: $task-secondary-color;
+  }
+  .event-info{
+    &.open{
+      border-left: 5px solid $task-secondary-color;
+    }
+    .title{
+      color: $task-secondary-color;
+    }
+  }
+}
+
+
+
+

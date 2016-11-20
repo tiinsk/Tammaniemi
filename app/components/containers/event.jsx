@@ -6,7 +6,7 @@ import moment from 'moment';
 import remarkable from '../../remarkable';
 
 import TaskCheckBox from '../presentational/task_checkbox.jsx';
-import CommentBox from '../../events/comment/comment_box.jsx';
+import CommentBox from './comment/comment_box.jsx';
 
 class Event extends React.Component {
   constructor(props) {
