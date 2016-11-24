@@ -69,11 +69,9 @@ export default (store) => {
         <Route path="/:type/update/:id" component={UpdateEvent} onEnter={requireAuth(store)} />
         <Route path="/:type/create" component={CreateEvent} onEnter={requireAuth(store)} />
 
-        <Route path="/posts" component={PostList} onEnter={requireAuth(store)} />
-        <Route path="/posts/:postId" component={ShowPost} onEnter={requireAuth(store)} />
-
-        <Route path="/infoposts" component={InfopostList} onEnter={requireAuth(store)} />
-        <Route path="/infoposts/:infopostId" component={ShowInfoPost} onEnter={requireAuth(store)} />
+        <Route path="/posts(/:year(/:month(/:id)))" component={PostList} onEnter={requireAuth(store)} />
+        <Route path="/infoposts(/:category(/:id))" component={InfopostList} onEnter={requireAuth(store)} />
+        <Route path="/tasks(/:category(/:id))" component={TaskList} onEnter={requireAuth(store)} />
 
         <Route path="/reservations" component={IndexReservations} onEnter={requireAuth(store)}>
           <IndexRedirect to="recently-added" />
@@ -83,9 +81,6 @@ export default (store) => {
           <Route path=":reservationId" component={ShowReservation} onEnter={requireAuth(store)} />
 
         </Route>
-
-        <Route path="/tasks" component={TaskList} onEnter={requireAuth(store)} />
-        <Route path="/tasks/:taskId" component={ShowTask} onEnter={requireAuth(store)} />
 
         <Route path="/gallery" component={IndexGallery} onEnter={requireAuth(store)} />
         <Route path="/gallery/new" component={AddGallery} onEnter={requireAuth(store)} />

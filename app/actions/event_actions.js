@@ -34,14 +34,14 @@ function addEvents(events, type, order) {
   }
 }
 
-function addEvent(event){
+function addEvent(event) {
   return {
     type: ADD_EVENT,
     event
   }
 }
 
-function clearEvent(){
+function clearEvent() {
   return {
     type: CLEAR_EVENT
   }
@@ -79,20 +79,20 @@ function orderBy(events, type, order) {
           result[year][month].values.push(event);
           return result;
         }, {})
-        .map((months, year) => {
-          return {
+        .reduce((result, months, year) => {
+          result[year] = {
             key: year,
             values: months
           };
-        })
-        .sortBy('key')
+          return result;
+        }, [])
         .value();
     case 'byCategory':
       return _.chain(sortByTime(events))
         .reduce((result, event, index) => {
 
           const categories = {
-            infoposts: [
+            Infopost: [
               "Yleistä",
               "Kevät- ja syystyöt",
               "Kunnossapito",
@@ -104,7 +104,7 @@ function orderBy(events, type, order) {
               "Vesi",
               "WC ja jätteet"
             ],
-            tasks: [
+            Task: [
               "To Buy",
               "Food to Buy",
               "To Fix",
@@ -124,11 +124,7 @@ function orderBy(events, type, order) {
 
           result[event.category].values.push(event);
           return result;
-        }, {})
-        .map((events) => {
-          return events
-        })
-        .sortBy('key')
+        }, [])
         .value();
     case "type":
       return events;
@@ -178,7 +174,7 @@ export function fetchOne(type, id) {
   }
 }
 
-export function create(event){
+export function create(event) {
   return (dispatch) => {
     dispatch(loading(true));
     return axios
@@ -191,8 +187,8 @@ export function create(event){
             content: "Creation successful!",
             fade: true
           }));
-          dispatch(loading(false));
-          browserHistory.push('/home');
+        dispatch(loading(false));
+        browserHistory.push('/home');
       })
       .catch(() => {
         dispatch(addNotification(
@@ -206,7 +202,7 @@ export function create(event){
   }
 }
 
-export function update(event){
+export function update(event) {
   return (dispatch) => {
     dispatch(loading(true));
     return axios
@@ -219,8 +215,8 @@ export function update(event){
             content: "Update successful!",
             fade: true
           }));
-          dispatch(loading(false));
-          browserHistory.push('/home');
+        dispatch(loading(false));
+        browserHistory.push('/home');
       })
       .catch(() => {
         dispatch(addNotification(

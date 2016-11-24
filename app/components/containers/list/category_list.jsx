@@ -8,7 +8,7 @@ export class CategoryList extends React.Component {
   }
 
   render(){
-    let titles = _.map(this.props.events, (eventList, key) => {
+    let titles = this.props.events.map((eventList, key) => {
       return (
         <FirstLevelList
           key={key}

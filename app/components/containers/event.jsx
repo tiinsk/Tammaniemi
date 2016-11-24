@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import moment from 'moment';
 import remarkable from '../../remarkable';
 
@@ -48,19 +48,24 @@ class Event extends React.Component {
 
   render() {
     const eventType = this.props.event.__t.toLowerCase();
+    let linkToEvent = null;
 
     let primarySymbol = (
       <div className="img"></div>
     );
     let secondarySymbol = null;
     let content = this.props.event.content;
-    switch (eventType){
+    switch (eventType) {
       case "task":
-        primarySymbol =(
+        linkToEvent = (<Link className="title"
+          to={`/${eventType}s/${this.props.event.category}/${this.props.event._id}`}>
+          {this.props.event.title}
+        </Link>);
+        primarySymbol = (
           <TaskCheckBox
             isDone={this.props.event.isDone}
             id={this.props.event._id}
-          />
+            />
         );
         secondarySymbol = (
           <div className="secondary-symbol">
@@ -69,6 +74,10 @@ class Event extends React.Component {
         );
         break;
       case "reservation":
+      linkToEvent = (<Link className="title"
+          to={`/${eventType}s`}>
+          {this.props.event.title}
+        </Link>);
         content = (
           <div className="content">
             <span className="start-date">{moment(this.props.event.startDate).format("DD.MM.YYYY")}</span>
@@ -78,6 +87,10 @@ class Event extends React.Component {
         );
         break;
       case "infopost":
+        linkToEvent = (<Link className="title"
+          to={`/${eventType}s/${this.props.event.category}/${this.props.event._id}`}>
+          {this.props.event.title}
+        </Link>);
         secondarySymbol = (
           <div className="secondary-symbol">
             <div className={`img num${this.props.event.category}`}></div>
@@ -87,15 +100,22 @@ class Event extends React.Component {
           <div
             className="content"
             dangerouslySetInnerHTML={this.markupToHtml(this.props.event.content)}
-          ></div>
+            ></div>
         );
         break;
       case "post":
+        const createdAt = moment(this.props.event.createdAt);
+        const year = createdAt.year();
+        const month = createdAt.month();
+        linkToEvent = (<Link className="title"
+          to={`/${eventType}s/${year}/${month}/${this.props.event._id}`}>
+          {this.props.event.title}
+        </Link>);
         content = (
           <div
             className="content"
             dangerouslySetInnerHTML={this.markupToHtml(this.props.event.content)}
-          ></div>
+            ></div>
         );
         break;
     }
@@ -107,12 +127,7 @@ class Event extends React.Component {
             {primarySymbol}
           </div>
           {secondarySymbol}
-          <Link
-            className="title"
-            to={`/${eventType}s/${this.props.event._id}`}
-          >
-            {this.props.event.title}
-          </Link>
+          {linkToEvent}
           {content}
           <div className="details" >
             <span className="detail user">{this.props.event.userId.name}</span>
@@ -126,25 +141,25 @@ class Event extends React.Component {
               <div className="icon icon-comment"></div>
               <div className="icon icon-down"></div>
             </div>
-            { (this.props.auth.user._id === this.props.event.userId._id) ?
+            {(this.props.auth.user._id === this.props.event.userId._id) ?
               <span>
-                    <div className="edit color-circle" onClick={() => this.handleUpdate(this.props.event)}>
-                      <div className="icon icon-pencil"></div>
-                    </div>
-                    <div className="delete color-circle" onClick={() => this.handleDelete(this.props.event)}>
-                      <div className="icon icon-trash"></div>
-                    </div>
-                  </span>
+                <div className="edit color-circle" onClick={() => this.handleUpdate(this.props.event)}>
+                  <div className="icon icon-pencil"></div>
+                </div>
+                <div className="delete color-circle" onClick={() => this.handleDelete(this.props.event)}>
+                  <div className="icon icon-trash"></div>
+                </div>
+              </span>
               : null
             }
           </div>
         </div>
-        { this.state.isCommentsShown ?
+        {this.state.isCommentsShown ?
           <CommentBox
             comments={this.props.event.comments}
             eventId={this.props.event._id}
             user={this.props.auth.user}
-          /> :
+            /> :
           null
         }
       </div>
@@ -159,7 +174,7 @@ function mapStateToProps({auth}) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({remove}, dispatch);
+  return bindActionCreators({ remove }, dispatch);
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Event));

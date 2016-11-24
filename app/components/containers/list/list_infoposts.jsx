@@ -13,10 +13,10 @@ class InfopostList extends React.Component {
   constructor(props){
     super(props);
 
-    this.props.fetchEvents('infoposts', 'byCategory');
+    this.props.fetchEvents('Infopost', 'byCategory');
 
     this.state = {
-      selected: []
+      selected: [parseInt(this.props.params.category), this.props.params.id]
     };
 
   }
@@ -24,8 +24,9 @@ class InfopostList extends React.Component {
   componentWillReceiveProps(newProps){
     if(newProps.events.length) {
       let category = this.state.selected[0] || newProps.events.length -1;
+      let event = this.state.selected[1] || undefined;
       this.setState({
-        selected: [category, undefined]
+        selected: [category, event]
       });
     }
   }
@@ -61,8 +62,8 @@ class InfopostList extends React.Component {
     });
 
     return (
-      <div className="app-row-center">
-        <div className="col-left" >
+      <div className="row">
+        <div className="col-xs-3">
           <CategoryList
             eventType='infoposts'
             events={this.props.events}
@@ -70,7 +71,7 @@ class InfopostList extends React.Component {
             selectionChanged={(selectionArray) => this.changeSelection(selectionArray) }
           />
         </div>
-        <div className="col-main" >
+        <div className="col-xs-9">
           {eventElements}
         </div>
       </div>
@@ -79,10 +80,9 @@ class InfopostList extends React.Component {
 }
 
 function mapStateToProps({events}) {
-
   return {
     loading: events.loading,
-    events: events.infoposts
+    events: events.Infopost
   }
 }
 

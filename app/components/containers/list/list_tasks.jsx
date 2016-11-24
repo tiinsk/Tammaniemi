@@ -14,11 +14,12 @@ class TaskList extends React.Component {
   constructor(props){
     super(props);
 
-    this.props.fetchEvents('tasks', 'byCategory');
+    this.props.fetchEvents('Task', 'byCategory');
 
     this.state = {
-      selected: [],
-      showOption: 1
+      selected: [parseInt(this.props.params.category), this.props.params.id],
+      showOption: 1,
+      events: []
     };
 
   }
@@ -32,8 +33,9 @@ class TaskList extends React.Component {
 
     if(newProps.events.length) {
       let category = this.state.selected[0] || newProps.events.length -1;
+      let event = this.state.selected[1] || undefined;
       this.setState({
-        selected: [category, undefined]
+        selected: [category, event]
       });
     }
   }
@@ -100,8 +102,8 @@ class TaskList extends React.Component {
           option={this.state.showOption}
           onShowChange={ (val) => this.showChange(val)}
         />
-        <div className="app-row-center">
-          <div className="col-left" >
+        <div className="row">
+          <div className="col-xs-3" >
             <CategoryList
               eventType='tasks'
               events={this.state.events}
@@ -109,7 +111,7 @@ class TaskList extends React.Component {
               selectionChanged={(selectionArray) => this.changeSelection(selectionArray) }
             />
           </div>
-          <div className="col-main" >
+          <div className="col-xs-9" >
             {eventElements.length ? eventElements : <div className="no-items">No tasks to show</div>}
           </div>
         </div>
@@ -121,7 +123,7 @@ class TaskList extends React.Component {
 function mapStateToProps({events}) {
   return {
     loading: events.loading,
-    events: events.tasks
+    events: events.Task
   }
 }
 

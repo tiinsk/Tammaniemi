@@ -11,7 +11,7 @@ class Calendar extends React.Component {
 
   componentWillMount() {
     this.currentMonth();
-    this.props.fetchEvents('reservations', 'time');
+    this.props.fetchEvents('Reservation', 'time');
   }
 
   // return reservation if "date" is first day of reservation or first day of week
