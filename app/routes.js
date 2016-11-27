@@ -15,17 +15,11 @@ import CreateEvent from './components/containers/event_create.jsx';
 import ShowUser from './user/components/show';
 import IndexUsers from './user/components/index';
 
-import ShowPost from './events/post/show';
-
-import ShowInfoPost from './events/infopost/show';
-
 import AddReservation from './events/reservation/add';
 import ShowReservation from './events/reservation/show';
 import IndexReservations from './events/reservation/index';
 import RecentlyAdded from './events/reservation/recently-added';
 import UpcomingReservations from './events/reservation/upcoming-reservations';
-
-import ShowTask from './events/task/show';
 
 import IndexGallery from './events/gallery/index';
 import ShowGallery from './events/gallery/show';
