@@ -77,7 +77,7 @@ class PostList extends React.Component {
             selectionChanged={(selectionArray) => this.changeSelection(selectionArray)}
             />
         </div>
-        <div className="col-xs-9">
+        <div className="col-xs-7">
           {eventElements}
         </div>
       </div>

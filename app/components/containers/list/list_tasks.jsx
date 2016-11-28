@@ -111,7 +111,7 @@ class TaskList extends React.Component {
               selectionChanged={(selectionArray) => this.changeSelection(selectionArray) }
             />
           </div>
-          <div className="col-xs-9" >
+          <div className="col-xs-7" >
             {eventElements.length ? eventElements : <div className="no-items">No tasks to show</div>}
           </div>
         </div>
