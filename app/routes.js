@@ -16,11 +16,7 @@ import CreateEvent from './components/containers/event_create.jsx';
 
 import ShowUser from './user/components/show';
 
-import ShowReservation from './events/reservation/show';
-
-import IndexReservations from './events/reservation/index';
-import RecentlyAdded from './events/reservation/recently-added';
-import UpcomingReservations from './events/reservation/upcoming-reservations';
+import ReservationList from './components/containers/list/list_reservations.jsx';
 
 import ShowGallery from './events/gallery/show';
 import AddGallery from './events/gallery/add';
@@ -67,14 +63,7 @@ export default (store) => {
         <Route path="/infoposts(/:category(/:id))" component={InfopostList} onEnter={requireAuth(store)} />
         <Route path="/tasks(/:category(/:id))" component={TaskList} onEnter={requireAuth(store)} />
 
-        <Route path="/reservations" component={IndexReservations} onEnter={requireAuth(store)}>
-          <IndexRedirect to="recently-added" />
-
-          <Route path="recently-added" component={RecentlyAdded} onEnter={requireAuth(store)} />
-          <Route path="upcoming" component={UpcomingReservations} onEnter={requireAuth(store)} />
-          <Route path=":reservationId" component={ShowReservation} onEnter={requireAuth(store)} />
-
-        </Route>
+        <Route path="/reservations(/:year(/:month))" component={ReservationList} onEnter={requireAuth(store)} />
 
         <Route path="/gallery" component={PhotosetList} onEnter={requireAuth(store)} />
         <Route path="/gallery/new" component={AddGallery} onEnter={requireAuth(store)} />

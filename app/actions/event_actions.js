@@ -9,7 +9,7 @@ export const ADD_EVENT = 'ADD_EVENT';
 export const CLEAR_EVENT = 'CLEAR_EVENT';
 export const LOADING = 'LOADING';
 
-export function fetchEvents(type, order) {
+export function fetchEvents(type, order = 'type') {
   return (dispatch) => {
     dispatch(loading(true));
     return axios

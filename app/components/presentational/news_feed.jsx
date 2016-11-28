@@ -1,11 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { fetchEvents } from '../../actions/event_actions';
-
-import Event from './event.jsx';
-import LoadingAnimation from '../presentational/loading_animation.jsx';
+import Event from '../containers/event.jsx';
+import LoadingAnimation from './loading_animation.jsx';
 
 class NewsFeed extends React.Component {
   constructor(props){
@@ -14,10 +10,6 @@ class NewsFeed extends React.Component {
       itemsPerPage: 30,
       currentPage: 1
     }
-  }
-
-  componentWillMount(){
-    this.props.fetchEvents('events', 'time');
   }
 
   getEndItem() {
@@ -31,8 +23,6 @@ class NewsFeed extends React.Component {
       });
     }
   }
-
-
 
   render(){
     if(this.props.events.loading){
@@ -59,17 +49,6 @@ class NewsFeed extends React.Component {
       </div>
     );
   }
-
 }
 
-function mapStateToProps({events}) {
-  return {
-    events
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchEvents}, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);
+export default NewsFeed;

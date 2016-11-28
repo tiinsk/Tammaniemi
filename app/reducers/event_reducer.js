@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   Post: [],
   Infopost: [],
   Task: [],
-  reservations: [],
+  Reservation: [],
   photosets: [],
   event: undefined,
   loading: false

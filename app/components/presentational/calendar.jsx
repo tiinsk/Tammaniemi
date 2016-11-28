@@ -1,17 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import moment from 'moment';
 import _ from 'lodash';
-
-import { fetchEvents } from '../../actions/event_actions';
 
 class Calendar extends React.Component {
 
   componentWillMount() {
     this.currentMonth();
-    this.props.fetchEvents('Reservation', 'time');
   }
 
   // return reservation if "date" is first day of reservation or first day of week
@@ -21,15 +16,19 @@ class Calendar extends React.Component {
         return moment(reservation.startDate).isSame(date, 'day');
       }
       return moment(reservation.startDate).isSameOrBefore(date, 'day') &&
-             moment(reservation.endDate).isSameOrAfter(date, 'day');
+        moment(reservation.endDate).isSameOrAfter(date, 'day');
     });
     return reservation;
   }
 
   changeMonthAndYear(month, year) {
+    const nextTimeRange = moment(this.state.firstDayOfMonth).add(year, 'year').add(month, 'month');
     this.setState({
-      firstDayOfMonth: moment(this.state.firstDayOfMonth).add(year, 'year').add(month, 'month')
+      firstDayOfMonth: nextTimeRange
     });
+    if (this.props.onTimeRangeChange) {
+      this.props.onTimeRangeChange(nextTimeRange);
+    }
   }
 
   currentMonth() {
@@ -65,7 +64,7 @@ class Calendar extends React.Component {
             className="reserved-title"
             to={`/reservations/${reserved._id}`}
             title={name}
-          >
+            >
             {title}
           </Link>
         );
@@ -94,14 +93,14 @@ class Calendar extends React.Component {
       <div className={`calendar ${(this.props.small ? 'small' : '')}`} >
         <div className="month">
           <div className="header">
-              <div className="prev-year-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 0, -1)} ></div>
-              <div className="prev-month-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, -1, 0)} ></div>
-              <div className="title">
-                {moment(this.state.firstDayOfMonth).format('MMMM')} {moment(this.state.firstDayOfMonth).format('YYYY')}
-              </div>
-              <div className="next-month-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 1, 0)} ></div>
-              <div className="next-year-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 0, 1)} ></div>
+            <div className="prev-year-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 0, -1)} ></div>
+            <div className="prev-month-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, -1, 0)} ></div>
+            <div className="title">
+              {moment(this.state.firstDayOfMonth).format('MMMM')} {moment(this.state.firstDayOfMonth).format('YYYY')}
             </div>
+            <div className="next-month-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 1, 0)} ></div>
+            <div className="next-year-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 0, 1)} ></div>
+          </div>
           <div className="weekdays">
             {weekdays}
           </div>
@@ -113,17 +112,6 @@ class Calendar extends React.Component {
 
     );
   }
-
 }
 
-function mapStateToProps({events}) {
-  return {
-    reservations: events.reservations || []
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchEvents}, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
+export default Calendar;
