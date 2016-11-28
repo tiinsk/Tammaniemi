@@ -6,7 +6,7 @@
 @import './refactored/login';
 @import './event.scss';
 
-@import './user.scss';
+@import './invite_user_modal.scss';
 @import './task.scss';
 @import './post.scss';
 @import './infopost.scss';
@@ -32,6 +32,7 @@
 @import './refactored/category_list';
 @import './refactored/option_menu';
 @import './refactored/list_task';
+@import './user.scss';
 
 body{
   font-family: Roboto, sans-serif;

@@ -1,74 +1,96 @@
-$login-color: #6EC744;
-
-.login-modal{
-  display: inline-block;
-  margin: 5px 0;
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
-  }
-
-  .show-modal{
-    display: flex;
-  }
-
-  .modal-content {
-      background-color: #fefefe;
-      padding: 20px;
-      border: 1px solid #888;
-      max-width: 90%;
-      width: 960px;
-      .title{
-        color: #6EC744;
-      }
-  }
-
-  .form{
+.user-item{
+  margin: 60px;
+  .box{
+    position: relative;
+    padding: 35px 50px 35px 50px;
+    min-height: 122px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    border: 1px solid rgba(0,0,0,.09);
     .title{
-      color: $login-color;
-    }
-
-    .mui--is-empty.mui--is-dirty:focus{
-      border-color: $login-color;
-      &~label {
-        color: $login-color;
-      }
-    }
-    .error-message{
-      display: block;
-      color: #FF9D00;
-    }
-    .submit-btn{
-        border: 2px solid $login-color;
-        color: $login-color;
-        float: right;
-    }
-    .submit-btn:hover, .submit-btn:focus{
-        background: $login-color;
-        color: white;
-      }
-    .cancel-btn{
-      border: 2px solid grey;
       text-transform: uppercase;
-      padding: 5px 10px;
-      color: grey;
-      background-color: transparent;
-      border-radius: 5px;
-      float: right;
-      margin-right: 10px;
+      font-size: 24px;
+      text-decoration: none;
     }
-    .cancel-btn:hover, .cancel-btn:focus{
-      color: white;
-      background-color: grey;
+    .content{
+      margin-top: 20px;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.54);
+      .email{
+        margin-bottom: 20px;
+      }
+      .joined-time:before {
+        content: "\f073";
+        font-family: FontAwesome;
+        margin-right: 5px;
+      }
+    }
+    .edit-menu{
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      color: rgba(0, 0, 0, 0.18);
+      .color-circle {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+        color: white;
+        position: relative;
+        display: inline-block;
+        margin: 0px 2px;
+        cursor: pointer;
+        font-family: FontAwesome;
+        .icon:before{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .icon-trash:before{
+          content:"\f1f8";
+        }
+      }
+    }
+    .primary-symbol{
+      position: absolute;
+      top: 16px;
+      left: -35px;
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+      .img{
+        font-family: "FontAwesome";
+        color: white;
+        font-size: 35px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
     }
   }
+}
+
+.user-item{
+  .title{
+    color: $user-secondary-color;
+  }
+
+  .edit-menu{
+    .color-circle {
+      &.delete{
+        background-color: $user-secondary-color;
+      }
+      &.delete:hover, &.delete:focus{
+        background-color: $user-secondary-color-hover;
+      }
+    }
+  }
+  .primary-symbol{
+    background-color: $user-primary-color;
+    .img:before{
+      content:"\f007";
+    }
+  }
+
 }

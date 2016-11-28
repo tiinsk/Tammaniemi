@@ -8,15 +8,15 @@ import Home from './components/containers/home.jsx';
 import PostList from './components/containers/list/list_posts.jsx';
 import InfopostList from './components/containers/list/list_infoposts.jsx';
 import TaskList from './components/containers/list/list_tasks.jsx';
+import UserList from './components/containers/list/list_users.jsx';
 
 import UpdateEvent from './components/containers/event_update.jsx';
 import CreateEvent from './components/containers/event_create.jsx';
 
 import ShowUser from './user/components/show';
-import IndexUsers from './user/components/index';
 
-import AddReservation from './events/reservation/add';
 import ShowReservation from './events/reservation/show';
+
 import IndexReservations from './events/reservation/index';
 import RecentlyAdded from './events/reservation/recently-added';
 import UpcomingReservations from './events/reservation/upcoming-reservations';
@@ -58,7 +58,7 @@ export default (store) => {
       <Route path="/" component={App}>
         <Route path="/home" component={Home} onEnter={requireAuth(store)} />
         <Route path="/users/:userId" component={ShowUser} onEnter={requireAuth(store)} />
-        <Route path="/users" component={IndexUsers} onEnter={requireAuth(store)} />
+        <Route path="/users" component={UserList} onEnter={requireAuth(store)} />
 
         <Route path="/:type/update/:id" component={UpdateEvent} onEnter={requireAuth(store)} />
         <Route path="/:type/create" component={CreateEvent} onEnter={requireAuth(store)} />
