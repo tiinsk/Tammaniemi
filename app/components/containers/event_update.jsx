@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import InfoPostForm from '../presentational/event_forms/infopost_form.jsx';
 import PostForm from '../presentational/event_forms/post_form.jsx';
 import TaskForm from '../presentational/event_forms/task_form.jsx';
+import ReservationForm from '../presentational/event_forms/reservation_form.jsx';
 import { fetchOne, update } from '../../actions/event_actions';
 
 
@@ -36,6 +37,11 @@ class EventUpdate extends React.Component {
       case 'Task':
         form = (
           <TaskForm event={this.props.event} handleSubmit={this.handleSubmit} />
+        );
+        break;
+      case 'Reservation':
+        form = (
+          <ReservationForm event={this.props.event} handleSubmit={this.handleSubmit} />
         );
         break;
       default:

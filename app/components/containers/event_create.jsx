@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import InfoPostForm from '../presentational/event_forms/infopost_form.jsx';
 import PostForm from '../presentational/event_forms/post_form.jsx';
 import TaskForm from '../presentational/event_forms/task_form.jsx';
+import ReservationForm from '../presentational/event_forms/reservation_form.jsx';
 import { create } from '../../actions/event_actions';
 
 
@@ -34,6 +35,11 @@ class EventCreate extends React.Component {
       case 'Task':
         form = (
           <TaskForm handleSubmit={this.handleSubmit} />
+        );
+        break;
+      case 'Reservation':
+        form = (
+          <ReservationForm handleSubmit={this.handleSubmit} />
         );
         break;
       default:

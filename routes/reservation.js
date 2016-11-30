@@ -6,26 +6,26 @@ module.exports = (app) => {
     session: false,
   }), (req, res) => {
     Reservation.find({})
-    .populate({
-      path: 'comments',
-      populate: {
-        path: 'userId'
-      }
-    })
-    .populate('userId')
-    .exec((err, reservations) => {
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      if (reservations.length === 0) {
-        res.status(404).send({
-          message: 'No reservations found',
-        });
-        return;
-      }
-      res.json(reservations);
-    });
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'userId'
+        }
+      })
+      .populate('userId')
+      .exec((err, reservations) => {
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        if (reservations.length === 0) {
+          res.status(404).send({
+            message: 'No reservations found',
+          });
+          return;
+        }
+        res.json(reservations);
+      });
   });
 
   /*
@@ -70,8 +70,8 @@ module.exports = (app) => {
     addReservation.userId = req.user._id;
 
     if (addReservation.title === undefined ||
-        addReservation.startDate === undefined ||
-        addReservation.endDate === undefined) {
+      addReservation.startDate === undefined ||
+      addReservation.endDate === undefined) {
       res.status(400).send({
         message: 'Invalid reservation data',
       });
@@ -100,9 +100,10 @@ module.exports = (app) => {
   }), (req, res) => {
     const updatedReservation = req.body;
 
-    if (updatedReservation.title === undefined || updatedReservation.category === undefined) {
+    if (updatedReservation.title === undefined || updatedReservation.startDate === undefined
+      || updatedReservation.endDate === undefined) {
       res.status(400).send({
-        message: 'Invalid task data',
+        message: 'Invalid reservation data',
       });
       return;
     }
