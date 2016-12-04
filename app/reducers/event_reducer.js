@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   Infopost: [],
   Task: [],
   reservations: [],
+  photosets: [],
   event: undefined,
   loading: false
 };

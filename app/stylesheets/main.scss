@@ -19,7 +19,6 @@
 @import './calendar.scss';
 
 @import './text-editor.scss';
-@import './gallery.scss';
 
 @import './main_menu';
 @import "./refactored/nav_bar";
@@ -33,6 +32,8 @@
 @import './refactored/option_menu';
 @import './refactored/list_task';
 @import './user.scss';
+@import './refactored/photoset.scss';
+@import './refactored/list_photoset.scss';
 
 body{
   font-family: Roboto, sans-serif;
@@ -41,6 +42,10 @@ body{
 
 *{
   box-sizing: border-box;
+}
+
+.row{ //prevent horizontal scroll bar
+  margin: 0px;
 }
 
 ::selection {

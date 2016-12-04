@@ -15,6 +15,7 @@ export function fetchEvents(type, order) {
     return axios
       .get(`/api/${type}`)
       .then((response) => {
+        console.log(response.data);
         dispatch(addEvents(response.data, type, order));
       })
       .catch((err) => {
@@ -27,6 +28,7 @@ export function fetchEvents(type, order) {
 }
 
 function addEvents(events, type, order) {
+  console.log(orderBy(events, type, order));
   return {
     type: ADD_EVENTS,
     events: orderBy(events, type, order),
@@ -133,16 +135,33 @@ function orderBy(events, type, order) {
 
 function sortByTime(events) {
   return events.sort((a, b) => {
-    const aDate = moment(a.createdAt);
-    const bDate = moment(b.createdAt);
-    if (aDate.isAfter(bDate)) {
-      return -1;
+    let aDate, bDate;
+    if(a.hasOwnProperty('createdAt')){
+      aDate = moment(a.createdAt);
+      bDate = moment(b.createdAt);
+
+      if (aDate.isAfter(bDate)) {
+        return -1;
+      }
+      if (aDate.isBefore(bDate)) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
     }
-    if (aDate.isBefore(bDate)) {
-      return 1;
+    else if(a.hasOwnProperty('date_create')){
+      aDate = a['date_create'];
+      bDate= b['date_create'];
+
+      if (aDate > bDate) {
+        return -1;
+      }
+      if (aDate < bDate) {
+        return 1;
+      }
+      // a must be equal to b
+      return 0;
     }
-    // a must be equal to b
-    return 0;
   });
 }
 

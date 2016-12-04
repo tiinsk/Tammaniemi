@@ -9,6 +9,7 @@ import PostList from './components/containers/list/list_posts.jsx';
 import InfopostList from './components/containers/list/list_infoposts.jsx';
 import TaskList from './components/containers/list/list_tasks.jsx';
 import UserList from './components/containers/list/list_users.jsx';
+import PhotosetList from './components/containers/list/list_photosets.jsx';
 
 import UpdateEvent from './components/containers/event_update.jsx';
 import CreateEvent from './components/containers/event_create.jsx';
@@ -21,7 +22,6 @@ import IndexReservations from './events/reservation/index';
 import RecentlyAdded from './events/reservation/recently-added';
 import UpcomingReservations from './events/reservation/upcoming-reservations';
 
-import IndexGallery from './events/gallery/index';
 import ShowGallery from './events/gallery/show';
 import AddGallery from './events/gallery/add';
 
@@ -37,7 +37,7 @@ const requireAuth = (store) => {
       next();
     });
   }
-}
+};
 
 const isLoggedIn = (store) => {
   return (nextState, replaceState, next) => {
@@ -76,7 +76,7 @@ export default (store) => {
 
         </Route>
 
-        <Route path="/gallery" component={IndexGallery} onEnter={requireAuth(store)} />
+        <Route path="/gallery" component={PhotosetList} onEnter={requireAuth(store)} />
         <Route path="/gallery/new" component={AddGallery} onEnter={requireAuth(store)} />
         <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth(store)} />
       </Route>
