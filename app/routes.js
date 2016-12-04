@@ -18,7 +18,7 @@ import ShowUser from './user/components/show';
 
 import ReservationList from './components/containers/list/list_reservations.jsx';
 
-import ShowGallery from './events/gallery/show';
+import ShowGallery from './components/containers/gallery.jsx';
 import AddGallery from './events/gallery/add';
 
 import CreateUser from './user/components/create_user';

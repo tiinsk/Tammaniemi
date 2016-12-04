@@ -15,7 +15,6 @@ export function fetchEvents(type, order = 'type') {
     return axios
       .get(`/api/${type}`)
       .then((response) => {
-        console.log(response.data);
         dispatch(addEvents(response.data, type, order));
       })
       .catch((err) => {
@@ -28,7 +27,6 @@ export function fetchEvents(type, order = 'type') {
 }
 
 function addEvents(events, type, order) {
-  console.log(orderBy(events, type, order));
   return {
     type: ADD_EVENTS,
     events: orderBy(events, type, order),

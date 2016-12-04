@@ -2,7 +2,7 @@ const passport = require('./passport.js');
 const flickrOptions = require('../config.js').flickrOptions;
 
 module.exports = (app, flickr) => {
-  app.get('/api/photosets/', passport.authenticate('jwt', { session: false }),
+  app.get('/api/Photoset/', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     flickr.photosets.getList({
       authenticated: true
@@ -16,7 +16,7 @@ module.exports = (app, flickr) => {
     });
   });
 
-  app.get('/api/photosets/:photosetId', passport.authenticate('jwt', { session: false }),
+  app.get('/api/Photoset/:photosetId', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     flickr.photosets.getPhotos({
       authenticated: true,

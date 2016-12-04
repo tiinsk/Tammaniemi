@@ -9,7 +9,7 @@ import Photoset from '../../presentational/photoset.jsx';
 class PhotosetList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.fetchEvents('photosets', 'time');
+    this.props.fetchEvents('Photoset', 'time');
   }
 
 
@@ -53,10 +53,9 @@ class PhotosetList extends React.Component {
 }
 
 function mapStateToProps({events}) {
-  console.log("photosets", events.photosets);
   return {
     loading: events.loading,
-    photosets: events.photosets
+    photosets: events.Photoset
   }
 }
 

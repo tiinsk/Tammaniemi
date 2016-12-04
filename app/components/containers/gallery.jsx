@@ -1,9 +1,9 @@
 import React from 'react';
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
-import LightBox from './lightBox';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import EventStore from '../event_store';
+import LightBox from '../presentational/lightbox.jsx';
+import {fetchOne} from '../../actions/event_actions.js';
 
 
 class ShowGallery extends React.Component {
@@ -11,25 +11,11 @@ class ShowGallery extends React.Component {
     super(props);
     this.state = {
       maxHeight: 350,
-      photoset: EventStore.getByTypeAndId('photosets', this.props.params.galleryId, true),
       lightBoxIsOpen: false,
       lightBoxImage: 0
     };
-    this.onChange = this.onChange.bind(this);
-  }
 
-  componentWillMount() {
-    EventStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    EventStore.unlisten(this.onChange);
-  }
-
-  onChange() {
-    this.setState({
-      photoset: EventStore.getByTypeAndId('photosets', this.props.params.galleryId)
-    });
+    this.props.fetchOne('Photoset', this.props.params.galleryId);
   }
 
   getWidth() {
@@ -91,7 +77,7 @@ class ShowGallery extends React.Component {
   }
 
   render() {
-    const photosetPhotos = this.state.photoset.photo || [];
+    const photosetPhotos = this.props.photoset.photo || [];
     const lightBoxImages = photosetPhotos.map((photo) => (
       { src: photo.url_c,
         caption: photo.title
@@ -100,17 +86,17 @@ class ShowGallery extends React.Component {
     const rows = [...this.rowGenerator(photosetPhotos)];
     const photos = rows ?
       rows.map((photos, index) => (
-          <Row key={index}>
-            <Col md="12" >
+          <div className="row" key={index}>
+            <div className="col-md-12" >
               {photos}
-            </Col>
-          </Row>
+            </div>
+          </div>
         )) :
       <h2> Loading </h2>;
     return (
       <section className="gallery">
         <div className="page-title">
-          {this.state.photoset.title}
+          {this.props.photoset.title}
           <div className="add-new" onClick={() => {}}>
           <span>+</span>
           </div>
@@ -141,4 +127,17 @@ class Photo extends React.Component {
   }
 }
 
-export default ShowGallery;
+
+
+function mapStateToProps({events}) {
+  return {
+    loading: events.loading,
+    photoset: events.event
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({fetchOne}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShowGallery);
