@@ -32,7 +32,7 @@ class TaskList extends React.Component {
     }
 
     if(newProps.events.length) {
-      let category = this.state.selected[0] || newProps.events.length -1;
+      let category = this.state.selected[0] !== undefined ? this.state.selected[0] : newProps.events.length -1;
       let event = this.state.selected[1] || undefined;
       this.setState({
         selected: [category, event]
