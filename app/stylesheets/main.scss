@@ -34,7 +34,8 @@
 @import './user.scss';
 @import './refactored/photoset.scss';
 @import './refactored/list_photoset.scss';
-
+@import "./refactored/calendar_navigator.scss";
+@import "./refactored/list_reservations.scss";
 body{
   font-family: Roboto, sans-serif;
   margin: 0;

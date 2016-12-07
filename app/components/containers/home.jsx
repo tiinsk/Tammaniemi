@@ -1,22 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import moment from 'moment';
 
 import { fetchEvents } from '../../actions/event_actions';
 
 import Event from './event.jsx';
 import Calendar from '../presentational/calendar.jsx';
+import {SmallCalendarNavigator} from '../presentational/calendar_navigator.jsx';
 import NewsFeed from '../presentational/news_feed.jsx';
 
 
 class Home extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      selectedMoment: moment({ year: moment().year(), month: moment().month() })
+    };
   }
 
   componentWillMount() {
     this.props.fetchEvents('events', 'time');
     this.props.fetchEvents('Reservation');
+
+  }
+
+  updateTime(newMoment) {
+    this.setState({
+      selectedMoment: newMoment
+    });
   }
 
   render() {
@@ -28,7 +40,15 @@ class Home extends React.Component {
             <NewsFeed events={this.props.events} />
           </div>
           <div className="calendar-container col-xs-3">
-            <Calendar small reservations={this.props.reservations} />
+            <SmallCalendarNavigator
+              selectedMoment={this.state.selectedMoment}
+              changeMonthAndYear={(newMoment) => this.updateTime(newMoment)}
+            />
+            <Calendar
+              small
+              reservations={this.props.reservations}
+              firstDayOfMonth={this.state.selectedMoment}
+            />
           </div>
         </div>
       </div>

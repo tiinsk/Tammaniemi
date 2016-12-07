@@ -5,34 +5,29 @@ import moment from 'moment'
 
 import { fetchEvents } from '../../../actions/event_actions.js';
 import Calendar from '../../presentational/calendar.jsx';
+import {CalendarNavigator} from '../../presentational/calendar_navigator.jsx';
 import Event from '../event.jsx';
+import LoadingAnimation  from '../../presentational/loading_animation.jsx';
 
 class ReservationList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectedMoment: moment({ year: parseInt(this.props.params.year), month: parseInt(this.props.params.month) })
-    };
-    this.updateTime = this.updateTime.bind(this);
-    this.filterReservations = this.filterReservations.bind(this);
-  }
+    let month = parseInt(this.props.params.year) || moment().month();
+    let year = parseInt(this.props.params.month) || moment().year();
 
-  componentWillReceiveProps(newProps) {
-    let year = this.state.selectedMoment[0] || moment().year();
-    let month = this.state.selectedMoment[1] || moment().month();
-    this.setState({
-      selectedMoment: moment({ year: year, month: month })
-    });
+    this.state = {
+      selectedMoment: moment({ year, month})
+    };
   }
 
   componentWillMount() {
     this.props.fetchEvents('Reservation');
   }
 
-  updateTime(newTimeRange) {
+  updateTime(newMoment) {
     this.setState({
-      selectedMoment: newTimeRange.clone()
+      selectedMoment: newMoment
     });
   }
 
@@ -44,8 +39,22 @@ class ReservationList extends React.Component {
   }
 
   render() {
+
+    if(this.props.loading) {
+      return (
+        <div>
+          <div className="page-title">
+            Reservations
+          </div>
+          <LoadingAnimation />
+        </div>
+      )
+    }
+
+    let filteredReservations = this.filterReservations();
+
     return (
-      <div className="reservations-index">
+      <div className="list-reservations">
         <div className="page-title">
           Reservations
           <div className="add-new post" >
@@ -53,13 +62,24 @@ class ReservationList extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-xs-5 col-xs-offset-1" >
-            <Calendar reservations={this.props.reservations} onTimeRangeChange={this.updateTime} />
+          <div className="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
+            <CalendarNavigator
+              selectedMoment={this.state.selectedMoment}
+              changeMonthAndYear={(newMoment) => this.updateTime(newMoment) }
+            />
           </div>
-          <div className="col-xs-5">
-            {this.filterReservations().map((reservation) => (
+        </div>
+        <div className="row">
+          <div className="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-sm-10 col-md-5 col-md-offset-1" >
+            <Calendar reservations={this.props.reservations} firstDayOfMonth={this.state.selectedMoment.startOf('month')} />
+          </div>
+          <div className="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-5 list">
+            {
+              filteredReservations.length ? filteredReservations.map((reservation) => (
               <Event key={reservation._id}
-                event={reservation} />))}
+                event={reservation} />)) :
+                <div className="no-reservations"> No reservations this month </div>
+            }
           </div>
         </div>
       </div>
@@ -69,6 +89,7 @@ class ReservationList extends React.Component {
 
 function mapStateToProps({events}) {
   return {
+    loading: events.loading,
     reservations: events.Reservation
   }
 }

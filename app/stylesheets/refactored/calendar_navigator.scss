@@ -1,0 +1,125 @@
+.calendar-navigator{
+  margin-bottom: 40px;
+  text-align: center;
+  .year{
+    font-size: 35px;
+    color: $reservation-secondary-color;
+    margin-bottom: 20px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .other-year {
+      display: inline-block;
+      color: grey;
+      font-size: 20px;
+      font-weight: 100;
+      cursor: pointer;
+      &.prev-year {
+        &:before{
+          font-family: FontAwesome;
+          content:"\f100";
+          padding: 0px 5px;
+        }
+      }
+      &.next-year {
+        &:after{
+          font-family: FontAwesome;
+          content:"\f101";
+          padding: 0px 10px;
+        }
+      }
+
+    }
+  }
+  .months{
+    position: relative;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    height: 54px;
+    border-bottom: 2px solid $reservation-secondary-color;
+    .month-title{
+      flex: 0 0 8.33%;
+      font-weight: 100;
+      text-transform: uppercase;
+      color: grey;
+      cursor: pointer;
+      &.selected {
+        color: $reservation-secondary-color;
+        font-weight: 400;
+        padding: 7px 0px;
+      }
+    }
+    .selected-box-container {
+      width: 8.33%;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      transition: left 500ms linear;
+      .selected-box {
+        height: 42px;
+        width: 70px;
+        border: 3px solid $reservation-secondary-color;
+
+      }
+    }
+  }
+  @media (max-width: 650px){
+    .months{
+      font-size: 3vw;
+    }
+  }
+}
+
+
+.other-calendar-navigator{
+  font-size: 20px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+  text-align: center;
+  margin: 10px 0px;
+  .title{
+    font-size: 20px;
+    display: inline-block;
+    width: 50%;
+    text-transform: uppercase;
+    color: $reservation-secondary-color;
+  }
+  .cal-btn{
+    display: inline-block;
+    cursor: pointer;
+    width: 30px;
+    border: 2px solid $reservation-secondary-color;
+    border-radius: 4px;
+    color: $reservation-secondary-color;
+    margin: 0px 3px;
+    font-family: "FontAwesome";
+  }
+  .cal-btn:hover, .cal-btn:focus{
+    background: $reservation-secondary-color;
+    color: white;
+  }
+
+  .next-month-btn:before{
+    content:"\f105";
+  }
+
+  .prev-month-btn:before{
+    content:"\f104";
+  }
+
+  .next-year-btn:before{
+    content:"\f101";
+  }
+
+  .prev-year-btn:before{
+    content:"\f100";
+  }
+
+}
+

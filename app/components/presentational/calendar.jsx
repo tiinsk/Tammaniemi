@@ -5,10 +5,6 @@ import _ from 'lodash';
 
 class Calendar extends React.Component {
 
-  componentWillMount() {
-    this.currentMonth();
-  }
-
   // return reservation if "date" is first day of reservation or first day of week
   getReservation(date) {
     const reservation = this.props.reservations.find(reservation => {
@@ -21,26 +17,11 @@ class Calendar extends React.Component {
     return reservation;
   }
 
-  changeMonthAndYear(month, year) {
-    const nextTimeRange = moment(this.state.firstDayOfMonth).add(year, 'year').add(month, 'month');
-    this.setState({
-      firstDayOfMonth: nextTimeRange
-    });
-    if (this.props.onTimeRangeChange) {
-      this.props.onTimeRangeChange(nextTimeRange);
-    }
-  }
-
-  currentMonth() {
-    this.setState({
-      firstDayOfMonth: moment().startOf('month')
-    });
-  }
 
   render() {
 
     const month = _.range(42).map((index) => {
-      const day = moment(this.state.firstDayOfMonth).startOf('week').add(index, 'days');
+      const day = moment(this.props.firstDayOfMonth).startOf('week').add(index, 'days');
       const reserved = this.getReservation(day);
       let reservedLink;
 
@@ -71,9 +52,9 @@ class Calendar extends React.Component {
       }
 
       return (
-        <div key={day} className={`day ${(index % 7 === 0 ? 'first' : '')}`}>
+        <div key={index} className={`day ${(index % 7 === 0 ? 'first' : '')}`}>
           <div className="container">
-            <span className={`number ${day.month() !== moment(this.state.firstDayOfMonth).month() ? 'diff-month ' : ''}`}>
+            <span className={`number ${day.month() !== moment(this.props.firstDayOfMonth).month() ? 'diff-month ' : ''}`}>
               {day.date().toString()}
             </span>
             {reservedLink}
@@ -92,15 +73,6 @@ class Calendar extends React.Component {
     return (
       <div className={`calendar ${(this.props.small ? 'small' : '')}`} >
         <div className="month">
-          <div className="header">
-            <div className="prev-year-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 0, -1)} ></div>
-            <div className="prev-month-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, -1, 0)} ></div>
-            <div className="title">
-              {moment(this.state.firstDayOfMonth).format('MMMM')} {moment(this.state.firstDayOfMonth).format('YYYY')}
-            </div>
-            <div className="next-month-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 1, 0)} ></div>
-            <div className="next-year-btn cal-btn" onClick={this.changeMonthAndYear.bind(this, 0, 1)} ></div>
-          </div>
           <div className="weekdays">
             {weekdays}
           </div>
