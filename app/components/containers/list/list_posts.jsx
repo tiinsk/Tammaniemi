@@ -21,9 +21,10 @@ class PostList extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.events.length) {
-      let year = this.state.selected[0] !== undefined ? this.state.selected[0] : newProps.events.length -1;
-      let month = this.state.selected[1] !== undefined ? this.state.selected[1] : newProps.events[year].values.length - 1;
+      let year = _.isFinite(this.state.selected[0]) ? this.state.selected[0] : newProps.events.length -1;
+      let month = _.isFinite(this.state.selected[1]) ? this.state.selected[1] : newProps.events[year].values.length - 1;
       let post = this.state.selected[2] || undefined;
+
       this.setState({
         selected: [year, month, post]
       });
