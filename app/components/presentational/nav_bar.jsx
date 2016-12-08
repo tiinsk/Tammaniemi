@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-import InviteUserModal from '../../user/components/invite_user_modal';
+import InviteUserModal from '../containers/invite_user_modal.jsx';
 import UserMenu  from '../containers/user_menu.jsx';
 
 class NavBar extends React.Component{

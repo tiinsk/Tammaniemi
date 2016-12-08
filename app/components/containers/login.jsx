@@ -5,16 +5,49 @@ import { browserHistory } from 'react-router';
 import { loginUser } from '../../actions/login_actions';
 import { addNotification, removeNotificationByCategory } from '../../actions/notification_actions';
 
-export class Login extends React.Component {
+const giveRandPic = () => {
+  const pics = [
+    "IMGP1145.jpg",
+    //"IMGP1147.jpg",
+    "IMGP1158.jpg",
+    "IMGP1166.jpg",
+    "IMGP1167.jpg",
+    "IMGP1245.jpg",
+    "IMGP1273.jpg",
+    //"IMGP1388.jpg",
+    "IMGP1410.jpg"
+    ];
+  return require(`../../../assets/whole-imgs/${pics[Math.floor(Math.random() * 7)]}`);
+};
+
+const imgStyle = {
+  backgroundImage: `url(${giveRandPic()})`,
+};
+
+
+export const LoginContainer = ({children}) => (
+  <div className="login">
+    <div className="img" style={imgStyle}></div>
+    <div className="overlay"></div>
+    <div className="content">
+      <div className="title">Tammaniemi</div>
+      <br/>
+      <br/>
+      <br/>
+      {children}
+    </div>
+  </div>
+);
+
+
+class Login extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount(){
-    this.setState({
-      "randPic": this.giveRandPic()
-    });
+    this.state = {
+      email: '',
+      password: ''
+    }
   }
 
   updateEmail(value) {
@@ -45,50 +78,23 @@ export class Login extends React.Component {
       });
   }
 
-  giveRandPic(){
-    var pics = [
-      "IMGP1145.jpg",
-      //"IMGP1147.jpg",
-      "IMGP1158.jpg",
-      "IMGP1166.jpg",
-      "IMGP1167.jpg",
-      "IMGP1245.jpg",
-      "IMGP1273.jpg",
-      //"IMGP1388.jpg",
-      "IMGP1410.jpg"
-      ];
-    return pics[Math.floor(Math.random() * 7)];
-    //return pics[1];
-  }
-
   render() {
-    var imgStyle = {
-      "backgroundImage": `url(${require('../../../assets/whole-imgs/'+this.state.randPic)})`,
-    };
-
     return (
-      <div className="login">
-        <div className="img" style={imgStyle}></div>
-        <div className="overlay"></div>
-        <div className="content">
-          <div className="title">Tammaniemi</div>
-          <input
-            className="login-form-input"
-            type="text"
-            placeholder="Email"
-            onChange={ ({target}) => this.updateEmail(target.value)}
-            value={this.state.email}
-            />
-          <input
-            className="login-form-input"
-            type="password"
-            placeholder="Password"
-            onChange={({target}) => this.updatePassword(target.value)}
-            value={this.state.password}
-            />
-          <button className="login-btn" type="submit" onClick={this.login.bind(this)}>Login</button>
-        </div>
-      </div>
+      <LoginContainer >
+        <input
+          className="login-form-input"
+          type="text"
+          placeholder="Email"
+          onChange={({target}) => this.updateEmail(target.value)}
+          value={this.state.email}/>
+        <input
+          className="login-form-input"
+          type="password"
+          placeholder="Password"
+          onChange={({target}) => this.updatePassword(target.value)}
+          value={this.state.password}/>
+        <button className="login-btn" type="submit" onClick={this.login.bind(this)}>Login</button>
+      </LoginContainer>
     );
   }
 };

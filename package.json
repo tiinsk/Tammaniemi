@@ -15,7 +15,6 @@
     "test": "node node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js"
   },
   "dependencies": {
-    "alt": "^0.18.2",
     "async": "^1.5.2",
     "axios": "^0.9.1",
     "bcrypt-nodejs": "0.0.3",

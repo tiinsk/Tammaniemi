@@ -36,12 +36,8 @@ $login-color: #6EC744;
     .title{
       color: $login-color;
     }
-
-    .mui--is-empty.mui--is-dirty:focus{
-      border-color: $login-color;
-      &~label {
-        color: $login-color;
-      }
+    input {
+      color: black;
     }
     .error-message{
       display: block;

@@ -14,14 +14,12 @@ import PhotosetList from './components/containers/list/list_photosets.jsx';
 import UpdateEvent from './components/containers/event_update.jsx';
 import CreateEvent from './components/containers/event_create.jsx';
 
-import ShowUser from './user/components/show';
-
 import ReservationList from './components/containers/list/list_reservations.jsx';
 
 import ShowGallery from './components/containers/gallery.jsx';
 import AddGallery from './events/gallery/add';
 
-import CreateUser from './user/components/create_user';
+import CreateUser from './components/containers/create_user.jsx';
 
 const requireAuth = (store) => {
   return (nextState, replaceState, next) => {
@@ -53,7 +51,6 @@ export default (store) => {
       <IndexRoute component={Login} onEnter={isLoggedIn(store)} />
       <Route path="/" component={App}>
         <Route path="/home" component={Home} onEnter={requireAuth(store)} />
-        <Route path="/users/:userId" component={ShowUser} onEnter={requireAuth(store)} />
         <Route path="/users" component={UserList} onEnter={requireAuth(store)} />
 
         <Route path="/:type/update/:id" component={UpdateEvent} onEnter={requireAuth(store)} />
