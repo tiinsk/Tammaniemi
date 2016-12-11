@@ -47,8 +47,9 @@ describe('AuthToken', () => {
       token.active.should.be.true;
 
       const hours = token.validUntil.getHours();
-      const nowHours = (new Date()).getHours();
-      hours.should.equal(nowHours + 4);
+      const now = (new Date());
+      now.setHours(now.getHours() + 4);
+      hours.should.equal(now.getHours());
       done();
     }).catch((err) => {
       done(err);

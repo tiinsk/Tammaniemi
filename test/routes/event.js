@@ -12,7 +12,7 @@ const Post = require('../../models/post');
 const Reservation = require('../../models/reservation');
 const utility = require('../utility');
 
-import { user1, post1, post2, reservation1 } from '../data.js';
+import { user1, deletedUser, post1, post2, reservation1 } from '../data.js';
 
 chai.use(chaiHttp);
 
@@ -27,9 +27,10 @@ describe('Post db', () => {
   });
 });
 
-describe('Post', () => {
+describe('Event', () => {
   before((done) => {
     User.create([user1], done);
+    Event.collection.drop();
   });
 
   beforeEach((done) => {
@@ -48,7 +49,7 @@ describe('Post', () => {
     done();
   });
 
-  it('should return three Events', (done) => {
+  it('should return three Events and one User', (done) => {
     chai.request(app)
     .get('/api/events')
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
@@ -56,16 +57,25 @@ describe('Post', () => {
       res.should.have.status(200);
       res.should.be.json;
       res.body.should.be.a('array');
-      res.body.should.have.a.lengthOf(3);
+      res.body.should.have.a.lengthOf(4);
       res.body.forEach((event) => {
         event.should.have.property('_id');
-        event.should.have.property('title');
-        event.should.have.property('userId');
-        event.should.have.property('comments');
       });
       done();
     }).catch((err) => {
       done(err);
+    });
+  });
+
+  it('deleted user should not query events', (done) => {
+    chai.request(app)
+    .get('/api/events')
+    .set('Cookie', `JWT=${utility.getUserCookie(deletedUser)}`)
+    .then((res) => {
+      done(new Error('Should fail'));
+    }).catch((err) => {
+      err.should.have.status(401);
+      done();
     });
   });
 });

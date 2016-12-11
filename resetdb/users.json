@@ -2,7 +2,8 @@
   "_id": "56f17405fc13ae3b1c00010c",
   "name": "Super admin",
   "email": "admin@admin",
-  "password": "admin"
+  "password": "admin",
+  "role": "admin"
 }, {
   "_id": "56f17405fc13ae3b1c00010e",
   "name": "Margaret Wood",

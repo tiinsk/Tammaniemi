@@ -10,7 +10,7 @@ const Task = require('../../models/task');
 const User = require('../../models/user');
 const utility = require('../utility');
 
-import { user1, user2, task1, task2 } from '../data.js';
+import { user1, user2, admin, task1, task2 } from '../data.js';
 
 chai.use(chaiHttp);
 
@@ -27,7 +27,7 @@ describe('Task db', () => {
 
 describe('Task', () => {
   before((done) => {
-    User.create([user1, user2], done);
+    User.create([user1, user2, admin], done);
   });
 
   beforeEach((done) => {
@@ -114,5 +114,52 @@ describe('Task', () => {
       done(err);
     });
   });
+
+  it('user should be able to delete own task', (done) => {
+      chai.request(app)
+        .delete(`/api/Task/${task1._id}`)
+        .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
+        .then((res) => {
+          res.should.have.status(200);
+
+          Task.findById(task1._id, (err, task) => {
+            should.equal(task, null);
+            done();
+          });
+        })
+        .catch((err) => {
+          done(err);
+        });
+    });
+
+    it('admin should be able to delete other task', (done) => {
+      chai.request(app)
+        .delete(`/api/Task/${task1._id}`)
+        .set('Cookie', `JWT=${utility.getUserCookie(admin)}`)
+        .then((res) => {
+          res.should.have.status(200);
+
+          Task.findById(task1._id, (err, task) => {
+            should.equal(task, null);
+            done();
+          });
+        })
+        .catch((err) => {
+          done(err);
+        });
+    });
+
+    it('user should not be able to delete others task', (done) => {
+      chai.request(app)
+        .delete(`/api/Task/${task2._id}`)
+        .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
+        .then((res) => {
+          done(new Error('Should fail'));
+        })
+        .catch((err) => {
+          err.should.have.status(403);
+          done();
+        });
+    });
 });
 

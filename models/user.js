@@ -7,6 +7,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  deleted: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  role: {
+    type: String,
+    required: true,
+    default: 'user'
+  },
   email: {
     type: String,
     required: true
@@ -56,5 +66,30 @@ userSchema.methods.isPasswordValid = function(candidatePassword) {
     isMatch();
   });
 };
+
+userSchema.methods.isAdmin = function() {
+  return this.role === 'admin';
+}
+userSchema.methods.isDeleted = function() {
+  return this.deleted;
+}
+
+userSchema.methods.delete = function() {
+  return this.deleted = true;
+}
+
+userSchema.methods.isAllowedToEdit = function(event) {
+  return this.role === 'admin' || this._id.equals(event.userId)
+}
+
+
+userSchema.set('toJSON', { transform: (doc, ret) => {
+  delete ret.password;
+  delete ret.deleted;
+
+  ret.__t = 'User';
+
+  return ret;
+}});
 
 module.exports = mongoose.model('User', userSchema);

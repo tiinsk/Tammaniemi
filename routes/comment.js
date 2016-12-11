@@ -93,7 +93,7 @@ module.exports = (app) => {
         return;
       }
 
-      if (!req.user._id.equals(comment.userId)) {
+      if (!req.user.isAllowedToEdit(comment)) {
         res.status(403).send({
           message: 'Unauthorized'
         });
@@ -126,7 +126,7 @@ module.exports = (app) => {
         return;
       }
 
-      if (!req.user._id.equals(comment.userId)) {
+      if (!req.user.isAllowedToEdit(comment)) {
         res.status(403).send({
           message: 'Unauthorized'
         });

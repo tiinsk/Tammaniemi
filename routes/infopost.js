@@ -118,7 +118,7 @@ module.exports = (app) => {
         return;
       }
 
-      if (!req.user._id.equals(infopost.userId)) {
+      if (!req.user.isAllowedToEdit(infopost)) {
         res.status(403).send({
           message: 'Unauthorized'
         });
@@ -154,7 +154,7 @@ module.exports = (app) => {
         return;
       }
 
-      if (!req.user._id.equals(infopost.userId)) {
+      if (!req.user.isAllowedToEdit(infopost)) {
         res.status(403).send({
           message: 'Unauthorized'
         });

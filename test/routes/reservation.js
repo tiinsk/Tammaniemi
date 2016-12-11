@@ -11,7 +11,7 @@ const Reservation = require('../../models/reservation');
 const User = require('../../models/user');
 const utility = require('../utility');
 
-import { user1, user2, reservation1, reservation2 } from '../data.js';
+import { user1, user2, admin, reservation1, reservation2 } from '../data.js';
 
 chai.use(chaiHttp);
 
@@ -108,7 +108,7 @@ describe('Reservation db', () => {
 
 describe('Reservation', () => {
   before((done) => {
-    User.create([user1, user2], done);
+    User.create([user1, user2, admin], done);
   });
 
   beforeEach((done) => {
@@ -158,5 +158,52 @@ describe('Reservation', () => {
       done(err);
     });
   });
+
+  it('user should be able to delete own reservation', (done) => {
+        chai.request(app)
+          .delete(`/api/Reservation/${reservation1._id}`)
+          .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
+          .then((res) => {
+            res.should.have.status(200);
+
+            Reservation.findById(reservation1._id, (err, reservation) => {
+              should.equal(reservation, null);
+              done();
+            });
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+
+      it('admin should be able to delete other reservation', (done) => {
+        chai.request(app)
+          .delete(`/api/Reservation/${reservation1._id}`)
+          .set('Cookie', `JWT=${utility.getUserCookie(admin)}`)
+          .then((res) => {
+            res.should.have.status(200);
+
+            Reservation.findById(reservation1._id, (err, reservation) => {
+              should.equal(reservation, null);
+              done();
+            });
+          })
+          .catch((err) => {
+            done(err);
+          });
+      });
+
+      it('user should not be able to delete others reservation', (done) => {
+        chai.request(app)
+          .delete(`/api/Reservation/${reservation2._id}`)
+          .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
+          .then((res) => {
+            done(new Error('Should fail'));
+          })
+          .catch((err) => {
+            err.should.have.status(403);
+            done();
+          });
+      });
 });
 

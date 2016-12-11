@@ -114,7 +114,7 @@ module.exports = (app) => {
         return;
       }
 
-      if (!req.user._id.equals(task.userId)) {
+      if (!req.user.isAllowedToEdit(task)) {
         task.isDone = updatedTask.isDone;
         task.doneByUser = updatedTask.doneByUser;
       } else {
@@ -150,7 +150,7 @@ module.exports = (app) => {
         return;
       }
 
-      if (!req.user._id.equals(task.userId)) {
+      if (!req.user.isAllowedToEdit(task)) {
         res.status(403).send({
           message: 'Unauthorized'
         });

@@ -35,7 +35,7 @@ module.exports = (app) => {
     session: false,
   }), (req, res) => {
     Reservation.findById(req.params.reservationId,
-      '_id title startDate endDate comments userId createdAt')
+        '_id title startDate endDate comments userId createdAt')
       .populate({
         path: 'comments',
         populate: {
@@ -93,42 +93,41 @@ module.exports = (app) => {
   });
 
   /*
-   * PUT update task
+   * PUT update reservatoion
    */
-  app.put('/api/Reservation/:taskId', passport.authenticate('jwt', {
+  app.put('/api/Reservation/:reservationId', passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     const updatedReservation = req.body;
 
-    if (updatedReservation.title === undefined || updatedReservation.startDate === undefined
-      || updatedReservation.endDate === undefined) {
+    if (updatedReservation.title === undefined || updatedReservation.startDate === undefined || updatedReservation.endDate === undefined) {
       res.status(400).send({
         message: 'Invalid reservation data',
       });
       return;
     }
 
-    Reservation.findById(req.params.taskId, (err, task) => {
+    Reservation.findById(req.params.reservationId, (err, reservation) => {
       if (err) {
         res.sendStatus(500);
         return;
       }
 
-      if (!task) {
+      if (!reservation) {
         res.status(404).send({
           message: 'Reservation not found',
         });
         return;
       }
 
-      if (!req.user._id.equals(task.userId)) {
+      if (!req.user.isAllowedToEdit(reservation)) {
         res.status(403).send({
           message: 'Unauthorized',
         });
         return;
       }
 
-      task.update(updatedReservation, (err2) => {
+      reservation.update(updatedReservation, (err2) => {
         if (err2) {
           res.sendStatus(500);
           return;
@@ -157,7 +156,7 @@ module.exports = (app) => {
         return;
       }
 
-      if (!req.user._id.equals(reservation.userId)) {
+      if (!req.user.isAllowedToEdit(reservation)) {
         res.status(403).send({
           message: 'Unauthorized',
         });

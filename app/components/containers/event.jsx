@@ -141,7 +141,7 @@ class Event extends React.Component {
               <div className="icon icon-comment"></div>
               <div className="icon icon-down"></div>
             </div>
-            {(this.props.auth.user._id === this.props.event.userId._id) ?
+            {(this.props.auth.user._id === this.props.event.userId._id) || this.props.auth.user.role === 'admin' ?
               <span>
                 <div className="edit color-circle" onClick={() => this.handleUpdate(this.props.event)}>
                   <div className="icon icon-pencil"></div>

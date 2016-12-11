@@ -18,10 +18,18 @@ function authUser(email, password, done) {
         message: 'Incorrect username.'
       });
     }
+    if (user.isDeleted()) {
+      return done(null, null, {
+        message: 'User is deleted'
+      });
+    }
+
     user.comparePassword(password, (err, isMatch) => {
       if (err) {
         return done(err);
       } else if (isMatch) {
+
+        user.password = '';
         return done(null, user);
       }
       return done(null, null, {
@@ -32,7 +40,10 @@ function authUser(email, password, done) {
 }
 
 function authUserJWT(jwtPayload, done) {
-  User.findById(jwtPayload.id, (err, user) => {
+  User.findOne({
+    _id: jwtPayload.id,
+    deleted: false
+  }, '_id name createdAt email role', (err, user) => {
     if (err) {
       return done(err, false);
     }

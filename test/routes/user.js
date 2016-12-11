@@ -12,7 +12,7 @@ const authToken = require('../../utility/authToken');
 
 const utility = require('../utility');
 
-import { user1, user2, token1, expiredToken, usedToken } from '../data.js';
+import { user1, user2, admin, deletedUser, token1, expiredToken, usedToken } from '../data.js';
 
 chai.use(chaiHttp);
 
@@ -229,7 +229,7 @@ describe('Update User', () => {
   });
 
   beforeEach((done) => {
-    User.create([user1, user2], done);
+    User.create([user1, user2, deletedUser], done);
   });
 
   it('user should update self', (done) => {
@@ -297,6 +297,23 @@ describe('Update User', () => {
       done();
     });
   });
+
+  it('deleted user should not update self', (done) => {
+    const newUser = {
+      name: 'Matti Testaaja',
+    };
+
+    chai.request(app)
+    .put(`/api/users/${deletedUser._id}`)
+    .send(newUser)
+    .set('Cookie', `JWT=${utility.getUserCookie(deletedUser)}`)
+    .then((res) => {
+      done(new Error('Should fail'));
+    }).catch((err) => {
+      err.should.have.status(401);
+      done();
+    });
+  });
 });
 
 describe('Delete User', () => {
@@ -309,7 +326,7 @@ describe('Delete User', () => {
   });
 
   beforeEach((done) => {
-    User.create([user1, user2], done);
+    User.create([user1, user2, admin], done);
   });
 
   it('user should delete self', (done) => {
@@ -333,6 +350,18 @@ describe('Delete User', () => {
     }).catch((err) => {
       err.should.have.status(500);
       done();
+    });
+  });
+
+  it('admin should delete others', (done) => {
+    chai.request(app)
+    .delete(`/api/users/${user1._id}`)
+    .set('Cookie', `JWT=${utility.getUserCookie(admin)}`)
+    .then((res) => {
+      res.should.have.status(201);
+      done();
+    }).catch((err) => {
+      done(err);
     });
   });
 });

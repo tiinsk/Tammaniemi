@@ -1,32 +1,53 @@
 const utility = require('./utility');
 
-const user1 = {
+export const user1 = {
   _id: '56d0998f23dfbff0256ec001',
   name: 'Teppo Testaaja',
   email: 'teppo@testaaja',
   password: 'testi1',
+  deleted: false
 };
 
-const user2 = {
+export const user2 = {
   _id: '56d0998f23dfbff0256ec002',
   name: 'Terttu Testaaja',
   email: 'terttu@testaaja',
   password: 'testi2',
+  deleted: false
 };
 
-const post1 = {
+export const admin = {
+  _id: '56d0998f23dfbff0256ec003',
+  name: 'Terttu Testaaja',
+  email: 'terttu@testaaja',
+  password: 'testi2',
+  role: 'admin',
+  deleted: false
+};
+
+export const deletedUser = {
+  _id: '56d0998f23dfbff0256ec004',
+  name: 'Terttu Testaaja',
+  email: 'terttu@deleted',
+  password: 'testi2',
+  deleted: true
+};
+
+export const post1 = {
   title: 'New Post',
   userId: user1._id,
   content: 'Such awesome content. Much wow',
+  _id: '56d0998f23dfbff0256ec015',
 };
 
-const post2 = {
+export const post2 = {
   title: 'New Post',
   userId: user2._id,
   content: 'Such awesome content. Much wow',
+  _id: '56d0998f23dfbff0256ec016',
 };
 
-const reservation1 = {
+export const reservation1 = {
   _id: '56d0998f23dfbff0256e0001',
   title: 'Mökkivaraus',
   userId: user1._id,
@@ -34,7 +55,7 @@ const reservation1 = {
   endDate: new Date(2016, 6, 15),
 };
 
-const reservation2 = {
+export const reservation2 = {
   _id: '56d0998f23dfbff0256e0002',
   title: 'Rapujuhlat',
   userId: user2._id,
@@ -42,7 +63,7 @@ const reservation2 = {
   endDate: new Date(2016, 7, 15),
 };
 
-const task1 = {
+export const task1 = {
   _id: '56d0998f23dfbff0256e0003',
   title: 'New Task',
   userId: user1._id,
@@ -50,7 +71,7 @@ const task1 = {
   isDone: false
 };
 
-const task2 = {
+export const task2 = {
   _id: '56d0998f23dfbff0256e0004',
   title: 'New Task',
   userId: user2._id,
@@ -58,12 +79,12 @@ const task2 = {
   isDone: false
 };
 
-const token1 = {
+export const token1 = {
   _id: '56d0998f23dfbff0256e0005',
   token: utility.generateToken()
 };
 
-const expiredToken = {
+export const expiredToken = {
   _id: '56d0998f23dfbff0256e0006',
   token: utility.generateToken(),
   validUntil: (() => {
@@ -74,23 +95,9 @@ const expiredToken = {
   })()
 };
 
-const usedToken = {
+export const usedToken = {
   _id: '56d0998f23dfbff0256e0007',
   token: utility.generateToken(),
   active: false
 };
 
-
-export {
-  user1,
-  user2,
-  post1,
-  post2,
-  reservation1,
-  reservation2,
-  task1,
-  task2,
-  token1,
-  expiredToken,
-  usedToken
-};

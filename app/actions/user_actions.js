@@ -126,6 +126,7 @@ export function remove(id) {
       })
       .then(() => {
         dispatch(loading(true));
+        dispatch(fetchUsers());
       });
   }
 }

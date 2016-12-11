@@ -9,7 +9,9 @@ module.exports = (app) => {
   app.get('/api/users', passport.authenticate('jwt', {
     session: false
   }), (req, res, next) => {
-    User.find({}, '_id name createdAt email')
+    User.find({
+      deleted: false
+    }, '_id name createdAt email')
     .exec()
     .then((users) => {
       if (users === null) {
@@ -26,7 +28,10 @@ module.exports = (app) => {
   app.get('/api/users/:userId', passport.authenticate('jwt', {
     session: false
   }), (req, res, next) => {
-    User.findById(req.params.userId)
+    User.findOne({
+      _id: req.params.userId,
+      deleted: false
+    })
     .exec()
     .then((user) => {
       if (user === null) {
@@ -60,6 +65,7 @@ module.exports = (app) => {
         throw new Error('User exists');
       }
 
+      addUser.role = 'user';
       const newUser = new User(addUser);
       if (newUser.validateSync()) {
         throw new Error('Incorrect user data');
@@ -90,7 +96,10 @@ module.exports = (app) => {
   }), (req, res, next) => {
     const updatedUser = req.body;
 
-    User.findById(req.params.userId)
+    User.findOne({
+      _id: req.params.userId,
+      deleted: false
+    })
     .exec()
     .then((user) => {
       if (!user) {
@@ -100,7 +109,7 @@ module.exports = (app) => {
       if (req.user.email !== user.email) {
         throw new Error('Can not update other users');
       }
-
+      updatedUser.role = 'user';
       if (updatedUser.password) {
         user.password = updatedUser.password;
       }
@@ -130,11 +139,12 @@ module.exports = (app) => {
         throw new Error('User not found');
       }
 
-      if (req.user.email !== user.email) {
+      if (!req.user.isAdmin() && req.user.email !== user.email) {
         throw new Error('Can not delete other users');
       }
 
-      return User.remove({_id: user._id}).exec();
+      user.delete();
+      return user.save();
     })
     .then((user) => {
       req.logout();

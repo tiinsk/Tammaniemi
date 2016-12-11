@@ -1,10 +1,11 @@
 import React from 'react';
 
 import Event from '../containers/event.jsx';
+import User from '../containers/user.jsx';
 import LoadingAnimation from './loading_animation.jsx';
 
 class NewsFeed extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       itemsPerPage: 30,
@@ -24,15 +25,17 @@ class NewsFeed extends React.Component {
     }
   }
 
-  render(){
-    if(this.props.events.loading){
-      return(
+  render() {
+    if (this.props.events.loading) {
+      return (
         <LoadingAnimation />
       )
     }
 
     const events = this.props.events.events.slice(0, this.getEndItem()).map((event) => {
-      return (
+      return event.__t === 'User' ? (
+        <User key={event._id}
+          user={event}/>) : (
         <Event
           key={event._id}
           event={event}

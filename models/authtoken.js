@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const authTokenSchema = new mongoose.Schema({
   token: {
@@ -22,8 +23,8 @@ const authTokenSchema = new mongoose.Schema({
 });
 
 authTokenSchema.methods.isValid = function () {
-  const now = Date.now();
-  return now < this.validUntil && this.active;
+  const now = moment();
+  return now.isBefore(this.validUntil) && this.active;
 };
 
 module.exports = mongoose.model('AuthToken', authTokenSchema);

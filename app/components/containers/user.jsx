@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import moment from 'moment';
+import { remove } from '../../actions/user_actions.js';
 
 class User extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleDelete() {
-    console.log("Not yet implemented!!");
-    return true;
+    this.props.remove(this.props.user._id);
   }
 
   render() {
@@ -32,9 +35,9 @@ class User extends React.Component {
             <div className="joined-time">Joined {moment(this.props.user.createdAt).fromNow()}</div>
           </div>
           <div className="edit-menu">
-            { true === true ?
+            { this.props.auth.user.role === 'admin' ?
               <span>
-                    <div className="delete color-circle" onClick={() => {}}>
+                    <div className="delete color-circle" onClick={() => this.handleDelete()}>
                       <div className="icon icon-trash"></div>
                     </div>
                   </span>
@@ -53,4 +56,10 @@ function mapStateToProps({auth}) {
   }
 }
 
-export default connect(mapStateToProps, null)(User);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    remove
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);

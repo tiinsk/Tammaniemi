@@ -9,7 +9,7 @@ module.exports = (app) => {
         return next(err);
       }
       if (!user) {
-        return res.json(401, {
+        return res.status(401).json({
           error: info.message
         });
       }
