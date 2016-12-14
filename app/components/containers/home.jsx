@@ -5,11 +5,9 @@ import moment from 'moment';
 
 import { fetchEvents } from '../../actions/event_actions';
 
-import Event from './event.jsx';
 import Calendar from '../presentational/calendar.jsx';
 import {SmallCalendarNavigator} from '../presentational/calendar_navigator.jsx';
 import NewsFeed from '../presentational/news_feed.jsx';
-
 
 class Home extends React.Component {
   constructor(props){
@@ -36,19 +34,19 @@ class Home extends React.Component {
       <div className="home">
         <div className="page-title">News feed</div>
         <div className="row">
-          <div className="col-xs-offset-2 col-xs-7">
+          <div className="col-xs-10 col-md-7 col-lg-offset-2 col-lg-7">
             <NewsFeed events={this.props.events} />
           </div>
-          <div className="calendar-container col-xs-3">
-            <SmallCalendarNavigator
-              selectedMoment={this.state.selectedMoment}
-              changeMonthAndYear={(newMoment) => this.updateTime(newMoment)}
-            />
-            <Calendar
-              small
-              reservations={this.props.reservations}
-              firstDayOfMonth={this.state.selectedMoment}
-            />
+          <div className="col-xs-1 col-md-3 col-lg-3">
+              <SmallCalendarNavigator
+                selectedMoment={this.state.selectedMoment}
+                changeMonthAndYear={(newMoment) => this.updateTime(newMoment)}
+              />
+              <Calendar
+                small
+                reservations={this.props.reservations}
+                firstDayOfMonth={this.state.selectedMoment}
+              />
           </div>
         </div>
       </div>

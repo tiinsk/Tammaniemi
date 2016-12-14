@@ -9,6 +9,8 @@ import Event from '../event.jsx';
 import { CategoryList } from './category_list.jsx';
 import LoadingAnimation from '../../presentational/loading_animation.jsx';
 import { OptionMenu } from '../../presentational/option_menu.jsx';
+import SideMenu from '../../containers/side_menu.jsx';
+import colors from '../../../stylesheets/colors';
 
 class TaskList extends React.Component {
   constructor(props){
@@ -103,15 +105,19 @@ class TaskList extends React.Component {
           onShowChange={ (val) => this.showChange(val)}
         />
         <div className="row">
-          <div className="col-xs-3" >
-            <CategoryList
-              eventType='tasks'
-              events={this.state.events}
-              selected={this.state.selected}
-              selectionChanged={(selectionArray) => this.changeSelection(selectionArray) }
-            />
+          <div className="col-xs-1 col-md-3 col-lg-3" >
+            <SideMenu
+              color={colors.task.secondary_color}
+            >
+              <CategoryList
+                eventType='tasks'
+                events={this.state.events}
+                selected={this.state.selected}
+                selectionChanged={(selectionArray) => this.changeSelection(selectionArray) }
+              />
+            </SideMenu>
           </div>
-          <div className="col-xs-7" >
+          <div className="col-xs-10 col-md-9 col-lg-7" >
             {eventElements.length ? eventElements : <div className="no-items">No tasks to show</div>}
           </div>
         </div>
