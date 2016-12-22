@@ -1,17 +1,17 @@
 import React from 'react';
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
 import axios from 'axios';
 
 import SpinnerOverlay from '../../partials/spinner_overlay';
-import GalleryForm from './form';
-import { withRouter } from 'react-router';
+import GalleryForm from '../presentational/event_forms/gallery_form';
+import {withRouter} from 'react-router';
 
 class AddGallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      photoset: {},
+      photoset: {
+        title: ''
+      },
       spinnerVisible: false
     };
   }
@@ -24,7 +24,9 @@ class AddGallery extends React.Component {
     formData.append('title', photoset.title);
 
     axios.post('/api/flickr', formData, {
-      transformRequest(data) { return data; }
+      transformRequest(data) {
+        return data;
+      }
     }).then((response) => {
       this.setState({
         spinnerVisible: false
@@ -35,12 +37,12 @@ class AddGallery extends React.Component {
 
   render() {
     return (
-      <Row>
-        <Col md="6" md-offset="3" >
-          <SpinnerOverlay isVisible={this.state.spinnerVisible} />
-          <GalleryForm photoset={this.state.photoset} onPhotosetSubmit={this.handleSubmit.bind(this)} />
-        </Col>
-      </Row>
+      <div className="row">
+        <div className="col-xs-offset-2 col-xs-8">
+          <SpinnerOverlay isVisible={this.state.spinnerVisible}/>
+          <GalleryForm photoset={this.state.photoset} onPhotosetSubmit={this.handleSubmit.bind(this)}/>
+        </div>
+      </div>
     );
   }
 }

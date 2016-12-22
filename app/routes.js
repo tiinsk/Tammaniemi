@@ -17,7 +17,7 @@ import CreateEvent from './components/containers/event_create.jsx';
 import ReservationList from './components/containers/list/list_reservations.jsx';
 
 import ShowGallery from './components/containers/gallery.jsx';
-import AddGallery from './events/gallery/add';
+import AddGallery from './components/containers/gallery_create';
 
 import CreateUser from './components/containers/create_user.jsx';
 

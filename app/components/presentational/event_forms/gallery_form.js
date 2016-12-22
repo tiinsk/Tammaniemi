@@ -1,6 +1,5 @@
 import React from 'react';
-import Form from 'muicss/lib/react/form';
-import Input from 'muicss/lib/react/input';
+import Textfield from 'react-mdl/lib/Textfield';
 
 class PhotosetForm extends React.Component {
   constructor(props) {
@@ -9,9 +8,11 @@ class PhotosetForm extends React.Component {
       photoset: props.photoset,
       contentError: ''
     };
+
+    this.updateTitle = this.updateTitle.bind(this);
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     this.setState({
       photoset: newProps.photoset
     });
@@ -50,18 +51,19 @@ class PhotosetForm extends React.Component {
   render() {
     return (
       <div className="form photoset-form">
-        <Form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <legend className="title">Add new photoset</legend>
-          <Input label="Title" floatingLabel required
-            value={this.state.photoset.title}
-            onChange={this.updateTitle.bind(this)}
-          />
+          <Textfield type="text"
+                     label="Otsikko"
+                     required={true}
+                     value={this.state.photoset.title}
+                     onChange={this.updateTitle}/>
           <div className="content">
             <label className="label">Photos</label>
-            <input type="file" required multiple onChange={this.updatePhotos.bind(this)} />
+            <input type="file" required multiple onChange={this.updatePhotos.bind(this)}/>
           </div>
           <button type="submit" className="submit-btn">Submit</button>
-        </Form>
+        </form>
       </div>
     );
   }
