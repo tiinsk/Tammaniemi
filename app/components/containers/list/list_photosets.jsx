@@ -16,12 +16,7 @@ class PhotosetList extends React.Component {
   render() {
     if (this.props.loading) {
       return (
-        <div>
-          <div className="page-title">
-            Gallery
-          </div>
-          <LoadingAnimation />
-        </div>
+        <LoadingAnimation />
       )
     }
 
@@ -36,9 +31,6 @@ class PhotosetList extends React.Component {
 
     return (
       <div className="list-photoset">
-        <div className="page-title">
-          Gallery
-        </div>
         <div className="photosets-container row around-xs center-xs">
           <div className="col-xs-11 col-md-9 col-lg-8">
             <div className="row">

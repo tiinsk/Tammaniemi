@@ -6,7 +6,8 @@
     .overlay{
       position: absolute;
       height: 250px;
-      background: rgba(91, 158, 15, 0.11);
+      //background: rgba(91, 158, 15, 0.11);
+      background: linear-gradient(to right, rgba(91, 158, 15, 0.11) 75%, rgba(23, 41, 13, 0.46));
       width: 100%;
     }
     .img{

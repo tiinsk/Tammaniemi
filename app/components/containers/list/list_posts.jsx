@@ -10,6 +10,7 @@ import { CategoryList } from './category_list.jsx';
 import LoadingAnimation from '../../presentational/loading_animation.jsx';
 import SideMenu from '../../containers/side_menu.jsx';
 import colors from '../../../stylesheets/colors';
+import{ViewMenu} from '../../presentational/view_menu.jsx';
 
 class PostList extends React.Component {
   constructor(props) {
@@ -69,22 +70,25 @@ class PostList extends React.Component {
     });
 
     return (
-      <div className="row">
-        <div className="col-xs-1 col-md-3 col-lg-3">
-          <SideMenu
-            color={colors.post.secondary_color}
-          >
-              <CategoryList
-                eventType={'posts'}
-                events={this.props.events}
-                selected={this.state.selected}
-                selectionChanged={(selectionArray) => this.changeSelection(selectionArray)}
-              />
+      <div>
+        <div className="row">
+          <div className="col-xs-1 col-md-3 col-lg-3">
+            <SideMenu
+              color={colors.posts.secondary_color}
+              selectedColor={colors.posts.tertiary_color}
+            >
+                <CategoryList
+                  eventType={'posts'}
+                  events={this.props.events}
+                  selected={this.state.selected}
+                  selectionChanged={(selectionArray) => this.changeSelection(selectionArray)}
+                />
 
-          </SideMenu>
-        </div>
-        <div className="col-xs-10 col-md-9 col-lg-7">
-          {eventElements}
+            </SideMenu>
+          </div>
+          <div className="col-xs-10 col-md-9 col-lg-7">
+            {eventElements}
+          </div>
         </div>
       </div>
     );

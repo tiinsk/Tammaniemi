@@ -22,22 +22,22 @@ class EventCreate extends React.Component {
     let form = null;
     const {type} = this.props.params;
     switch (type) {
-      case 'Post':
+      case 'posts':
         form = (
           <PostForm handleSubmit={this.handleSubmit} />
         );
         break;
-      case 'Infopost':
+      case 'infoposts':
         form = (
           <InfoPostForm handleSubmit={this.handleSubmit} />
         );
         break;
-      case 'Task':
+      case 'tasks':
         form = (
           <TaskForm handleSubmit={this.handleSubmit} />
         );
         break;
-      case 'Reservation':
+      case 'reservations':
         form = (
           <ReservationForm handleSubmit={this.handleSubmit} />
         );

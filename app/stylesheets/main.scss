@@ -37,6 +37,7 @@
 @import "./refactored/calendar_navigator.scss";
 @import "./refactored/list_reservations.scss";
 @import "./refactored/side_menu.scss";
+@import './refactored/view_menu.scss';
 
 body{
   font-family: Roboto, sans-serif;
@@ -68,15 +69,6 @@ body{
 
 .main-view{
   padding: 0px;
-}
-
-.page-title{
-  color: white;
-  position: absolute;
-  top: 161px;
-  left: 17px;
-  font-size: 39px;
-  padding: 20px 10px;
 }
 
 .add-new{

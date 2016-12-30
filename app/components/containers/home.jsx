@@ -32,7 +32,6 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className="page-title">News feed</div>
         <div className="row">
           <div className="col-xs-10 col-md-7 col-lg-offset-2 col-lg-7">
             <NewsFeed events={this.props.events} />

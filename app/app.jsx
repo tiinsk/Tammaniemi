@@ -1,19 +1,18 @@
 import React from 'react';
-import _ from 'lodash';
 
 import MainMenu from './components/presentational/main_menu.jsx';
 
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
       <div>
-          <MainMenu />
-          {this.props.children}
+        <MainMenu path={this.props.location.pathname} />
+        {this.props.children}
       </div>
     );
   }

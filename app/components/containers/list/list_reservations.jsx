@@ -42,12 +42,7 @@ class ReservationList extends React.Component {
 
     if(this.props.loading) {
       return (
-        <div>
-          <div className="page-title">
-            Reservations
-          </div>
-          <LoadingAnimation />
-        </div>
+        <LoadingAnimation />
       )
     }
 
@@ -55,12 +50,6 @@ class ReservationList extends React.Component {
 
     return (
       <div className="list-reservations">
-        <div className="page-title">
-          Reservations
-          <div className="add-new post" >
-            <span>+</span>
-          </div>
-        </div>
         <div className="row">
           <div className="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
             <CalendarNavigator
