@@ -44,7 +44,7 @@
     "passport-local": "^1.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-images": "^0.3.2",
+    "react-images": "^0.5.2",
     "react-mdl": "^1.8.0",
     "react-mdl-extra": "^1.4.0",
     "react-redux": "^4.4.5",

@@ -1,0 +1,41 @@
+.gallery {
+  .photo {
+    position: relative;
+    .placeholder {
+      width: 80%;
+      height: 80%;
+      background-color: #e2ead7;
+      transition: opacity 0.1s;
+      transform: translate(-50%, -50%);
+      position: relative;
+      top: 50%;
+      left: 50%;
+      &.loaded {
+        opacity: 0;
+      }
+      &.notLoaded {
+        opacity: 1;
+      }
+    }
+    img {
+      transition: opacity 0.5s;
+      cursor: pointer;
+      padding: 3px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      &.tall {
+        max-height: 100%;
+      }
+      &.wide {
+        max-width: 100%;
+      }
+      &.loaded {
+        opacity: 1;
+      }
+      &.notLoaded {
+        opacity: 0;
+      }
+    }
+  }
+}

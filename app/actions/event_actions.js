@@ -41,7 +41,7 @@ function addEvent(event) {
   }
 }
 
-function clearEvent() {
+export function clearEvent() {
   return {
     type: CLEAR_EVENT
   }

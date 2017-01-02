@@ -3,51 +3,67 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import LightBox from '../presentational/lightbox.jsx';
-import {fetchOne} from '../../actions/event_actions.js';
+import {fetchOne, clearEvent} from '../../actions/event_actions.js';
+import Photo from '../presentational/photo.jsx';
 
+const ROOT_PADDING_PERCENT = 7;
 
 class ShowGallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxHeight: 350,
+      maxHeight: 280,
       lightBoxIsOpen: false,
       lightBoxImage: 0
     };
 
     this.props.fetchOne('Photoset', this.props.params.galleryId);
+    this.onResize = this.onResize.bind(this);
   }
 
-  getWidth() {
-    return window.innerWidth - 50;
+  componentDidMount() {
+    window.addEventListener("resize", this.onResize);
   }
 
-  shouldAddToRow(row, candidate) {
-    let ratioSum = row.reduce((result, img) => result +
-      (parseInt(img.width_c, 10) / parseInt(img.height_c, 10)),
-    0);
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onResize);
+    this.props.clearEvent();
+  }
+
+  onResize() {
+    this.forceUpdate();
+  }
+
+  getContainerWidth() {
+    return document.body.clientWidth * ((100 - ROOT_PADDING_PERCENT * 2) / 100) - 20;
+  }
+
+  heightWithCandidate(row, candidate) {
+    let ratioSum = row.reduce((result, img) => result + (parseInt(img.width_c, 10) / parseInt(img.height_c, 10)), 0);
     ratioSum += (parseInt(candidate.width_c, 10) / parseInt(candidate.height_c, 10));
-    return this.getWidth() / ratioSum;
+    return Math.round(this.getContainerWidth() / ratioSum);
   }
-
 
   * rowGenerator(photos = []) {
     let row = [];
-    let height = 0;
+    let height = this.state.maxHeight;
+    let prevHeight = this.state.maxHeight;
     let photoIndex = 0;
 
     for (const img of photos) {
-      height = this.shouldAddToRow(row, img);
+      const candidateHeight = this.heightWithCandidate(row, img);
 
-      if (height >= this.state.maxHeight) {
+      if (candidateHeight >= this.state.maxHeight) {
         row.push(img);
+        height = candidateHeight;
       } else {
+        prevHeight = height;
         yield row.map((photo) => (
           <Photo photo={photo}
-            key={photo.id}
-            height={height}
-            onClick={this.openLightBox.bind(this, photoIndex++)}
-            index={photoIndex}
+                 key={photo.id}
+                 height={height}
+                 onClick={this.openLightBox.bind(this, photoIndex++)}
+                 index={photoIndex}
           />
         ));
         row = [img];
@@ -55,10 +71,10 @@ class ShowGallery extends React.Component {
     }
     yield row.map((photo) => (
       <Photo photo={photo}
-        key={photo.id}
-        height={this.state.maxHeight}
-        onClick={this.openLightBox.bind(this, photoIndex++)}
-        index={photoIndex}
+             key={photo.id}
+             height={prevHeight}
+             onClick={this.openLightBox.bind(this, photoIndex++)}
+             index={photoIndex}
       />
     ));
   }
@@ -79,65 +95,44 @@ class ShowGallery extends React.Component {
   render() {
     const photosetPhotos = this.props.photoset.photo || [];
     const lightBoxImages = photosetPhotos.map((photo) => (
-      { src: photo.url_c,
+      {
+        src: photo.url_c,
         caption: photo.title
       }
     ));
     const rows = [...this.rowGenerator(photosetPhotos)];
+
     const photos = rows ?
       rows.map((photos, index) => (
-          <div className="row" key={index}>
-            <div className="col-md-12" >
-              {photos}
-            </div>
-          </div>
-        )) :
+        <div className="row" key={index} style={{margin: `0 ${ROOT_PADDING_PERCENT}%`}}>
+          {photos}
+        </div>
+      )) :
       <h2> Loading </h2>;
     return (
       <section className="gallery">
         <div className="page-title">
           {this.props.photoset.title}
-          <div className="add-new" onClick={() => {}}>
-          <span>+</span>
-          </div>
         </div>
-        <LightBox images = {lightBoxImages}
-          currentImage = {this.state.lightBoxImage}
-          lightboxIsOpen = {this.state.lightBoxIsOpen}
-          closeLightboxCb = {this.closeLightbox.bind(this)}
-        />
+        <LightBox images={lightBoxImages}
+                  currentImage={this.state.lightBoxImage}
+                  lightboxIsOpen={this.state.lightBoxIsOpen}
+                  closeLightboxCb={this.closeLightbox.bind(this)}/>
         {photos}
       </section>
     );
   }
 }
 
-class Photo extends React.Component {
-  render() {
-    const photo = this.props.photo;
-    const style = {
-      width: this.props.height * parseInt(this.props.photo.width_c, 10) / parseInt(this.props.photo.height_c, 10),
-      height: this.props.height
-    };
-    return (
-      <div className="photo" style={style} onClick={this.props.onClick}>
-        <img src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`} />
-      </div>
-    );
-  }
-}
-
-
-
 function mapStateToProps({events}) {
-  return {
+  return Object.assign({}, {
     loading: events.loading,
     photoset: events.event
-  }
+  });
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchOne}, dispatch);
+  return bindActionCreators({fetchOne, clearEvent}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowGallery);

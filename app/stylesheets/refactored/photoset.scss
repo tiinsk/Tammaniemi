@@ -13,6 +13,26 @@
       background-color: #fff;
       background-size: cover;
       padding-bottom: 85%;
+      transition: opacity 0.5s;
+      &.loaded {
+        opacity: 1;
+      }
+      &.notLoaded {
+        opacity: 0;
+        padding-bottom: 0;
+      }
+    }
+    .placeholder {
+      padding-bottom: 85%;
+      background-color: #e2ead7;
+      transition: opacity 0.1s;
+      &.loaded {
+        opacity: 0;
+        padding-bottom: 0;
+      }
+      &.notLoaded {
+        opacity: 1;
+      }
     }
     .details {
       position: relative;

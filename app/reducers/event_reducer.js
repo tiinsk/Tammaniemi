@@ -23,7 +23,7 @@ const eventReducer = (state = INITIAL_STATE, action) => {
       });
     case CLEAR_EVENT:
       return Object.assign({}, state, {
-        event: null
+        event: {}
       });
     case LOADING:
       return Object.assign({}, state, {
