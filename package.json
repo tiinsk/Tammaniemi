@@ -12,7 +12,9 @@
     "resetdb": "set NODE_ENV=development&& node node_modules/babel-cli/bin/babel-node.js resetdb.js",
     "watch": "set NODE_ENV=development&& nodemon --exec babel-node -- server.js",
     "webpack": "node node_modules/webpack/bin/webpack.js",
-    "test": "node node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js"
+    "test": "node node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js",
+    "start_production": "set NODE_ENV=production&& node server.js",
+    "build": "set NODE_ENV=production&& webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "dependencies": {
     "async": "^1.5.2",

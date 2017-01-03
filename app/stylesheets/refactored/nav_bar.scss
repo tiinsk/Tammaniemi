@@ -9,7 +9,8 @@
   font-size: 18px;
   top: 0;
   width: 100%;
-  background: rgba(76, 0, 255, 0.21);
+  //background: rgba(76, 0, 255, 0.21);
+  background: rgba(119, 34, 140, 0.35);
   display: flex;
   justify-content: space-between;
   .logo{
@@ -86,7 +87,7 @@
       float: right;
       display: inline-block;
       color: white;
-      padding: 5px 15px;
+      padding: 5px 10px;
       font-size: 20px;
       border: 2px solid white;
       border-radius: 7px;
@@ -94,7 +95,7 @@
       cursor: pointer;
       position: absolute;
       right: 0;
-      top: 0;
+      top: 8px;
       &:hover, &:focus{
         color: black;
         background: white;
@@ -104,7 +105,7 @@
 
   .nav-bar.responsive {
     position: absolute;
-    background: rgba(53, 5, 88, 0.91);
+    background: rgba(44, 32, 47, 0.92);
     z-index: 2000;
     .logo, .links{
       display: block;
@@ -116,11 +117,19 @@
 
     }
     .menu-btn{
-      padding: 15px 30px;
+      padding: 0px;
       display: block;
       text-align: left;
+      a{
+        padding: 25px 20px;
+        &.active {
+          background: rgb(78, 43, 84);
+        }
+      }
+      &:hover, &:focus{
+       background: rgb(78, 43, 84);
+      }
     }
   }
 
 }
-

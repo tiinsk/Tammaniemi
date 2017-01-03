@@ -31,9 +31,9 @@ class PhotosetList extends React.Component {
 
     return (
       <div className="list-photoset">
-        <div className="photosets-container row around-xs center-xs">
-          <div className="col-xs-11 col-md-9 col-lg-8">
-            <div className="row">
+        <div className="row center">
+          <div className="gallery-main">
+            <div className="row wrap space-between">
               {photosetElements}
             </div>
           </div>

@@ -60,8 +60,7 @@ export default class PostForm extends React.Component {
 
   render() {
     return (
-      <div className="form post-form row">
-        <div className="col-xs-offset-2 col-xs-8">
+      <div className="form post-form">
           <form onSubmit={this.handleSubmit}>
             <legend className="title">Add new post</legend>
             <Textfield type="text" label="Otsikko" required={true} value={this.state.post.title} onChange={this.updateTitle} />
@@ -72,7 +71,6 @@ export default class PostForm extends React.Component {
             </div>
             <button type="submit" className="submit-btn">Submit</button>
           </form>
-        </div>
       </div>
     );
   }

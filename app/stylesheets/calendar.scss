@@ -1,17 +1,15 @@
-$calendar-size: calc(100% / 7);
+$calendar-size: calc(100% / 7 + 1px);
 
-@media (max-width: 900px){
+@media (max-width: $xs-size){
   .calendar{
     .number{
-      font-size: 15px !important;
+      font-size: 3vw !important;
     }
-  }
-}
-
-@media (max-width: 768px){
-  .calendar{
-    .number{
-      font-size: 20px !important;
+    .weekday{
+      font-size: 3vw !important;
+    }
+    .reserved-title{
+      font-size: 3vw !important;
     }
   }
 }
@@ -73,7 +71,7 @@ $calendar-size: calc(100% / 7);
 
     }
     .weekday{
-      font-size: 20px;
+      font-size: 19px;
       text-transform: uppercase;
       margin: 0px;
       background: transparent;
@@ -101,10 +99,15 @@ $calendar-size: calc(100% / 7);
           width: 100%;
           text-align: left;
           background: white;
-
+          line-height: 0;
           .number{
-            font-size: 20px;
-            margin: 5px;
+            font-size: 17px;
+            margin: 3px 5px;
+            line-height: 1;
+            display: inline-block;
+          }
+          a{
+            line-height: 1.4;
           }
           .diff-month{
             color: #DEDEDE;
@@ -121,6 +124,7 @@ $calendar-size: calc(100% / 7);
           text-decoration: none;
           overflow: hidden;
           text-overflow: ellipsis;
+          font-weight: 100;
         }
 
 
@@ -146,11 +150,11 @@ $calendar-size: calc(100% / 7);
     .day{
       .container{
         .number{
-          font-size: 18px;
+          font-size: 14px;
         }
       }
       .reserved-title{
-        font-size:  14px;
+        font-size:  13px;
       }
 
     }

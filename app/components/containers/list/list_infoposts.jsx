@@ -65,7 +65,7 @@ class InfopostList extends React.Component {
 
     return (
       <div className="row">
-        <div className="col-xs-1 col-md-3 col-lg-3">
+        <div className="side-in-list-view">
           <SideMenu
             color={colors.infoposts.secondary_color}
           >
@@ -77,7 +77,7 @@ class InfopostList extends React.Component {
             />
           </SideMenu>
         </div>
-        <div className="col-xs-10 col-md-9 col-lg-7">
+        <div className="main-in-list-view">
           {eventElements}
         </div>
       </div>

@@ -69,9 +69,11 @@ class ReservationForm extends React.Component {
   }
 
   componentWillReceiveProps({event}) {
-    event.endDate = event.endDate ? moment(event.endDate) : undefined;
-    event.startDate = event.startDate ? moment(event.startDate) : undefined;
-    this.setState({reservation: event});
+    if(event) {
+      event.endDate = event.endDate ? moment(event.endDate) : undefined;
+      event.startDate = event.startDate ? moment(event.startDate) : undefined;
+      this.setState({reservation: event});
+    }
   }
 
   handleSubmit(event) {
@@ -135,8 +137,8 @@ class ReservationForm extends React.Component {
 
   render() {
     return (
-      <div className='form reservation-form row'>
-        <div className="col-xs-offset-2 col-xs-3">
+      <div className='form reservation-form row center wrap-xs'>
+        <div className="add-reservation-side xs-order-2">
           <form onSubmit={this.handleSubmit.bind(this)}>
             <legend className="title">Add new reservation</legend>
             <Textfield type="text"
@@ -158,7 +160,7 @@ class ReservationForm extends React.Component {
             <button type='submit' className='submit-btn'>Submit</button>
           </form>
         </div>
-        <div className="col-xs-4">
+        <div className="add-reservation-side xs-order-1 min-width-300">
           <DatePicker
             reservations={this.props.reservations}
             startDate={this.state.reservation.startDate}

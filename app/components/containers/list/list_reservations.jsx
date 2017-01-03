@@ -50,19 +50,19 @@ class ReservationList extends React.Component {
 
     return (
       <div className="list-reservations">
-        <div className="row">
-          <div className="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10">
+        <div className="row center">
+          <div className="reservation-header">
             <CalendarNavigator
               selectedMoment={this.state.selectedMoment}
               changeMonthAndYear={(newMoment) => this.updateTime(newMoment) }
             />
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-sm-10 col-md-5 col-md-offset-1" >
+        <div className="row center wrap-sm">
+          <div className="reservation-side" >
             <Calendar reservations={this.props.reservations} firstDayOfMonth={this.state.selectedMoment.startOf('month')} />
           </div>
-          <div className="col-xs-12 col-xs-offset-0 col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-5 list">
+          <div className="reservation-side list">
             {
               filteredReservations.length ? filteredReservations.map((reservation) => (
               <Event key={reservation._id}

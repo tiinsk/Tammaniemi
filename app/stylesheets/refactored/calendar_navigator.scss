@@ -39,6 +39,12 @@
     align-items: center;
     height: 54px;
     border-bottom: 2px solid $reservation-secondary-color;
+    @media (max-width: $sm-size){
+      font-size: 17px;
+    }
+    @media (max-width: $xs-size){
+      font-size: 3vw;
+    }
     .month-title{
       flex: 0 0 8.33%;
       font-weight: 100;
@@ -65,15 +71,10 @@
       }
     }
   }
-  @media (max-width: 650px){
-    .months{
-      font-size: 3vw;
-    }
-  }
 }
 
 
-.other-calendar-navigator{
+.small-calendar-navigator {
   font-size: 20px;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */
@@ -81,6 +82,10 @@
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   not supported by any browser */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
   text-align: center;
   margin: 10px 0px;
   .title{

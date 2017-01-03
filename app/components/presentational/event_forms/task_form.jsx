@@ -67,15 +67,13 @@ class TaskForm extends React.Component {
 
   render() {
     return (
-      <div className="form task-form row">
-        <div className="col-xs-offset-2 col-xs-8">
+      <div className="form task-form">
           <form onSubmit={this.handleSubmit}>
             <legend className="title">Add new task</legend>
             <CategorySelect value={this.state.task.category} onChange={this.updateCategory} />
             <Textfield label="Title" type="text" required={true} value={this.state.task.title} onChange={this.updateTitle} />
             <button type="submit" className="submit-btn">Submit</button>
           </form>
-        </div>
       </div>
     );
   }

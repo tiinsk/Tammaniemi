@@ -105,7 +105,7 @@ class TaskList extends React.Component {
           onShowChange={ (val) => this.showChange(val)}
         />
         <div className="row">
-          <div className="col-xs-1 col-md-3 col-lg-3" >
+          <div className="side-in-list-view" >
             <SideMenu
               color={colors.tasks.secondary_color}
             >
@@ -117,7 +117,7 @@ class TaskList extends React.Component {
               />
             </SideMenu>
           </div>
-          <div className="col-xs-10 col-md-9 col-lg-7" >
+          <div className="main-in-list-view" >
             {eventElements.length ? eventElements : <div className="no-items">No tasks to show</div>}
           </div>
         </div>

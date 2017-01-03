@@ -1,10 +1,12 @@
 .event{
-  margin: 60px;
-  margin-top: 0px;
+  margin: 0px 5px 60px 35px;
   .box{
     position: relative;
     padding: 35px 50px 50px 50px;
     min-height: 122px;
+    @media (max-width: $xs-size){
+      min-height: 140px;
+    }
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,0,0,.04);
     border: 1px solid rgba(0,0,0,.09);
@@ -12,77 +14,100 @@
       text-transform: uppercase;
       font-size: 24px;
       text-decoration: none;
+      position: relative;
+      z-index: 2;
     }
     .content{
       margin: 20px 0px;
       font-size: 16px;
       color: rgba(0, 0, 0, 0.54);
+      position: relative;
+      z-index: 2;
     }
-    .details{
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       position: absolute;
-      bottom: 25px;
-      .detail{
-        margin-right: 20px;
-        color: rgba(0, 0, 0, 0.3);
-        font-size: 15px;
+      width: 100%;
+      padding: 0px 50px;
+      left: 50%;
+      bottom: 11px;
+      transform: translateX(-50%);
+      z-index: 0;
+      @media (max-width: $xs-size) {
+        align-items: flex-end;
+        padding: 0px 12px 0px 50px;
       }
-      .detail:before{
-        padding-right: 5px;
-        font-family: "FontAwesome";
-      }
-      .created-at:before{
-        content: "\f073";
-      }
-      .user{
-        color: #4A4A4A;
-        font-weight: 400;
-      }
-      .comment-count:before{
-        content:"\f075";
-      }
-    }
-    .edit-menu{
-      position: absolute;
-      bottom: 12px;
-      right: 20px;
-      color: rgba(0, 0, 0, 0.18);
-      .color-circle {
-        height: 32px;
-        width: 32px;
-        border-radius: 50%;
-        background: red;
-        color: white;
-        position: relative;
-        display: inline-block;
-        margin: 0px 2px;
-        cursor: pointer;
-        font-family: FontAwesome;
-        .icon:before{
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        .icon-trash:before{
-          content:"\f1f8";
-        }
-        .icon-pencil:before{
-          content:"\f040";
-        }
-        .icon-comment:before{
-          content:"\f075";
-          left: 18px;
+      .details {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        .detail {
+          margin-right: 20px;
+          color: rgba(0, 0, 0, 0.3);
           font-size: 15px;
         }
-        .icon-down:before{
-          content:"\f0d7";
-          left: 6px;
-          top: 17px;
-          font-size: 9px;
+        .detail:before {
+          padding-right: 5px;
+          font-family: "FontAwesome";
+        }
+        .created-at:before {
+          content: "\f073";
+        }
+        .user {
+          color: #4A4A4A;
+          font-weight: 400;
+        }
+        .comment-count:before {
+          content: "\f075";
         }
       }
-      .comments{
-        display: inline-block;
+      .edit-menu{
+        display: flex;
+        @media (max-width: $xs-size) {
+          flex-direction: column-reverse;
+          flex-wrap: wrap;
+        }
+        color: rgba(0, 0, 0, 0.18);
+        .color-circle {
+          height: 32px;
+          width: 32px;
+          border-radius: 50%;
+          background: red;
+          color: white;
+          position: relative;
+          display: inline-block;
+          margin: 2px 2px;
+          cursor: pointer;
+          font-family: FontAwesome;
+          .icon:before{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          .icon-trash:before{
+            content:"\f1f8";
+          }
+          .icon-pencil:before{
+            content:"\f040";
+          }
+          .icon-comment:before{
+            content:"\f075";
+            left: 18px;
+            font-size: 15px;
+          }
+          .icon-down:before{
+            content:"\f0d7";
+            left: 6px;
+            top: 17px;
+            font-size: 9px;
+          }
+        }
+        .comments{
+          display: inline-block;
+        }
       }
     }
 

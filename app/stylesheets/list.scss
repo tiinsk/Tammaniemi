@@ -66,7 +66,7 @@
       font-weight: 500;
       text-transform: uppercase;
     }
-    .details{
+    .info {
       color: grey;
       .user{
         display: inline-block;
@@ -87,7 +87,7 @@
       }
     }
     &.selected, &:hover, &:focus{
-      .details{
+      .info {
         color: #DADADA;
       }
     }

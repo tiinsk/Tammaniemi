@@ -1,15 +1,10 @@
 TODO
 
--fix: Responsive layout
--fix: Navbar responsive look
--fix: jumbotron moves when scrollbar appears
-
 -add: session timeout
 -add/fix: user can edit own details
 -move "Invite new user" button
 
 -update: all add view UIs
--fix: reservation add-view calendar
 -fix: text field cursor
 
 -Add: post/infopost text saved to local storage?
@@ -18,3 +13,5 @@ TODO
 -Add: open comments to bubble icon
 
 -Add: language translations
+
+-Add: Gallery addition to news feed

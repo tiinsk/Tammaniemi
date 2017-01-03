@@ -8,7 +8,7 @@ var config = {
   devtool: 'source-map',
   entry: [
     'babel-polyfill',
-    path.join(__dirname, 'app/main.jsx')
+    path.join(__dirname, 'app/main.js')
   ],
   output: {
     path: path.join(__dirname, '/public/'),

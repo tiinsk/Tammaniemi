@@ -98,7 +98,9 @@ export default class DatePicker extends React.Component {
           <div className="weekdays">
             {weekdays}
           </div>
-          {month}
+          <div className="days">
+            {month}
+          </div>
         </div>
       </div>
 

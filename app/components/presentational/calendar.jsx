@@ -56,8 +56,7 @@ class Calendar extends React.Component {
           <div className="container">
             <span className={`number ${day.month() !== moment(this.props.firstDayOfMonth).month() ? 'diff-month ' : ''}`}>
               {day.date().toString()}
-            </span>
-            {reservedLink}
+            </span>{reservedLink}
           </div>
 
         </div>

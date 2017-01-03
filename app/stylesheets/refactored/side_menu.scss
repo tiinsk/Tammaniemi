@@ -1,4 +1,4 @@
-@media(max-width: 64em) {
+@media(max-width: $sm-size) {
   .side-menu-panel {
     .flag {
       width: 60px;
@@ -86,5 +86,11 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: $xs-size){
+  .flag{
+    top: 122px;
   }
 }

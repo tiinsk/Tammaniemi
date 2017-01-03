@@ -1,17 +1,19 @@
 .side-list{
   margin: 0;
+  display: inline-block;
   .first-level-title {
     color: white;
     background: grey;
-    margin: 5px 0px;
+    margin: 5px 5px 5px 0;
     font-size: 20px;
     cursor: pointer;
     position: relative;
     padding-left: 50px;
+    padding-right: 40px;
     height: 50px;
-    display: inline-block;
+    display: block;
     box-shadow: 0 1px 2px rgba(72, 65, 65, 0.33);
-    width: 210px;
+    white-space: nowrap;
     &:before{
       width: 10px;
     }
@@ -22,9 +24,9 @@
   .title{
     display: inline-block;
     line-height: 50px;
-    margin: 0px 50px;
     font-weight: 100;
     font-size: 24px;
+    margin: 0px 10px;
     &.open{
       text-decoration: underline;
     }
@@ -89,7 +91,6 @@
     right: 10px;
     text-align: center;
     line-height: 20px;
-    margin-left: 4px;
   }
 }
 
@@ -143,12 +144,10 @@
 .side-list.posts{
   .first-level-title {
     background: $post-secondary-color;
-    width: 210px;
-
+    max-width: 210px;
   }
   .second-level-title {
     background: $post-dark-color;
-    width: 210px;
   }
   .amount{
     color: $post-dark-color;
@@ -168,10 +167,6 @@
 .side-list.infoposts{
   .first-level-title {
     background: $infopost-secondary-color;
-    width: 300px;
-    .title{
-      margin: 0 25px;
-    }
   }
   .amount{
     color: $infopost-secondary-color;
@@ -189,10 +184,6 @@
 .side-list.tasks{
   .first-level-title {
     background: $task-secondary-color;
-    width: 300px;
-    .title{
-      margin: 0 25px;
-    }
   }
   .amount{
     color: $task-secondary-color;

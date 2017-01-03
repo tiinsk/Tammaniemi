@@ -14,7 +14,7 @@
   .title{
     color: $reservation-secondary-color;
   }
-  .details .user{
+  .info .user{
     color: $reservation-secondary-color !important;
   }
 
@@ -94,6 +94,9 @@
     &~label {
       color: $reservation-secondary-color;
     }
+  }
+  .mdl-textfield{
+    width: 100%;
   }
   .date{
     border-bottom: 1px solid #BDBDBD;

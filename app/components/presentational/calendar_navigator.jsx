@@ -35,14 +35,18 @@ export const CalendarNavigator = ({changeMonthAndYear, selectedMoment}) => {
 export const SmallCalendarNavigator = ({changeMonthAndYear, selectedMoment}) => {
   let date = selectedMoment.clone();
   return (
-    <div className="other-calendar-navigator">
-      <div className="prev-year-btn cal-btn" onClick={() => changeMonthAndYear(date.add(-1, 'years'))} ></div>
-      <div className="prev-month-btn cal-btn" onClick={() => changeMonthAndYear(date.add(-1, 'months'))} ></div>
+    <div className="small-calendar-navigator">
+      <div>
+        <div className="prev-year-btn cal-btn" onClick={() => changeMonthAndYear(date.add(-1, 'years'))} ></div>
+        <div className="prev-month-btn cal-btn" onClick={() => changeMonthAndYear(date.add(-1, 'months'))} ></div>
+      </div>
       <div className="title">
         {date.format('MMMM')} {date.year()}
       </div>
-      <div className="next-month-btn cal-btn" onClick={() => changeMonthAndYear(date.add(1, 'months'))} ></div>
-      <div className="next-year-btn cal-btn" onClick={() => changeMonthAndYear(date.add(1, 'years'))} ></div>
+      <div>
+        <div className="next-month-btn cal-btn" onClick={() => changeMonthAndYear(date.add(1, 'months'))} ></div>
+        <div className="next-year-btn cal-btn" onClick={() => changeMonthAndYear(date.add(1, 'years'))} ></div>
+      </div>
     </div>
   );
 };

@@ -32,11 +32,11 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className="row">
-          <div className="col-xs-10 col-md-7 col-lg-offset-2 col-lg-7">
+        <div className="row right">
+          <div className="home-main">
             <NewsFeed events={this.props.events} />
           </div>
-          <div className="col-xs-1 col-md-3 col-lg-3">
+          <div className="home-side">
               <SmallCalendarNavigator
                 selectedMoment={this.state.selectedMoment}
                 changeMonthAndYear={(newMoment) => this.updateTime(newMoment)}

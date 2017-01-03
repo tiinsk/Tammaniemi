@@ -72,7 +72,7 @@ class PostList extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col-xs-1 col-md-3 col-lg-3">
+          <div className="side-in-list-view">
             <SideMenu
               color={colors.posts.secondary_color}
               selectedColor={colors.posts.tertiary_color}
@@ -86,7 +86,7 @@ class PostList extends React.Component {
 
             </SideMenu>
           </div>
-          <div className="col-xs-10 col-md-9 col-lg-7">
+          <div className="main-in-list-view">
             {eventElements}
           </div>
         </div>

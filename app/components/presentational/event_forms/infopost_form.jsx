@@ -73,20 +73,18 @@ class InfoPostForm extends React.Component {
 
   render() {
     return (
-      <div className="form infopost-form row">
-        <div className="col-xs-offset-2 col-xs-8">
-          <form onSubmit={this.handleSubmit}>
-            <legend className="title">Add new infopost</legend>
-            <CategorySelect value={this.state.infopost.category} onChange={this.updateCategory} />
-            <Textfield label="Title" type="text" required={true} value={this.state.infopost.title} onChange={this.updateTitle} />
-            <div className="content">
-              <label className={"label " + (this.state.contentError != "" ? "error" : "")}>Content</label>
-              <span className="error-message">{this.state.contentError}</span>
-              <TextEditor markdown={this.state.infopost.content} onChange={this.updateContent} />
-            </div>
-            <button type="submit" className="submit-btn">Submit</button>
-          </form>
-        </div>
+      <div className="form infopost-form">
+        <form onSubmit={this.handleSubmit}>
+          <legend className="title">Add new infopost</legend>
+          <CategorySelect value={this.state.infopost.category} onChange={this.updateCategory} />
+          <Textfield label="Title" type="text" required={true} value={this.state.infopost.title} onChange={this.updateTitle} />
+          <div className="content">
+            <label className={"label " + (this.state.contentError != "" ? "error" : "")}>Content</label>
+            <span className="error-message">{this.state.contentError}</span>
+            <TextEditor markdown={this.state.infopost.content} onChange={this.updateContent} />
+          </div>
+          <button type="submit" className="submit-btn">Submit</button>
+        </form>
       </div>
     );
   }

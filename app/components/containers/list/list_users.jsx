@@ -30,11 +30,9 @@ class UserList extends React.Component {
     });
 
     return (
-      <div className="container">
-        <div className="app-row-only">
-          <div className="col-main-only">
-            {userElements}
-          </div>
+      <div className="row center">
+        <div className="main-only">
+          {userElements}
         </div>
       </div>
     );

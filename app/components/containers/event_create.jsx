@@ -46,8 +46,10 @@ class EventCreate extends React.Component {
         console.log('Incorrect type', type);
     }
     return (
-      <div>
-        {form}
+      <div className="row center">
+        <div className="create-main-only">
+          {form}
+        </div>
       </div>
     )
   }

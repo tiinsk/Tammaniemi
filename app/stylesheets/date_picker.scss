@@ -1,16 +1,15 @@
 $calendar-size: 13.7%;
 
 .date-picker{
-  font-size: 0px;
+  font-size: 15px;
   text-align: center;
   .month{
     width: 100%;
     margin: auto;
     .header{
-      font-size: 20px;
+      font-size: 1.3em;
       margin-bottom: 20px;
       .title{
-        font-size: 21px;
         display: inline-block;
         width: 50%;
         text-transform: uppercase;
@@ -49,7 +48,7 @@ $calendar-size: 13.7%;
 
     }
     .weekday{
-      font-size: 17px;
+      font-size: 1em;
       text-transform: uppercase;
       margin: 0px;
       background: transparent;
@@ -57,64 +56,67 @@ $calendar-size: 13.7%;
       position: relative;
       width: $calendar-size;
     }
-    .day{
-      margin: 0px;
-      background: transparent;
-      border: 1px solid #E8E8E8;
-      display: inline-block;
-      position: relative;
-      width: $calendar-size;
-      padding-bottom: $calendar-size; /* = width for a 1:1 aspect ratio */
-      .container{
-        color: grey;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        text-align: left;
-        cursor: pointer;
-        .number{
-          font-size: 17px;
-          margin: 5px;
-        }
-        .diff-month{
-          color: #DEDEDE;
-        }
-      }
-
-      .reserved-title{
+    .days {
+      display: flex;
+      flex-wrap: wrap;
+      .day {
+        margin: 0px;
+        background: transparent;
+        border: 1px solid #E8E8E8;
+        display: inline-block;
         position: relative;
-        font-size: 15px;
-        display: block;
-        color: white;
-        background: $reservation-secondary-color;
-        z-index: 200;
-        text-decoration: none;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        width: $calendar-size;
+        padding-bottom: $calendar-size; /* = width for a 1:1 aspect ratio */
+        .container {
+          color: grey;
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+          .number {
+            font-size: 1em;
+            margin: 5px;
+          }
+          .diff-month {
+            color: #DEDEDE;
+          }
+        }
+
+        .reserved-title {
+          position: relative;
+          font-size: 1em;
+          display: block;
+          color: white;
+          background: $reservation-secondary-color;
+          z-index: 200;
+          text-decoration: none;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+      }
+      .reserved {
+        border: 1px solid #E44F6D;
+        .container {
+          background: $reservation-secondary-color;
+          color: white;
+          cursor: not-allowed;
+        }
       }
 
-
-    }
-    .reserved{
-      border: 1px solid #E44F6D;
-      .container{
-        background: $reservation-secondary-color;
-        color: white;
-        cursor: not-allowed;
+      .selected {
+        border: 1px solid #E44F6D;
+        .container {
+          background: $reservation-primary-color;
+          color: white;
+        }
       }
-    }
 
-    .selected{
-      border: 1px solid #E44F6D;
-      .container{
-        background: $reservation-primary-color;
-        color: white;
+      .day, .first {
+        margin-left: -1px;
+        margin-top: -1px;
       }
-    }
-
-    .day, .first{
-      margin-left: -1px;
-      margin-top: -1px;
     }
   }
 }

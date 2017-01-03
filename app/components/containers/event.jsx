@@ -129,29 +129,31 @@ class Event extends React.Component {
           {secondarySymbol}
           {linkToEvent}
           {content}
-          <div className="details" >
-            <span className="detail user">{this.props.event.userId.name}</span>
-            <span className="detail created-at" >
-              {moment(this.props.event.createdAt).fromNow()}
-            </span>
-            <span className="detail comment-count">{this.props.event.comments.length}</span>
-          </div>
-          <div className="edit-menu">
-            <div className="color-circle comments" onClick={this.toggleComments.bind(this)} >
-              <div className="icon icon-comment"></div>
-              <div className="icon icon-down"></div>
+          <div className="info">
+            <div className="details">
+              <div className="detail user">{this.props.event.userId.name}</div>
+              <div className="detail created-at" >
+                {moment(this.props.event.createdAt).fromNow()}
+              </div>
+              <div className="detail comment-count">{this.props.event.comments.length}</div>
             </div>
-            {(this.props.auth.user._id === this.props.event.userId._id) || this.props.auth.user.role === 'admin' ?
-              <span>
-                <div className="edit color-circle" onClick={() => this.handleUpdate(this.props.event)}>
-                  <div className="icon icon-pencil"></div>
-                </div>
-                <div className="delete color-circle" onClick={() => this.handleDelete(this.props.event)}>
-                  <div className="icon icon-trash"></div>
-                </div>
-              </span>
-              : null
-            }
+            <div className="edit-menu">
+              <div className="color-circle comments" onClick={this.toggleComments.bind(this)} >
+                <div className="icon icon-comment"></div>
+                <div className="icon icon-down"></div>
+              </div>
+              {(this.props.auth.user._id === this.props.event.userId._id) || this.props.auth.user.role === 'admin' ?
+                  <div className="edit color-circle" onClick={() => this.handleUpdate(this.props.event)}>
+                    <div className="icon icon-pencil"></div>
+                  </div> : null
+              }
+              {(this.props.auth.user._id === this.props.event.userId._id) || this.props.auth.user.role === 'admin' ?
+                  <div className="delete color-circle" onClick={() => this.handleDelete(this.props.event)}>
+                    <div className="icon icon-trash"></div>
+                  </div>
+                : null
+              }
+            </div>
           </div>
         </div>
         {this.state.isCommentsShown ?
