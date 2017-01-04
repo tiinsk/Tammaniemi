@@ -165,7 +165,8 @@ function sortByTime(events) {
 
 export function addComment(content) {
   return (dispatch) => {
-    dispatch(create('comments', content))
+    content.__t = 'comments';
+    dispatch(create(content))
       .then(() => {
         dispatch(fetchEvents("events", "time"));
       });
