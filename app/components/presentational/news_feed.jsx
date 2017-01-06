@@ -33,14 +33,18 @@ class NewsFeed extends React.Component {
     }
 
     const events = this.props.events.events.slice(0, this.getEndItem()).map((event) => {
-      return event.__t === 'User' ? (
-        <User key={event._id}
-          user={event}/>) : (
-        <Event
-          key={event._id}
-          event={event}
-        />
-      );
+      switch (event.__t) {
+        case 'User':
+          return <User key={event._id}
+                       user={event}/>;
+        case 'Photoset':
+          console.log(event);
+          break;
+        default:
+          return <Event key={event._id}
+                        event={event}
+          />
+      }
     });
 
     return (

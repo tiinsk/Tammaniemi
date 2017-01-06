@@ -1,8 +1,8 @@
 import axios from 'axios';
 import moment from 'moment';
 
-import { browserHistory } from 'react-router'
-import { addNotification } from './notification_actions';
+import {browserHistory} from 'react-router'
+import {addNotification} from './notification_actions';
 
 export const ADD_EVENTS = 'ADD_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
@@ -134,7 +134,7 @@ function orderBy(events, type, order) {
 function sortByTime(events) {
   return events.sort((a, b) => {
     let aDate, bDate;
-    if(a.hasOwnProperty('createdAt')){
+    if (a.hasOwnProperty('createdAt')) {
       aDate = moment(a.createdAt);
       bDate = moment(b.createdAt);
 
@@ -147,9 +147,9 @@ function sortByTime(events) {
       // a must be equal to b
       return 0;
     }
-    else if(a.hasOwnProperty('date_create')){
+    else if (a.hasOwnProperty('date_create')) {
       aDate = a['date_create'];
-      bDate= b['date_create'];
+      bDate = b['date_create'];
 
       if (aDate > bDate) {
         return -1;
@@ -217,6 +217,40 @@ export function create(event) {
             fade: true
           }));
       });
+  }
+}
+
+export function createPhotoset(photoset) {
+  return (dispatch) => {
+    dispatch(loading(true));
+
+    const formData = photoset.photos;
+    formData.append('title', photoset.title);
+
+    return axios.post('/api/flickr', formData, {
+      transformRequest(data) {
+        return data;
+      }
+    }).then((response) => {
+      dispatch(addNotification(
+        {
+          type: "success",
+          category: "create_success_msg",
+          content: "Creation successful!",
+          fade: true
+        }));
+      dispatch(loading(false));
+      browserHistory.push('/home');
+    }).catch((error) => {
+      console.log(error);
+      dispatch(addNotification(
+        {
+          type: "error",
+          category: "create_error_msg",
+          content: "Creation failed!",
+          fade: true
+        }));
+    });
   }
 }
 

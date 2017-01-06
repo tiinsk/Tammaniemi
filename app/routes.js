@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import {Route, IndexRoute, IndexRedirect} from 'react-router';
 import App from './app.jsx';
 import Root from './root';
 
@@ -17,7 +17,6 @@ import CreateEvent from './components/containers/event_create.jsx';
 import ReservationList from './components/containers/list/list_reservations.jsx';
 
 import ShowGallery from './components/containers/gallery.jsx';
-import AddGallery from './components/containers/gallery_create';
 
 import CreateUser from './components/containers/create_user.jsx';
 
@@ -27,7 +26,7 @@ const requireAuth = (store) => {
       next();
     }).catch((err) => {
       console.log(err);
-      replaceState({ pathname: '/'});
+      replaceState({pathname: '/'});
       next();
     });
   }
@@ -36,7 +35,7 @@ const requireAuth = (store) => {
 const isLoggedIn = (store) => {
   return (nextState, replaceState, next) => {
     store.getState().auth.userPromise.then(() => {
-      replaceState({ pathname: '/home' });
+      replaceState({pathname: '/home'});
       next();
     }).catch((err) => {
       console.log(err);
@@ -48,26 +47,25 @@ const isLoggedIn = (store) => {
 export default (store) => {
   return (
     <Route path="/" component={Root}>
-      <IndexRoute component={Login} onEnter={isLoggedIn(store)} />
+      <IndexRoute component={Login} onEnter={isLoggedIn(store)}/>
       <Route path="/" component={App}>
-        <Route path="/home" component={Home} onEnter={requireAuth(store)} />
-        <Route path="/users" component={UserList} onEnter={requireAuth(store)} />
+        <Route path="/home" component={Home} onEnter={requireAuth(store)}/>
+        <Route path="/users" component={UserList} onEnter={requireAuth(store)}/>
 
-        <Route path="/:type/update/:id" component={UpdateEvent} onEnter={requireAuth(store)} />
-        <Route path="/:type/create" component={CreateEvent} onEnter={requireAuth(store)} />
+        <Route path="/:type/update/:id" component={UpdateEvent} onEnter={requireAuth(store)}/>
+        <Route path="/:type/create" component={CreateEvent} onEnter={requireAuth(store)}/>
 
-        <Route path="/posts(/:year(/:month(/:id)))" component={PostList} onEnter={requireAuth(store)} />
-        <Route path="/infoposts(/:category(/:id))" component={InfopostList} onEnter={requireAuth(store)} />
-        <Route path="/tasks(/:category(/:id))" component={TaskList} onEnter={requireAuth(store)} />
+        <Route path="/posts(/:year(/:month(/:id)))" component={PostList} onEnter={requireAuth(store)}/>
+        <Route path="/infoposts(/:category(/:id))" component={InfopostList} onEnter={requireAuth(store)}/>
+        <Route path="/tasks(/:category(/:id))" component={TaskList} onEnter={requireAuth(store)}/>
 
-        <Route path="/reservations(/:year(/:month))" component={ReservationList} onEnter={requireAuth(store)} />
+        <Route path="/gallery" component={PhotosetList} onEnter={requireAuth(store)}/>
+        <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth(store)}/>
 
-        <Route path="/gallery" component={PhotosetList} onEnter={requireAuth(store)} />
-        <Route path="/gallery/new" component={AddGallery} onEnter={requireAuth(store)} />
-        <Route path="/gallery/:galleryId" component={ShowGallery} onEnter={requireAuth(store)} />
+        <Route path="/reservations(/:year(/:month))" component={ReservationList} onEnter={requireAuth(store)}/>
       </Route>
 
-      <Route path="/invite/:token" component={CreateUser} />
+      <Route path="/invite/:token" component={CreateUser}/>
     </Route>
   );
 };
