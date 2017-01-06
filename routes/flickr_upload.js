@@ -4,13 +4,15 @@ const async = require('async');
 const crypto = require('crypto');
 
 const passport = require('./passport.js');
+const Photo = require('../models/photo.js');
+const Photoset = require('../models/photoset.js');
 
 function createQueryString(params) {
   return _.chain(params)
-         .map((value, key) => `${key}=${value}`)
-         .sort()
-         .join('&')
-         .value();
+    .map((value, key) => `${key}=${value}`)
+    .sort()
+    .join('&')
+    .value();
 }
 
 function calcFlickrSignature(data, key, secret) {
@@ -62,34 +64,44 @@ module.exports = (app, flickr) => {
     oauth_timestamp: flickr.options.oauth_timestamp
   };
 
-  app.post('/api/flickr', passport.authenticate('jwt', { session: false }), (req, res) => {
+  app.post('/api/flickr', passport.authenticate('jwt', {session: false}), (req, res) => {
     // console.log('photos', photos);
     async.map(req.files, (photo, cb) => {
-      const { flickrURL, params } = constructPhotoUpload(photo, flickrOptions);
+      const {flickrURL, params} = constructPhotoUpload(photo, flickrOptions);
 
-      request.post({ url: flickrURL, formData: params }, (error, response, body) => {
+      request.post({url: flickrURL, formData: params}, (error, response, body) => {
         if (error) {
           res.setStatus(500);
           res.json(error);
         }
+        const flickrId = parseInt(body.split('<photoid>')[1].split('</photoid>')[0], 10);
 
-        const id = parseInt(body.split('<photoid>')[1].split('</photoid>')[0], 10);
-        cb(error, id);
+        const newPhoto = new Photo({
+          userId: req.user._id,
+          flickrId
+        });
+
+        newPhoto.save((err, photo) => {
+          cb(error, {
+            flickrId,
+            localId: photo._id
+          });
+        })
       });
     }, (err, result) => {
-      const ids = _.values(result);
+      const photos = _.values(result);
 
       flickr.photosets.create({
         authenticated: true,
         title: req.body.title,
-        primary_photo_id: ids[0],
+        primary_photo_id: photos[0].flickrId,
       }, (err, result) => {
         const photosetId = result.photoset.id;
-        async.each(ids.splice(1), (id, addCb) => {
+        async.each(photos.splice(1), (photo, addCb) => {
           flickr.photosets.addPhoto({
             authenticated: true,
             photoset_id: photosetId,
-            photo_id: id
+            photo_id: photo.flickrId
           }, (err, result) => {
             addCb(err, result);
           });
@@ -98,8 +110,21 @@ module.exports = (app, flickr) => {
             res.setStatus(500);
             res.json(err);
           }
-          res.json({
-            id: photosetId
+
+          const newPhotoset = new Photoset({
+            title: req.body.title,
+            userId: req.user._id,
+            flickrId: photosetId,
+            photos: photos.map((photo) => photo.localId)
+          });
+          newPhotoset.save((err, photoset) => {
+            if (err) {
+              res.setStatus(500);
+              res.json(err);
+            }
+            res.json({
+              id: photosetId
+            });
           });
         });
       });

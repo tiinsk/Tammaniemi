@@ -1,5 +1,6 @@
 const Event = require('../models/event');
 const User = require('../models/user');
+const Photoset = require('../models/photoset');
 const passport = require('./passport.js');
 
 module.exports = (app) => {
@@ -21,7 +22,11 @@ module.exports = (app) => {
     const userPromise = User.find({})
       .exec();
 
-    Promise.all([eventPromise, userPromise])
+    const photosetPromise = Photoset.find({})
+      .populate('photos')
+      .exec();
+
+    Promise.all([eventPromise, userPromise, photosetPromise])
       .then((result) => {
         if (!result.length) {
           throw new Error('No events found');
