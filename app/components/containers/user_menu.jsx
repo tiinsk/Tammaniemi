@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 
 import { logoutUser } from '../../actions/login_actions';
+import translate from '../../translate.jsx';
 
 class UserMenu extends React.Component{
   constructor(props) {
@@ -22,7 +23,7 @@ class UserMenu extends React.Component{
       <div className="user-menu">
         <div className="user-logo"> {this.props.auth.user.name}</div>
         <div className="btn" onClick={() => this.logout()} >
-          Logout
+          {this.props.strings.logout}
         </div>
       </div>
     );
@@ -39,4 +40,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({logoutUser}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(translate(UserMenu));

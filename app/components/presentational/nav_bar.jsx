@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 
 import InviteUserModal from '../containers/invite_user_modal.jsx';
 import UserMenu  from '../containers/user_menu.jsx';
+import translate from '../../translate.jsx';
 
 class NavBar extends React.Component{
   constructor(props){
@@ -29,33 +30,33 @@ class NavBar extends React.Component{
         <div className="links">
           <div className="menu-btn" >
             <Link to="/posts" activeClassName="active">
-              Posts
+              {this.props.strings.titles.posts}
             </Link>
           </div>
           <div className="menu-btn" >
             <Link to="/infoposts" activeClassName="active">
-              Infoposts
+              {this.props.strings.titles.infoposts}
             </Link>
           </div>
           <div className="menu-btn" >
             <Link to="/users" activeClassName="active">
-              Users
+              {this.props.strings.titles.users}
             </Link>
           </div>
 
           <div className="menu-btn" >
             <Link to="/reservations" activeClassName="active">
-              Reservations
+              {this.props.strings.titles.reservations}
             </Link>
           </div>
           <div className="menu-btn" >
             <Link to="/tasks" activeClassName="active">
-              Tasks
+              {this.props.strings.titles.tasks}
             </Link>
           </div>
           <div className="menu-btn" >
             <Link to="/gallery" activeClassName="active">
-              Gallery
+              {this.props.strings.titles.gallery}
             </Link>
           </div>
         </div>
@@ -71,4 +72,4 @@ class NavBar extends React.Component{
   }
 }
 
-export default NavBar;
+export default translate(NavBar);

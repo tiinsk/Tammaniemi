@@ -11,6 +11,7 @@ import LoadingAnimation from '../../presentational/loading_animation.jsx';
 import { OptionMenu } from '../../presentational/option_menu.jsx';
 import SideMenu from '../../containers/side_menu.jsx';
 import colors from '../../../stylesheets/colors';
+import translate from '../../../translate.jsx';
 
 class TaskList extends React.Component {
   constructor(props){
@@ -118,7 +119,7 @@ class TaskList extends React.Component {
             </SideMenu>
           </div>
           <div className="main-in-list-view" >
-            {eventElements.length ? eventElements : <div className="no-items">No tasks to show</div>}
+            {eventElements.length ? eventElements : <div className="no-items">{this.props.strings.tasks.noTasks}</div>}
           </div>
         </div>
       </div>
@@ -137,4 +138,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({fetchEvents}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
+export default connect(mapStateToProps, mapDispatchToProps)(translate(TaskList));

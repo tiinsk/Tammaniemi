@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import { loginUser } from '../../actions/login_actions';
 import { addNotification, removeNotificationByCategory } from '../../actions/notification_actions';
+import translate from '../../translate.jsx';
 
 const giveRandPic = () => {
   const pics = [
@@ -84,16 +85,16 @@ class Login extends React.Component {
         <input
           className="login-form-input"
           type="text"
-          placeholder="Email"
+          placeholder={this.props.strings.login.email}
           onChange={({target}) => this.updateEmail(target.value)}
           value={this.state.email}/>
         <input
           className="login-form-input"
           type="password"
-          placeholder="Password"
+          placeholder={this.props.strings.login.password}
           onChange={({target}) => this.updatePassword(target.value)}
           value={this.state.password}/>
-        <button className="login-btn" type="submit" onClick={this.login.bind(this)}>Login</button>
+        <button className="login-btn" type="submit" onClick={this.login.bind(this)}>{this.props.strings.login.login}</button>
       </LoginContainer>
     );
   }
@@ -109,4 +110,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({loginUser, addNotification, removeNotificationByCategory}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(translate(Login))

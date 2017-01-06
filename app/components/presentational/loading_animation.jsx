@@ -1,6 +1,7 @@
 import React from 'react';
+import translate from '../../translate.jsx';
 
-export default () => {
+export default translate(({strings}) => {
   return (
     <div className="loading-animation">
       <div className="loader-dot"></div>
@@ -8,7 +9,7 @@ export default () => {
       <div className="loader-dot"></div>
       <div className="loader-dot"></div>
       <div className="loader-dot"></div>
-      <div className="loader-text"></div>
+      <div className="loader-text">{strings.loading}</div>
     </div>
     );
-};
+});

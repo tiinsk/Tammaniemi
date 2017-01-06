@@ -1,12 +1,12 @@
 import React from 'react';
 import Textfield from 'react-mdl/lib/Textfield';
-
 import TextEditor from '../../../partials/text_editor.js';
+import translate from '../../../translate.jsx';
 
-export default class PostForm extends React.Component {
+class PostForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log('Post form constructor');
+
     this.state = {
       post: {
         title: '',
@@ -62,16 +62,18 @@ export default class PostForm extends React.Component {
     return (
       <div className="form post-form">
           <form onSubmit={this.handleSubmit}>
-            <legend className="title">Add new post</legend>
-            <Textfield type="text" label="Otsikko" required={true} value={this.state.post.title} onChange={this.updateTitle} />
+            <legend className="title">{this.props.strings.postForm.addPost}</legend>
+            <Textfield type="text" label={this.props.strings.events.title} required={true} value={this.state.post.title} onChange={this.updateTitle} />
             <div className="content">
-              <label className={"label " + (this.state.contentError != "" ? "error" : "")}>Sisältö</label>
+              <label className={"label " + (this.state.contentError != "" ? "error" : "")}>{this.props.strings.events.content}</label>
               <span className="error-message">{this.state.contentError}</span>
               <TextEditor markdown={this.state.post.content} onChange={this.updateContent} />
             </div>
-            <button type="submit" className="submit-btn">Submit</button>
+            <button type="submit" className="submit-btn">{this.props.strings.events.submit}</button>
           </form>
       </div>
     );
   }
 }
+
+export default translate(PostForm);

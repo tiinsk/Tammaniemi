@@ -12,6 +12,9 @@ TODO
 -Add: Image possible to be added to posts/infoposts?
 -Add: open comments to bubble icon
 
--Add: language translations
+-Check: language translations
+-Moment.js localization
+-Translate categories
+-Translate notifications
 
 -Add: Gallery addition to news feed

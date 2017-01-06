@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { addComment, removeComment } from '../../../actions/event_actions';
+import translate from '../../../translate.jsx';
 
 class CommentForm extends React.Component {
   constructor(props) {
@@ -36,12 +37,12 @@ class CommentForm extends React.Component {
           <input
             className="comment-input-field"
             type="text"
-            placeholder="Write comment..."
+            placeholder={this.props.strings.comments.writeComment}
             value={this.state.content}
             onChange={this.handleTextChange.bind(this)}
           />
           <span className="comment-btn">
-            <button className="btn" type="submit">Comment</button>
+            <button className="btn" type="submit">{this.props.strings.comments.comment}</button>
           </span>
         </div>
       </form>
@@ -53,4 +54,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({addComment, removeComment}, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(CommentForm);
+export default connect(null, mapDispatchToProps)(translate(CommentForm));

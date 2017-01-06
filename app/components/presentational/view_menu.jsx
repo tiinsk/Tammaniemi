@@ -1,18 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import colors from '../../stylesheets/colors';
+import translate from '../../translate.jsx';
 
-export const ViewMenu = ({path}) => {
+export const ViewMenu = translate( ({strings,path}) => {
 
-  let titles = {
-    posts: "Posts",
-    infoposts: "Infoposts",
-    tasks: "Tasks",
-    reservations: "Reservations",
-    gallery: "Gallery",
-    home: "News Feed",
-    users: "Users"
-  };
+  let titles = strings.titles;
 
   let type = path.split('/')[1];
 
@@ -47,7 +40,7 @@ export const ViewMenu = ({path}) => {
             <Link
               to={addLink}
             >
-              <span>Add</span>
+              <span>{strings.viewMenu.add}</span>
               <div className="icon-container" style={{background: color}}>
                 <div className="icon"></div>
               </div>
@@ -59,7 +52,7 @@ export const ViewMenu = ({path}) => {
             <Link
               to={listLink}
             >
-              <span>List</span>
+              <span>{strings.viewMenu.list}</span>
               <div className="icon-container" style={{background: color}}>
                 <div className="icon"></div>
               </div>
@@ -70,4 +63,4 @@ export const ViewMenu = ({path}) => {
 
     </div>
   );
-};
+});

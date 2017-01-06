@@ -1,6 +1,7 @@
 import React from 'react';
 import Textfield from 'react-mdl/lib/Textfield';
 import { SelectField, Option } from 'react-mdl-extra';
+import translate from '../../../translate.jsx';
 
 class TaskForm extends React.Component {
   constructor(props) {
@@ -69,10 +70,10 @@ class TaskForm extends React.Component {
     return (
       <div className="form task-form">
           <form onSubmit={this.handleSubmit}>
-            <legend className="title">Add new task</legend>
+            <legend className="title">{this.props.strings.taskForm.addTask}</legend>
             <CategorySelect value={this.state.task.category} onChange={this.updateCategory} />
-            <Textfield label="Title" type="text" required={true} value={this.state.task.title} onChange={this.updateTitle} />
-            <button type="submit" className="submit-btn">Submit</button>
+            <Textfield label={this.props.strings.events.title} type="text" required={true} value={this.state.task.title} onChange={this.updateTitle} />
+            <button type="submit" className="submit-btn">{this.props.strings.events.submit}</button>
           </form>
       </div>
     );
@@ -101,4 +102,4 @@ const CategorySelect = ({value, onChange}) => {
 };
 
 
-export default TaskForm;
+export default translate(TaskForm);

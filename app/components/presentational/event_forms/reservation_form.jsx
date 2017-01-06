@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchEvents } from '../../../actions/event_actions.js';
+import translate from'../../../translate.jsx';
 
 import DatePicker from '../date_picker.jsx';
 
@@ -140,24 +141,24 @@ class ReservationForm extends React.Component {
       <div className='form reservation-form row center wrap-xs'>
         <div className="add-reservation-side xs-order-2">
           <form onSubmit={this.handleSubmit.bind(this)}>
-            <legend className="title">Add new reservation</legend>
+            <legend className="title">{this.props.strings.reservationForm.addReservation}</legend>
             <Textfield type="text"
-              label="Otsikko"
+              label={this.props.strings.events.title}
               required={true}
               value={this.state.reservation.title}
               onChange={this.updateTitle.bind(this)} />
             <span className='error-message'>{this.state.titleError}</span>
 
             <div className={"date " + (this.state.reservation.startDate ? "filled" : "")} >
-              {this.state.reservation.startDate ? this.state.reservation.startDate.format("DD.MM.YYYY") : "Start Date"}
+              {this.state.reservation.startDate ? this.state.reservation.startDate.format("DD.MM.YYYY") : this.props.strings.reservationForm.startDate}
             </div>
             <span className='error-message'>{this.state.startDateError}</span>
 
             <div className={"date " + (this.state.reservation.endDate ? "filled" : "")}>
-              {this.state.reservation.endDate ? this.state.reservation.endDate.format("DD.MM.YYYY") : "End Date"}</div>
+              {this.state.reservation.endDate ? this.state.reservation.endDate.format("DD.MM.YYYY") : this.props.strings.reservationForm.endDate}</div>
             <span className='error-message'>{this.state.endDateError}</span>
 
-            <button type='submit' className='submit-btn'>Submit</button>
+            <button type='submit' className='submit-btn'>{this.props.strings.events.submit}</button>
           </form>
         </div>
         <div className="add-reservation-side xs-order-1 min-width-300">
@@ -183,4 +184,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchEvents }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReservationForm);
+export default connect(mapStateToProps, mapDispatchToProps)(translate(ReservationForm));

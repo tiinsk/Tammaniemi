@@ -3,6 +3,7 @@ import Textfield from 'react-mdl/lib/Textfield';
 import { SelectField, Option } from 'react-mdl-extra';
 
 import TextEditor from '../../../partials/text_editor';
+import translate from '../../../translate.jsx';
 
 class InfoPostForm extends React.Component {
   constructor(props) {
@@ -75,15 +76,15 @@ class InfoPostForm extends React.Component {
     return (
       <div className="form infopost-form">
         <form onSubmit={this.handleSubmit}>
-          <legend className="title">Add new infopost</legend>
+          <legend className="title">{this.props.strings.infopostForm.addInfopost}</legend>
           <CategorySelect value={this.state.infopost.category} onChange={this.updateCategory} />
-          <Textfield label="Title" type="text" required={true} value={this.state.infopost.title} onChange={this.updateTitle} />
+          <Textfield label={this.props.strings.events.title} type="text" required={true} value={this.state.infopost.title} onChange={this.updateTitle} />
           <div className="content">
-            <label className={"label " + (this.state.contentError != "" ? "error" : "")}>Content</label>
+            <label className={"label " + (this.state.contentError != "" ? "error" : "")}>{this.props.strings.events.content}</label>
             <span className="error-message">{this.state.contentError}</span>
             <TextEditor markdown={this.state.infopost.content} onChange={this.updateContent} />
           </div>
-          <button type="submit" className="submit-btn">Submit</button>
+          <button type="submit" className="submit-btn">{this.props.strings.events.submit}</button>
         </form>
       </div>
     );
@@ -116,4 +117,4 @@ const CategorySelect = ({value, onChange}) => {
   );
 };
 
-export default InfoPostForm;
+export default translate(InfoPostForm);

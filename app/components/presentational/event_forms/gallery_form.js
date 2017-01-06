@@ -1,5 +1,6 @@
 import React from 'react';
 import Textfield from 'react-mdl/lib/Textfield';
+import translate from '../../../translate.jsx';
 
 class PhotosetForm extends React.Component {
   constructor(props) {
@@ -52,21 +53,21 @@ class PhotosetForm extends React.Component {
     return (
       <div className="form photoset-form">
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <legend className="title">Add new photoset</legend>
+          <legend className="title">{this.props.strings.photosetForm.addPhotoset}</legend>
           <Textfield type="text"
-                     label="Otsikko"
+                     label={this.props.strings.events.title}
                      required={true}
                      value={this.state.photoset.title}
                      onChange={this.updateTitle}/>
           <div className="content">
-            <label className="label">Photos</label>
+            <label className="label">{this.props.strings.photosetForm.photos}</label>
             <input type="file" required multiple onChange={this.updatePhotos.bind(this)}/>
           </div>
-          <button type="submit" className="submit-btn">Submit</button>
+          <button type="submit" className="submit-btn">{this.props.strings.events.submint}</button>
         </form>
       </div>
     );
   }
 }
 
-export default PhotosetForm;
+export default translate(PhotosetForm);

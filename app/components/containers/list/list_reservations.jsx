@@ -8,6 +8,7 @@ import Calendar from '../../presentational/calendar.jsx';
 import {CalendarNavigator} from '../../presentational/calendar_navigator.jsx';
 import Event from '../event.jsx';
 import LoadingAnimation  from '../../presentational/loading_animation.jsx';
+import translate from '../../../translate.jsx';
 
 class ReservationList extends React.Component {
   constructor(props) {
@@ -67,7 +68,7 @@ class ReservationList extends React.Component {
               filteredReservations.length ? filteredReservations.map((reservation) => (
               <Event key={reservation._id}
                 event={reservation} />)) :
-                <div className="no-reservations"> No reservations this month </div>
+                <div className="no-reservations"> {this.props.strings.reservations.noReservations} </div>
             }
           </div>
         </div>
@@ -87,4 +88,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchEvents }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReservationList);
+export default connect(mapStateToProps, mapDispatchToProps)(translate(ReservationList));
