@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const passport = require('./passport.js');
 const Photo = require('../models/photo.js');
 const Photoset = require('../models/photoset.js');
+const constructPhotoUrl = require('../utility/flickr').constructPhotoUrl;
 
 function createQueryString(params) {
   return _.chain(params)
@@ -69,7 +70,10 @@ module.exports = (app, flickr) => {
     async.map(req.files, (photo, cb) => {
       const {flickrURL, params} = constructPhotoUpload(photo, flickrOptions);
 
-      request.post({url: flickrURL, formData: params}, (error, response, body) => {
+      request.post({
+        url: flickrURL,
+        formData: params
+      }, (error, response, body) => {
         if (error) {
           res.setStatus(500);
           res.json(error);
@@ -107,23 +111,33 @@ module.exports = (app, flickr) => {
           });
         }, (err) => {
           if (err) {
-            res.setStatus(500);
-            res.json(err);
+            res.status(500).json(err);
           }
 
-          const newPhotoset = new Photoset({
-            title: req.body.title,
-            userId: req.user._id,
-            flickrId: photosetId,
-            photos: photos.map((photo) => photo.localId)
-          });
-          newPhotoset.save((err, photoset) => {
+          flickr.photosets.getInfo({
+            authenticated: true,
+            photoset_id: photosetId,
+            user_id: flickrOptions.user_id,
+          }, (err, result) => {
             if (err) {
-              res.setStatus(500);
-              res.json(err);
+              res.status(500).json(err);
             }
-            res.json({
-              id: photosetId
+
+            const {photoset: {farm, server, primary: id, secret}} = result;
+            const primaryUrl = constructPhotoUrl({farm, server, id, secret});
+
+            const newPhotoset = new Photoset({
+              title: req.body.title,
+              userId: req.user._id,
+              flickrId: photosetId,
+              primaryPhotoUrl: primaryUrl,
+              photos: photos.map((photo) => photo.localId)
+            });
+            newPhotoset.save((err, photoset) => {
+              if (err) {
+                res.status(500).json(err);
+              }
+              res.json(photoset);
             });
           });
         });

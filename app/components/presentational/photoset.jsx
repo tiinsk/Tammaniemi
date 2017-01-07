@@ -27,25 +27,25 @@ class Photoset extends React.Component {
     const {photoset} = this.props;
     const {isLoaded} = this.state;
     const style = {
-      backgroundImage: `url("//farm${photoset.farm}.staticflickr.com/${photoset.server}/${photoset.primary}_${photoset.secret}_b.jpg")`
+      backgroundImage: `url("${photoset.primaryPhotoUrl}")`
     };
     const loadedClass = isLoaded ? 'loaded' : 'notLoaded';
 
     return (
-      <div className="photoset-container" onClick={() => this.goTo(photoset.id) }>
+      <div className="photoset-container" onClick={() => this.goTo(photoset.flickrId) }>
         <div className="photoset">
           <img
-            src={`//farm${photoset.farm}.staticflickr.com/${photoset.server}/${photoset.primary}_${photoset.secret}_b.jpg`}
+            src={`${photoset.primaryPhotoUrl}`}
             className="hidden"
             onLoad={() => this.onLoad()}/>
           <div className={`placeholder ${loadedClass}`}></div>
           <div className={`photoset-img ${loadedClass}`} style={style}></div>
           <div className="info">
             <span className="title">
-              {photoset.title._content}
+              {photoset.title}
             </span>
             <span className="amount">
-              {photoset.photos} photos
+              {photoset.photos.length} photos
             </span>
           </div>
         </div>

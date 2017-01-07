@@ -19,15 +19,21 @@ const photosetSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  primaryPhotoUrl: {
+    type: String,
+    required: true,
+  },
   photos: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Photo'
   }]
 });
 
-photosetSchema.set('toJSON', { transform: (doc, ret) => {
-  ret.__t = 'Photoset';
-  return ret;
-}});
+photosetSchema.set('toJSON', {
+  transform: (doc, ret) => {
+    ret.__t = 'Photoset';
+    return ret;
+  }
+});
 
 module.exports = mongoose.model('Photoset', photosetSchema);
