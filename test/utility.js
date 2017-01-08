@@ -15,4 +15,12 @@ function generateToken() {
   return (new Buffer(hash)).toString('base64');
 }
 
-export { getUserCookie, generateToken };
+function generateJWTInviteToken(email, authToken) {
+  return jwt.sign({
+    email
+  }, config.jwt[process.env.NODE_ENV].inviteSecret, {
+    jwtid: authToken
+  });
+}
+
+export {getUserCookie, generateToken, generateJWTInviteToken};

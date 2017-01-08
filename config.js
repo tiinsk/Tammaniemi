@@ -8,15 +8,18 @@ module.exports = {
   jwt: {
     production: {
       secret: 'tammaniemi', //Change!!!!
+      inviteSecret: 'invite_to_tammaniemi', //Change!!!!
       ignoreExpiration: false
     },
     development: {
       secret: 'tammaniemi',
+      inviteSecret: 'invite_to_tammaniemi',
       ignoreExpiration: false
     },
     test: {
       secret: 'testi_secret',
-      ignoreExpiration: true
+      ignoreExpiration: true,
+      inviteSecret: 'invite_to_tammaniemi',
     },
   },
   flickrOptions

@@ -9,10 +9,14 @@ import {LoginContainer} from './login.jsx';
 class CreateUser extends React.Component {
   constructor(props) {
     super(props);
+
+    const jwtToken = this.props.params.token;
+    const jwtPayload = JSON.parse(window.atob(jwtToken.split('.')[1]));
+
     this.state = {
       user: {
         name: '',
-        email: '',
+        email: jwtPayload.email,
         password: '',
         verifyPassword: ''
       },
@@ -28,6 +32,7 @@ class CreateUser extends React.Component {
       user
     });
   }
+
   updatePassword(event) {
     const user = this.state.user;
     user.password = event.target.value;
@@ -36,6 +41,7 @@ class CreateUser extends React.Component {
       passwordError: ''
     });
   }
+
   updateVerifyPassword(event) {
     const user = this.state.user;
     user.verifyPassword = event.target.value;
@@ -44,15 +50,6 @@ class CreateUser extends React.Component {
       passwordError: ''
     });
   }
-
-  updateEmail(event) {
-    const user = this.state.user;
-    user.email = event.target.value.trim();
-    this.setState({
-      user
-    });
-  }
-
 
   handleSubmit(event) {
     event.preventDefault();
@@ -89,34 +86,34 @@ class CreateUser extends React.Component {
   render() {
     return (
       <LoginContainer >
-      <input className="login-form-input"
-              placeholder="Name"
-              type="text"
-              value={ this.state.user.name }
-              required
-              onChange={ this.updateName.bind(this) }/>
-      <input className="login-form-input"
-              placeholder="Email"
-              type="email"
-              value={ this.state.user.email }
-              required
-              onChange={ this.updateEmail.bind(this) } />
-      <input className="login-form-input"
-              placeholder="Password"
-              type="password"
-              value={ this.state.user.password }
-              required
-              onChange={ this.updatePassword.bind(this) } />
-      <input className="login-form-input"
-              placeholder="Verify password"
-              type="password"
-              value={ this.state.user.verifypassword }
-              required
-              onChange={ this.updateVerifyPassword.bind(this) } />
+        <input className="login-form-input"
+               placeholder="Name"
+               type="text"
+               value={ this.state.user.name }
+               required
+               onChange={ this.updateName.bind(this) }/>
+        <input className="login-form-input"
+               placeholder="Email"
+               type="email"
+               value={ this.state.user.email }
+               required
+               disabled/>
+        <input className="login-form-input"
+               placeholder="Password"
+               type="password"
+               value={ this.state.user.password }
+               required
+               onChange={ this.updatePassword.bind(this) }/>
+        <input className="login-form-input"
+               placeholder="Verify password"
+               type="password"
+               value={ this.state.user.verifypassword }
+               required
+               onChange={ this.updateVerifyPassword.bind(this) }/>
         <button className="login-btn"
                 type="submit"
                 onClick={this.handleSubmit.bind(this)}>
-                Create user
+          Create user
         </button>
       </LoginContainer>
     );

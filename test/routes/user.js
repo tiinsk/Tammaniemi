@@ -51,7 +51,7 @@ describe('Create User', () => {
     .post('/api/users')
     .send({
       user: newUser,
-      token: token1.token
+      token: utility.generateJWTInviteToken(newUser.email, token1.token)
     })
     .then((res) => {
       res.should.have.status(200);
@@ -75,8 +75,8 @@ describe('Create User', () => {
       password: 'testi2',
     };
 
-    authToken.createToken()
-    .then(({ token }) => {
+    authToken.generateJWTInviteToken(newUser.email)
+    .then((token) => {
       chai.request(app)
       .post('/api/users')
       .send({
@@ -112,10 +112,10 @@ describe('Create User', () => {
       password: 'testi2',
     };
 
-    let token;
+    var token;
 
-    authToken.createToken()
-    .then(({ token: newToken }) => {
+    authToken.generateJWTInviteToken(newUser.email)
+    .then((newToken) => {
       token = newToken;
 
       return chai.request(app)
@@ -186,7 +186,7 @@ describe('Create User', () => {
     .post('/api/users')
     .send({
       user: newUser,
-      token: expiredToken
+      token: utility.generateJWTInviteToken(newUser.email, expiredToken)
     })
     .then((res) => {
       done(new Error('Should fail'));
@@ -207,7 +207,7 @@ describe('Create User', () => {
     .post('/api/users')
     .send({
       user: newUser,
-      token: usedToken
+      token: utility.generateJWTInviteToken(newUser.email, usedToken)
     })
     .then((res) => {
       done(new Error('Should fail'));
