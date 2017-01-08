@@ -1,5 +1,5 @@
 export default {
-  language: "Suomi",
+  language: "English",
   logout: "Logout",
   loading: "Loading",
   cancel: "Cancel",
@@ -11,13 +11,13 @@ export default {
     tasks: "Tasks",
     reservations: "Reservations",
     gallery: "Gallery",
-    home: "Uutiset",
+    home: "News Feed",
     users: "Users"
   },
   login: {
-    email: "Emaili",
-    password: "Pässwörd",
-    login: "Kirjaudu",
+    email: "Email",
+    password: "Password",
+    login: "Login",
     loginFailedConfirmation: "Login failed, email and password don't match."
   },
   newsFeed: {
@@ -66,19 +66,19 @@ export default {
     }
   },
   user: {
-    joined: "Liittyi",
+    joined: "Joined",
     notifications: {
       create: {
         success: "User was created succesfully!",
-        fail: "User creation failed, please try again.",
+          fail: "User creation failed, please try again.",
       },
       update: {
         success: "User was updated succesfully!",
-        fail: "User update failed, please try again.",
+          fail: "User update failed, please try again.",
       },
       delete: {
         success: "User was deleted succesfully!",
-        fail: "User delete failed, please try again.",
+          fail: "User delete failed, please try again.",
       }
     }
   },
@@ -104,11 +104,11 @@ export default {
     inviteUser: "Invite new user"
   },
   taskCategories: {
-    0: "Ostos",
-    1: "Ruokaostos",
-    2: "Korjaustyö",
-    3: "Maisemointi",
-    4: "Muu"
+    0: "Buy",
+    1: "Food to Buy",
+    2: "Fix",
+    3: "Outdoor Tasks",
+    4: "Others"
   },
   infopostCategories: {
     0: "Yleistä",

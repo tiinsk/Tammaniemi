@@ -1,18 +1,19 @@
 .nav-bar {
   padding: 0;
   margin: 0;
-  overflow: hidden;
   color: white;
   position: absolute;
   z-index: 100;
   font-family: Roboto, sans-serif;
   font-size: 18px;
   top: 0;
-  width: 100%;
+  width: 100vw;
   //background: rgba(76, 0, 255, 0.21);
-  background: rgba(119, 34, 140, 0.35);
+  background: rgba(119, 34, 140, 0.30);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-right: 30px;
   .logo{
     flex-grow: 0;
     font-size: 43px;
@@ -28,7 +29,7 @@
       display: block;
 
       &.active {
-        background: rgba(128, 0, 29, 0.45);
+        //background: rgba(128, 0, 29, 0.45);
       }
     }
   }
@@ -51,22 +52,19 @@
         height: 100%;
         padding: 25px 1vw;
         display: block;
-
         &.active {
-          background: rgba(128, 0, 29, 0.45);
+          background: rgba(162, 60, 99, 0.58);
         }
       }
     }
     .menu-btn:focus, .menu-btn:hover {
-      background: rgba(128, 0, 29, 0.45);
+      a{
+        background: rgba(162, 60, 99, 0.58);
+      }
     }
   }
   .right-menu{
     flex-grow: 0;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
   }
   .icon{
     display: none;
@@ -77,11 +75,10 @@
 @media screen and (max-width:1070px) {
   .nav-bar{
     flex-direction: column;
+    align-items: stretch;
+    padding-right: 0px;
     .links, .right-menu{
       display: none;
-    }
-    .logo{
-
     }
     .icon {
       float: right;
@@ -94,7 +91,7 @@
       margin: 10px;
       cursor: pointer;
       position: absolute;
-      right: 0;
+      right: 15px;
       top: 8px;
       &:hover, &:focus{
         color: black;
@@ -103,7 +100,7 @@
     }
   }
 
-  .nav-bar.responsive {
+  .nav-bar.open {
     position: absolute;
     background: rgba(44, 32, 47, 0.92);
     z-index: 2000;
@@ -112,9 +109,14 @@
     }
     .right-menu{
       display: flex;
-      align-items: flex-end;
-      align-content: flex-end;
-
+      align-self: flex-end;
+    }
+    .user-menu{
+      padding-right: 20px;
+      .language-list {
+        min-width: calc( 100% - 20px);
+        margin-right: 20px;
+      }
     }
     .menu-btn{
       padding: 0px;
@@ -123,11 +125,13 @@
       a{
         padding: 25px 20px;
         &.active {
-          background: rgb(78, 43, 84);
+          background: rgba(162, 60, 99, 0.58);
         }
       }
       &:hover, &:focus{
-       background: rgb(78, 43, 84);
+        a{
+          background: rgba(162, 60, 99, 0.58);
+        }
       }
     }
   }

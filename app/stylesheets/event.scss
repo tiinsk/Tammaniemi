@@ -59,6 +59,9 @@
           color: #4A4A4A;
           font-weight: 400;
         }
+        .comment-count{
+          cursor: pointer;
+        }
         .comment-count:before {
           content: "\f075";
         }

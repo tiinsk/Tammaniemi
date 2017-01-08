@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { removeNotification } from '../../actions/notification_actions';
+import translate from '../../translate.jsx';
 
-
-const Notifications = ({notifications, removeNotification}) => {
+const Notifications = ({strings, notifications, removeNotification}) => {
   let notificationItems = notifications.map((notification, index) => {
     return(
       <div className={"notification " + notification.type} key={index}>
         <span className="icon"/>
-        {notification.content}
+        { notification.messageIds ?
+          notification.messageIds.map(id => {
+           return _.get(strings, id) + " ";
+          }) : _.get(strings, notification.messageId)
+        }
         <div className="removeBtn" onClick={() => removeNotification(notification.id)}>X</div>
       </div>
     );
@@ -33,4 +36,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({removeNotification}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default connect(mapStateToProps, mapDispatchToProps)(translate(Notifications));

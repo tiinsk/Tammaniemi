@@ -1,18 +1,20 @@
-.user-menu{
-  //margin: 5px 0;
-  position: relative;
+.language-dropdown{
+  position: absolute;
   user-select: none;
-  .username-container{
+  top: 0px;
+  right: 0px;
+  .language-container{
     color: white;
-    padding: 10px;
-    display: flex;
+    padding: 20px 20px;
     cursor: pointer;
-    align-items: center;
+    font-size: 19px;
+    text-align: center;
     .chosen-language {
-      padding: 0px 5px;
+      padding: 0px 8px;
+      display: inline-block;
     }
     &.open{
-      background: rgba(162, 60, 99, 0.58);
+      background: rgba(114, 222, 219, 0.65);
       border-top-right-radius: 2px;
       border-top-left-radius: 2px;
     }
@@ -41,9 +43,6 @@
         margin-right: 5px;
         width: 20px;
         color: #934d68;
-      }
-      &:last-child{
-        border-top: 1px solid rgba(0,0,0,.12);
       }
     }
 

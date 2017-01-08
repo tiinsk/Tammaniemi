@@ -135,10 +135,10 @@ class Event extends React.Component {
               <div className="detail created-at" >
                 {moment(this.props.event.createdAt).fromNow()}
               </div>
-              <div className="detail comment-count">{this.props.event.comments.length}</div>
+              <div className="detail comment-count" onClick={() => this.toggleComments()}>{this.props.event.comments.length}</div>
             </div>
             <div className="edit-menu">
-              <div className="color-circle comments" onClick={this.toggleComments.bind(this)} >
+              <div className="color-circle comments" onClick={() => this.toggleComments()} >
                 <div className="icon icon-comment"></div>
                 <div className="icon icon-down"></div>
               </div>

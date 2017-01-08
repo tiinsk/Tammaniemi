@@ -1,13 +1,18 @@
-import { ADD_LOGGED_USER, REMOVE_LOGGED_USER } from '../actions/login_actions';
+import moment from 'moment';
+import { ADD_LOGGED_USER, REMOVE_LOGGED_USER, CHOOSE_LANGUAGE } from '../actions/login_actions';
 
 let userResolve;
 let userReject;
+
+const locale = localStorage.getItem("language") || "fi";
+moment.locale(locale);
 
 const initialState = {
     userPromise: new Promise((resolve, reject) => {
         userResolve = resolve;
         userReject = reject;
-    })
+    }),
+    language: locale
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -18,7 +23,8 @@ const loginReducer = (state = initialState, action) => {
         let newState = {
             user: action.user,
             isLoggedIn: true,
-            userPromise: Promise.resolve(action.user)
+            userPromise: Promise.resolve(action.user),
+            language: state.language
         };
 
         return newState;
@@ -27,8 +33,16 @@ const loginReducer = (state = initialState, action) => {
         return {
             user: {},
             isLoggedIn: false,
-            userPromise: Promise.reject('Not logged in')
+            userPromise: Promise.reject('Not logged in'),
+            language: state.language
         };
+    case CHOOSE_LANGUAGE:
+      localStorage.setItem("language", action.language);
+      moment.locale(action.language);
+
+      return Object.assign({}, state, {
+        language: action.language
+      });
     default:
       return state
   }

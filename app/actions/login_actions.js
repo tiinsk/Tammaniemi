@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const ADD_LOGGED_USER = 'ADD_LOGGED_USER';
 export const REMOVE_LOGGED_USER = 'REMOVE_LOGGED_USER';
+export const CHOOSE_LANGUAGE = 'CHOOSE_LANGUAGE';
 
 export function addLoggedUser(user, error){
     return {
@@ -57,4 +58,11 @@ export function isUserLoggedIn(){
             dispatch(removeLoggedUser());
         });
     };
+}
+
+export function chooseLanguage(language){
+  return{
+    type: CHOOSE_LANGUAGE,
+    language
+  }
 }

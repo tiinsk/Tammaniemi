@@ -42,6 +42,7 @@ $xs-size: 599px;
 @import "./refactored/side_menu.scss";
 @import "./refactored/gallery.scss";
 @import './refactored/view_menu.scss';
+@import './refactored/language_dropdown.scss';
 
 body{
   font-family: Roboto, sans-serif;
@@ -270,7 +271,7 @@ body{
 .btn{
     color: white;
     background: transparent;
-    border: 2px solid white;
+    border: 1px solid white;
     border-radius: 5px;
     font-size: 17px;
     padding: 5px 10px;

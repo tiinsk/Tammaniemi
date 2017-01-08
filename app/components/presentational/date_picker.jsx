@@ -77,7 +77,7 @@ export default class DatePicker extends React.Component {
     let weekdays = _.range(7).map((weekday) =>{
       return(
           <div key={weekday} className="weekday">
-            {moment().day(weekday).format("dd")}
+            {moment().weekday(weekday).format("dd")}
           </div>
         );
     });

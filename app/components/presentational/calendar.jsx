@@ -65,7 +65,7 @@ class Calendar extends React.Component {
 
     const weekdays = _.range(7).map((weekday) => (
       <div key={weekday} className="weekday">
-        {moment().day(weekday).format('dd')}
+        {moment().weekday(weekday).format('dd')}
       </div>
     ));
 

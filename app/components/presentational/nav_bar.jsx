@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-import InviteUserModal from '../containers/invite_user_modal.jsx';
 import UserMenu  from '../containers/user_menu.jsx';
 import translate from '../../translate.jsx';
 
@@ -9,19 +8,19 @@ class NavBar extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      responsive: false
+      isOpen: false
     }
   }
 
   toggleMenu(){
     this.setState({
-      responsive: !this.state.responsive
+      isOpen: !this.state.isOpen
     })
   }
 
   render() {
     return (
-      <div className={`nav-bar ${(this.state.responsive ? 'responsive' : '')}`}>
+      <div className={`nav-bar ${(this.state.isOpen ? 'open' : '')}`}>
         <div className="logo" >
           <Link to="/home" activeClassName="active">
             Tammaniemi
@@ -61,7 +60,6 @@ class NavBar extends React.Component{
           </div>
         </div>
         <div className="right-menu">
-          <InviteUserModal />
           <UserMenu />
         </div>
         <div className="icon" onClick={this.toggleMenu.bind(this)}>

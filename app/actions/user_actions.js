@@ -5,6 +5,7 @@ import _ from 'lodash';
 export const ADD_USERS = 'ADD_USERS';
 export const LOADING = 'LOADING';
 
+
 import {addNotification} from './notification_actions';
 
 export function fetchUsers() {
@@ -53,7 +54,7 @@ export function create(user) {
           {
             type: "success",
             category: "create_success_msg",
-            content: "User creation successful!",
+            messageId: "user.notifications.create.success",
             fade: true
           }));
       })
@@ -62,7 +63,7 @@ export function create(user) {
           {
             type: "error",
             category: "create_error_msg",
-            content: "User creation failed!",
+            messageId: "user.notifications.create.fail",
             fade: true
           }));
       })
@@ -82,7 +83,7 @@ export function update(user) {
           {
             type: "success",
             category: "update_success_msg",
-            content: "User update successful!",
+            messageId: "user.notifications.update.success",
             fade: true
           }));
       })
@@ -91,7 +92,7 @@ export function update(user) {
           {
             type: "error",
             category: "update_error_msg",
-            content: "User update failed!",
+            messageId: "user.notifications.update.fail",
             fade: true
           }));
       })
@@ -111,7 +112,7 @@ export function remove(id) {
           {
             type: "success",
             category: "delete_success_msg",
-            content: "User delete successful!",
+            messageId: "user.notifications.delete.success",
             fade: true
           }));
       })
@@ -120,7 +121,7 @@ export function remove(id) {
           {
             type: "error",
             category: "delete_error_msg",
-            content: "User delete failed!",
+            messageId: "user.notifications.delete.fail",
             fade: true
           }));
       })
@@ -130,5 +131,3 @@ export function remove(id) {
       });
   }
 }
-
-

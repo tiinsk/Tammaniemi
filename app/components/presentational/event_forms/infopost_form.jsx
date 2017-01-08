@@ -1,5 +1,6 @@
 import React from 'react';
 import Textfield from 'react-mdl/lib/Textfield';
+import _ from 'lodash';
 import { SelectField, Option } from 'react-mdl-extra';
 
 import TextEditor from '../../../partials/text_editor';
@@ -91,20 +92,10 @@ class InfoPostForm extends React.Component {
   }
 };
 
-const CategorySelect = ({value, onChange}) => {
-  const categories = [
-    "Yleistä",
-    "Kevät- ja syystyöt",
-    "Kunnossapito",
-    "Piha",
-    "Sauna",
-    "Sähkö",
-    "Tärkeät yhteystiedot",
-    "Vene ja vesistö",
-    "Vesi",
-    "WC ja jätteet"
-  ];
-  const categoryOptions = categories.map((category, index) => (
+const CategorySelect = translate(({strings,value, onChange}) => {
+  const categories = strings.infopostCategories;
+
+  const categoryOptions = _.map(categories, (category, index) => (
     <Option className="index" key={index} value={index}>
       {category}
     </Option>)
@@ -115,6 +106,6 @@ const CategorySelect = ({value, onChange}) => {
       {categoryOptions}
     </SelectField>
   );
-};
+});
 
 export default translate(InfoPostForm);

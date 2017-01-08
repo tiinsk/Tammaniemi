@@ -1,8 +1,9 @@
 import axios from 'axios';
 import moment from 'moment';
+import { browserHistory } from 'react-router'
+import { addNotification } from './notification_actions';
+import {getTranslations} from '../i18n/languages';
 
-import {browserHistory} from 'react-router'
-import {addNotification} from './notification_actions';
 
 export const ADD_EVENTS = 'ADD_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
@@ -10,12 +11,13 @@ export const CLEAR_EVENT = 'CLEAR_EVENT';
 export const LOADING = 'LOADING';
 
 export function fetchEvents(type, order = 'type') {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(loading(true));
+    const language = getState().auth.language;
     return axios
       .get(`/api/${type}`)
       .then((response) => {
-        dispatch(addEvents(response.data, type, order));
+        dispatch(addEvents(response.data, type, order, language));
       })
       .catch((err) => {
         console.log("err", err);
@@ -26,10 +28,10 @@ export function fetchEvents(type, order = 'type') {
   }
 }
 
-function addEvents(events, type, order) {
+function addEvents(events, type, order, language) {
   return {
     type: ADD_EVENTS,
-    events: orderBy(events, type, order),
+    events: orderBy(events, type, order, language),
     eventType: type
   }
 }
@@ -54,7 +56,7 @@ function loading(bln) {
   }
 }
 
-function orderBy(events, type, order) {
+function orderBy(events, type, order, language) {
   switch (order) {
     case "time":
       return sortByTime(events);
@@ -92,25 +94,8 @@ function orderBy(events, type, order) {
         .reduce((result, event, index) => {
 
           const categories = {
-            Infopost: [
-              "Yleistä",
-              "Kevät- ja syystyöt",
-              "Kunnossapito",
-              "Piha",
-              "Sauna",
-              "Sähkö",
-              "Tärkeät yhteystiedot",
-              "Vene ja vesistö",
-              "Vesi",
-              "WC ja jätteet"
-            ],
-            Task: [
-              "To Buy",
-              "Food to Buy",
-              "To Fix",
-              "Outdoor Tasks",
-              "Others"
-            ]
+            Infopost: getTranslations(language).infopostCategories,
+            Task: getTranslations(language).taskCategories
           };
 
           const categoryName = categories[type][event.category];
@@ -202,7 +187,7 @@ export function create(event) {
           {
             type: "success",
             category: "create_success_msg",
-            content: "Creation successful!",
+            messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.create.success"],
             fade: true
           }));
         dispatch(loading(false));
@@ -213,7 +198,7 @@ export function create(event) {
           {
             type: "error",
             category: "create_error_msg",
-            content: "Creation failed!",
+            messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.create.fail"],
             fade: true
           }));
       });
@@ -264,7 +249,7 @@ export function update(event) {
           {
             type: "success",
             category: "create_success_msg",
-            content: "Update successful!",
+            messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.update.success"],
             fade: true
           }));
         dispatch(loading(false));
@@ -275,7 +260,7 @@ export function update(event) {
           {
             type: "error",
             category: "create_error_msg",
-            content: "Update failed!",
+            messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.update.fail"],
             fade: true
           }));
       });
@@ -292,7 +277,7 @@ export function remove(type, id) {
           {
             type: "success",
             category: "create_success_msg",
-            content: "Delete successful!",
+            messageIds: [`events.notifications.type.${type}` , "events.notifications.delete.success"],
             fade: true
           }));
       })
@@ -301,7 +286,7 @@ export function remove(type, id) {
           {
             type: "error",
             category: "create_error_msg",
-            content: "Delete failed!",
+            messageIds: [`events.notifications.type.${type}` , "events.notifications.delete.fail"],
             fade: true
           }));
       })

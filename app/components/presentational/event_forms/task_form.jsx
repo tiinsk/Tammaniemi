@@ -1,6 +1,7 @@
 import React from 'react';
 import Textfield from 'react-mdl/lib/Textfield';
 import { SelectField, Option } from 'react-mdl-extra';
+import _ from 'lodash';
 import translate from '../../../translate.jsx';
 
 class TaskForm extends React.Component {
@@ -80,15 +81,10 @@ class TaskForm extends React.Component {
   }
 };
 
-const CategorySelect = ({value, onChange}) => {
-  const categories = [
-    "Ostos",
-    "Ruokaostos",
-    "Korjaustyö",
-    "Maisemointi",
-    "Muu"
-  ];
-  const categoryOptions = categories.map((category, index) => (
+const CategorySelect = translate(({strings, value, onChange}) => {
+  const categories = strings.taskCategories;
+
+  const categoryOptions = _.map(categories, (category, index) => (
     <Option className="index" key={index} value={index}>
       {category}
     </Option>)
@@ -99,7 +95,7 @@ const CategorySelect = ({value, onChange}) => {
       {categoryOptions}
     </SelectField>
   );
-};
+});
 
 
 export default translate(TaskForm);

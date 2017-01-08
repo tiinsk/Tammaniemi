@@ -3,6 +3,7 @@ import React from 'react';
 import Event from '../containers/event.jsx';
 import User from '../containers/user.jsx';
 import LoadingAnimation from './loading_animation.jsx';
+import translate from '../../translate.jsx';
 
 class NewsFeed extends React.Component {
   constructor(props) {
@@ -51,11 +52,11 @@ class NewsFeed extends React.Component {
       <div>
         {events}
         <div className="show-more" onClick={this.changePage.bind(this)}>
-          <span>Show more</span>
+          <span>{this.props.strings.newsFeed.showMore}</span>
         </div>
       </div>
     );
   }
 }
 
-export default NewsFeed;
+export default translate(NewsFeed);

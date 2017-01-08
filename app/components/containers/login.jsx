@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import { loginUser } from '../../actions/login_actions';
 import { addNotification, removeNotificationByCategory } from '../../actions/notification_actions';
 import translate from '../../translate.jsx';
+import LanguageDropDown from '../presentational/language_dropdown.jsx';
 
 const giveRandPic = () => {
   const pics = [
@@ -30,6 +31,7 @@ export const LoginContainer = ({children}) => (
   <div className="login">
     <div className="img" style={imgStyle}></div>
     <div className="overlay"></div>
+    <LanguageDropDown/>
     <div className="content">
       <div className="title">Tammaniemi</div>
       <br/>
@@ -73,7 +75,7 @@ class Login extends React.Component {
         this.props.addNotification(
           { type: "error",
             category: "login_error_msg",
-            content: "Login failed!",
+            messageId: "login.loginFailedConfirmation",
             fade: true
           });
       });

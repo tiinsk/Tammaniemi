@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import { remove } from '../../actions/user_actions.js';
+import translate from '../../translate.jsx';
 
 class User extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class User extends React.Component {
             className="content"
           >
             <div className="email">{this.props.user.email}</div>
-            <div className="joined-time">Joined {moment(this.props.user.createdAt).fromNow()}</div>
+            <div className="joined-time">{this.props.strings.user.joined} {moment(this.props.user.createdAt).fromNow()}</div>
           </div>
           <div className="edit-menu">
             { this.props.auth.user.role === 'admin' ?
@@ -62,4 +63,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default connect(mapStateToProps, mapDispatchToProps)(translate(User));

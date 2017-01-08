@@ -2,7 +2,7 @@ TODO
 
 -add: session timeout
 -add/fix: user can edit own details
--move "Invite new user" button
+-user password saved to database in which format?
 
 -update: all add view UIs
 -fix: text field cursor
@@ -10,11 +10,9 @@ TODO
 -Add: post/infopost text saved to local storage?
 -Add: "Are you sure you want to disregard changes?" when exiting edit/new/delete view.
 -Add: Image possible to be added to posts/infoposts?
--Add: open comments to bubble icon
+-Add: large posts/infoposts should be shown partially, add "show more" button to each.
 
 -Check: language translations
 -Moment.js localization
--Translate categories
--Translate notifications
 
 -Add: Gallery addition to news feed

@@ -3,8 +3,9 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Textfield from 'react-mdl/lib/Textfield';
+import translate from '../../translate.jsx';
 
-export default class InviteUserModal extends React.Component {
+class InviteUserModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,9 +48,9 @@ export default class InviteUserModal extends React.Component {
   render() {
     return (
       <div className="login-modal">
-        <div className="btn"
-             onClick={ this.openModal.bind(this) }>
-          Invite new user
+        <div onClick={ this.openModal.bind(this) }>
+          <i className="fa fa-users"></i>
+          {this.props.strings.inviteUserModal.inviteUser}
         </div>
         <div className={ `modal ${this.state.displayModal ? 'show-modal' : ''}` }>
           <div className="modal-content">
@@ -58,10 +59,10 @@ export default class InviteUserModal extends React.Component {
                 <form className="form"
                       onSubmit={ this.handleSubmit.bind(this) }>
                   <legend className="title">
-                    Invite new user
+                    {this.props.strings.inviteUserModal.inviteUser}
                   </legend>
                   <Textfield className="full-width-textfield"
-                             label="Email"
+                             label={this.props.strings.email}
                              type="email"
                              value={ this.state.email }
                              required
@@ -69,11 +70,11 @@ export default class InviteUserModal extends React.Component {
                   <br />
                   <button type="submit"
                           className="submit-btn">
-                    Submit
+                    {this.props.strings.events.submit}
                   </button>
                   <button className="cancel-btn"
                           onClick={ this.closeModal.bind(this) }>
-                    Cancel
+                    {this.props.strings.cancel}
                   </button>
                 </form>
               </div>
@@ -84,3 +85,5 @@ export default class InviteUserModal extends React.Component {
       );
   }
 }
+
+export default translate(InviteUserModal);
