@@ -1,6 +1,6 @@
 $calendar-size: calc(100% / 7 + 1px);
 
-@media (max-width: $xs-size){
+/*@media (max-width: $xs-size){
   .calendar{
     .number{
       font-size: 3vw !important;
@@ -12,66 +12,18 @@ $calendar-size: calc(100% / 7 + 1px);
       font-size: 3vw !important;
     }
   }
-}
+}*/
 
 .calendar{
   padding: 0px;
-  font-size: 0px;
+  font-size: 0;
   text-align: center;
   margin-bottom: 20px;
   .month{
     width: 100%;
     margin: auto;
-    .header{
-      font-size: 20px;
-      margin: 20px 0;
-      -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Chrome/Safari/Opera */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  not supported by any browser */
-      .title{
-        font-size: 30px;
-        display: inline-block;
-        width: 50%;
-        text-transform: uppercase;
-        color: $reservation-secondary-color;
-      }
-      .cal-btn{
-        display: inline-block;
-        cursor: pointer;
-        width: 30px;
-        border: 2px solid $reservation-secondary-color;
-        border-radius: 4px;
-        color: $reservation-secondary-color;
-        margin: 0px 3px;
-        font-family: "FontAwesome";
-      }
-      .cal-btn:hover, .cal-btn:focus{
-        background: $reservation-secondary-color;
-        color: white;
-      }
-
-      .next-month-btn:before{
-        content:"\f105";
-      }
-
-      .prev-month-btn:before{
-        content:"\f104";
-      }
-
-      .next-year-btn:before{
-        content:"\f101";
-      }
-
-      .prev-year-btn:before{
-        content:"\f100";
-      }
-
-    }
     .weekday{
-      font-size: 19px;
+      font-size: 1.5rem;
       text-transform: uppercase;
       margin: 0px;
       background: transparent;
@@ -101,7 +53,7 @@ $calendar-size: calc(100% / 7 + 1px);
           background: white;
           line-height: 0;
           .number{
-            font-size: 17px;
+            font-size: 1rem;
             margin: 3px 5px;
             line-height: 1;
             display: inline-block;
@@ -116,7 +68,7 @@ $calendar-size: calc(100% / 7 + 1px);
         }
         .reserved-title{
           position: relative;
-          font-size: 15px;
+          font-size: 1rem;
           display: block;
           color: white;
           background: $reservation-secondary-color;
@@ -139,22 +91,17 @@ $calendar-size: calc(100% / 7 + 1px);
 
 .calendar.small{
   .month{
-    .header{
-      .title{
-        font-size: 18px;
-      }
-    }
     .weekday{
-      font-size: 14px;
+      font-size: 1rem;
     }
     .day{
       .container{
         .number{
-          font-size: 14px;
+          font-size: 1rem;
         }
       }
       .reserved-title{
-        font-size:  13px;
+        font-size:  1rem;
       }
 
     }

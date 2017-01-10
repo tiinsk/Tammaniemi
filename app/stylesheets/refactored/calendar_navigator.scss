@@ -2,7 +2,7 @@
   margin-bottom: 40px;
   text-align: center;
   .year{
-    font-size: 35px;
+    font-size: 2.4rem;
     color: $reservation-secondary-color;
     margin-bottom: 20px;
     font-weight: 400;
@@ -12,7 +12,7 @@
     .other-year {
       display: inline-block;
       color: grey;
-      font-size: 20px;
+      font-size: 1.3rem;
       font-weight: 100;
       cursor: pointer;
       &.prev-year {
@@ -34,17 +34,17 @@
   }
   .months{
     position: relative;
-    font-size: 20px;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     height: 54px;
     border-bottom: 2px solid $reservation-secondary-color;
-    @media (max-width: $sm-size){
+/*    @media (max-width: $sm-size){
       font-size: 17px;
     }
     @media (max-width: $xs-size){
       font-size: 3vw;
-    }
+    }*/
     .month-title{
       flex: 0 0 8.33%;
       font-weight: 100;
@@ -75,7 +75,7 @@
 
 
 .small-calendar-navigator {
-  font-size: 20px;
+  font-size: 1.3rem;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Chrome/Safari/Opera */
   -moz-user-select: none; /* Firefox */
@@ -89,7 +89,7 @@
   text-align: center;
   margin: 10px 0px;
   .title{
-    font-size: 20px;
+    font-size: 1.3rem;
     display: inline-block;
     width: 50%;
     text-transform: uppercase;

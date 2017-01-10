@@ -1,13 +1,13 @@
 $calendar-size: 13.7%;
 
 .date-picker{
-  font-size: 15px;
+  font-size: 1rem;
   text-align: center;
   .month{
     width: 100%;
     margin: auto;
     .header{
-      font-size: 1.3em;
+      font-size: 1.3rem;
       margin-bottom: 20px;
       .title{
         display: inline-block;
@@ -48,7 +48,7 @@ $calendar-size: 13.7%;
 
     }
     .weekday{
-      font-size: 1em;
+      font-size: 1rem;
       text-transform: uppercase;
       margin: 0px;
       background: transparent;
@@ -75,7 +75,7 @@ $calendar-size: 13.7%;
           text-align: left;
           cursor: pointer;
           .number {
-            font-size: 1em;
+            font-size: 1rem;
             margin: 5px;
           }
           .diff-month {
@@ -85,7 +85,7 @@ $calendar-size: 13.7%;
 
         .reserved-title {
           position: relative;
-          font-size: 1em;
+          font-size: 1rem;
           display: block;
           color: white;
           background: $reservation-secondary-color;

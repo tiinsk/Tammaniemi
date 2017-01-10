@@ -30,7 +30,6 @@ $xs-size: 599px;
 @import "./refactored/notifications";
 
 @import './spinner_overlay';
-@import './pagination';
 @import './refactored/loading_animation';
 @import './refactored/category_list';
 @import './refactored/option_menu';
@@ -47,6 +46,20 @@ $xs-size: 599px;
 body{
   font-family: Roboto, sans-serif;
   margin: 0;
+  //font-size: 15px;
+}
+
+html{
+  font-size: 15px;
+  @media (max-width: $md-size){
+    font-size: 13px;
+  }
+  @media (max-width: $sm-size){
+    font-size: 13px;
+  }
+  @media (max-width: $xs-size){
+    font-size: 11px;
+  }
 }
 
 *{
@@ -245,39 +258,6 @@ body{
   padding: 0px;
 }
 
-.add-new{
-  display: inline-block;
-  cursor: pointer;
-  position: absolute;
-  top: 30px;
-  right: -50px;
-  color: white;
-  font-size: 39px;
-  border-radius: 50%;
-  background: rgba(159, 0, 255, 0.47);
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  span{
-    position: relative;
-    top: -7px;
-  }
-  &:hover{
-    background: rgba(212, 0, 184, 0.74);
-  }
-}
-
-
-.btn{
-    color: white;
-    background: transparent;
-    border: 1px solid white;
-    border-radius: 5px;
-    font-size: 17px;
-    padding: 5px 10px;
-    font-family: Roboto, sans-serif;
-}
-
 .btn:hover{
 	color: black;
 	background: white;
@@ -290,30 +270,6 @@ body{
 	text-decoration: none;
 }
 
-.input-group {
-  display: table;
-  margin: 17px 0px;
-  .form-control {
-    display: table-cell;
-    width: 100%;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .input-group-btn {
-    display: table-cell;
-    width: 1%;
-  }
-
-  .btn {
-      margin-left: -1px;
-      padding: 6px 12px;
-      font-size: 14px;
-      border: 1px solid transparent;
-  }
-}
 
 .full-width-textfield {
   width: 100%;

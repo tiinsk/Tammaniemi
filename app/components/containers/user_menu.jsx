@@ -37,7 +37,7 @@ class UserMenu extends React.Component{
           <div>
             <i className="fa fa-user"></i>
           </div>
-          <div className="chosen-language">
+          <div className="username">
             {this.props.auth.user.name}
           </div>
           <div>
@@ -45,7 +45,7 @@ class UserMenu extends React.Component{
           </div>
         </div>
         { this.state.menuIsOpen ?
-          <div className="language-list">
+          <div className="items-list">
             <div className="list-item">
               <i className="fa fa-cog"></i>
               {this.props.strings.settings}

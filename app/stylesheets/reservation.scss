@@ -101,7 +101,7 @@
   .date{
     border-bottom: 1px solid #BDBDBD;
     height: 47px;
-    font-size: 16px;
+    font-size: 1rem;
     color: #BFBFBF;
     font-weight: 100;
     padding-top: 15px;
@@ -137,58 +137,5 @@
         }
       }
     }
-  }
-}
-
-
-.tabs{
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0;
-  background-color: transparent;
-  white-space: nowrap;
-  overflow-x: auto;
-  border-bottom: 2px solid #E4E4E4;
-  overflow: inherit;
-
-  a{
-    cursor: pointer;
-    display: inline-block;
-    white-space: nowrap;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.87);
-    height: 48px;
-    line-height: 48px;
-    padding-left: 24px;
-    padding-right: 24px;
-    user-select: none;
-    position: relative;
-    bottom: -2px;
-    text-decoration: none;
-  }
-  .close-btn{
-    color: #FFFFFF;
-    display: inline-block;
-    width: 20px;
-    text-align: center;
-    background: #E4E4E4;
-    border-radius: 50%;
-    height: 20px;
-    line-height: 19px;
-    margin-left: -20px;
-    margin-right: -13px;
-    z-index: 1000;
-    position: relative;
-    cursor: pointer;
-  }
-  .close-btn:hover{
-    color: #FFFFFF;
-    background: #9E9E9E;
-  }
-  .active{
-    color: $reservation-secondary-color;
-    border-bottom: 3px solid $reservation-secondary-color;
   }
 }

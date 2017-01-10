@@ -1,20 +1,20 @@
 .user-item{
-  margin: 0px 5px 60px 35px;
+  margin: 0 0.2rem 3rem 3rem;
   .box{
     position: relative;
-    padding: 35px 50px 35px 50px;
+    padding: 2.3rem 4rem 4rem 4rem;
     min-height: 122px;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,0,0,.04);
     border: 1px solid rgba(0,0,0,.09);
     .title{
       text-transform: uppercase;
-      font-size: 24px;
+      font-size: 1.6rem;
       text-decoration: none;
     }
     .content{
       margin-top: 20px;
-      font-size: 16px;
+      font-size: 1rem;
       color: rgba(0, 0, 0, 0.54);
       .email{
         margin-bottom: 20px;
@@ -29,6 +29,9 @@
       position: absolute;
       bottom: 12px;
       right: 20px;
+      @media (max-width: $xs-size) {
+        right: 12px;
+      }
       color: rgba(0, 0, 0, 0.18);
       .color-circle {
         height: 32px;
@@ -61,7 +64,7 @@
       .img{
         font-family: "FontAwesome";
         color: white;
-        font-size: 35px;
+        font-size: 2.5rem;
         position: absolute;
         top: 50%;
         left: 50%;

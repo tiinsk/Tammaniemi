@@ -27,33 +27,33 @@ class NavBar extends React.Component{
           </Link>
         </div>
         <div className="links">
-          <div className="menu-btn" >
+          <div className="menu-btn" onClick={() => this.toggleMenu()} >
             <Link to="/posts" activeClassName="active">
               {this.props.strings.titles.posts}
             </Link>
           </div>
-          <div className="menu-btn" >
+          <div className="menu-btn" onClick={() => this.toggleMenu()} >
             <Link to="/infoposts" activeClassName="active">
               {this.props.strings.titles.infoposts}
             </Link>
           </div>
-          <div className="menu-btn" >
+          <div className="menu-btn" onClick={() => this.toggleMenu()} >
             <Link to="/users" activeClassName="active">
               {this.props.strings.titles.users}
             </Link>
           </div>
 
-          <div className="menu-btn" >
+          <div className="menu-btn" onClick={() => this.toggleMenu()} >
             <Link to="/reservations" activeClassName="active">
               {this.props.strings.titles.reservations}
             </Link>
           </div>
-          <div className="menu-btn" >
+          <div className="menu-btn" onClick={() => this.toggleMenu()} >
             <Link to="/tasks" activeClassName="active">
               {this.props.strings.titles.tasks}
             </Link>
           </div>
-          <div className="menu-btn" >
+          <div className="menu-btn" onClick={() => this.toggleMenu()} >
             <Link to="/gallery" activeClassName="active">
               {this.props.strings.titles.gallery}
             </Link>

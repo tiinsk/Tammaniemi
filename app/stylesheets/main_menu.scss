@@ -1,8 +1,10 @@
 .main-menu{
   margin-bottom: 40px;
+  overflow: hidden;
   .jumbotron{
     position: relative;
     height: 250px;
+    overflow: hidden;
     .overlay{
       position: absolute;
       height: 250px;

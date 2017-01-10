@@ -1,8 +1,8 @@
 .event{
-  margin: 0px 5px 60px 35px;
+  margin: 0 0.2rem 3rem 3rem;
   .box{
     position: relative;
-    padding: 35px 50px 50px 50px;
+    padding: 2.3rem 4rem 4rem 4rem;
     min-height: 122px;
     @media (max-width: $xs-size){
       min-height: 140px;
@@ -12,14 +12,14 @@
     border: 1px solid rgba(0,0,0,.09);
     .title{
       text-transform: uppercase;
-      font-size: 24px;
+      font-size: 1.6rem;
       text-decoration: none;
       position: relative;
       z-index: 2;
     }
     .content{
       margin: 20px 0px;
-      font-size: 16px;
+      font-size: 1rem;
       color: rgba(0, 0, 0, 0.54);
       position: relative;
       z-index: 2;
@@ -30,7 +30,7 @@
       justify-content: space-between;
       position: absolute;
       width: 100%;
-      padding: 0px 50px;
+      padding: 0px 20px 0 50px;
       left: 50%;
       bottom: 11px;
       transform: translateX(-50%);
@@ -46,7 +46,7 @@
         .detail {
           margin-right: 20px;
           color: rgba(0, 0, 0, 0.3);
-          font-size: 15px;
+          font-size: 1rem;
         }
         .detail:before {
           padding-right: 5px;
@@ -99,13 +99,13 @@
           .icon-comment:before{
             content:"\f075";
             left: 18px;
-            font-size: 15px;
+            font-size: 1rem;
           }
           .icon-down:before{
             content:"\f0d7";
             left: 6px;
             top: 17px;
-            font-size: 9px;
+            font-size: 0.6rem;
           }
         }
         .comments{
@@ -124,7 +124,7 @@
       .img{
         font-family: "FontAwesome";
         color: white;
-        font-size: 35px;
+        font-size: 2.5rem;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -141,7 +141,7 @@
       .img{
         font-family: "FontAwesome";
         color: white;
-        font-size: 20px;
+        font-size: 1.3rem;
         position: absolute;
         top: 50%;
         left: 50%;

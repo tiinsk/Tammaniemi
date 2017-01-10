@@ -13,6 +13,5 @@ TODO
 -Add: large posts/infoposts should be shown partially, add "show more" button to each.
 
 -Check: language translations
--Moment.js localization
 
 -Add: Gallery addition to news feed

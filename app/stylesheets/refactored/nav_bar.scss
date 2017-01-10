@@ -5,7 +5,7 @@
   position: absolute;
   z-index: 100;
   font-family: Roboto, sans-serif;
-  font-size: 18px;
+  font-size: 1.2rem;
   top: 0;
   width: 100vw;
   //background: rgba(76, 0, 255, 0.21);
@@ -16,7 +16,7 @@
   padding-right: 30px;
   .logo{
     flex-grow: 0;
-    font-size: 43px;
+    font-size: 2.9rem;
     text-shadow: 0px 0px 18px black;
     font-family: 'Sacramento', cursive;
     cursor: pointer;
@@ -41,7 +41,7 @@
       background: transparent;
       color: white;
       text-transform: uppercase;
-      font-size: 15px;
+      font-size: 1rem;
       font-weight: 100;
       font-family: Arial, sans-serif;
       cursor: pointer;
@@ -85,7 +85,7 @@
       display: inline-block;
       color: white;
       padding: 5px 10px;
-      font-size: 20px;
+      font-size: 1.3rem;
       border: 2px solid white;
       border-radius: 7px;
       margin: 10px;
@@ -123,7 +123,7 @@
       display: block;
       text-align: left;
       a{
-        padding: 25px 20px;
+        padding: 15px 20px;
         &.active {
           background: rgba(162, 60, 99, 0.58);
         }
