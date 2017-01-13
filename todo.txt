@@ -14,4 +14,4 @@ TODO
 
 -Check: language translations
 
--Add: Gallery addition to news feed
+-Change: reservation listing to use small navigation component with small screens

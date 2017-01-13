@@ -70,3 +70,65 @@
     }
   }
 }
+
+.event.photoset{
+  .box{
+    min-height: 185px;
+    padding-right: 190px;
+    @media (max-width: $xs-size) {
+      min-height: 122px;
+      padding-right: 127px;
+    }
+  }
+  .title{
+    color: $gallery-secondary-color;
+  }
+  .info .user{
+    color: $gallery-secondary-color !important;
+  }
+  .content{
+    height: 185px;
+    width: 185px;
+    @media (max-width: $xs-size) {
+      width: 120px;
+      height: 120px;
+    }
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 0;
+    background-size: cover;
+    background-position: center center;
+    margin: 0;
+  }
+
+  .info{
+    .edit-menu {
+      @media (max-width: $xs-size) {
+        padding-left: 72px;
+      }
+      .color-circle {
+        &.edit {
+          background: $gallery-light-color;
+        }
+        &.delete {
+          background-color: $gallery-primary-color;
+        }
+        &.edit:hover, &.edit:focus {
+          background: $gallery-light-color-hover;
+        }
+        &.delete:hover, &.delete:focus {
+          background-color: $gallery-secondary-color-hover;
+        }
+      }
+    }
+  }
+
+  .primary-symbol{
+    background-color: $gallery-primary-color;
+    .img:before{
+      content:"\f03e";
+    }
+  }
+
+}

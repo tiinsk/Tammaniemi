@@ -6,6 +6,7 @@ module.exports = (app, flickr) => {
   app.get('/api/Photoset/', passport.authenticate('jwt', {session: false}),
     (req, res, next) => {
       Photoset.find({})
+        .populate('userId')
         .exec()
         .then((photosets) => {
           if (photosets === null) {

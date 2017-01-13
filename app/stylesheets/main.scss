@@ -46,7 +46,7 @@ $xs-size: 599px;
 body{
   font-family: Roboto, sans-serif;
   margin: 0;
-  //font-size: 15px;
+  overflow-x: hidden;
 }
 
 html{
@@ -177,7 +177,8 @@ html{
       margin: 0 5vw;
     }
     @media (max-width: $xs-size) {
-      flex: 1 1 auto;
+      flex: 0 1 100%;
+      width: 1px;
       margin-right: 1vw;
       margin-left: 1vw;
     }
@@ -193,7 +194,7 @@ html{
     }
   }
   .reservation-header{
-    flex: 0 0 80%;
+    flex: 0 0 82%;
     @media (max-width: $md-size){
       flex: 1 1 100%;
       margin: 0 2vw;
@@ -209,6 +210,8 @@ html{
   }
   .reservation-side{
     flex: 0 0 40%;
+    margin-left: 1vw;
+    margin-right: 1vw;
     @media (max-width: $md-size){
       flex: 1 1 50%;
       margin: 0 2vw;

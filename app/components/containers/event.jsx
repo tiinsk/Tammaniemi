@@ -47,6 +47,7 @@ class Event extends React.Component {
   }
 
   render() {
+
     const eventType = this.props.event.__t.toLowerCase();
     let linkToEvent = null;
 

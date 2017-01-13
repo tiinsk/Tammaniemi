@@ -4,6 +4,7 @@ import Event from '../containers/event.jsx';
 import User from '../containers/user.jsx';
 import LoadingAnimation from './loading_animation.jsx';
 import translate from '../../translate.jsx';
+import Photoset from '../containers/photoset.jsx';
 
 class NewsFeed extends React.Component {
   constructor(props) {
@@ -39,7 +40,9 @@ class NewsFeed extends React.Component {
           return <User key={event._id}
                        user={event}/>;
         case 'Photoset':
-          console.log(event);
+          return <Photoset
+                  key={event._id}
+                  photoset={event}/>;
           break;
         default:
           return <Event key={event._id}

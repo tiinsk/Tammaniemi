@@ -24,6 +24,7 @@ module.exports = (app) => {
 
     const photosetPromise = Photoset.find({})
       .populate('photos')
+      .populate('userId')
       .exec();
 
     Promise.all([eventPromise, userPromise, photosetPromise])
