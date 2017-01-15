@@ -1,5 +1,5 @@
 import React from 'react';
-import Textfield from 'react-mdl/lib/Textfield';
+import TextField from 'react-md/lib/TextFields';
 import TextEditor from '../../../partials/text_editor.js';
 import translate from '../../../translate.jsx';
 
@@ -23,9 +23,9 @@ class PostForm extends React.Component {
     this.setState({ post: event });
   }
 
-  updateTitle(event) {
+  updateTitle(value) {
     const post = this.state.post;
-    post.title = event.target.value;
+    post.title = value;
     this.setState({
       post
     });
@@ -63,7 +63,7 @@ class PostForm extends React.Component {
       <div className="form post-form">
           <form onSubmit={this.handleSubmit}>
             <legend className="title">{this.props.strings.postForm.addPost}</legend>
-            <Textfield type="text" label={this.props.strings.events.title} required={true} value={this.state.post.title} onChange={this.updateTitle} />
+            <TextField type="text" label={this.props.strings.events.title} required={true} value={this.state.post.title} onChange={this.updateTitle} />
             <div className="content">
               <label className={"label " + (this.state.contentError != "" ? "error" : "")}>{this.props.strings.events.content}</label>
               <span className="error-message">{this.state.contentError}</span>

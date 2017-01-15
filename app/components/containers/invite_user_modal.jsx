@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Textfield from 'react-mdl/lib/Textfield';
+import TextField from 'react-md/lib/TextFields';
 import translate from '../../translate.jsx';
 
 class InviteUserModal extends React.Component {
@@ -61,7 +61,7 @@ class InviteUserModal extends React.Component {
                   <legend className="title">
                     {this.props.strings.inviteUserModal.inviteUser}
                   </legend>
-                  <Textfield className="full-width-textfield"
+                  <TextField className="full-width-textfield"
                              label={this.props.strings.email}
                              type="email"
                              value={ this.state.email }

@@ -1,6 +1,6 @@
 import React from 'react';
-import Textfield from 'react-mdl/lib/Textfield';
-import { SelectField, Option } from 'react-mdl-extra';
+import TextField from 'react-md/lib/TextFields';
+import SelectField from 'react-md/lib/SelectFields';
 import _ from 'lodash';
 import translate from '../../../translate.jsx';
 
@@ -23,12 +23,12 @@ class TaskForm extends React.Component {
   }
 
   componentWillReceiveProps({event}) {
-    this.setState({ task: event });
+    this.setState({task: event});
   }
 
-  updateTitle(event) {
+  updateTitle(value) {
     let task = this.state.task;
-    task.title = event.target.value;
+    task.title = value;
     this.setState({
       task,
       titleValidationState: '',
@@ -70,30 +70,37 @@ class TaskForm extends React.Component {
   render() {
     return (
       <div className="form task-form">
-          <form onSubmit={this.handleSubmit}>
-            <legend className="title">{this.props.strings.taskForm.addTask}</legend>
-            <CategorySelect value={this.state.task.category} onChange={this.updateCategory} />
-            <Textfield label={this.props.strings.events.title} type="text" required={true} value={this.state.task.title} onChange={this.updateTitle} />
-            <button type="submit" className="submit-btn">{this.props.strings.events.submit}</button>
-          </form>
+        <form onSubmit={this.handleSubmit}>
+          <legend className="title">{this.props.strings.taskForm.addTask}</legend>
+          <CategorySelect value={this.state.task.category} onChange={this.updateCategory}/>
+          <TextField id="title"
+                     label={this.props.strings.events.title}
+                     type="text"
+                     required={true}
+                     value={this.state.task.title}
+                     onChange={this.updateTitle}/>
+          <button type="submit" className="submit-btn">{this.props.strings.events.submit}</button>
+        </form>
       </div>
     );
   }
-};
+}
+;
 
 const CategorySelect = translate(({strings, value, onChange}) => {
-  const categories = strings.taskCategories;
-
-  const categoryOptions = _.map(categories, (category, index) => (
-    <Option className="index" key={index} value={index}>
-      {category}
-    </Option>)
-  );
+  const categories = _.map(strings.taskCategories, (value, key) => ({
+    value: key,
+    label: value
+  }));
 
   return (
-    <SelectField label="Category" onChange={onChange} value={value}>
-      {categoryOptions}
-    </SelectField>
+    <SelectField id="CategorySelect"
+                 onChange={onChange}
+                 label="Category"
+                 menuItems={categories}
+                 itemLabel="label"
+                 itemValue="value"
+                 value={value}/>
   );
 });
 

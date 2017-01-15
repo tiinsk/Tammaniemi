@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Textfield from 'react-mdl/lib/Textfield';
 
 import {create} from '../../actions/user_actions.js'
 import {LoginContainer} from './login.jsx';

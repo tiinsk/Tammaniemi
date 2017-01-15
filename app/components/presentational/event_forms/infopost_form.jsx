@@ -1,7 +1,7 @@
 import React from 'react';
-import Textfield from 'react-mdl/lib/Textfield';
+import TextField from 'react-md/lib/TextFields';
 import _ from 'lodash';
-import { SelectField, Option } from 'react-mdl-extra';
+import SelectField from 'react-md/lib/SelectFields';
 
 import TextEditor from '../../../partials/text_editor';
 import translate from '../../../translate.jsx';
@@ -25,12 +25,12 @@ class InfoPostForm extends React.Component {
   }
 
   componentWillReceiveProps({event}) {
-    this.setState({ infopost: event });
+    this.setState({infopost: event});
   }
 
-  updateTitle(event) {
+  updateTitle(value) {
     let infopost = this.state.infopost;
-    infopost.title = event.target.value;
+    infopost.title = value;
     this.setState({
       infopost
     });
@@ -78,33 +78,37 @@ class InfoPostForm extends React.Component {
       <div className="form infopost-form">
         <form onSubmit={this.handleSubmit}>
           <legend className="title">{this.props.strings.infopostForm.addInfopost}</legend>
-          <CategorySelect value={this.state.infopost.category} onChange={this.updateCategory} />
-          <Textfield label={this.props.strings.events.title} type="text" required={true} value={this.state.infopost.title} onChange={this.updateTitle} />
+          <CategorySelect value={this.state.infopost.category} onChange={this.updateCategory}/>
+          <TextField id={"title"} label={this.props.strings.events.title} type="text" required={true}
+                     value={this.state.infopost.title} onChange={this.updateTitle}/>
           <div className="content">
-            <label className={"label " + (this.state.contentError != "" ? "error" : "")}>{this.props.strings.events.content}</label>
+            <label
+              className={"label " + (this.state.contentError != "" ? "error" : "")}>{this.props.strings.events.content}</label>
             <span className="error-message">{this.state.contentError}</span>
-            <TextEditor markdown={this.state.infopost.content} onChange={this.updateContent} />
+            <TextEditor markdown={this.state.infopost.content} onChange={this.updateContent}/>
           </div>
           <button type="submit" className="submit-btn">{this.props.strings.events.submit}</button>
         </form>
       </div>
     );
   }
-};
+}
+;
 
-const CategorySelect = translate(({strings,value, onChange}) => {
-  const categories = strings.infopostCategories;
-
-  const categoryOptions = _.map(categories, (category, index) => (
-    <Option className="index" key={index} value={index}>
-      {category}
-    </Option>)
-  );
+const CategorySelect = translate(({strings, value, onChange}) => {
+  const categories = _.map(strings.infopostCategories, (value, key) => ({
+    value: key,
+    label: value
+  }));
 
   return (
-    <SelectField onChange={onChange} value={value} label="Category">
-      {categoryOptions}
-    </SelectField>
+    <SelectField id={"CategorySelect"}
+                 onChange={onChange}
+                 label="Category"
+                 menuItems={categories}
+                 itemLabel="label"
+                 itemValue="value"
+                 value={value}/>
   );
 });
 

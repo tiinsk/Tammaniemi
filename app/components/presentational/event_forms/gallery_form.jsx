@@ -1,5 +1,5 @@
 import React from 'react';
-import Textfield from 'react-mdl/lib/Textfield';
+import TextField from 'react-md/lib/TextFields';
 import translate from '../../../translate.jsx';
 import LoadingAnimation from '../loading_animation.jsx'
 
@@ -27,9 +27,9 @@ class PhotosetForm extends React.Component {
     });
   }
 
-  updateTitle(event) {
+  updateTitle(value) {
     const photoset = this.state.photoset;
-    photoset.title = event.target.value;
+    photoset.title = value;
     this.setState({
       photoset
     });
@@ -63,7 +63,8 @@ class PhotosetForm extends React.Component {
         {this.props.isLoading ? <LoadingAnimation /> : (
             <form onSubmit={this.handleSubmit}>
               <legend className="title">{this.props.strings.photosetForm.addPhotoset}</legend>
-              <Textfield type="text"
+              <TextField id="title"
+                         type="text"
                          label={this.props.strings.events.title}
                          required={true}
                          value={this.state.photoset.title}

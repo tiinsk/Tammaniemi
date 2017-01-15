@@ -2,8 +2,10 @@ $md-size: 1399px;
 $sm-size: 999px;
 $xs-size: 599px;
 
+@import '~react-md/src/scss/react-md';
+// Include all components
+@include react-md-everything;
 
-@import '../../node_modules/material-design-lite/material.min.css';
 @import './home.scss';
 @import './colors.scss';
 @import './app.scss';
@@ -64,6 +66,11 @@ html{
 
 *{
   box-sizing: border-box;
+  font-family: inherit;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .row{
