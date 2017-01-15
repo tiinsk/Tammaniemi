@@ -61,10 +61,8 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
   });
 };
 
-userSchema.methods.isPasswordValid = function(candidatePassword) {
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    isMatch();
-  });
+userSchema.methods.isPasswordValidSync = function(candidatePassword) {
+  return bcrypt.compareSync(candidatePassword, this.password);
 };
 
 userSchema.methods.isAdmin = function() {

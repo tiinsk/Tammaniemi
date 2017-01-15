@@ -23,7 +23,7 @@ export default {
   newsFeed: {
     showMore: "Show more",
   },
-  viewMenu:{
+  viewMenu: {
     add: "Add",
     list: "List"
   },
@@ -70,15 +70,15 @@ export default {
     notifications: {
       create: {
         success: "User was created succesfully!",
-          fail: "User creation failed, please try again.",
+        fail: "User creation failed, please try again.",
       },
       update: {
         success: "User was updated succesfully!",
-          fail: "User update failed, please try again.",
+        fail: "User update failed, please try again.",
       },
       delete: {
         success: "User was deleted succesfully!",
-          fail: "User delete failed, please try again.",
+        fail: "User delete failed, please try again.",
       }
     }
   },
@@ -100,8 +100,16 @@ export default {
   taskForm: {
     addTask: "Add new task",
   },
-  inviteUserModal:{
+  inviteUserModal: {
     inviteUser: "Invite new user"
+  },
+  userForm: {
+    title: "Update user",
+    name: "name",
+    email: "email",
+    newPassword: "newPassword",
+    verifyPassword: "verifyPassword",
+    oldPassword: "oldPassword",
   },
   taskCategories: {
     0: "Buy",

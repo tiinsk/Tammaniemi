@@ -1,13 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {browserHistory, Link} from 'react-router';
 
-import { logoutUser } from '../../actions/login_actions';
+import {logoutUser} from '../../actions/login_actions';
 import translate from '../../translate.jsx';
 import InviteUserModal from '../containers/invite_user_modal.jsx';
 
-class UserMenu extends React.Component{
+class UserMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,13 +15,13 @@ class UserMenu extends React.Component{
     };
   }
 
-  toggleOpen(){
+  toggleOpen() {
     this.setState({
       menuIsOpen: !this.state.menuIsOpen
     });
   }
 
-  logout(){
+  logout() {
     this.props.logoutUser().then(() => {
       browserHistory.push('/');
     })
@@ -30,6 +30,7 @@ class UserMenu extends React.Component{
   render() {
     return (
       <div className="user-menu">
+        {this.state.menuIsOpen ? <div className="overlay" onClick={() => this.toggleOpen()}></div> : null}
         <div
           className={"username-container" + " " + (this.state.menuIsOpen ? "open" : "")}
           onClick={() => this.toggleOpen()}
@@ -46,10 +47,12 @@ class UserMenu extends React.Component{
         </div>
         { this.state.menuIsOpen ?
           <div className="items-list">
-            <div className="list-item">
-              <i className="fa fa-cog"></i>
-              {this.props.strings.settings}
-            </div>
+            <Link to="/user/update">
+              <div className="list-item">
+                <i className="fa fa-cog"></i>
+                {this.props.strings.settings}
+              </div>
+            </Link>
             <div className="list-item invite">
               <InviteUserModal />
             </div>

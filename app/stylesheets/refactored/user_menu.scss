@@ -2,6 +2,16 @@
   //margin: 5px 0;
   position: relative;
   user-select: none;
+
+  .overlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+
   .username-container{
     color: white;
     padding: 10px;
@@ -31,6 +41,10 @@
     position: absolute;
     min-width: 100%;
     right: 0px;
+    z-index: 101;
+    a {
+      text-decoration: none;
+    }
     .list-item{
       padding: 10px;
       cursor: pointer;

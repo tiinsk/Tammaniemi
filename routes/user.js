@@ -122,8 +122,12 @@ module.exports = (app) => {
           throw new Error('Can not update other users');
         }
         updatedUser.role = 'user';
-        if (updatedUser.password) {
-          user.password = updatedUser.password;
+        if (updatedUser.newPassword) {
+          if (updatedUser.oldPassword && user.isPasswordValidSync(updatedUser.oldPassword)) {
+            user.password = updatedUser.newPassword;
+          } else {
+            throw new Error('Old password does not match');
+          }
         }
         user.name = updatedUser.name;
         return user.save();

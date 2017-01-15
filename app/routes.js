@@ -19,6 +19,7 @@ import ReservationList from './components/containers/list/list_reservations.jsx'
 import ShowGallery from './components/containers/gallery.jsx';
 
 import CreateUser from './components/containers/create_user.jsx';
+import UserUpdate from './components/containers/user_update.jsx';
 
 const requireAuth = (store) => {
   return (nextState, replaceState, next) => {
@@ -51,6 +52,7 @@ export default (store) => {
       <Route path="/" component={App}>
         <Route path="/home" component={Home} onEnter={requireAuth(store)}/>
         <Route path="/users" component={UserList} onEnter={requireAuth(store)}/>
+        <Route path="/user/update" component={UserUpdate} onEnter={requireAuth(store)}/>
 
         <Route path="/:type/update/:id" component={UpdateEvent} onEnter={requireAuth(store)}/>
         <Route path="/:type/create" component={CreateEvent} onEnter={requireAuth(store)}/>

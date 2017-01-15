@@ -1,6 +1,7 @@
 import axios from 'axios';
-import moment from 'moment';
 import _ from 'lodash';
+import {browserHistory} from 'react-router'
+
 
 export const ADD_USERS = 'ADD_USERS';
 export const LOADING = 'LOADING';
@@ -86,6 +87,8 @@ export function update(user) {
             messageId: "user.notifications.update.success",
             fade: true
           }));
+        browserHistory.push('/home');
+        dispatch(loading(false));
       })
       .catch(() => {
         dispatch(addNotification(
@@ -95,9 +98,7 @@ export function update(user) {
             messageId: "user.notifications.update.fail",
             fade: true
           }));
-      })
-      .then(() => {
-        dispatch(loading(true));
+        dispatch(loading(false));
       });
   }
 }
@@ -126,7 +127,7 @@ export function remove(id) {
           }));
       })
       .then(() => {
-        dispatch(loading(true));
+        dispatch(loading(false));
         dispatch(fetchUsers());
       });
   }

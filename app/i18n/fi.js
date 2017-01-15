@@ -23,7 +23,7 @@ export default {
   newsFeed: {
     showMore: "Show more",
   },
-  viewMenu:{
+  viewMenu: {
     add: "Add",
     list: "List"
   },
@@ -100,8 +100,16 @@ export default {
   taskForm: {
     addTask: "Add new task",
   },
-  inviteUserModal:{
+  inviteUserModal: {
     inviteUser: "Invite new user"
+  },
+  userForm: {
+    title: "Update user",
+    name: "name",
+    email: "email",
+    newPassword: "newPassword",
+    verifyPassword: "verifyPassword",
+    oldPassword: "oldPassword",
   },
   taskCategories: {
     0: "Ostos",
