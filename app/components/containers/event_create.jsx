@@ -1,69 +1,104 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import InfoPostForm from '../presentational/event_forms/infopost_form.jsx';
-import PostForm from '../presentational/event_forms/post_form.jsx';
-import TaskForm from '../presentational/event_forms/task_form.jsx';
+import EventForm from '../presentational/event_forms/event_form.jsx';
 import ReservationForm from '../presentational/event_forms/reservation_form.jsx';
 import GalleryForm from '../presentational/event_forms/gallery_form.jsx';
 import {create, createPhotoset} from '../../actions/event_actions';
 
+const postForm = [
+  {
+    name: 'title',
+    path: 'title',
+    label: 'events.title',
+    type: 'TextField'
+  }, {
+    name: 'content',
+    path: 'content',
+    label: 'events.content',
+    type: 'TextEditor'
+  }
+]
+
+const infoPostForm = [
+  {
+    name: 'title',
+    path: 'title',
+    label: 'events.title',
+    type: 'TextField'
+  }, {
+    name: 'category',
+    path: 'category',
+    label: 'events.category',
+    type: 'CategorySelect',
+    initialValue: 1,
+    categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    categoriesTranslation: 'infopostCategories'
+  }, {
+    name: 'content',
+    path: 'content',
+    label: 'events.content',
+    type: 'TextEditor'
+  }
+]
+
+const taskForm = [
+  {
+    name: 'title',
+    path: 'title',
+    label: 'events.title',
+    type: 'TextField'
+  }, {
+    name: 'category',
+    path: 'category',
+    label: 'events.category',
+    type: 'CategorySelect',
+    initialValue: 1,
+    categories: [0, 1, 2, 3, 4],
+    categoriesTranslation: 'taskCategories'
+  }
+]
+
 class EventCreate extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePhotoSetSubmit = this.handlePhotoSetSubmit.bind(this);
+
     this.state = {
-      post: undefined,
-      infopost: undefined,
-      task: undefined,
-      reservation: undefined
+      event: undefined
     };
   }
 
   componentWillMount(){
-
     const {type} = this.props.params;
-    switch (type){
-      case 'posts':
-        let post = localStorage.getItem("post");
-        if(post) {
-          this.setState({
-            post: JSON.parse(post)
-          });
-        }
-        break;
-      case 'infoposts':
-        let infopost = localStorage.getItem("infopost");
-        if(infopost) {
-          this.setState({
-            infopost: JSON.parse(infopost)
-          });
-        }
-        break;
-      case 'tasks':
-        let task = localStorage.getItem("task");
-        if(task) {
-          this.setState({
-            task: JSON.parse(task)
-          });
-        }
-        break;
-    }
+    this.setState({
+      event: JSON.parse(localStorage.getItem(type)),
+      lastEditTime: 0
+    });
   }
 
-  handleSubmit(newEvent) {
+  saveToLocalStorage = () => {
+     const newEditTime = Date.now();
+     if(newEditTime - this.state.lastEditTime > 10*1000){
+       localStorage.setItem(this.props.params.type, JSON.stringify(this.state.event));
+       this.setState({
+         lastEditTime: newEditTime
+       });
+     }
+   };
+
+  handleSubmit = (newEvent) => {
     const {type} = this.props.params;
+    newEvent.__t = type;
     this.props.create(newEvent)
       .then(() => {
         localStorage.removeItem(type);
       })
       .catch(() => {/*do nothing*/});
-  }
+  };
 
-  handlePhotoSetSubmit(photoset) {
+  handlePhotoSetSubmit = (photoset) => {
     this.props.createPhotoset(photoset);
-  }
+  };
 
   render() {
     let form = null;
@@ -71,17 +106,26 @@ class EventCreate extends React.Component {
     switch (type) {
       case 'posts':
         form = (
-          <PostForm event={this.state.post} handleSubmit={this.handleSubmit}/>
+          <EventForm formFields={postForm}
+                     handleSubmit={(newEvent) => this.handleSubmit(newEvent, 'Post')}
+                     saveToLocalStorage={this.saveToLocalStorage}
+                     title={'postForm.addPost'}/>
         );
         break;
       case 'infoposts':
         form = (
-          <InfoPostForm event={this.state.infopost} handleSubmit={this.handleSubmit}/>
+          <EventForm formFields={infoPostForm}
+                     handleSubmit={(newEvent) => this.handleSubmit(newEvent, 'InfoPost')}
+                     saveToLocalStorage={this.saveToLocalStorage}
+                     title={'infoPostForm.addInfoPost'}/>
         );
         break;
       case 'tasks':
         form = (
-          <TaskForm event={this.state.task} handleSubmit={this.handleSubmit}/>
+          <EventForm formFields={taskForm}
+                     handleSubmit={(newEvent) => this.handleSubmit(newEvent, 'Task')}
+                     saveToLocalStorage={this.saveToLocalStorage}
+                     title={'taskForm.addTask'}/>
         );
         break;
       case 'reservations':

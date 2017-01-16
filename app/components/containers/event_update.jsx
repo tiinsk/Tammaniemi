@@ -1,11 +1,63 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import InfoPostForm from '../presentational/event_forms/infopost_form.jsx';
-import PostForm from '../presentational/event_forms/post_form.jsx';
-import TaskForm from '../presentational/event_forms/task_form.jsx';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import EventForm from '../presentational/event_forms/event_form.jsx';
 import ReservationForm from '../presentational/event_forms/reservation_form.jsx';
-import { fetchOne, update } from '../../actions/event_actions';
+import {fetchOne, update} from '../../actions/event_actions';
+
+
+const postForm = [
+  {
+    name: 'title',
+    path: 'title',
+    label: 'events.title',
+    type: 'TextField'
+  }, {
+    name: 'content',
+    path: 'content',
+    label: 'events.content',
+    type: 'TextEditor'
+  }
+]
+
+const infoPostForm = [
+  {
+    name: 'title',
+    path: 'title',
+    label: 'events.title',
+    type: 'TextField'
+  }, {
+    name: 'category',
+    path: 'category',
+    label: 'events.category',
+    type: 'CategorySelect',
+    initialValue: 1,
+    categories: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    categoriesTranslation: 'infopostCategories'
+  }, {
+    name: 'content',
+    path: 'content',
+    label: 'events.content',
+    type: 'TextEditor'
+  }
+]
+
+const taskForm = [
+  {
+    name: 'title',
+    path: 'title',
+    label: 'events.title',
+    type: 'TextField'
+  }, {
+    name: 'category',
+    path: 'category',
+    label: 'events.category',
+    type: 'CategorySelect',
+    initialValue: 1,
+    categories: [0, 1, 2, 3, 4],
+    categoriesTranslation: 'taskCategories'
+  }
+]
 
 
 class EventUpdate extends React.Component {
@@ -26,22 +78,30 @@ class EventUpdate extends React.Component {
     switch (type) {
       case 'posts':
         form = (
-          <PostForm event={this.props.event} handleSubmit={this.handleSubmit} />
+          <EventForm initialValue={this.props.event}
+                     formFields={postForm}
+                     handleSubmit={this.handleSubmit}
+                     title={'postForm.addPost'}/>
         );
         break;
       case 'infoposts':
         form = (
-          <InfoPostForm event={this.props.event} handleSubmit={this.handleSubmit} />
+          <EventForm initialValue={this.props.event}
+                     formFields={infoPostForm}
+                     handleSubmit={this.handleSubmit}
+                     title={'infoPostForm.addInfoPost'}/>
         );
         break;
       case 'tasks':
         form = (
-          <TaskForm event={this.props.event} handleSubmit={this.handleSubmit} />
+          <EventForm initialValue={this.props.event}
+                     formFields={taskForm}
+                     handleSubmit={this.handleSubmit}/>
         );
         break;
       case 'reservations':
         form = (
-          <ReservationForm event={this.props.event} handleSubmit={this.handleSubmit} />
+          <ReservationForm event={this.props.event} handleSubmit={this.handleSubmit}/>
         );
         break;
       default:
@@ -64,7 +124,7 @@ function mapStateToProps({events: {event}}) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchOne, update }, dispatch);
+  return bindActionCreators({fetchOne, update}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventUpdate);

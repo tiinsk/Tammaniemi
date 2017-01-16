@@ -24,7 +24,7 @@ class StyleButton extends React.Component {
 
 }
 
-class TextEditor extends React.Component {
+class TextEditor extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -47,8 +47,11 @@ class TextEditor extends React.Component {
   onChange(editorState) {
     this.setState({
       editorState
-    });
-    this.props.onChange(stateToMarkdown(editorState.getCurrentContent()));
+    }, this.onChangeCb);
+  }
+
+  onChangeCb() {
+    this.props.onChange(stateToMarkdown(this.state.editorState.getCurrentContent()));
   }
 
   focus() {

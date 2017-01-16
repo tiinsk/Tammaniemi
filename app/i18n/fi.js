@@ -44,6 +44,7 @@ export default {
     title: "Title",
     submit: "Submit",
     content: "Content",
+    category: 'Kategoria',
     notifications: {
       type: {
         Post: "Post",
