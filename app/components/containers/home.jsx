@@ -15,12 +15,8 @@ class Home extends React.Component {
     this.state = {
       selectedMoment: moment({ year: moment().year(), month: moment().month() })
     };
-  }
-
-  componentWillMount() {
     this.props.fetchEvents('events', 'time');
     this.props.fetchEvents('Reservation');
-
   }
 
   updateTime(newMoment) {
@@ -34,7 +30,7 @@ class Home extends React.Component {
       <div className="home">
         <div className="row right">
           <div className="home-main">
-            <NewsFeed events={this.props.events} />
+            <NewsFeed data={this.props.events} />
           </div>
           <div className="home-side">
               <SmallCalendarNavigator

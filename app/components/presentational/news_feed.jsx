@@ -20,7 +20,7 @@ class NewsFeed extends React.Component {
   }
 
   changePage() {
-    if ((this.state.currentPage + 1) * this.state.itemsPerPage < this.props.events.events.length) {
+    if ((this.state.currentPage + 1) * this.state.itemsPerPage < this.props.data.events.length) {
       this.setState({
         currentPage: this.state.currentPage + 1
       });
@@ -28,13 +28,13 @@ class NewsFeed extends React.Component {
   }
 
   render() {
-    if (this.props.events.loading) {
+    if (this.props.data.loading.events) {
       return (
         <LoadingAnimation />
       )
     }
 
-    const events = this.props.events.events.slice(0, this.getEndItem()).map((event) => {
+    const events = this.props.data.events.slice(0, this.getEndItem()).map((event) => {
       switch (event.__t) {
         case 'User':
           return <User key={event._id}

@@ -98,7 +98,7 @@ class PostList extends React.Component {
 
 function mapStateToProps({events}, ownProps) {
   return {
-    loading: events.loading,
+    loading: events.loading.Post,
     events: events.Post
   }
 }

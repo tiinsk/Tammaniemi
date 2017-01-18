@@ -79,7 +79,7 @@ class ReservationList extends React.Component {
 
 function mapStateToProps({events}) {
   return {
-    loading: events.loading,
+    loading: events.loading.Reservation,
     reservations: events.Reservation
   }
 }

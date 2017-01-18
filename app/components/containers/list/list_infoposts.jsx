@@ -87,7 +87,7 @@ class InfopostList extends React.Component {
 
 function mapStateToProps({events}) {
   return {
-    loading: events.loading,
+    loading: events.loading.Infopost,
     events: events.Infopost
   }
 }

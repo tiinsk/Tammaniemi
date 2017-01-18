@@ -12,7 +12,7 @@ export const LOADING = 'LOADING';
 
 export function fetchEvents(type, order = 'type') {
   return (dispatch, getState) => {
-    dispatch(loading(true));
+    dispatch(loading(true, type));
     const language = getState().auth.language;
     return axios
       .get(`/api/${type}`)
@@ -23,7 +23,7 @@ export function fetchEvents(type, order = 'type') {
         console.log("err", err);
       })
       .then(() => {
-        dispatch(loading(false));
+        dispatch(loading(false, type));
       });
   }
 }
@@ -49,10 +49,11 @@ export function clearEvent() {
   }
 }
 
-function loading(bln) {
+function loading(bln, eventType) {
   return {
     type: LOADING,
-    bln
+    bln,
+    eventType
   }
 }
 

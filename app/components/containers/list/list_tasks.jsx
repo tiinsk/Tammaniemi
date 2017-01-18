@@ -129,7 +129,7 @@ class TaskList extends React.Component {
 
 function mapStateToProps({events}) {
   return {
-    loading: events.loading,
+    loading: events.loading.Task,
     events: events.Task
   }
 }

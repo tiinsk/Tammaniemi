@@ -8,7 +8,14 @@ const INITIAL_STATE = {
   Reservation: [],
   Photoset: [],
   event: {},
-  loading: false
+  loading: {
+    events: false,
+    Reservation: false,
+    Post: false,
+    Task: false,
+    Infopost: false,
+    Photoset: false
+  }
 };
 
 const eventReducer = (state = INITIAL_STATE, action) => {
@@ -26,9 +33,10 @@ const eventReducer = (state = INITIAL_STATE, action) => {
         event: {}
       });
     case LOADING:
-      return Object.assign({}, state, {
-        loading: action.bln
+      let loading = Object.assign({}, state.loading, {
+        [action.eventType]: action.bln
       });
+      return Object.assign({}, state, {loading});
     default:
       return state
   }

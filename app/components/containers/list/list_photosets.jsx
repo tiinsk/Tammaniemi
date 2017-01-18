@@ -46,7 +46,7 @@ class PhotosetList extends React.Component {
 
 function mapStateToProps({events}) {
   return {
-    loading: events.loading,
+    loading: events.loading.Photoset,
     photosets: events.Photoset
   }
 }
