@@ -43,7 +43,8 @@ class Event extends React.Component {
   }
 
   handleUpdate(event) {
-    this.props.router.push(`/${event.__t}/update/${event._id}`);
+    const eventType = event.__t.toLowerCase();
+    this.props.router.push(`/${eventType}s/update/${event._id}`);
   }
 
   render() {

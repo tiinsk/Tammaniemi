@@ -24,22 +24,22 @@ class EventUpdate extends React.Component {
     let form = null;
     const {type, id} = this.props.params;
     switch (type) {
-      case 'Post':
+      case 'posts':
         form = (
           <PostForm event={this.props.event} handleSubmit={this.handleSubmit} />
         );
         break;
-      case 'InfoPost':
+      case 'infoposts':
         form = (
           <InfoPostForm event={this.props.event} handleSubmit={this.handleSubmit} />
         );
         break;
-      case 'Task':
+      case 'tasks':
         form = (
           <TaskForm event={this.props.event} handleSubmit={this.handleSubmit} />
         );
         break;
-      case 'Reservation':
+      case 'reservations':
         form = (
           <ReservationForm event={this.props.event} handleSubmit={this.handleSubmit} />
         );
@@ -48,8 +48,10 @@ class EventUpdate extends React.Component {
         console.log('Incorrect type', type, id);
     }
     return (
-      <div>
-        {form}
+      <div className="row center">
+        <div className="create-main-only">
+          {form}
+        </div>
       </div>
     )
   }
