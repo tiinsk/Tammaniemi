@@ -35,7 +35,7 @@
     }
     .placeholder {
       padding-bottom: 85%;
-      background-color: #e2ead7;
+      background-color: #e8e2e8;
       transition: opacity 0.1s;
       &.loaded {
         opacity: 0;
@@ -73,11 +73,11 @@
 
 .event.photoset{
   .box{
-    min-height: 185px;
-    padding-right: 190px;
+    min-height: 250px;
+    padding-right: 260px;
     @media (max-width: $xs-size) {
-      min-height: 122px;
-      padding-right: 127px;
+      min-height: 152px;
+      padding-right: 157px;
     }
   }
   .title{
@@ -87,11 +87,11 @@
     color: $gallery-secondary-color !important;
   }
   .content{
-    height: 185px;
-    width: 185px;
+    height: 250px;
+    width: 250px;
     @media (max-width: $xs-size) {
-      width: 120px;
-      height: 120px;
+      width: 150px;
+      height: 150px;
     }
     position: absolute;
     top: 0px;
@@ -103,9 +103,15 @@
   }
 
   .info{
+    padding-right: 270px;
+    @media (max-width: $xs-size) {
+      padding-right: 12px;
+
+    }
     .edit-menu {
       @media (max-width: $xs-size) {
         padding-left: 72px;
+
       }
       .color-circle {
         &.edit {

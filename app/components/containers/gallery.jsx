@@ -111,9 +111,6 @@ class ShowGallery extends React.Component {
       <h2> Loading </h2>;
     return (
       <section className="gallery">
-        <div className="page-title">
-          {this.props.photoset.title}
-        </div>
         <LightBox images={lightBoxImages}
                   currentImage={this.state.lightBoxImage}
                   lightboxIsOpen={this.state.lightBoxIsOpen}
