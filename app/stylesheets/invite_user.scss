@@ -1,0 +1,38 @@
+$login-color: #6EC744;
+
+
+.invite-user-form{
+  .title{
+    color: $login-color;
+  }
+  input {
+    color: black;
+  }
+  .error-message{
+    display: block;
+    color: #FF9D00;
+  }
+  .submit-btn{
+    border: 2px solid $login-color;
+    color: $login-color;
+    float: right;
+  }
+  .submit-btn:hover, .submit-btn:focus{
+    background: $login-color;
+    color: white;
+  }
+  .cancel-btn{
+    border: 2px solid grey;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    color: grey;
+    background-color: transparent;
+    border-radius: 5px;
+    float: right;
+    margin-right: 10px;
+  }
+  .cancel-btn:hover, .cancel-btn:focus{
+    color: white;
+    background-color: grey;
+  }
+}

@@ -5,13 +5,15 @@ import {browserHistory, Link} from 'react-router';
 
 import {logoutUser} from '../../actions/login_actions';
 import translate from '../../translate.jsx';
-import InviteUserModal from '../containers/invite_user_modal.jsx';
+import Modal from '../presentational/modal.jsx';
+import InviteUser from '../containers/invite_user.jsx';
 
 class UserMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuIsOpen: false
+      menuIsOpen: false,
+      modalIsOpen: false
     };
   }
 
@@ -21,7 +23,13 @@ class UserMenu extends React.Component {
     });
   }
 
-  logout() {
+  toggleModalOpen(){
+    this.setState({
+      modalIsOpen: !this.state.modalIsOpen
+    });
+  }
+
+  logout(){
     this.props.logoutUser().then(() => {
       browserHistory.push('/');
     })
@@ -54,7 +62,18 @@ class UserMenu extends React.Component {
               </div>
             </Link>
             <div className="list-item invite">
-              <InviteUserModal />
+              <div onClick={ () => this.toggleModalOpen() }>
+                <i className="fa fa-users"></i>
+                {this.props.strings.inviteUserModal.inviteUser}
+              </div>
+              <Modal
+                isOpen={this.state.modalIsOpen}
+                toggleOpen={() => this.toggleModalOpen()}
+              >
+                <InviteUser
+                  close={() => this.toggleModalOpen()}
+                />
+              </Modal>
             </div>
             <div className="list-item logout" onClick={() => this.logout()}>
               <i className="fa fa-sign-out"></i>

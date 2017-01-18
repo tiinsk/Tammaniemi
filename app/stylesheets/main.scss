@@ -12,7 +12,7 @@ $xs-size: 599px;
 @import './refactored/login';
 @import './event.scss';
 
-@import './invite_user_modal.scss';
+@import 'invite_user';
 @import './task.scss';
 @import './post.scss';
 @import './infopost.scss';
@@ -44,6 +44,7 @@ $xs-size: 599px;
 @import "./refactored/gallery.scss";
 @import './refactored/view_menu.scss';
 @import './refactored/language_dropdown.scss';
+@import "./refactored/modal.scss";
 
 body{
   font-family: Roboto, sans-serif;
