@@ -202,6 +202,7 @@ export function create(event) {
             messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.create.fail"],
             fade: true
           }));
+        throw "add failed";
       });
   }
 }

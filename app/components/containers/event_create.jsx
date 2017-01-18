@@ -8,22 +8,62 @@ import ReservationForm from '../presentational/event_forms/reservation_form.jsx'
 import GalleryForm from '../presentational/event_forms/gallery_form.jsx';
 import {create, createPhotoset} from '../../actions/event_actions';
 
-
 class EventCreate extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePhotoSetSubmit = this.handlePhotoSetSubmit.bind(this);
+    this.state = {
+      post: undefined,
+      infopost: undefined,
+      task: undefined,
+      reservation: undefined
+    };
+  }
+
+  componentWillMount(){
+
+    const {type} = this.props.params;
+    switch (type){
+      case 'posts':
+        let post = localStorage.getItem("post");
+        if(post) {
+          this.setState({
+            post: JSON.parse(post)
+          });
+        }
+        break;
+      case 'infoposts':
+        let infopost = localStorage.getItem("infopost");
+        if(infopost) {
+          this.setState({
+            infopost: JSON.parse(infopost)
+          });
+        }
+        break;
+      case 'tasks':
+        let task = localStorage.getItem("task");
+        if(task) {
+          this.setState({
+            task: JSON.parse(task)
+          });
+        }
+        break;
+    }
   }
 
   handleSubmit(newEvent) {
-    this.props.create(newEvent);
+    const {type} = this.props.params;
+    this.props.create(newEvent)
+      .then(() => {
+        localStorage.removeItem(type);
+      })
+      .catch(() => {/*do nothing*/});
   }
 
   handlePhotoSetSubmit(photoset) {
     this.props.createPhotoset(photoset);
   }
-
 
   render() {
     let form = null;
@@ -31,17 +71,17 @@ class EventCreate extends React.Component {
     switch (type) {
       case 'posts':
         form = (
-          <PostForm handleSubmit={this.handleSubmit}/>
+          <PostForm event={this.state.post} handleSubmit={this.handleSubmit}/>
         );
         break;
       case 'infoposts':
         form = (
-          <InfoPostForm handleSubmit={this.handleSubmit}/>
+          <InfoPostForm event={this.state.infopost} handleSubmit={this.handleSubmit}/>
         );
         break;
       case 'tasks':
         form = (
-          <TaskForm handleSubmit={this.handleSubmit}/>
+          <TaskForm event={this.state.task} handleSubmit={this.handleSubmit}/>
         );
         break;
       case 'reservations':

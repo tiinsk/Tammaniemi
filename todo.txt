@@ -7,7 +7,6 @@ TODO
 -update: all add view UIs
 -fix: text field cursor
 
--Add: post/infopost text saved to local storage?
 -Add: "Are you sure you want to disregard changes?" when exiting edit/new/delete view.
 -Add: Image possible to be added to posts/infoposts?
 -Add: large posts/infoposts should be shown partially, add "show more" button to each.

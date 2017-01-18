@@ -11,11 +11,12 @@ class InfoPostForm extends React.Component {
     super(props);
     this.state = {
       infopost: {
-        title: '',
-        content: '',
-        category: 1
+        title: this.props.event ? this.props.event.title : '',
+        content: this.props.event ? this.props.event.content : '',
+        category: this.props.event ? this.props.event.category : 1
       },
-      contentError: ''
+      contentError: '',
+      lastEditTime: 0
     };
 
     this.updateTitle = this.updateTitle.bind(this);
@@ -34,6 +35,7 @@ class InfoPostForm extends React.Component {
     this.setState({
       infopost
     });
+    this.saveToLocalStorage();
   }
 
   updateContent(markdown) {
@@ -43,6 +45,7 @@ class InfoPostForm extends React.Component {
       infopost,
       contentError: ''
     });
+    this.saveToLocalStorage();
   }
 
   updateCategory(category) {
@@ -51,6 +54,17 @@ class InfoPostForm extends React.Component {
     this.setState({
       infopost
     });
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage(){
+    const newEditTime = Date.now();
+    if(newEditTime - this.state.lastEditTime > 10*1000){
+      localStorage.setItem('infopost', JSON.stringify(this.state.infopost));
+      this.setState({
+        lastEditTime: newEditTime
+      });
+    }
   }
 
   invalidData(infopost) {

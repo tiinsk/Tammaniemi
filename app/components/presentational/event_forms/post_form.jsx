@@ -9,18 +9,24 @@ class PostForm extends React.Component {
 
     this.state = {
       post: {
-        title: '',
-        content: ''
+        title: this.props.event ? this.props.event.title : '',
+        content: this.props.event ? this.props.event.content : ''
       },
-      contentError: ''
+      contentError: '',
+      lastEditTime: 0
     };
     this.updateTitle = this.updateTitle.bind(this);
     this.updateContent = this.updateContent.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   componentWillReceiveProps({event}) {
-    this.setState({ post: event });
+    console.log(event);
+    this.setState({
+      post: event,
+      lastEditTime: 0
+    });
   }
 
   updateTitle(value) {
@@ -29,6 +35,17 @@ class PostForm extends React.Component {
     this.setState({
       post
     });
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage(){
+    const newEditTime = Date.now();
+    if(newEditTime - this.state.lastEditTime > 10*1000){
+      localStorage.setItem('post', JSON.stringify(this.state.post));
+      this.setState({
+        lastEditTime: newEditTime
+      });
+    }
   }
 
   updateContent(markdown) {
@@ -38,6 +55,7 @@ class PostForm extends React.Component {
       post,
       contentError: '',
     });
+    this.saveToLocalStorage();
   }
 
   invalidData(post) {

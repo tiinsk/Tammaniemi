@@ -9,13 +9,14 @@ class TaskForm extends React.Component {
     super(props);
     this.state = {
       task: {
-        title: '',
-        category: ''
+        title: this.props.event ? this.props.event.title : '',
+        category: this.props.event ? this.props.event.category : ''
       },
       titleError: '',
       errorMessage: '',
-      titleValidationState: ''
-    }
+      titleValidationState: '',
+      lastEditTime: 0
+    };
 
     this.updateTitle = this.updateTitle.bind(this);
     this.updateCategory = this.updateCategory.bind(this);
@@ -34,6 +35,7 @@ class TaskForm extends React.Component {
       titleValidationState: '',
       titleError: '',
     });
+    this.saveToLocalStorage();
   }
 
   updateCategory(category) {
@@ -42,6 +44,17 @@ class TaskForm extends React.Component {
     this.setState({
       task
     });
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage(){
+    const newEditTime = Date.now();
+    if(newEditTime - this.state.lastEditTime > 10*1000){
+      localStorage.setItem('task', JSON.stringify(this.state.task));
+      this.setState({
+        lastEditTime: newEditTime
+      });
+    }
   }
 
   invalidData(task) {
