@@ -1,11 +1,13 @@
 const Post = require('../models/post');
 const passport = require('./passport.js');
 
+const basePath = '/api/posts';
+
 module.exports = (app) => {
   /*
    * GET all posts
    */
-  app.get('/api/Post', passport.authenticate('jwt', {
+  app.get(basePath, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     Post.find({})
@@ -34,7 +36,7 @@ module.exports = (app) => {
   /*
    * GET post information
    */
-  app.get('/api/Post/:postId', passport.authenticate('jwt', {
+  app.get(`${basePath}/:postId`, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     Post.findById(req.params.postId, '_id title content comments userId createdAt')
@@ -65,7 +67,7 @@ module.exports = (app) => {
   /*
    * POST add new post
    */
-  app.post('/api/Post', passport.authenticate('jwt', {
+  app.post(basePath, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     const addPost = req.body;
@@ -95,7 +97,7 @@ module.exports = (app) => {
   /*
    * PUT update post
    */
-  app.put('/api/Post/:postId', passport.authenticate('jwt', {
+  app.put(`${basePath}/:postId`, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     const updatedPost = req.body;
@@ -140,7 +142,7 @@ module.exports = (app) => {
   /*
    * DELETE post
    */
-  app.delete('/api/Post/:postId', passport.authenticate('jwt', {
+  app.delete(`${basePath}/:postId`, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     Post.findById(req.params.postId, (err, post) => {

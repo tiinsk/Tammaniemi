@@ -1,8 +1,10 @@
 const Reservation = require('../models/reservation');
 const passport = require('./passport.js');
 
+const basePath = '/api/reservations';
+
 module.exports = (app) => {
-  app.get('/api/Reservation', passport.authenticate('jwt', {
+  app.get(basePath, passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     Reservation.find({})
@@ -31,7 +33,7 @@ module.exports = (app) => {
   /*
    * GET reservation information
    */
-  app.get('/api/Reservation/:reservationId', passport.authenticate('jwt', {
+  app.get(`${basePath}/:reservationId`, passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     Reservation.findById(req.params.reservationId,
@@ -63,7 +65,7 @@ module.exports = (app) => {
   /*
    * POST add new reservation
    */
-  app.post('/api/Reservation', passport.authenticate('jwt', {
+  app.post(basePath, passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     const addReservation = req.body;
@@ -95,7 +97,7 @@ module.exports = (app) => {
   /*
    * PUT update reservatoion
    */
-  app.put('/api/Reservation/:reservationId', passport.authenticate('jwt', {
+  app.put(`${basePath}/:reservationId`, passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     const updatedReservation = req.body;
@@ -140,7 +142,7 @@ module.exports = (app) => {
   /*
    * DELETE task
    */
-  app.delete('/api/Reservation/:reservationId', passport.authenticate('jwt', {
+  app.delete(`${basePath}/:reservationId`, passport.authenticate('jwt', {
     session: false,
   }), (req, res) => {
     Reservation.findById(req.params.reservationId, (err, reservation) => {

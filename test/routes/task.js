@@ -41,7 +41,7 @@ describe('Task', () => {
 
   it('should return one task', (done) => {
     chai.request(app)
-    .get('/api/Task')
+    .get('/api/tasks')
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);
@@ -60,7 +60,7 @@ describe('Task', () => {
 
   it('user should be able to update own task', (done) => {
     chai.request(app)
-    .put(`/api/Task/${task1._id}`)
+    .put(`/api/tasks/${task1._id}`)
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .send(Object.assign({}, task1, {title: 'Updated task', category: 4}))
     .then((res) => {
@@ -78,7 +78,7 @@ describe('Task', () => {
 
   it('user should not be able to update others task', (done) => {
     chai.request(app)
-    .put(`/api/Task/${task2._id}`)
+    .put(`/api/tasks/${task2._id}`)
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .send(Object.assign({}, task2, {title: 'Updated task', category: 4}))
     .then((res) => {
@@ -97,7 +97,7 @@ describe('Task', () => {
 
   it('user should be able to check done others task', (done) => {
     chai.request(app)
-    .put(`/api/Task/${task2._id}`)
+    .put(`/api/tasks/${task2._id}`)
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .send(Object.assign({}, task2, {isDone: true, doneByUser: user1._id}, {title: 'Updated task', category: 4}))
     .then((res) => {
@@ -117,7 +117,7 @@ describe('Task', () => {
 
   it('user should be able to delete own task', (done) => {
       chai.request(app)
-        .delete(`/api/Task/${task1._id}`)
+        .delete(`/api/tasks/${task1._id}`)
         .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
         .then((res) => {
           res.should.have.status(200);
@@ -134,7 +134,7 @@ describe('Task', () => {
 
     it('admin should be able to delete other task', (done) => {
       chai.request(app)
-        .delete(`/api/Task/${task1._id}`)
+        .delete(`/api/tasks/${task1._id}`)
         .set('Cookie', `JWT=${utility.getUserCookie(admin)}`)
         .then((res) => {
           res.should.have.status(200);
@@ -151,7 +151,7 @@ describe('Task', () => {
 
     it('user should not be able to delete others task', (done) => {
       chai.request(app)
-        .delete(`/api/Task/${task2._id}`)
+        .delete(`/api/tasks/${task2._id}`)
         .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
         .then((res) => {
           done(new Error('Should fail'));

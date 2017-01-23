@@ -1,8 +1,10 @@
 const InfoPost = require('../models/infopost');
 const passport = require('./passport.js');
 
+const basePath = '/api/infoposts';
+
 module.exports = (app) => {
-  app.get('/api/InfoPost', passport.authenticate('jwt', {
+  app.get(basePath, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     InfoPost.find({})
@@ -32,7 +34,7 @@ module.exports = (app) => {
   /*
    * GET post information
    */
-  app.get('/api/InfoPost/:infopostId', passport.authenticate('jwt', {
+  app.get(`${basePath}/:infopostId`, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     InfoPost.findById(req.params.infopostId, '_id title category content comments userId createdAt')
@@ -63,7 +65,7 @@ module.exports = (app) => {
   /*
    * POST add new post
    */
-  app.post('/api/InfoPost', passport.authenticate('jwt', {
+  app.post(basePath, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     const addInfoPost = req.body;
@@ -93,7 +95,7 @@ module.exports = (app) => {
   /*
    * PUT update post
    */
-  app.put('/api/InfoPost/:infopostId', passport.authenticate('jwt', {
+  app.put(`${basePath}/:infopostId`, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     const updatedInfoPost = req.body;
@@ -138,7 +140,7 @@ module.exports = (app) => {
   /*
    * DELETE infopost
    */
-  app.delete('/api/InfoPost/:infopostId', passport.authenticate('jwt', {
+  app.delete(`${basePath}/:infopostId`, passport.authenticate('jwt', {
     session: false
   }), (req, res) => {
     InfoPost.findById(req.params.infopostId, (err, infopost) => {

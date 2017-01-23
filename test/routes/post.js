@@ -41,7 +41,7 @@ describe('Post', () => {
 
   it('should return two post', (done) => {
     chai.request(app)
-      .get('/api/Post')
+      .get('/api/posts')
       .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
       .then((res) => {
         res.should.have.status(200);
@@ -61,7 +61,7 @@ describe('Post', () => {
   it('user should be able to update own post', (done) => {
     const updatePost = {title: 'Updated post', content: 'Wow such cool stuff'};
     chai.request(app)
-      .put(`/api/Post/${post1._id}`)
+      .put(`/api/posts/${post1._id}`)
       .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
       .send(Object.assign({}, post1, updatePost))
       .then((res) => {
@@ -81,7 +81,7 @@ describe('Post', () => {
   it('admin should be able to update other posts', (done) => {
     const updatePost = {title: 'Updated post', content: 'Wow such cool stuff'};
     chai.request(app)
-      .put(`/api/Post/${post1._id}`)
+      .put(`/api/posts/${post1._id}`)
       .set('Cookie', `JWT=${utility.getUserCookie(admin)}`)
       .send(Object.assign({}, post1, updatePost))
       .then((res) => {
@@ -100,7 +100,7 @@ describe('Post', () => {
 
   it('user should not be able to update others post', (done) => {
     chai.request(app)
-      .put(`/api/Post/${post2._id}`)
+      .put(`/api/posts/${post2._id}`)
       .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
       .send(Object.assign({}, post2, {title: 'Updated task'}))
       .then((res) => {
@@ -114,7 +114,7 @@ describe('Post', () => {
 
   it('user should be able to delete own post', (done) => {
     chai.request(app)
-      .delete(`/api/Post/${post1._id}`)
+      .delete(`/api/posts/${post1._id}`)
       .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
       .then((res) => {
         res.should.have.status(200);
@@ -131,7 +131,7 @@ describe('Post', () => {
 
   it('admin should be able to delete other post', (done) => {
     chai.request(app)
-      .delete(`/api/Post/${post1._id}`)
+      .delete(`/api/posts/${post1._id}`)
       .set('Cookie', `JWT=${utility.getUserCookie(admin)}`)
       .then((res) => {
         res.should.have.status(200);
@@ -148,7 +148,7 @@ describe('Post', () => {
 
   it('user should not be able to delete others post', (done) => {
     chai.request(app)
-      .delete(`/api/Post/${post2._id}`)
+      .delete(`/api/posts/${post2._id}`)
       .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
       .then((res) => {
         done(new Error('Should fail'));

@@ -122,7 +122,7 @@ describe('Reservation', () => {
 
   it('All should return two reservation', (done) => {
     chai.request(app)
-    .get('/api/Reservation')
+    .get('/api/reservations')
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);
@@ -142,7 +142,7 @@ describe('Reservation', () => {
 
   it('should return one reservation', (done) => {
     chai.request(app)
-    .get(`/api/Reservation/${reservation1._id}`)
+    .get(`/api/reservations/${reservation1._id}`)
     .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
     .then((res) => {
       res.should.have.status(200);
@@ -161,7 +161,7 @@ describe('Reservation', () => {
 
   it('user should be able to delete own reservation', (done) => {
         chai.request(app)
-          .delete(`/api/Reservation/${reservation1._id}`)
+          .delete(`/api/reservations/${reservation1._id}`)
           .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
           .then((res) => {
             res.should.have.status(200);
@@ -178,7 +178,7 @@ describe('Reservation', () => {
 
       it('admin should be able to delete other reservation', (done) => {
         chai.request(app)
-          .delete(`/api/Reservation/${reservation1._id}`)
+          .delete(`/api/reservations/${reservation1._id}`)
           .set('Cookie', `JWT=${utility.getUserCookie(admin)}`)
           .then((res) => {
             res.should.have.status(200);
@@ -195,7 +195,7 @@ describe('Reservation', () => {
 
       it('user should not be able to delete others reservation', (done) => {
         chai.request(app)
-          .delete(`/api/Reservation/${reservation2._id}`)
+          .delete(`/api/reservations/${reservation2._id}`)
           .set('Cookie', `JWT=${utility.getUserCookie(user1)}`)
           .then((res) => {
             done(new Error('Should fail'));
