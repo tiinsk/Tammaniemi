@@ -17,7 +17,7 @@ class ShowGallery extends React.Component {
       lightBoxImage: 0
     };
 
-    this.props.fetchOne('Photoset', this.props.params.galleryId);
+    this.props.fetchOne('photosets', this.props.params.galleryId);
     this.onResize = this.onResize.bind(this);
   }
 

@@ -17,10 +17,14 @@ class EventForm extends React.PureComponent {
       lastEditTime: 0
     };
 
-    this.props.formFields.forEach((field) => _.set(this.state.event, [field.path], field.initialValue ? field.initialValue : ''));
+    this.props.formFields.forEach((field) =>
+      _.set(this.state.event, [field.path], field.initialValue ? field.initialValue : ''));
+
+    this.state.event = Object.assign({}, this.state.event, this.props.initialValue);
 
     this.updateValue = this.updateValue.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.saveToLocalStorage = this.saveToLocalStorage.bind(this);
   }
 
   componentWillReceiveProps({initialValue}) {
@@ -37,10 +41,20 @@ class EventForm extends React.PureComponent {
       event
     });
 
-    if (this.props.saveToLocalStorage) {
-      this.props.saveToLocalStorage(this.state.event);
+    if (this.props.enableLocalStorage) {
+      this.saveToLocalStorage(this.state.event);
     }
   }
+
+  saveToLocalStorage() {
+    const newEditTime = Date.now();
+    if (newEditTime - this.state.lastEditTime > 10 * 1000) {
+      localStorage.setItem(this.props.eventType, JSON.stringify(this.state.event));
+      this.setState({
+        lastEditTime: newEditTime
+      });
+    }
+  };
 
   handleSubmit(event) {
     event.preventDefault();

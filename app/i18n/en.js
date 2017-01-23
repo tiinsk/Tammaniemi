@@ -49,7 +49,7 @@ export default {
       type: {
         Post: "Post",
         Task: "Task",
-        Infopost: "Infopost",
+        InfoPost: "Infopost",
         Reservation: "Reservation",
       },
       create: {

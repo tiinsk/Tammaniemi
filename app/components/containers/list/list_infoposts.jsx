@@ -15,7 +15,7 @@ class InfopostList extends React.Component {
   constructor(props){
     super(props);
 
-    this.props.fetchEvents('Infopost', 'byCategory');
+    this.props.fetchEvents('infoposts', 'byCategory');
 
     this.state = {
       selected: [parseInt(this.props.params.category), this.props.params.id]
@@ -87,8 +87,8 @@ class InfopostList extends React.Component {
 
 function mapStateToProps({events}) {
   return {
-    loading: events.loading.Infopost,
-    events: events.Infopost
+    loading: events.loading.infoposts,
+    events: events.infoposts
   }
 }
 

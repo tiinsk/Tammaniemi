@@ -16,7 +16,7 @@ class Home extends React.Component {
       selectedMoment: moment({ year: moment().year(), month: moment().month() })
     };
     this.props.fetchEvents('events', 'time');
-    this.props.fetchEvents('Reservation');
+    this.props.fetchEvents('reservations');
   }
 
   updateTime(newMoment) {

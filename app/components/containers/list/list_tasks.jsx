@@ -17,7 +17,7 @@ class TaskList extends React.Component {
   constructor(props){
     super(props);
 
-    this.props.fetchEvents('Task', 'byCategory');
+    this.props.fetchEvents('tasks', 'byCategory');
 
     this.state = {
       selected: [parseInt(this.props.params.category), this.props.params.id],
@@ -129,8 +129,8 @@ class TaskList extends React.Component {
 
 function mapStateToProps({events}) {
   return {
-    loading: events.loading.Task,
-    events: events.Task
+    loading: events.loading.tasks,
+    events: events.tasks
   }
 }
 

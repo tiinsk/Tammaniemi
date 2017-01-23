@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -7,14 +7,17 @@ class Calendar extends React.Component {
 
   // return reservation if "date" is first day of reservation or first day of week
   getReservation(date) {
-    const reservation = this.props.reservations.find(reservation => {
-      if (date.weekday()) { // other than first day of week
-        return moment(reservation.startDate).isSame(date, 'day');
-      }
-      return moment(reservation.startDate).isSameOrBefore(date, 'day') &&
-        moment(reservation.endDate).isSameOrAfter(date, 'day');
-    });
-    return reservation;
+    if (this.props.reservations && this.props.reservations.length) {
+      return this.props.reservations.find(reservation => {
+        if (date.weekday()) { // other than first day of week
+          return moment(reservation.startDate).isSame(date, 'day');
+        }
+        return moment(reservation.startDate).isSameOrBefore(date, 'day') &&
+          moment(reservation.endDate).isSameOrAfter(date, 'day');
+      });
+    }
+
+    return null
   }
 
 
@@ -42,10 +45,10 @@ class Calendar extends React.Component {
             width: `calc(${resLength * 100}% + ${padding}% - ${leftMargin}%)`,
             marginLeft: `${leftMargin}%`
           }}
-            className="reserved-title"
-            to={`/reservations/${reserved._id}`}
-            title={name}
-            >
+                className="reserved-title"
+                to={`/reservations/${reserved._id}`}
+                title={name}
+          >
             {title}
           </Link>
         );
@@ -54,7 +57,8 @@ class Calendar extends React.Component {
       return (
         <div key={index} className={`day ${(index % 7 === 0 ? 'first' : '')}`}>
           <div className="container">
-            <span className={`number ${day.month() !== moment(this.props.firstDayOfMonth).month() ? 'diff-month ' : ''}`}>
+            <span
+              className={`number ${day.month() !== moment(this.props.firstDayOfMonth).month() ? 'diff-month ' : ''}`}>
               {day.date().toString()}
             </span>{reservedLink}
           </div>
@@ -70,7 +74,7 @@ class Calendar extends React.Component {
     ));
 
     return (
-      <div className={`calendar ${(this.props.small ? 'small' : '')}`} >
+      <div className={`calendar ${(this.props.small ? 'small' : '')}`}>
         <div className="month">
           <div className="weekdays">
             {weekdays}

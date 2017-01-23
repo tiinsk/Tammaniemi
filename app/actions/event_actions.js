@@ -95,8 +95,8 @@ function orderBy(events, type, order, language) {
         .reduce((result, event, index) => {
 
           const categories = {
-            Infopost: getTranslations(language).infopostCategories,
-            Task: getTranslations(language).taskCategories
+            infoposts: getTranslations(language).infopostCategories,
+            tasks: getTranslations(language).taskCategories
           };
 
           const categoryName = categories[type][event.category];
@@ -182,7 +182,7 @@ export function create(event) {
   return (dispatch) => {
     dispatch(loading(true));
     return axios
-      .post(`/api/${event.__t}`, event)
+      .post(`/api/${event.__t.toLowerCase()}s`, event)
       .then((response) => {
         dispatch(addNotification(
           {
@@ -245,7 +245,7 @@ export function update(event) {
   return (dispatch) => {
     dispatch(loading(true));
     return axios
-      .put(`/api/${event.__t}/${event._id}`, event)
+      .put(`/api/${event.__t.toLowerCase()}s/${event._id}`, event)
       .then((response) => {
         dispatch(addNotification(
           {
@@ -273,7 +273,7 @@ export function remove(type, id) {
   return (dispatch) => {
     dispatch(loading(true));
     return axios
-      .delete(`/api/${type}/${id}`)
+      .delete(`/api/${type.toLowerCase()}s/${id}`)
       .then((response) => {
         dispatch(addNotification(
           {

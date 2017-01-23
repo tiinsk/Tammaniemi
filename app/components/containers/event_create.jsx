@@ -66,9 +66,12 @@ class EventCreate extends React.Component {
     this.state = {
       event: undefined
     };
+
+    this.handlePhotoSetSubmit = this.handlePhotoSetSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     const {type} = this.props.params;
     this.setState({
       event: JSON.parse(localStorage.getItem(type)),
@@ -76,27 +79,17 @@ class EventCreate extends React.Component {
     });
   }
 
-  saveToLocalStorage = () => {
-     const newEditTime = Date.now();
-     if(newEditTime - this.state.lastEditTime > 10*1000){
-       localStorage.setItem(this.props.params.type, JSON.stringify(this.state.event));
-       this.setState({
-         lastEditTime: newEditTime
-       });
-     }
-   };
-
-  handleSubmit = (newEvent) => {
-    const {type} = this.props.params;
+  handleSubmit(newEvent, type) {
     newEvent.__t = type;
     this.props.create(newEvent)
       .then(() => {
-        localStorage.removeItem(type);
+        localStorage.removeItem(`${type.toLowerCase()}s`);
       })
-      .catch(() => {/*do nothing*/});
+      .catch(() => {/*do nothing*/
+      });
   };
 
-  handlePhotoSetSubmit = (photoset) => {
+  handlePhotoSetSubmit(photoset) {
     this.props.createPhotoset(photoset);
   };
 
@@ -106,26 +99,32 @@ class EventCreate extends React.Component {
     switch (type) {
       case 'posts':
         form = (
-          <EventForm formFields={postForm}
+          <EventForm initialValue={this.state.event}
+                     formFields={postForm}
+                     eventType={type}
                      handleSubmit={(newEvent) => this.handleSubmit(newEvent, 'Post')}
-                     saveToLocalStorage={this.saveToLocalStorage}
-                     title={'postForm.addPost'}/>
+                     title={'postForm.addPost'}
+                     enableLocalStorage={true}/>
         );
         break;
       case 'infoposts':
         form = (
-          <EventForm formFields={infoPostForm}
+          <EventForm initialValue={this.state.event}
+                     formFields={infoPostForm}
+                     eventType={type}
                      handleSubmit={(newEvent) => this.handleSubmit(newEvent, 'InfoPost')}
-                     saveToLocalStorage={this.saveToLocalStorage}
-                     title={'infoPostForm.addInfoPost'}/>
+                     title={'infoPostForm.addInfoPost'}
+                     enableLocalStorage={true}/>
         );
         break;
       case 'tasks':
         form = (
-          <EventForm formFields={taskForm}
+          <EventForm initialValue={this.state.event}
+                     formFields={taskForm}
+                     eventType={type}
                      handleSubmit={(newEvent) => this.handleSubmit(newEvent, 'Task')}
-                     saveToLocalStorage={this.saveToLocalStorage}
-                     title={'taskForm.addTask'}/>
+                     title={'taskForm.addTask'}
+                     enableLocalStorage={true}/>
         );
         break;
       case 'reservations':

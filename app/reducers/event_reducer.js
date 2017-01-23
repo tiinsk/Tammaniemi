@@ -2,19 +2,19 @@ import { ADD_EVENTS, ADD_EVENT, LOADING, CLEAR_EVENT } from '../actions/event_ac
 
 const INITIAL_STATE = {
   events: [],
-  Post: [],
-  Infopost: [],
-  Task: [],
-  Reservation: [],
-  Photoset: [],
+  posts: [],
+  infoposts: [],
+  tasks: [],
+  reservations: [],
+  photosets: [],
   event: {},
   loading: {
     events: false,
-    Reservation: false,
-    Post: false,
-    Task: false,
-    Infopost: false,
-    Photoset: false
+    reservations: false,
+    posts: false,
+    tasks: false,
+    infoposts: false,
+    photosets: false
   }
 };
 

@@ -15,7 +15,7 @@ import{ViewMenu} from '../../presentational/view_menu.jsx';
 class PostList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.fetchEvents('Post', 'byYearAndMonth');
+    this.props.fetchEvents('posts', 'byYearAndMonth');
 
     this.state = {
       selected: [parseInt(this.props.params.year), parseInt(this.props.params.month), this.props.params.id]
@@ -98,8 +98,8 @@ class PostList extends React.Component {
 
 function mapStateToProps({events}, ownProps) {
   return {
-    loading: events.loading.Post,
-    events: events.Post
+    loading: events.loading.posts,
+    events: events.posts
   }
 }
 

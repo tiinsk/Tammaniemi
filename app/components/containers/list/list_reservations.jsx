@@ -23,7 +23,7 @@ class ReservationList extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchEvents('Reservation');
+    this.props.fetchEvents('reservations');
   }
 
   updateTime(newMoment) {
@@ -79,8 +79,8 @@ class ReservationList extends React.Component {
 
 function mapStateToProps({events}) {
   return {
-    loading: events.loading.Reservation,
-    reservations: events.Reservation
+    loading: events.loading.reservations,
+    reservations: events.reservations
   }
 }
 

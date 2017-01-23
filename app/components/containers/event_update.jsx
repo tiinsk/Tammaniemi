@@ -96,7 +96,8 @@ class EventUpdate extends React.Component {
         form = (
           <EventForm initialValue={this.props.event}
                      formFields={taskForm}
-                     handleSubmit={this.handleSubmit}/>
+                     handleSubmit={this.handleSubmit}
+                     title={'taskForm.addTask'}/>
         );
         break;
       case 'reservations':

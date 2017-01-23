@@ -30,7 +30,7 @@ class TextEditor extends React.PureComponent {
 
     const markdown = props.markdown || '';
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: markdown ? EditorState.createWithContent(stateFromMarkdown(markdown)) : EditorState.createEmpty()
     };
   }
 
