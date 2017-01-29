@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router';
 
-class Photoset extends React.Component {
+class PhotosetPreview extends React.Component {
   constructor(props) {
     super(props);
 
@@ -54,4 +54,4 @@ class Photoset extends React.Component {
   }
 }
 
-export default withRouter(Photoset);
+export default withRouter(PhotosetPreview);

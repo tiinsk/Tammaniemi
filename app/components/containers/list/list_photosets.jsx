@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 
 import {fetchEvents} from '../../../actions/event_actions';
 import LoadingAnimation from '../../presentational/loading_animation.jsx';
-import Photoset from '../../presentational/photoset.jsx';
+import PhotosetPreview from '../../presentational/photoset_preview.jsx';
 
 class PhotosetList extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class PhotosetList extends React.Component {
 
     let photosetElements = this.props.photosets.map((photoset, index) => {
       return (
-        <Photoset
+        <PhotosetPreview
           photoset={photoset}
           key={index}
         />

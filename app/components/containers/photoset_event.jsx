@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 
 
-class Photoset extends React.Component {
+class PhotosetEvent extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -62,4 +62,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({  }, dispatch);
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Photoset));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PhotosetEvent));
