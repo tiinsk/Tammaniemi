@@ -9,6 +9,7 @@ export const ADD_EVENTS = 'ADD_EVENTS';
 export const ADD_EVENT = 'ADD_EVENT';
 export const CLEAR_EVENT = 'CLEAR_EVENT';
 export const LOADING = 'LOADING';
+export const COMMENT_CREATED = 'COMMENT_CREATED';
 
 export function fetchEvents(type, order = 'type') {
   return (dispatch, getState) => {
@@ -54,6 +55,13 @@ function loading(bln, eventType) {
     type: LOADING,
     bln,
     eventType
+  }
+}
+
+function commentCreated(comment) {
+  return {
+    type: COMMENT_CREATED,
+    comment
   }
 }
 
@@ -151,10 +159,10 @@ function sortByTime(events) {
 
 export function addComment(content) {
   return (dispatch) => {
-    content.__t = 'comments';
+    content.__t = 'Comment';
     dispatch(create(content))
-      .then(() => {
-        dispatch(fetchEvents("events", "time"));
+      .then((result) => {
+        dispatch(commentCreated(result.data));
       });
   }
 }
@@ -192,7 +200,7 @@ export function create(event) {
             fade: true
           }));
         dispatch(loading(false));
-        browserHistory.push('/home');
+        return response;
       })
       .catch(() => {
         dispatch(addNotification(
@@ -227,7 +235,6 @@ export function createPhotoset(photoset) {
           fade: true
         }));
       dispatch(loading(false));
-      browserHistory.push('/home');
     }).catch((error) => {
       console.log(error);
       dispatch(addNotification(
@@ -255,7 +262,6 @@ export function update(event) {
             fade: true
           }));
         dispatch(loading(false));
-        browserHistory.push('/home');
       })
       .catch(() => {
         dispatch(addNotification(

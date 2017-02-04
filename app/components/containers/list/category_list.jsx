@@ -30,7 +30,14 @@ export class CategoryList extends React.Component {
 }
 
 const FirstLevelList = ({itemKey, list, selected, selectionChanged}) => {
+  if (!list) {
+    return null;
+  }
+
   let amount = list.values.reduce((prev, curr) => {
+    if(!curr) {
+      return prev;
+    }
     return curr.values ? prev + curr.values.length : prev + 1;
   }, 0);
   return (
@@ -73,6 +80,9 @@ const FirstLevelList = ({itemKey, list, selected, selectionChanged}) => {
 
 
 const SecondLevelList = ({itemKey, parentKey, list, selected, selectionChanged }) => {
+  if(!list) {
+    return null;
+  }
   return(
     <div>
       <div

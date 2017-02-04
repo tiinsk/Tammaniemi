@@ -52,15 +52,17 @@ module.exports = (app) => {
             res.send(500);
             return;
           }
-          comment.populate('userId', (err, comment) => {
-            if (err) {
-              res.status(500).send({
-                message: 'Error occured'
-              });
-              return;
-            }
-            res.status(201).json(comment);
-          });
+          comment
+            .populate('userId')
+            .populate('eventId', (err, comment) => {
+              if (err) {
+                res.status(500).send({
+                  message: 'Error occured'
+                });
+                return;
+              }
+              res.status(201).json(comment);
+            });
         });
       });
     });
@@ -72,8 +74,8 @@ module.exports = (app) => {
     const updatedComment = req.body;
 
     if (updatedComment.eventId === undefined ||
-        updatedComment.userId === undefined ||
-        updatedComment.content === undefined) {
+      updatedComment.userId === undefined ||
+      updatedComment.content === undefined) {
       res.status(400).send({
         message: 'Invalid comment data'
       });

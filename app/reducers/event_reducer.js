@@ -1,4 +1,5 @@
-import { ADD_EVENTS, ADD_EVENT, LOADING, CLEAR_EVENT } from '../actions/event_actions';
+import merge from 'lodash/merge'
+import { ADD_EVENTS, ADD_EVENT, LOADING, CLEAR_EVENT, COMMENT_CREATED} from '../actions/event_actions';
 
 const INITIAL_STATE = {
   events: [],
@@ -17,6 +18,25 @@ const INITIAL_STATE = {
     photosets: false
   }
 };
+
+const setCommentToEventWithId = (event, id, comment) => {
+  if(event._id && event._id === id) {
+    event.comments.push(comment);
+    return event;
+  }
+
+  for (let prop in event) {
+    if(event.hasOwnProperty(prop) && typeof event[prop] === 'object') {
+      const candidate = setCommentToEventWithId(event[prop], id, comment);
+      if (candidate !== null) {
+        return candidate;
+      }
+    }
+  }
+
+  return null;
+};
+
 
 const eventReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -37,6 +57,11 @@ const eventReducer = (state = INITIAL_STATE, action) => {
         [action.eventType]: action.bln
       });
       return Object.assign({}, state, {loading});
+    case COMMENT_CREATED:
+      const {eventId} = action.comment;
+      const eventType = `${eventId.__t.toLowerCase()}s`;
+      setCommentToEventWithId(state[eventType], eventId._id, action.comment);
+      return merge({}, state);
     default:
       return state
   }
