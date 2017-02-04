@@ -13,8 +13,8 @@ class ReservationForm extends React.Component {
   constructor(props) {
     super(props);
     const reservation = {
-      endDate: moment(),
-      startDate: moment(),
+      endDate: undefined,
+      startDate: undefined,
       title: ''
     };
 
@@ -27,7 +27,7 @@ class ReservationForm extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchEvents('Reservation');
+    this.props.fetchEvents('reservations');
   }
 
   updateTitle(value) {
@@ -82,10 +82,9 @@ class ReservationForm extends React.Component {
     event.preventDefault();
     console.log(this.state.reservation);
     if (this.state.reservation.title && this.state.reservation.startDate && this.state.reservation.endDate) {
-      let reservation = this.state.reservation;
+      let reservation = Object.assign({}, this.state.reservation);
       reservation.endDate = reservation.endDate.toDate();
       reservation.startDate = reservation.startDate.toDate();
-      reservation.__t = reservation.__t || 'Reservation';
       this.props.handleSubmit(reservation);
     }
     else {
@@ -179,7 +178,7 @@ class ReservationForm extends React.Component {
 
 function mapStateToProps({events}) {
   return {
-    reservations: events.Reservation
+    reservations: events.reservations
   }
 }
 

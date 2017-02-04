@@ -52,7 +52,7 @@ class Home extends React.Component {
 function mapStateToProps({events}) {
   return {
     events,
-    reservations: events.Reservation
+    reservations: events.reservations
   }
 }
 

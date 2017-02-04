@@ -129,7 +129,7 @@ class EventCreate extends React.Component {
         break;
       case 'reservations':
         form = (
-          <ReservationForm handleSubmit={this.handleSubmit}/>
+          <ReservationForm handleSubmit={(newEvent) => this.handleSubmit(newEvent, 'Reservation')}/>
         );
         break;
       case 'gallery':
