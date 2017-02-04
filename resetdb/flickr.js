@@ -28,6 +28,7 @@ const createPhotosetsFromFlickr = (done) => {
           userId: users[0]._id,
           flickrId: photoset.id,
           primaryPhotoUrl: constructPhotoUrl({farm, server, id: primary, secret}),
+          createdAt: new Date(parseInt(photoset.date_create) * 1000),
           photos: []
         };
 
