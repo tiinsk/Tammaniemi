@@ -187,10 +187,11 @@ export function fetchOne(type, id) {
 }
 
 export function create(event) {
+  const type = `${event.__t.toLowerCase()}s`;
   return (dispatch) => {
-    dispatch(loading(true));
+    dispatch(loading(true, type));
     return axios
-      .post(`/api/${event.__t.toLowerCase()}s`, event)
+      .post(`/api/${type}`, event)
       .then((response) => {
         dispatch(addNotification(
           {
@@ -199,7 +200,7 @@ export function create(event) {
             messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.create.success"],
             fade: true
           }));
-        dispatch(loading(false));
+        dispatch(loading(false, type));
         return response;
       })
       .catch(() => {
@@ -217,7 +218,7 @@ export function create(event) {
 
 export function createPhotoset(photoset) {
   return (dispatch) => {
-    dispatch(loading(true));
+    dispatch(loading(true, 'photosets'));
 
     const formData = photoset.photos;
     formData.append('title', photoset.title);
@@ -234,7 +235,7 @@ export function createPhotoset(photoset) {
           content: "Creation successful!",
           fade: true
         }));
-      dispatch(loading(false));
+      dispatch(loading(false, 'photosets'));
     }).catch((error) => {
       console.log(error);
       dispatch(addNotification(
@@ -249,10 +250,11 @@ export function createPhotoset(photoset) {
 }
 
 export function update(event) {
+  const type = `${event.__t.toLowerCase()}s`;
   return (dispatch) => {
-    dispatch(loading(true));
+    dispatch(loading(true, type));
     return axios
-      .put(`/api/${event.__t.toLowerCase()}s/${event._id}`, event)
+      .put(`/api/${type}/${event._id}`, event)
       .then((response) => {
         dispatch(addNotification(
           {
@@ -261,7 +263,7 @@ export function update(event) {
             messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.update.success"],
             fade: true
           }));
-        dispatch(loading(false));
+        dispatch(loading(false, type));
       })
       .catch(() => {
         dispatch(addNotification(
@@ -299,7 +301,6 @@ export function remove(type, id) {
           }));
       })
       .then(() => {
-        dispatch(loading(true));
         dispatch(fetchEvents('events', 'time'));
       });
   }

@@ -134,7 +134,7 @@ class EventCreate extends React.Component {
         break;
       case 'gallery':
         form = (
-          <GalleryForm onPhotosetSubmit={this.handlePhotoSetSubmit} isLoading={this.props.loading}/>
+          <GalleryForm onPhotosetSubmit={this.handlePhotoSetSubmit} isLoading={this.props.loading.photosets}/>
         );
         break;
       default:
