@@ -51,6 +51,7 @@ export default {
         Task: "Task",
         InfoPost: "Infopost",
         Reservation: "Reservation",
+        Photoset: "Photoset",
       },
       create: {
         success: "was created succesfully!",

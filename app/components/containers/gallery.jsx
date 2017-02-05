@@ -12,7 +12,7 @@ class ShowGallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxHeight: 280,
+      maxHeight: 180,
       lightBoxIsOpen: false,
       lightBoxImage: 0
     };

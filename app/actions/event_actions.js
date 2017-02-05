@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
-import { browserHistory } from 'react-router'
-import { addNotification } from './notification_actions';
+import {browserHistory} from 'react-router'
+import {addNotification} from './notification_actions';
 import {getTranslations} from '../i18n/languages';
 
 
@@ -197,7 +197,7 @@ export function create(event) {
           {
             type: "success",
             category: "create_success_msg",
-            messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.create.success"],
+            messageIds: [`events.notifications.type.${event.__t}`, "events.notifications.create.success"],
             fade: true
           }));
         dispatch(loading(false, type));
@@ -208,7 +208,7 @@ export function create(event) {
           {
             type: "error",
             category: "create_error_msg",
-            messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.create.fail"],
+            messageIds: [`events.notifications.type.${event.__t}`, "events.notifications.create.fail"],
             fade: true
           }));
         throw "add failed";
@@ -232,7 +232,7 @@ export function createPhotoset(photoset) {
         {
           type: "success",
           category: "create_success_msg",
-          content: "Creation successful!",
+          messageIds: [`events.notifications.type.Photoset`, "events.notifications.create.success"],
           fade: true
         }));
       dispatch(loading(false, 'photosets'));
@@ -242,9 +242,10 @@ export function createPhotoset(photoset) {
         {
           type: "error",
           category: "create_error_msg",
-          content: "Creation failed!",
+          messageIds: [`events.notifications.type.Photoset`, "events.notifications.create.fail"],
           fade: true
         }));
+      throw "add failed";
     });
   }
 }
@@ -260,7 +261,7 @@ export function update(event) {
           {
             type: "success",
             category: "create_success_msg",
-            messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.update.success"],
+            messageIds: [`events.notifications.type.${event.__t}`, "events.notifications.update.success"],
             fade: true
           }));
         dispatch(loading(false, type));
@@ -270,7 +271,7 @@ export function update(event) {
           {
             type: "error",
             category: "create_error_msg",
-            messageIds: [`events.notifications.type.${event.__t}` , "events.notifications.update.fail"],
+            messageIds: [`events.notifications.type.${event.__t}`, "events.notifications.update.fail"],
             fade: true
           }));
       });
@@ -287,7 +288,7 @@ export function remove(type, id) {
           {
             type: "success",
             category: "create_success_msg",
-            messageIds: [`events.notifications.type.${type}` , "events.notifications.delete.success"],
+            messageIds: [`events.notifications.type.${type}`, "events.notifications.delete.success"],
             fade: true
           }));
       })
@@ -296,7 +297,7 @@ export function remove(type, id) {
           {
             type: "error",
             category: "create_error_msg",
-            messageIds: [`events.notifications.type.${type}` , "events.notifications.delete.fail"],
+            messageIds: [`events.notifications.type.${type}`, "events.notifications.delete.fail"],
             fade: true
           }));
       })

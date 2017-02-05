@@ -73,7 +73,7 @@ class PhotosetForm extends React.Component {
                 <label className="label">{this.props.strings.photosetForm.photos}</label>
                 <input type="file" required multiple onChange={this.updatePhotos}/>
               </div>
-              <button type="submit" className="submit-btn">{this.props.strings.events.submint}</button>
+              <button type="submit" className="submit-btn">{this.props.strings.events.submit}</button>
             </form>
           )}
       </div>

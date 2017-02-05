@@ -101,7 +101,7 @@ module.exports = (app, flickr) => {
         primary_photo_id: photos[0].flickrId,
       }, (err, result) => {
         const photosetId = result.photoset.id;
-        async.each(photos.splice(1), (photo, addCb) => {
+        async.each(photos.slice(1), (photo, addCb) => {
           flickr.photosets.addPhoto({
             authenticated: true,
             photoset_id: photosetId,
