@@ -20,6 +20,10 @@ const createPhotosetsFromFlickr = (done) => {
       }
 
       const photosets = result.photosets.photoset;
+      if (!photosets.length) {
+        return done();
+      }
+
       async.each(photosets, (photoset, cb) => {
         const {farm, server, primary, secret} = photoset;
 

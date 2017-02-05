@@ -1,4 +1,4 @@
-import Remarkable from 'Remarkable';
+import Remarkable from 'remarkable';
 
 
 export default new Remarkable({

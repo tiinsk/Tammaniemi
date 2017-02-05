@@ -14,7 +14,9 @@
     "webpack": "node node_modules/webpack/bin/webpack.js",
     "test": "node node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js",
     "start_production": "set NODE_ENV=production&& set port=3030&& node server.js",
-    "build": "set NODE_ENV=production&& webpack --config ./webpack.prod.config.js --progress --colors"
+    "start_production_unix": "NODE_ENV=production PORT=3030 node server.js",
+    "build": "set NODE_ENV=production&& webpack --config ./webpack.prod.config.js --progress --colors",
+    "build_unix": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "dependencies": {
     "async": "^1.5.2",
