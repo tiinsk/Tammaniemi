@@ -13,7 +13,7 @@
     "watch": "set NODE_ENV=development&& nodemon --exec babel-node -- server.js",
     "webpack": "node node_modules/webpack/bin/webpack.js",
     "test": "node node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.js",
-    "start_production": "set NODE_ENV=production&& node server.js",
+    "start_production": "set NODE_ENV=production&& set port=3030&& node server.js",
     "build": "set NODE_ENV=production&& webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "dependencies": {
@@ -27,17 +27,13 @@
     "draft-js-import-markdown": "^0.2.1",
     "express": "^4.13.4",
     "express-fileupload": "0.0.4",
-    "flexboxgrid": "^6.3.1",
     "flickrapi": "^0.5.0",
     "immutable": "^3.7.6",
     "jsonwebtoken": "^5.7.0",
     "lodash": "^4.6.1",
-    "material-design-lite": "^1.2.1",
-    "material-ui": "^0.14.4",
     "moment": "^2.11.2",
     "mongoose": "^4.4.2",
     "morgan": "^1.6.1",
-    "muicss": "^0.4.6",
     "nodemailer": "^2.5.0",
     "nodemailer-markdown": "^1.0.0",
     "nodemailer-stub-transport": "^1.0.0",
@@ -60,7 +56,6 @@
     "redux-thunk": "^2.1.0",
     "remarkable": "^1.6.2",
     "request": "^2.71.0",
-    "underscore": "^1.8.3",
     "webfontloader": "^1.6.27"
   },
   "devDependencies": {
@@ -73,6 +68,7 @@
     "babel-preset-react": "^6.5.0",
     "chai": "^3.5.0",
     "chai-http": "^2.0.1",
+    "compression-webpack-plugin": "^0.3.2",
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
     "mocha": "^2.5.3",

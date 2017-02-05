@@ -22,6 +22,11 @@ WebFont.load({
     },
 });
 
+if (__PRODUCTION__) {
+  ga('create', 'UA-91422343-1', 'auto');
+  ga('send', 'pageview');
+}
+
 render((
     <Provider store={store}>
         <Router history={browserHistory}>
